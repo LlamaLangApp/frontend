@@ -7,7 +7,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "test": "eslint --max-warnings 0"
+    "test": "eslint . --max-warnings 0"
   },
   "dependencies": {
     "@types/react": "~18.0.27",
@@ -32,10 +32,10 @@
     "prettier": "^2.8.8"
   },
   "lint-staged": {
-    "*.js": "yarn test",
-    "*.jsx": "yarn test",
-    "*.ts": "yarn test",
-    "*.tsx": "yarn test"
+    "*.js": "eslint --max-warnings 0",
+    "*.jsx": "eslint --max-warnings 0",
+    "*.ts": "eslint --max-warnings 0",
+    "*.tsx": "eslint --max-warnings 0"
   },
   "private": true
 }
