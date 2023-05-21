@@ -7,21 +7,23 @@ const authStyles = StyleSheet.create({
     margin: 5,
   },
   logoContainer: {
-    flex: 1.5,
+    flex: 4,
   },
   headingContainer: {
     flex: 0.7,
   },
   headingText: {
-    fontSize: 25,
+    fontSize: 27,
+    color: "white",
   },
   loginContainer: {
     // flex: 5,
-    borderRadius: 10,
+    borderRadius: 15,
     borderWidth: 3,
-    borderColor: "#cccccc",
-    paddingVertical: 17,
-    paddingHorizontal: 12,
+    borderColor: "white",
+    paddingVertical: "7%",
+    paddingHorizontal: "7%",
+    backgroundColor: "#efefef",
     // alignItems: "center",
   },
   inputContainer: {
@@ -33,25 +35,29 @@ const authStyles = StyleSheet.create({
   },
   textInput: {
     borderWidth: 2,
-    borderColor: "#cccccc",
-    borderRadius: 10,
+    borderColor: "white",
+    borderRadius: 15,
     width: "100%",
-    paddingTop: 10,
-    paddingLeft: 5,
-    paddingRight: 5,
+    paddingVertical: 8,
+    paddingHorizontal: 5,
+    backgroundColor: "#e09cab",
+    color: "white",
   },
-  plainText: {},
+  plainText: {
+    // color: "white",
+  },
   linkedText: {},
   loginButton: {
     alignItems: "center",
     width: "100%",
     color: "#cccccc",
-    backgroundColor: "#DDDDDD",
-    borderRadius: 10,
+    backgroundColor: "#c77d90",
+    borderRadius: 15,
   },
   buttonText: {
     padding: 10,
-    fontSize: 17,
+    fontSize: 20,
+    color: "white",
   },
 });
 
