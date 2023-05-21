@@ -10,7 +10,7 @@ import {
 import React, { useState } from "react";
 import authStyles from "./AuthStyles";
 import mainStyles from "./MainStyles";
-import serverURL from "./backend";
+import { callLogin } from "./backend";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../App";
 
@@ -33,20 +33,10 @@ function LogScreen({ navigation }: Props) {
   }
 
   async function loginHandler() {
+    const { auth_token } = await callLogin(enteredUsername, enteredPassword);
+    console.log(auth_token);
+    navigation.navigate("Home");
     try {
-      const response = await fetch(`http://${serverURL}/auth/token/login/`, {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify({
-          username: enteredUsername,
-          password: enteredPassword,
-        }),
-      });
-      if ((await response.json()).auth_token != null) {
-        navigation.navigate("Home");
-      }
     } catch (error) {
       console.error(error);
     }

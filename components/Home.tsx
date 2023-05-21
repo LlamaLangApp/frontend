@@ -1,7 +1,7 @@
 import { Text, TouchableOpacity, View } from "react-native";
 import mainStyles from "./MainStyles";
 import authStyles from "./AuthStyles";
-import serverURL from "./backend";
+import { serverURL } from "./backend";
 import React from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../App";

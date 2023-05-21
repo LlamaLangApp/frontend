@@ -8,12 +8,14 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import authStyles from "./AuthStyles";
-import Constants from "expo-constants";
+import mainStyles from "./MainStyles";
+import { serverURL, callLogin } from "./backend";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../App";
 
-const { manifest } = Constants;
-const serverURL = manifest?.debuggerHost?.split(`:`)?.shift()?.concat(`:8000`);
+type Props = NativeStackScreenProps<RootStackParamList, "Register">;
 
-function RegisterScreen() {
+function RegisterScreen({ navigation }: Props) {
   const [enteredUsername, setEnteredUsername] = useState("");
   const [enteredEmail, setEnteredEmail] = useState("");
   const [enteredPassword, setEnteredPassword] = useState("");
@@ -43,12 +45,40 @@ function RegisterScreen() {
     setEnteredConfirmPassword(enteredText.nativeEvent.text);
   }
 
-  function registerHandler() {
-    console.log(serverURL);
+  async function registerHandler() {
+    if (enteredPassword === enteredConfirmPassword) {
+      console.log("Register handler");
+      try {
+        const response = await fetch(`http://${serverURL}/auth/users/`, {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify({
+            username: enteredUsername,
+            password: enteredPassword,
+            email: enteredEmail,
+          }),
+        });
+        console.log(await response.json());
+
+        const { auth_token } = await callLogin(
+          enteredUsername,
+          enteredPassword
+        );
+        console.log(auth_token);
+
+        navigation.navigate("Home");
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      console.log("Password doesn't match");
+    }
   }
 
   return (
-    <View style={{ backgroundColor: "#e09cab" }}>
+    <View style={mainStyles.container}>
       <View
         style={{
           marginTop: "45%",
@@ -73,7 +103,7 @@ function RegisterScreen() {
               <Text style={authStyles.plainText}>Email address</Text>
               <View style={authStyles.inputContainer}>
                 <TextInput
-                  secureTextEntry={true}
+                  // secureTextEntry={true}
                   style={authStyles.textInput}
                   value={enteredEmail}
                   onChange={emailInputHandler}
