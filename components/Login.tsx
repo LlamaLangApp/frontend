@@ -9,12 +9,14 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import authStyles from "./AuthStyles";
-import Constants from "expo-constants";
+import mainStyles from "./MainStyles";
+import serverURL from "./backend";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../App";
 
-const { manifest } = Constants;
-const serverURL = manifest?.debuggerHost?.split(`:`)?.shift()?.concat(`:8000`);
+type Props = NativeStackScreenProps<RootStackParamList, "Login">;
 
-function LogScreen() {
+function LogScreen({ navigation }: Props) {
   const [enteredUsername, setEnteredUsername] = useState("");
   const [enteredPassword, setEnteredPassword] = useState("");
 
@@ -30,12 +32,28 @@ function LogScreen() {
     setEnteredPassword(enteredText.nativeEvent.text);
   }
 
-  function loginHandler() {
-    console.log(serverURL);
+  async function loginHandler() {
+    try {
+      const response = await fetch(`http://${serverURL}/auth/token/login/`, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          username: enteredUsername,
+          password: enteredPassword,
+        }),
+      });
+      if ((await response.json()).auth_token != null) {
+        navigation.navigate("Home");
+      }
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (
-    <View style={{ backgroundColor: "#e09cab" }}>
+    <View style={mainStyles.container}>
       <View
         style={{
           marginTop: "45%",
