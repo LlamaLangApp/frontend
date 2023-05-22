@@ -3,20 +3,22 @@ import { StyleSheet } from "react-native";
 const authStyles = StyleSheet.create({
   appContainer: {
     flex: 1,
-    alignItems: "center",
-    margin: 5,
+    // margin: 5,
   },
   contentContainer: {
-    flex: 1,
-    marginTop: "35%",
-    // marginBottom: "60%",
+    flex: 5,
     marginHorizontal: "10%",
+    justifyContent: "flex-end",
+    alignItems: "center",
+    margin: "10%",
+    // alignContent: "center",
   },
   logoContainer: {
-    // flex: 4,
+    flex: 2,
+    justifyContent: "flex-end",
   },
   headingContainer: {
-    flex: 0.7,
+    // flex: 0.5,
   },
   headingText: {
     fontSize: 27,
@@ -24,7 +26,6 @@ const authStyles = StyleSheet.create({
     // fontFamily: "Roboto",
   },
   loginContainer: {
-    // flex: 5,
     borderRadius: 15,
     // borderWidth: 3,
     borderColor: "white",
