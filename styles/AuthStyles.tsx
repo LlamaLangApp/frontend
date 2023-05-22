@@ -6,8 +6,14 @@ const authStyles = StyleSheet.create({
     alignItems: "center",
     margin: 5,
   },
+  contentContainer: {
+    flex: 1,
+    marginTop: "35%",
+    // marginBottom: "60%",
+    marginHorizontal: "10%",
+  },
   logoContainer: {
-    flex: 4,
+    // flex: 4,
   },
   headingContainer: {
     flex: 0.7,
@@ -15,15 +21,17 @@ const authStyles = StyleSheet.create({
   headingText: {
     fontSize: 27,
     color: "white",
+    // fontFamily: "Roboto",
   },
   loginContainer: {
     // flex: 5,
     borderRadius: 15,
-    borderWidth: 3,
+    // borderWidth: 3,
     borderColor: "white",
     paddingVertical: "7%",
     paddingHorizontal: "7%",
     backgroundColor: "#efefef",
+    margin: 10,
     // alignItems: "center",
   },
   inputContainer: {
@@ -34,7 +42,7 @@ const authStyles = StyleSheet.create({
     paddingBottom: 18,
   },
   textInput: {
-    borderWidth: 2,
+    // borderWidth: 2,
     borderColor: "white",
     borderRadius: 15,
     width: "100%",
@@ -46,7 +54,10 @@ const authStyles = StyleSheet.create({
   plainText: {
     // color: "white",
   },
-  linkedText: {},
+  linkedText: {
+    color: "#6C0BA9",
+    // color: "#b95f75",
+  },
   loginButton: {
     alignItems: "center",
     width: "100%",

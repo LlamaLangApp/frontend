@@ -5,10 +5,12 @@ import {
   View,
   NativeSyntheticEvent,
   TextInputChangeEventData,
+  Image,
+  Pressable,
 } from "react-native";
 import React, { useState } from "react";
-import authStyles from "./AuthStyles";
-import mainStyles from "./MainStyles";
+import authStyles from "../styles/AuthStyles";
+import mainStyles from "../styles/MainStyles";
 import { serverURL, callLogin } from "./backend";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../App";
@@ -79,13 +81,7 @@ function RegisterScreen({ navigation }: Props) {
 
   return (
     <View style={mainStyles.container}>
-      <View
-        style={{
-          marginTop: "45%",
-          // marginBottom: "60%",
-          marginHorizontal: "12%",
-        }}
-      >
+      <View style={authStyles.contentContainer}>
         <View style={authStyles.appContainer}>
           <View style={authStyles.headingContainer}>
             <Text style={authStyles.headingText}>Sign up to LlamaLang</Text>
@@ -136,7 +132,27 @@ function RegisterScreen({ navigation }: Props) {
               {/*<Button title={"Sign in"} color="#cccccc" />*/}
             </View>
           </View>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "flex-end",
+            }}
+          >
+            <Text style={authStyles.plainText}>Already have an account? </Text>
+            <Pressable onPress={() => navigation.navigate("Login")}>
+              <Text style={authStyles.linkedText}>Sign in</Text>
+            </Pressable>
+          </View>
         </View>
+      </View>
+      <View style={authStyles.logoContainer}>
+        <Image
+          source={require("../assets/llama_without_background.png")}
+          style={{
+            width: 250,
+            height: 250,
+          }}
+        />
       </View>
     </View>
   );

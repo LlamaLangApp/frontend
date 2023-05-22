@@ -6,10 +6,11 @@ import {
   Image,
   NativeSyntheticEvent,
   TextInputChangeEventData,
+  Pressable,
 } from "react-native";
 import React, { useState } from "react";
-import authStyles from "./AuthStyles";
-import mainStyles from "./MainStyles";
+import authStyles from "../styles/AuthStyles";
+import mainStyles from "../styles/MainStyles";
 import { callLogin } from "./backend";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../App";
@@ -44,13 +45,7 @@ function LogScreen({ navigation }: Props) {
 
   return (
     <View style={mainStyles.container}>
-      <View
-        style={{
-          marginTop: "45%",
-          // marginBottom: "60%",
-          marginHorizontal: "12%",
-        }}
-      >
+      <View style={authStyles.contentContainer}>
         <View style={authStyles.appContainer}>
           <View style={authStyles.headingContainer}>
             <Text style={authStyles.headingText}>Sign in to LlamaLang</Text>
@@ -74,7 +69,9 @@ function LogScreen({ navigation }: Props) {
                 }}
               >
                 <Text style={authStyles.plainText}>Password</Text>
-                <Text style={authStyles.linkedText}>Forgot password?</Text>
+                <Pressable onPress={() => navigation.navigate("Register")}>
+                  <Text style={authStyles.linkedText}>Forgot password?</Text>
+                </Pressable>
               </View>
               <View style={authStyles.inputContainer}>
                 <TextInput
@@ -90,19 +87,30 @@ function LogScreen({ navigation }: Props) {
               >
                 <Text style={authStyles.buttonText}>Sign in</Text>
               </TouchableOpacity>
-              {/*<Button title={"Sign in"} color="#cccccc" />*/}
+            </View>
+            <View style={authStyles.loginContainer}>
+              <View
+                style={{
+                  flexDirection: "row",
+                }}
+              >
+                <Text style={authStyles.plainText}>New to LlamaLang? </Text>
+                <Pressable onPress={() => navigation.navigate("Register")}>
+                  <Text style={authStyles.linkedText}>Create an account</Text>
+                </Pressable>
+              </View>
             </View>
           </View>
-          <View style={authStyles.logoContainer}>
-            <Image
-              source={require("../assets/llama_without_background.png")}
-              style={{
-                width: 350,
-                height: 350,
-              }}
-            />
-          </View>
         </View>
+      </View>
+      <View style={authStyles.logoContainer}>
+        <Image
+          source={require("../assets/llama_without_background.png")}
+          style={{
+            width: 275,
+            height: 275,
+          }}
+        />
       </View>
     </View>
   );

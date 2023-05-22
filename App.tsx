@@ -20,8 +20,8 @@ export default function App() {
           headerShown: false,
         }}
       >
-        <Stack.Screen name={"Register"} component={RegisterScreen} />
         <Stack.Screen name={"Login"} component={LogScreen} />
+        <Stack.Screen name={"Register"} component={RegisterScreen} />
         <Stack.Screen name={"Home"} component={HomeScreen} />
       </Stack.Navigator>
     </NavigationContainer>
