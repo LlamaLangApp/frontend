@@ -9,5 +9,5 @@ yarn install
 3. Run the server - [instruction](https://github.com/LlamaLangApp/backend/edit/main/README.md)
 4. Run the app
 ```commandline
-expo start
+yarn start
 ```
