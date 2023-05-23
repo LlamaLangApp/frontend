@@ -4,8 +4,10 @@ import LogScreen from "./components/Login";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "./components/Home";
 import RegisterScreen from "./components/Register";
+import StartScreen from "./components/Start";
 
 export type RootStackParamList = {
+  Start: undefined;
   Login: undefined;
   Home: undefined;
   Register: undefined;
@@ -20,6 +22,7 @@ export default function App() {
           headerShown: false,
         }}
       >
+        <Stack.Screen name={"Start"} component={StartScreen} />
         <Stack.Screen name={"Login"} component={LogScreen} />
         <Stack.Screen name={"Register"} component={RegisterScreen} />
         <Stack.Screen name={"Home"} component={HomeScreen} />

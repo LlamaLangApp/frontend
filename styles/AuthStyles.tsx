@@ -5,6 +5,10 @@ const authStyles = StyleSheet.create({
     flex: 1,
     // margin: 5,
   },
+  startContainer: {
+    flex: 1,
+    alignItems: "center",
+  },
   contentContainer: {
     flex: 5,
     marginHorizontal: "10%",
@@ -13,9 +17,13 @@ const authStyles = StyleSheet.create({
     margin: "10%",
     // alignContent: "center",
   },
-  logoContainer: {
+  llamaContainer: {
     flex: 2,
     justifyContent: "flex-end",
+  },
+  logoContainer: {
+    paddingTop: 250,
+    flex: 0.6,
   },
   headingContainer: {
     // flex: 0.5,
@@ -65,6 +73,14 @@ const authStyles = StyleSheet.create({
     color: "#cccccc",
     backgroundColor: "#c77d90",
     borderRadius: 15,
+  },
+  startButton: {
+    alignItems: "center",
+    width: "100%",
+    color: "#cccccc",
+    backgroundColor: "#c77d90",
+    borderRadius: 15,
+    margin: "1%",
   },
   buttonText: {
     padding: 10,

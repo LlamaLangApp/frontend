@@ -103,7 +103,7 @@ function LogScreen({ navigation }: Props) {
           </View>
         </View>
       </View>
-      <View style={authStyles.logoContainer}>
+      <View style={authStyles.llamaContainer}>
         <Image
           source={require("../assets/llama_without_background.png")}
           style={{

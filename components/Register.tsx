@@ -50,6 +50,7 @@ function RegisterScreen({ navigation }: Props) {
   async function registerHandler() {
     if (enteredPassword === enteredConfirmPassword) {
       console.log("Register handler");
+      console.log(serverURL);
       try {
         const response = await fetch(`http://${serverURL}/auth/users/`, {
           method: "POST",
@@ -148,7 +149,7 @@ function RegisterScreen({ navigation }: Props) {
           </Pressable>
         </View>
       </View>
-      <View style={authStyles.logoContainer}>
+      <View style={authStyles.llamaContainer}>
         <Image
           source={require("../assets/llama_without_background.png")}
           style={{
