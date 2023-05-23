@@ -34,13 +34,25 @@ function LogScreen({ navigation }: Props) {
   }
 
   async function loginHandler() {
-    const { auth_token } = await callLogin(enteredUsername, enteredPassword);
-    console.log(auth_token);
-    navigation.navigate("Home");
-    try {
-    } catch (error) {
-      console.error(error);
+    const response = await callLogin(enteredUsername, enteredPassword);
+
+    switch (response.type) {
+      case "success":
+        successLoginHandler(response.authToken);
+        break;
+      case "error":
+        errorLoginHandler(response.message);
+        break;
     }
+  }
+
+  function successLoginHandler(authToken: string) {
+    navigation.navigate("Home");
+    console.log(authToken);
+  }
+
+  function errorLoginHandler(message: string) {
+    console.log(message);
   }
 
   return (
