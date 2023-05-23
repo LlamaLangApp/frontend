@@ -11,7 +11,7 @@ import {
 import React, { useState } from "react";
 import authStyles from "../styles/AuthStyles";
 import mainStyles from "../styles/MainStyles";
-import { serverURL, callLogin } from "./backend";
+import { serverURL, callLogin } from "../components/backend";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../App";
 

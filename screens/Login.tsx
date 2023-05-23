@@ -11,11 +11,11 @@ import {
 import React, { useState } from "react";
 import authStyles from "../styles/AuthStyles";
 import mainStyles from "../styles/MainStyles";
-import { callLogin } from "./backend";
+import { callLogin } from "../components/backend";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { RootStackParamList } from "../App";
+import { LoginStackParamList } from "../navigaton/AuthStackNavigator";
 
-type Props = NativeStackScreenProps<RootStackParamList, "Login">;
+type Props = NativeStackScreenProps<LoginStackParamList, "Login">;
 
 function LogScreen({ navigation }: Props) {
   const [enteredUsername, setEnteredUsername] = useState("");
