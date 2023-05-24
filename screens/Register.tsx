@@ -11,7 +11,7 @@ import {
 import React, { useState } from "react";
 import authStyles from "../styles/AuthStyles";
 import mainStyles from "../styles/MainStyles";
-import { serverURL, callLogin, callRegister } from "../components/backend";
+import { callLogin, callRegister } from "../components/backend";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../App";
 import Toast from "react-native-toast-message";
