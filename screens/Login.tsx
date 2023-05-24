@@ -13,10 +13,10 @@ import authStyles from "../styles/AuthStyles";
 import mainStyles from "../styles/MainStyles";
 import { callLogin } from "../components/backend";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { LoginStackParamList } from "../navigaton/AuthStackNavigator";
 import Toast from "react-native-toast-message";
+import { RootStackParamList } from "../App";
 
-type Props = NativeStackScreenProps<LoginStackParamList, "Login">;
+type Props = NativeStackScreenProps<RootStackParamList, "Login">;
 
 function LogScreen({ navigation }: Props) {
   const [enteredUsername, setEnteredUsername] = useState("");
