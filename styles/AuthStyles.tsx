@@ -67,6 +67,9 @@ const authStyles = StyleSheet.create({
     color: "#6C0BA9",
     // color: "#b95f75",
   },
+  errorText: {
+    color: "red",
+  },
   loginButton: {
     alignItems: "center",
     width: "100%",
