@@ -14,6 +14,7 @@ import mainStyles from "../styles/MainStyles";
 import { callLogin } from "../components/backend";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { LoginStackParamList } from "../navigaton/AuthStackNavigator";
+import Toast from "react-native-toast-message";
 
 type Props = NativeStackScreenProps<LoginStackParamList, "Login">;
 
@@ -53,6 +54,10 @@ function LogScreen({ navigation }: Props) {
 
   function errorLoginHandler(message: string) {
     console.log(message);
+    Toast.show({
+      type: "error",
+      text1: message,
+    });
   }
 
   return (
@@ -124,6 +129,7 @@ function LogScreen({ navigation }: Props) {
           }}
         />
       </View>
+      <Toast position="top" bottomOffset={20} />
     </View>
   );
 }
