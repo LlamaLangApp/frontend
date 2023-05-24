@@ -11,9 +11,10 @@ import {
 import React, { useState } from "react";
 import authStyles from "../styles/AuthStyles";
 import mainStyles from "../styles/MainStyles";
-import { serverURL, callLogin } from "../components/backend";
+import { serverURL, callLogin, callRegister } from "../components/backend";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../App";
+import Toast from "react-native-toast-message";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Register">;
 
@@ -49,35 +50,40 @@ function RegisterScreen({ navigation }: Props) {
 
   async function registerHandler() {
     if (enteredPassword === enteredConfirmPassword) {
-      console.log("Register handler");
-      console.log(serverURL);
-      try {
-        const response = await fetch(`http://${serverURL}/auth/users/`, {
-          method: "POST",
-          headers: {
-            "Content-type": "application/json",
-          },
-          body: JSON.stringify({
-            username: enteredUsername,
-            password: enteredPassword,
-            email: enteredEmail,
-          }),
-        });
-        console.log(await response.json());
-
-        const { auth_token } = await callLogin(
-          enteredUsername,
-          enteredPassword
-        );
-        console.log(auth_token);
-
-        navigation.navigate("Home");
-      } catch (error) {
-        console.error(error);
+      const response = await callRegister(
+        enteredUsername,
+        enteredPassword,
+        enteredEmail
+      );
+      switch (response.type) {
+        case "success":
+          await successRegisterHandler();
+          break;
+        case "error":
+          errorAuthHandler(response.message);
+          break;
       }
     } else {
-      console.log("Password doesn't match");
+      errorAuthHandler("Provided passwords are not the same");
     }
+  }
+
+  async function successRegisterHandler() {
+    const loginResponse = await callLogin(enteredUsername, enteredPassword);
+    switch (loginResponse.type) {
+      case "success":
+        navigation.navigate("Home");
+        break;
+      case "error":
+        errorAuthHandler(loginResponse.message);
+    }
+  }
+  function errorAuthHandler(message: string) {
+    console.log(message);
+    Toast.show({
+      type: "error",
+      text1: message,
+    });
   }
 
   return (
@@ -158,6 +164,7 @@ function RegisterScreen({ navigation }: Props) {
           }}
         />
       </View>
+      <Toast position="top" bottomOffset={20} />
     </View>
   );
 }
