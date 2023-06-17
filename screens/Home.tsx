@@ -3,11 +3,14 @@ import mainStyles from "../styles/MainStyles";
 import homeStyles from "../styles/HomeStyles";
 import { serverURL } from "../components/backend";
 import React from "react";
+// import { RootStackParamList } from "../App";
+// import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useAppStore } from "../state";
 
+// type Props = NativeStackScreenProps<RootStackParamList, "Home">;
+// function HomeScreen({ navigation }: Props) {
 function HomeScreen() {
   const setToken = useAppStore((store) => store.setToken);
-
   async function logoutHandler() {
     try {
       const response = await fetch(`http://${serverURL}/auth/token/logout/`, {
