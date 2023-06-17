@@ -5,11 +5,14 @@ import { serverURL } from "../components/backend";
 import React from "react";
 import { RootStackParamList } from "../App";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { useAppStore } from "../state";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Home">;
 // type Props = DrawerScreenProps<RootDrawerParamList, "Home">;
 
 function HomeScreen({ navigation }: Props) {
+  const setToken = useAppStore((store) => store.setToken);
+
   async function logoutHandler() {
     try {
       const response = await fetch(`http://${serverURL}/auth/token/logout/`, {
@@ -19,7 +22,7 @@ function HomeScreen({ navigation }: Props) {
         },
       });
       console.log(response + " " + JSON.stringify(await response.json()));
-      navigation.navigate("Login");
+      setToken(null);
     } catch (error) {
       console.error(error);
     }

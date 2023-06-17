@@ -15,6 +15,7 @@ import { callLogin, callRegister } from "../components/backend";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../App";
 import Toast from "react-native-toast-message";
+import { useAppStore } from "../state";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Register">;
 
@@ -23,6 +24,8 @@ function RegisterScreen({ navigation }: Props) {
   const [enteredEmail, setEnteredEmail] = useState("");
   const [enteredPassword, setEnteredPassword] = useState("");
   const [enteredConfirmPassword, setEnteredConfirmPassword] = useState("");
+
+  const setToken = useAppStore((store) => store.setToken);
 
   function usernameInputHandler(
     enteredText: NativeSyntheticEvent<TextInputChangeEventData>
@@ -48,7 +51,7 @@ function RegisterScreen({ navigation }: Props) {
     setEnteredConfirmPassword(enteredText.nativeEvent.text);
   }
 
-  async function registerHandler() {
+  const registerHandler = React.useCallback(async () => {
     if (enteredPassword === enteredConfirmPassword) {
       const response = await callRegister(
         enteredUsername,
@@ -57,34 +60,42 @@ function RegisterScreen({ navigation }: Props) {
       );
       switch (response.type) {
         case "success":
-          await successRegisterHandler();
+          const loginResponse = await callLogin(
+            enteredUsername,
+            enteredPassword
+          );
+          switch (loginResponse.type) {
+            case "success":
+              setToken(loginResponse.authToken);
+              break;
+            case "error":
+              Toast.show({
+                type: "error",
+                text1: loginResponse.message,
+              });
+              break;
+          }
           break;
         case "error":
-          errorAuthHandler(response.message);
+          Toast.show({
+            type: "error",
+            text1: response.message,
+          });
           break;
       }
     } else {
-      errorAuthHandler("Provided passwords are not the same");
+      Toast.show({
+        type: "error",
+        text1: "Provided passwords are not the same",
+      });
     }
-  }
-
-  async function successRegisterHandler() {
-    const loginResponse = await callLogin(enteredUsername, enteredPassword);
-    switch (loginResponse.type) {
-      case "success":
-        navigation.navigate("Home");
-        break;
-      case "error":
-        errorAuthHandler(loginResponse.message);
-    }
-  }
-  function errorAuthHandler(message: string) {
-    console.log(message);
-    Toast.show({
-      type: "error",
-      text1: message,
-    });
-  }
+  }, [
+    setToken,
+    enteredUsername,
+    enteredPassword,
+    enteredConfirmPassword,
+    enteredEmail,
+  ]);
 
   return (
     <View style={mainStyles.container}>

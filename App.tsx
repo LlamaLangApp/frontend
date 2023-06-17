@@ -5,6 +5,7 @@ import StartScreen from "./screens/Start";
 import RegisterScreen from "./screens/Register";
 import HomeScreen from "./screens/Home";
 import LogScreen from "./screens/Login";
+import { useAppStore } from "./state";
 
 export type RootStackParamList = {
   Start: undefined;
@@ -15,6 +16,8 @@ export type RootStackParamList = {
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 export default function App() {
+  const token = useAppStore((store) => store.token);
+
   return (
     <NavigationContainer>
       {/*<MainStackNavigator />*/}
@@ -23,10 +26,15 @@ export default function App() {
           headerShown: false,
         }}
       >
-        <Stack.Screen name={"Start"} component={StartScreen} />
-        <Stack.Screen name={"Login"} component={LogScreen} />
-        <Stack.Screen name={"Register"} component={RegisterScreen} />
-        <Stack.Screen name={"Home"} component={HomeScreen} />
+        {token ? (
+          <Stack.Screen name={"Home"} component={HomeScreen} />
+        ) : (
+          <>
+            <Stack.Screen name={"Start"} component={StartScreen} />
+            <Stack.Screen name={"Login"} component={LogScreen} />
+            <Stack.Screen name={"Register"} component={RegisterScreen} />
+          </>
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );

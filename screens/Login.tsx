@@ -15,12 +15,15 @@ import { callLogin } from "../components/backend";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import Toast from "react-native-toast-message";
 import { RootStackParamList } from "../App";
+import { useAppStore } from "../state";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Login">;
 
 function LogScreen({ navigation }: Props) {
   const [enteredUsername, setEnteredUsername] = useState("");
   const [enteredPassword, setEnteredPassword] = useState("");
+
+  const setToken = useAppStore((store) => store.setToken);
 
   function usernameInputHandler(
     enteredText: NativeSyntheticEvent<TextInputChangeEventData>
@@ -34,31 +37,21 @@ function LogScreen({ navigation }: Props) {
     setEnteredPassword(enteredText.nativeEvent.text);
   }
 
-  async function loginHandler() {
+  const loginHandler = React.useCallback(async () => {
     const response = await callLogin(enteredUsername, enteredPassword);
 
     switch (response.type) {
       case "success":
-        successLoginHandler(response.authToken);
+        setToken(response.authToken);
         break;
       case "error":
-        errorLoginHandler(response.message);
+        Toast.show({
+          type: "error",
+          text1: response.message,
+        });
         break;
     }
-  }
-
-  function successLoginHandler(authToken: string) {
-    navigation.navigate("Home");
-    console.log(authToken);
-  }
-
-  function errorLoginHandler(message: string) {
-    console.log(message);
-    Toast.show({
-      type: "error",
-      text1: message,
-    });
-  }
+  }, [setToken, enteredUsername, enteredPassword]);
 
   return (
     <View style={mainStyles.container}>
