@@ -14,9 +14,10 @@ const homeStyles = StyleSheet.create({
     // alignContent: "center",
   },
   logoContainer: {
-    flex: 2,
-    justifyContent: "flex-end",
-    alignSelf: "flex-end",
+    zIndex: 2,
+    position: "absolute",
+    bottom: 0,
+    right: 0,
   },
   loginContainer: {
     borderRadius: 15,
@@ -26,7 +27,6 @@ const homeStyles = StyleSheet.create({
     paddingHorizontal: "7%",
     backgroundColor: "#efefef",
     margin: 10,
-
     // alignItems: "center",
   },
   inputContainer: {
