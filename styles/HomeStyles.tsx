@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { buttonLightPink, lightGrey, pink, purple } from "../Consts";
 
 const homeStyles = StyleSheet.create({
   appContainer: {
@@ -25,7 +26,7 @@ const homeStyles = StyleSheet.create({
     borderColor: "white",
     paddingVertical: "7%",
     paddingHorizontal: "7%",
-    backgroundColor: "#efefef",
+    backgroundColor: lightGrey,
     margin: 10,
     // alignItems: "center",
   },
@@ -43,21 +44,22 @@ const homeStyles = StyleSheet.create({
     width: "100%",
     paddingVertical: 8,
     paddingHorizontal: 5,
-    backgroundColor: "#e09cab",
+    backgroundColor: pink,
     color: "white",
   },
   plainText: {
     // color: "white",
   },
   linkedText: {
-    color: "#6C0BA9",
+    color: purple,
+    // color: "#6C0BA9",
     // color: "#b95f75",
   },
   loginButton: {
     alignItems: "center",
     width: "100%",
     color: "#cccccc",
-    backgroundColor: "#c77d90",
+    backgroundColor: buttonLightPink,
     borderRadius: 15,
   },
   buttonText: {

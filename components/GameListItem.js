@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   gameListItem: {
     margin: 8,
     // padding: 8,
-    paddingVertical: 20,
+    paddingVertical: 40,
     borderRadius: 15,
     backgroundColor: "#e17c9b",
     alignItems: "center",
