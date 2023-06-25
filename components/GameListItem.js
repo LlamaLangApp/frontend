@@ -1,14 +1,12 @@
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
 function GameListItem(props) {
   return (
-    <Pressable>
-      {/*onPress={console.log("press")}>*/}
-      {/* props.onDeleteItem.bind(this, props.id)}>*/}
+    <TouchableOpacity onPress={props.onPressItem}>
       <View style={styles.gameListItem}>
         <Text style={styles.goalText}>{props.text}</Text>
       </View>
-    </Pressable>
+    </TouchableOpacity>
   );
 }
 
