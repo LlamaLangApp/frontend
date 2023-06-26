@@ -6,35 +6,36 @@ const gameStyles = StyleSheet.create({
     flex: 1,
   },
   contentContainer: {
-    flex: 5,
-    marginHorizontal: "10%",
+    flex: 3,
     justifyContent: "flex-end",
-    // alignItems: "center",
     margin: "10%",
   },
   cardsContainer: {
     marginHorizontal: "auto",
     flexDirection: "row",
     flexWrap: "wrap",
+    alignItems: "stretch",
   },
   card: {
     width: "31.3%",
-    // maxWidth: 100,
-    height: "30%",
-    justifyContent: "center",
-    alignItems: "center",
+    height: "23%",
     margin: "1%",
-
-    // my visual styles; not important for grid
-    padding: 10,
     backgroundColor: lightGrey,
     borderRadius: 15,
     borderWidth: 1,
     borderColor: buttonLightPink,
   },
   llamaContainer: {
-    flex: 2,
+    width: "100%",
+    height: "100%",
     justifyContent: "flex-end",
+    alignItems: "center",
+  },
+  textContainer: {
+    width: "100%",
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "center",
   },
   headingContainer: {
     // flex: 0.5,
@@ -64,7 +65,6 @@ const gameStyles = StyleSheet.create({
     borderBottomRightRadius: 12,
   },
   dropdownRow: {
-    backgroundColor: "#ffffff",
     borderBottomColor: "#c5c5c5",
   },
   dropdownRowText: {

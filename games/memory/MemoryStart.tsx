@@ -7,7 +7,7 @@ import SelectDropdown from "react-native-select-dropdown";
 import { FontAwesome } from "@expo/vector-icons";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { MemoryStackParamList } from "./MemoryStack";
-// import { MemoryStackParamList } from "../../App";
+import Toast from "react-native-toast-message";
 
 const randomWords = [
   "jedzenie",
@@ -21,6 +21,11 @@ const randomWords = [
   "zwierzęta",
   "krajobraz",
 ];
+
+export type Card = {
+  word: string;
+  translation: string;
+};
 
 type Props = NativeStackScreenProps<MemoryStackParamList, "Start">;
 
@@ -48,8 +53,6 @@ function MemoryStartScreen({ navigation }: Props) {
         </View>
         <SelectDropdown
           data={randomWords}
-          // defaultValueByIndex={1}
-          // defaultValue={'Egypt'}
           onSelect={(selectedItem, index) => {
             console.log(selectedItem, index);
           }}
@@ -82,8 +85,6 @@ function MemoryStartScreen({ navigation }: Props) {
         </View>
         <SelectDropdown
           data={randomWords}
-          // defaultValueByIndex={1}
-          // defaultValue={'Egypt'}
           onSelect={(selectedItem, index) => {
             console.log(selectedItem, index);
           }}
@@ -115,14 +116,14 @@ function MemoryStartScreen({ navigation }: Props) {
         <View style={{ flexDirection: "row" }}>
           <TouchableOpacity
             style={gameStyles.startButton}
-            // onPress={startGameHandler}
-            onPress={() => navigation.navigate("Game")}
+            onPress={startGameHandler}
           >
             <Text style={gameStyles.buttonText}>Play</Text>
           </TouchableOpacity>
         </View>
-        <FrontLlamaCenter />
       </View>
+      <FrontLlamaCenter />
+      <Toast position="top" bottomOffset={20} />
     </View>
   );
 }

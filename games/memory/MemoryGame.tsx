@@ -1,33 +1,92 @@
-import { Dimensions, Image, Text, TouchableOpacity, View } from "react-native";
+import { Dimensions, Text, View } from "react-native";
 import mainStyles from "../../styles/MainStyles";
 import gameStyles from "../../styles/GamesStyles";
-import React, { useState } from "react";
-import FrontLlamaCenter from "../../components/FrontLlamaCenter";
+import React, { useEffect, useState } from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { MemoryStackParamList } from "./MemoryStack";
 import ProgressBar from "react-native-progress/Bar";
 import { buttonDarkPink, buttonLightPink } from "../../Consts";
-import authStyles from "../../styles/AuthStyles";
+import { uniqueCardsArray } from "./MemoryData";
+import MemoryCard from "./MemoryCard";
 
 type Props = NativeStackScreenProps<MemoryStackParamList, "Game">;
-const itemData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+
+function shuffleCards<Card>(list: Card[]): Card[] {
+  return list.sort(() => Math.random() - 0.5);
+}
 
 function MemoryGameScreen({ navigation }: Props) {
   const screenWidth = Dimensions.get("window").width;
+  const [cards] = useState(() => shuffleCards(uniqueCardsArray));
+  const [points, setPoints] = useState(0);
+  const [openCards, setOpenCards] = useState([]);
+  const [matchedCards, setMatchedCards] = useState([]);
   const [progress, setProgress] = useState(0);
   const [attempt, setAttempt] = useState(15);
-  const handlePress = () => {
-    setProgress((prevProgress) => prevProgress + 1 / 15);
-    setAttempt((prevAttempt) => prevAttempt - 1);
+  const [wrongPick, setWrongPick] = useState(false);
+  const [correctPick, setCorrectPick] = useState(false);
+
+  const checkIsFlipped = (index) => {
+    return openCards.includes(index);
   };
-  console.log(progress);
+
+  const checkIsDisabled = (card) => {
+    return matchedCards.includes(card.word);
+  };
+
+  const handlePress = (index) => {
+    if (openCards.length === 1) {
+      setOpenCards((prev) => [...prev, index]);
+      setAttempt((prevAttempt) => prevAttempt - 1);
+    } else {
+      setOpenCards([index]);
+    }
+  };
+
+  const evaluateCardsMatching = () => {
+    const [first, second] = openCards;
+    if (cards[first].word === cards[second].translation) {
+      setMatchedCards((prev) => [
+        ...prev,
+        cards[first].word,
+        cards[first].translation,
+      ]);
+      setCorrectPick(true);
+      setProgress((prevProgress) => prevProgress + 1 / 6);
+      setPoints((prevState: number) => prevState + 10);
+      setOpenCards([]);
+      return;
+    } else {
+      setWrongPick(true);
+      setOpenCards([]);
+    }
+  };
+
+  useEffect(() => {
+    if (openCards.length === 2) {
+      setTimeout(evaluateCardsMatching, 500);
+    }
+  }, [openCards]);
+
+  useEffect(() => {
+    if (correctPick) {
+      setTimeout(() => setCorrectPick(false), 1300);
+    }
+  }, [correctPick]);
+
+  useEffect(() => {
+    if (wrongPick) {
+      setTimeout(() => setWrongPick(false), 1300);
+    }
+  }, [wrongPick]);
+
   return (
     <View style={mainStyles.container}>
       <View style={gameStyles.contentContainer}>
         <View style={{ flex: 1.3, marginTop: 30 }}>
           <View style={gameStyles.headingAndPointsContainer}>
             <Text style={gameStyles.headingText}>Memory</Text>
-            <Text style={gameStyles.secondaryText}>0 pkt</Text>
+            <Text style={gameStyles.secondaryText}>{points} pkt</Text>
           </View>
           <View style={gameStyles.headingContainer}>
             <Text style={gameStyles.basicText}>
@@ -53,33 +112,29 @@ function MemoryGameScreen({ navigation }: Props) {
         </View>
         <View style={{ flex: 3.7 }}>
           <View style={gameStyles.cardsContainer}>
-            {itemData.map((item) => {
+            {cards.map((card, index) => {
               return (
-                <View style={gameStyles.card}>
-                  {/*<Text>hrllo</Text>*/}
-                  <View style={authStyles.llamaContainer}>
-                    <Image
-                      source={require("../../assets/llama_without_background.png")}
-                      style={{
-                        width: 90,
-                        height: 90,
-                      }}
-                    />
-                  </View>
-                </View>
+                <MemoryCard
+                  key={index}
+                  card={card}
+                  index={index}
+                  isFlipped={checkIsFlipped(index)}
+                  isDisabled={checkIsDisabled(card)}
+                  onClick={handlePress}
+                />
               );
             })}
           </View>
         </View>
-
-        {/*<View style={{ flexDirection: "row" }}>*/}
-        {/*  <TouchableOpacity*/}
-        {/*    style={gameStyles.startButton}*/}
-        {/*    onPress={handlePress}*/}
-        {/*  >*/}
-        {/*    <Text style={gameStyles.buttonText}>Play</Text>*/}
-        {/*  </TouchableOpacity>*/}
-        {/*</View>*/}
+        <View style={gameStyles.headingContainer}>
+          {correctPick ? (
+            <Text>+10pkt</Text>
+          ) : wrongPick ? (
+            <Text>Wrong</Text>
+          ) : (
+            <Text />
+          )}
+        </View>
       </View>
     </View>
   );
