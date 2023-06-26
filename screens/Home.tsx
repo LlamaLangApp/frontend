@@ -5,8 +5,12 @@ import React, { useState } from "react";
 import GameListItem from "../components/GameListItem";
 import { buttonDarkPink, buttonLightPink } from "../Consts";
 import FrontLlamaRight from "../components/FrontLlamaRight";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { MainStackParamList } from "../App";
 
-function HomeScreen() {
+type Props = NativeStackScreenProps<MainStackParamList, "Home">;
+
+function HomeScreen({ navigation }: Props) {
   type GameType = "singlePlayer" | "multiplayer";
   const [gameType, setGameType] = useState("singlePlayer");
   const singlePlayerButtonHandler = () => {
@@ -20,13 +24,17 @@ function HomeScreen() {
     id: string;
     name: string;
     type: GameType;
+    screenName: keyof MainStackParamList;
   };
 
   const games: GameItem[] = [
-    { id: "1", name: "memory", type: "singlePlayer" },
-    { id: "2", name: "kahoot", type: "multiplayer" },
-    { id: "3", name: "gra2", type: "singlePlayer" },
-    { id: "4", name: "gra3", type: "singlePlayer" },
+    { id: "1", name: "memory", type: "singlePlayer", screenName: "Memory" },
+    { id: "2", name: "kahoot", type: "multiplayer", screenName: "Memory" },
+    { id: "3", name: "gra2", type: "singlePlayer", screenName: "Memory" },
+    { id: "4", name: "gra3", type: "singlePlayer", screenName: "Memory" },
+    { id: "5", name: "gra4", type: "singlePlayer", screenName: "Memory" },
+    { id: "6", name: "gra5", type: "singlePlayer", screenName: "Memory" },
+    { id: "7", name: "gra6", type: "singlePlayer", screenName: "Memory" },
   ];
 
   return (
@@ -70,7 +78,14 @@ function HomeScreen() {
           data={games.filter((game) => game.type == gameType)}
           renderItem={(itemData) => {
             return (
-              <GameListItem text={itemData.item.name} id={itemData.item.id} />
+              <GameListItem
+                text={itemData.item.name}
+                id={itemData.item.id}
+                disableHighlight={true}
+                onPressItem={() => {
+                  navigation.navigate(itemData.item.screenName);
+                }}
+              />
             );
           }}
         />
