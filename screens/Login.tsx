@@ -3,7 +3,6 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-  Image,
   NativeSyntheticEvent,
   TextInputChangeEventData,
   Pressable,
@@ -11,13 +10,14 @@ import {
 import React, { useState } from "react";
 import authStyles from "../styles/AuthStyles";
 import mainStyles from "../styles/MainStyles";
-import { callLogin } from "../components/backend";
+import { callLogin } from "../backend";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import Toast from "react-native-toast-message";
-import { RootStackParamList } from "../App";
+import { AuthStackParamList } from "../navgation/AuthStack";
 import { useAppStore } from "../state";
+import FrontLlamaCenter from "../components/FrontLlamaCenter";
 
-type Props = NativeStackScreenProps<RootStackParamList, "Login">;
+type Props = NativeStackScreenProps<AuthStackParamList, "Login">;
 
 function LogScreen({ navigation }: Props) {
   const [enteredUsername, setEnteredUsername] = useState("");
@@ -113,15 +113,7 @@ function LogScreen({ navigation }: Props) {
           </View>
         </View>
       </View>
-      <View style={authStyles.llamaContainer}>
-        <Image
-          source={require("../assets/llama_without_background.png")}
-          style={{
-            width: 200,
-            height: 200,
-          }}
-        />
-      </View>
+      <FrontLlamaCenter />
       <Toast position="top" bottomOffset={20} />
     </View>
   );

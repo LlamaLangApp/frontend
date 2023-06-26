@@ -5,19 +5,19 @@ import {
   View,
   NativeSyntheticEvent,
   TextInputChangeEventData,
-  Image,
   Pressable,
 } from "react-native";
 import React, { useState } from "react";
 import authStyles from "../styles/AuthStyles";
 import mainStyles from "../styles/MainStyles";
-import { callLogin, callRegister } from "../components/backend";
+import { callLogin, callRegister } from "../backend";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { RootStackParamList } from "../App";
+import { AuthStackParamList } from "../navgation/AuthStack";
 import Toast from "react-native-toast-message";
 import { useAppStore } from "../state";
+import FrontLlamaCenter from "../components/FrontLlamaCenter";
 
-type Props = NativeStackScreenProps<RootStackParamList, "Register">;
+type Props = NativeStackScreenProps<AuthStackParamList, "Register">;
 
 function RegisterScreen({ navigation }: Props) {
   const [enteredUsername, setEnteredUsername] = useState("");
@@ -166,15 +166,7 @@ function RegisterScreen({ navigation }: Props) {
           </Pressable>
         </View>
       </View>
-      <View style={authStyles.llamaContainer}>
-        <Image
-          source={require("../assets/llama_without_background.png")}
-          style={{
-            width: 200,
-            height: "100%",
-          }}
-        />
-      </View>
+      <FrontLlamaCenter />
       <Toast position="top" bottomOffset={20} />
     </View>
   );

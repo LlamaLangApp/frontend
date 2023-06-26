@@ -1,9 +1,9 @@
 import { StyleSheet } from "react-native";
+import { buttonLightPink, lightGrey, pink, purple } from "../Consts";
 
 const authStyles = StyleSheet.create({
   appContainer: {
     flex: 1,
-    // margin: 5,
   },
   startContainer: {
     flex: 1,
@@ -39,7 +39,7 @@ const authStyles = StyleSheet.create({
     borderColor: "white",
     paddingVertical: "7%",
     paddingHorizontal: "7%",
-    backgroundColor: "#efefef",
+    backgroundColor: lightGrey,
     margin: 10,
     // alignItems: "center",
   },
@@ -57,14 +57,14 @@ const authStyles = StyleSheet.create({
     width: "100%",
     paddingVertical: 8,
     paddingHorizontal: 5,
-    backgroundColor: "#e09cab",
+    backgroundColor: pink,
     color: "white",
   },
   plainText: {
     // color: "white",
   },
   linkedText: {
-    color: "#6C0BA9",
+    color: purple,
     // color: "#b95f75",
   },
   errorText: {
@@ -74,14 +74,14 @@ const authStyles = StyleSheet.create({
     alignItems: "center",
     width: "100%",
     color: "#cccccc",
-    backgroundColor: "#c77d90",
+    backgroundColor: buttonLightPink,
     borderRadius: 15,
   },
   startButton: {
     alignItems: "center",
     width: "100%",
     color: "#cccccc",
-    backgroundColor: "#c77d90",
+    backgroundColor: buttonLightPink,
     borderRadius: 15,
     margin: "1%",
   },
