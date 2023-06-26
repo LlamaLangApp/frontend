@@ -13,11 +13,11 @@ import mainStyles from "../styles/MainStyles";
 import { callLogin } from "../backend";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import Toast from "react-native-toast-message";
-import { RootStackParamList } from "../navgation/AuthStack";
+import { AuthStackParamList } from "../navgation/AuthStack";
 import { useAppStore } from "../state";
 import FrontLlamaCenter from "../components/FrontLlamaCenter";
 
-type Props = NativeStackScreenProps<RootStackParamList, "Login">;
+type Props = NativeStackScreenProps<AuthStackParamList, "Login">;
 
 function LogScreen({ navigation }: Props) {
   const [enteredUsername, setEnteredUsername] = useState("");

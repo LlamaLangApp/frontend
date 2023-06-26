@@ -6,7 +6,6 @@ import GameListItem from "../components/GameListItem";
 import { buttonDarkPink, buttonLightPink } from "../Consts";
 import FrontLlamaRight from "../components/FrontLlamaRight";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { RootStackParamList } from "../navgation/AuthStack";
 import { MainStackParamList } from "../App";
 
 type Props = NativeStackScreenProps<MainStackParamList, "Home">;

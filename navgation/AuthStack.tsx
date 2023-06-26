@@ -4,14 +4,13 @@ import LogScreen from "../screens/Login";
 import RegisterScreen from "../screens/Register";
 import * as React from "react";
 
-export type RootStackParamList = {
+export type AuthStackParamList = {
   Start: undefined;
   Login: undefined;
-  Home: undefined;
   Register: undefined;
 };
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
+const Stack = createNativeStackNavigator<AuthStackParamList>();
 
 const AuthStack = () => {
   return (

@@ -3,9 +3,9 @@ import mainStyles from "../styles/MainStyles";
 import authStyles from "../styles/AuthStyles";
 import React from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { RootStackParamList } from "../App";
+import { AuthStackParamList } from "../navgation/AuthStack";
 
-type Props = NativeStackScreenProps<RootStackParamList, "Start">;
+type Props = NativeStackScreenProps<AuthStackParamList, "Start">;
 
 function StartScreen({ navigation }: Props) {
   async function signInHandler() {
