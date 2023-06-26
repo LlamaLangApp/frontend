@@ -126,11 +126,15 @@ function MemoryGameScreen({ navigation }: Props) {
             })}
           </View>
         </View>
-        <View style={gameStyles.headingContainer}>
+        <View style={gameStyles.popupContainer}>
           {correctPick ? (
-            <Text>+10pkt</Text>
+            <View style={gameStyles.popup}>
+              <Text>+10pkt</Text>
+            </View>
           ) : wrongPick ? (
-            <Text>Wrong</Text>
+            <View style={gameStyles.popup}>
+              <Text>Wrong</Text>
+            </View>
           ) : (
             <Text />
           )}

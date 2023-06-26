@@ -6,7 +6,7 @@ const gameStyles = StyleSheet.create({
     flex: 1,
   },
   contentContainer: {
-    flex: 3,
+    flex: 5.2,
     justifyContent: "flex-end",
     margin: "10%",
   },
@@ -34,6 +34,21 @@ const gameStyles = StyleSheet.create({
   textContainer: {
     width: "100%",
     height: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  popupContainer: {
+    flex: 0.2,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  popup: {
+    width: "45%",
+    height: "100%",
+    backgroundColor: lightGrey,
+    borderRadius: 15,
+    borderWidth: 1,
+    borderColor: buttonLightPink,
     justifyContent: "center",
     alignItems: "center",
   },
