@@ -57,10 +57,10 @@ function MemoryStartScreen({ navigation }: Props) {
             console.log(selectedItem, index);
           }}
           defaultButtonText={"-- Select type --"}
-          buttonTextAfterSelection={(selectedItem, index) => {
+          buttonTextAfterSelection={(selectedItem) => {
             return selectedItem;
           }}
-          rowTextForSelection={(item, index) => {
+          rowTextForSelection={(item) => {
             return item;
           }}
           buttonStyle={gameStyles.dropdownButton}
@@ -89,10 +89,10 @@ function MemoryStartScreen({ navigation }: Props) {
             console.log(selectedItem, index);
           }}
           defaultButtonText={"-- Select set --"}
-          buttonTextAfterSelection={(selectedItem, index) => {
+          buttonTextAfterSelection={(selectedItem) => {
             return selectedItem;
           }}
-          rowTextForSelection={(item, index) => {
+          rowTextForSelection={(item) => {
             return item;
           }}
           buttonStyle={gameStyles.dropdownButton}

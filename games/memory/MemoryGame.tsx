@@ -2,21 +2,17 @@ import { Dimensions, Text, View } from "react-native";
 import mainStyles from "../../styles/MainStyles";
 import gameStyles from "../../styles/GamesStyles";
 import React, { useEffect, useState } from "react";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { MemoryStackParamList } from "./MemoryStack";
 import ProgressBar from "react-native-progress/Bar";
 import { buttonDarkPink, buttonLightPink } from "../../Consts";
 import { uniqueCardsArray } from "./MemoryData";
 import MemoryCard from "./MemoryCard";
 import { Card } from "./MemoryStart";
 
-type Props = NativeStackScreenProps<MemoryStackParamList, "Game">;
-
 function shuffleCards<Card>(list: Card[]): Card[] {
   return list.sort(() => Math.random() - 0.5);
 }
 
-function MemoryGameScreen({ navigation }: Props) {
+function MemoryGameScreen() {
   const screenWidth = Dimensions.get("window").width;
   const [cards] = useState(() => shuffleCards(uniqueCardsArray));
   const [points, setPoints] = useState(0);
