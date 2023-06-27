@@ -2,19 +2,19 @@ import { Dimensions, Text, View } from "react-native";
 import mainStyles from "../../styles/MainStyles";
 import gameStyles from "../../styles/GamesStyles";
 import React, { useEffect, useState } from "react";
-import ProgressBar from "react-native-progress/Bar";
+import { Bar as ProgressBar } from "react-native-progress";
 import { buttonDarkPink, buttonLightPink } from "../../Consts";
-import { uniqueCardsArray } from "./MemoryData";
-import MemoryCard from "./MemoryCard";
-import { Card } from "./MemoryStart";
+import MemoryCard, { Card, shuffleCards } from "./MemoryCard";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { MemoryStackParamList } from "./MemoryStack";
 
-function shuffleCards<Card>(list: Card[]): Card[] {
-  return list.sort(() => Math.random() - 0.5);
-}
+type Props = NativeStackScreenProps<MemoryStackParamList, "Game">;
 
-function MemoryGameScreen() {
+function MemoryGameScreen({ route, navigation }: Props) {
+  const { setName, wordsSet } = route.params;
+
   const screenWidth = Dimensions.get("window").width;
-  const [cards] = useState(() => shuffleCards(uniqueCardsArray));
+  const [cards] = useState(() => shuffleCards(wordsSet));
   const [points, setPoints] = useState(0);
   const [openCards, setOpenCards] = useState<number[]>([]);
   const [matchedCards, setMatchedCards] = useState<string[]>([]);
@@ -49,8 +49,8 @@ function MemoryGameScreen() {
         cards[first].translation,
       ]);
       setCorrectPick(true);
-      setProgress((prevProgress) => prevProgress + 1 / 6);
       setPoints((prevState: number) => prevState + 10);
+      setProgress((prevProgress) => prevProgress + 1);
       setOpenCards([]);
       return;
     } else {
@@ -77,6 +77,21 @@ function MemoryGameScreen() {
     }
   }, [wrongPick]);
 
+  async function endGameHandler() {
+    try {
+      navigation.navigate("Results", { points, setName });
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    console.log(progress);
+    if (progress >= 1) {
+      setTimeout(() => endGameHandler(), 200);
+    }
+  }, [progress]);
+
   return (
     <View style={mainStyles.container}>
       <View style={gameStyles.contentContainer}>
@@ -96,7 +111,7 @@ function MemoryGameScreen() {
             <Text style={gameStyles.secondaryText}>{attempt}/15</Text>
           </View>
           <ProgressBar
-            progress={progress}
+            progress={progress / 6}
             width={screenWidth * 0.8}
             height={40}
             color={buttonLightPink}

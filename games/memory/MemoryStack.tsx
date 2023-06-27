@@ -2,10 +2,19 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import MemoryStartScreen from "./MemoryStart";
 import * as React from "react";
 import MemoryGameScreen from "./MemoryGame";
+import MemoryResultsScreen from "./MemoryResults";
+import { Card } from "./MemoryCard";
 
 export type MemoryStackParamList = {
   Start: undefined;
-  Game: undefined;
+  Game: {
+    setName: string;
+    wordsSet: Card[];
+  };
+  Results: {
+    points: number;
+    setName: string;
+  };
 };
 
 const Stack = createNativeStackNavigator<MemoryStackParamList>();
@@ -19,6 +28,7 @@ const MemoryStack = () => {
     >
       <Stack.Screen name={"Start"} component={MemoryStartScreen} />
       <Stack.Screen name={"Game"} component={MemoryGameScreen} />
+      <Stack.Screen name={"Results"} component={MemoryResultsScreen} />
     </Stack.Navigator>
   );
 };

@@ -1,7 +1,15 @@
 import gameStyles from "../../styles/GamesStyles";
 import { Image, TouchableOpacity, View, Text } from "react-native";
 import React from "react";
-import { Card } from "./MemoryStart";
+
+export function shuffleCards<Card>(list: Card[]): Card[] {
+  return list.sort(() => Math.random() - 0.5);
+}
+
+export type Card = {
+  word: string;
+  translation: string;
+};
 
 type MemoryCardProps = {
   card: Card;

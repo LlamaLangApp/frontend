@@ -1,13 +1,14 @@
 import { Text, TouchableOpacity, View } from "react-native";
 import mainStyles from "../../styles/MainStyles";
 import gameStyles from "../../styles/GamesStyles";
-import React from "react";
+import React, { useState } from "react";
 import FrontLlamaCenter from "../../components/FrontLlamaCenter";
 import SelectDropdown from "react-native-select-dropdown";
 import { FontAwesome } from "@expo/vector-icons";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { MemoryStackParamList } from "./MemoryStack";
 import Toast from "react-native-toast-message";
+import { uniqueCardsArray } from "./MemoryData";
 
 const randomWords = [
   "jedzenie",
@@ -22,17 +23,18 @@ const randomWords = [
   "krajobraz",
 ];
 
-export type Card = {
-  word: string;
-  translation: string;
-};
-
 type Props = NativeStackScreenProps<MemoryStackParamList, "Start">;
 
 function MemoryStartScreen({ navigation }: Props) {
+  const [setType, setSetType] = useState<string>("");
+  const [setName, setSetName] = useState<string>("");
+
   async function startGameHandler() {
     try {
-      navigation.navigate("Game");
+      navigation.navigate("Game", {
+        setName: setName,
+        wordsSet: uniqueCardsArray,
+      });
     } catch (error) {
       console.error(error);
     }
@@ -54,7 +56,8 @@ function MemoryStartScreen({ navigation }: Props) {
         <SelectDropdown
           data={randomWords}
           onSelect={(selectedItem, index) => {
-            console.log(selectedItem, index);
+            setSetType(selectedItem);
+            console.log(setType, index);
           }}
           defaultButtonText={"-- Select type --"}
           buttonTextAfterSelection={(selectedItem) => {
@@ -85,8 +88,8 @@ function MemoryStartScreen({ navigation }: Props) {
         </View>
         <SelectDropdown
           data={randomWords}
-          onSelect={(selectedItem, index) => {
-            console.log(selectedItem, index);
+          onSelect={(selectedItem) => {
+            setSetName(selectedItem);
           }}
           defaultButtonText={"-- Select set --"}
           buttonTextAfterSelection={(selectedItem) => {

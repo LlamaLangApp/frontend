@@ -105,6 +105,14 @@ const gameStyles = StyleSheet.create({
     borderRadius: 15,
     margin: "1%",
   },
+  button: {
+    alignItems: "center",
+    width: "48%",
+    color: "#cccccc",
+    backgroundColor: buttonLightPink,
+    borderRadius: 15,
+    margin: "1%",
+  },
   progressBar: {
     // width: "100%",
     backgroundColor: "#ffffff",

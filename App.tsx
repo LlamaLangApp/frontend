@@ -4,7 +4,7 @@ import { useAppStore } from "./state";
 import AuthStack from "./navgation/AuthStack";
 import HomeDrawer from "./navgation/HomeDrawer";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import FriendsScreen from "./screens/Friends";
+import MemoryStack from "./games/memory/MemoryStack";
 
 export type MainStackParamList = {
   Home: undefined;
@@ -17,7 +17,7 @@ function MainNavigation() {
   return (
     <Stack.Navigator>
       <Stack.Screen name={"Home"} component={HomeDrawer} />
-      <Stack.Screen name={"Memory"} component={FriendsScreen} />
+      <Stack.Screen name={"Memory"} component={MemoryStack} />
     </Stack.Navigator>
   );
 }
