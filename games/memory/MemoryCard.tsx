@@ -1,8 +1,22 @@
 import gameStyles from "../../styles/GamesStyles";
 import { Image, TouchableOpacity, View, Text } from "react-native";
 import React from "react";
+import { Card } from "./MemoryStart";
 
-const MemoryCard = ({ card, index, isFlipped, isDisabled, onClick }) => {
+type MemoryCardProps = {
+  card: Card;
+  index: number;
+  isFlipped: boolean;
+  isDisabled: boolean;
+  onClick: (index: number) => void;
+};
+const MemoryCard: React.FC<MemoryCardProps> = ({
+  card,
+  index,
+  isFlipped,
+  isDisabled,
+  onClick,
+}) => {
   return (
     <TouchableOpacity
       style={gameStyles.card}

@@ -8,6 +8,7 @@ import ProgressBar from "react-native-progress/Bar";
 import { buttonDarkPink, buttonLightPink } from "../../Consts";
 import { uniqueCardsArray } from "./MemoryData";
 import MemoryCard from "./MemoryCard";
+import { Card } from "./MemoryStart";
 
 type Props = NativeStackScreenProps<MemoryStackParamList, "Game">;
 
@@ -19,22 +20,22 @@ function MemoryGameScreen({ navigation }: Props) {
   const screenWidth = Dimensions.get("window").width;
   const [cards] = useState(() => shuffleCards(uniqueCardsArray));
   const [points, setPoints] = useState(0);
-  const [openCards, setOpenCards] = useState([]);
-  const [matchedCards, setMatchedCards] = useState([]);
+  const [openCards, setOpenCards] = useState<number[]>([]);
+  const [matchedCards, setMatchedCards] = useState<string[]>([]);
   const [progress, setProgress] = useState(0);
   const [attempt, setAttempt] = useState(15);
   const [wrongPick, setWrongPick] = useState(false);
   const [correctPick, setCorrectPick] = useState(false);
 
-  const checkIsFlipped = (index) => {
+  const checkIsFlipped = (index: number) => {
     return openCards.includes(index);
   };
 
-  const checkIsDisabled = (card) => {
+  const checkIsDisabled = (card: Card) => {
     return matchedCards.includes(card.word);
   };
 
-  const handlePress = (index) => {
+  const handlePress = (index: number) => {
     if (openCards.length === 1) {
       setOpenCards((prev) => [...prev, index]);
       setAttempt((prevAttempt) => prevAttempt - 1);
