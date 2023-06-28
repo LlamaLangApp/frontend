@@ -8,35 +8,73 @@ import { FontAwesome } from "@expo/vector-icons";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { MemoryStackParamList } from "./MemoryStack";
 import Toast from "react-native-toast-message";
-import { uniqueCardsArray } from "./MemoryData";
+import { serverURL } from "../../backend";
+import { useAppStore } from "../../state";
+import { makeCards } from "./MemoryCard";
 
-const randomWords = [
-  "jedzenie",
-  "picie",
-  "rodzina",
-  "zwierzęta",
-  "krajobraz",
-  "jedzenie",
-  "picie",
-  "rodzina",
-  "zwierzęta",
-  "krajobraz",
-];
+interface WordSet {
+  id: number;
+  english: string;
+  polish: string;
+  words: number[];
+}
+
+export interface Translation {
+  id: number;
+  english: string;
+  polish: string;
+}
 
 type Props = NativeStackScreenProps<MemoryStackParamList, "Start">;
 
 function MemoryStartScreen({ navigation }: Props) {
   const [setType, setSetType] = useState<string>("");
   const [setName, setSetName] = useState<string>("");
+  const [wordSets, setWordSets] = useState<WordSet[]>([]);
+  const token = useAppStore.getState().token;
 
   async function startGameHandler() {
     try {
+      const setId = wordSets.find((wordSet) => wordSet.polish === setName)?.id;
+      const response = await fetch(
+        `http://${serverURL}/wordset/${setId}/translations?limit=6`,
+        {
+          method: "GET",
+          headers: {
+            "Content-type": "application/json",
+            Authorization: "Token " + token,
+          },
+        }
+      );
+      const translations: Translation[] = await response.json();
+
       navigation.navigate("Game", {
         setName: setName,
-        wordsSet: uniqueCardsArray,
+        wordsSet: makeCards(translations),
       });
     } catch (error) {
       console.error(error);
+    }
+  }
+
+  async function downloadWordSetsHandler(selectedItem: string) {
+    console.log(setType);
+    setSetType(selectedItem);
+    if (setType === "Default sets") {
+      try {
+        const response = await fetch(`http://${serverURL}/wordset/`, {
+          method: "GET",
+          headers: {
+            "Content-type": "application/json",
+            Authorization: "Token " + token,
+          },
+        });
+        setWordSets(await response.json());
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      setWordSets([]);
     }
   }
 
@@ -54,11 +92,8 @@ function MemoryStartScreen({ navigation }: Props) {
           <Text style={gameStyles.secondaryText}>Type of set:</Text>
         </View>
         <SelectDropdown
-          data={randomWords}
-          onSelect={(selectedItem, index) => {
-            setSetType(selectedItem);
-            console.log(setType, index);
-          }}
+          data={["Default sets", "Custom sets (coming soon...)"]}
+          onSelect={(selectedItem) => downloadWordSetsHandler(selectedItem)}
           defaultButtonText={"-- Select type --"}
           buttonTextAfterSelection={(selectedItem) => {
             return selectedItem;
@@ -87,7 +122,7 @@ function MemoryStartScreen({ navigation }: Props) {
           <Text style={gameStyles.secondaryText}>Set:</Text>
         </View>
         <SelectDropdown
-          data={randomWords}
+          data={wordSets.map((wordSet) => wordSet.polish)}
           onSelect={(selectedItem) => {
             setSetName(selectedItem);
           }}

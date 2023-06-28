@@ -1,6 +1,14 @@
 import gameStyles from "../../styles/GamesStyles";
-import { Image, TouchableOpacity, View, Text } from "react-native";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
+import { Translation } from "./MemoryStart";
+
+export function makeCards(translations: Translation[]): Card[] {
+  return translations.flatMap((translation) => [
+    { word: translation.polish, translation: translation.english },
+    { word: translation.english, translation: translation.polish },
+  ]);
+}
 
 export function shuffleCards<Card>(list: Card[]): Card[] {
   return list.sort(() => Math.random() - 0.5);
