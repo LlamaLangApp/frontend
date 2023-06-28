@@ -28,7 +28,6 @@ export interface Translation {
 type Props = NativeStackScreenProps<MemoryStackParamList, "Start">;
 
 function MemoryStartScreen({ navigation }: Props) {
-  const [setType, setSetType] = useState<string>("");
   const [setName, setSetName] = useState<string>("");
   const [wordSets, setWordSets] = useState<WordSet[]>([]);
   const token = useAppStore.getState().token;
@@ -58,9 +57,7 @@ function MemoryStartScreen({ navigation }: Props) {
   }
 
   async function downloadWordSetsHandler(selectedItem: string) {
-    console.log(setType);
-    setSetType(selectedItem);
-    if (setType === "Default sets") {
+    if (selectedItem === "Default sets") {
       try {
         const response = await fetch(`http://${serverURL}/wordset/`, {
           method: "GET",
