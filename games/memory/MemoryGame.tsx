@@ -22,7 +22,7 @@ function MemoryGameScreen({ route, navigation }: Props) {
   const [attempt, setAttempt] = useState(15);
   const [wrongPick, setWrongPick] = useState(false);
   const [correctPick, setCorrectPick] = useState(false);
-
+  const [disabled, setDisabled] = useState<boolean>(false);
   const checkIsFlipped = (index: number) => {
     return openCards.includes(index);
   };
@@ -61,7 +61,10 @@ function MemoryGameScreen({ route, navigation }: Props) {
 
   useEffect(() => {
     if (openCards.length === 2) {
+      setDisabled(true);
       setTimeout(evaluateCardsMatching, 500);
+    } else {
+      setDisabled(false);
     }
   }, [openCards]);
 
@@ -86,11 +89,16 @@ function MemoryGameScreen({ route, navigation }: Props) {
   }
 
   useEffect(() => {
-    console.log(progress);
-    if (progress >= 1) {
-      setTimeout(() => endGameHandler(), 200);
+    if (progress >= 6) {
+      setTimeout(() => endGameHandler(), 1300);
     }
   }, [progress]);
+
+  useEffect(() => {
+    if (attempt <= 0) {
+      setTimeout(() => endGameHandler(), 1300);
+    }
+  }, [attempt]);
 
   return (
     <View style={mainStyles.container}>
@@ -132,6 +140,7 @@ function MemoryGameScreen({ route, navigation }: Props) {
                   index={index}
                   isFlipped={checkIsFlipped(index)}
                   isDisabled={checkIsDisabled(card)}
+                  isDisabledBack={disabled}
                   onClick={handlePress}
                 />
               );

@@ -1,4 +1,4 @@
-import { Card } from "./MemoryStart";
+import { Card } from "./MemoryCard";
 
 export const uniqueCardsArray: Card[] = [
   {
