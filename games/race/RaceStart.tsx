@@ -1,20 +1,19 @@
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { RaceStackParamList } from "./RaceStack";
 import { Text, TouchableOpacity, View } from "react-native";
 import mainStyles from "../../styles/MainStyles";
 import gameStyles from "../../styles/GamesStyles";
 import React, { useState } from "react";
-import FrontLlamaCenter from "../../components/FrontLlamaCenter";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { MemoryStackParamList } from "./MemoryStack";
-import Toast from "react-native-toast-message";
+import CustomDropdown from "../../components/CustomDropdown";
 import { callTranslations, callWordSets } from "../../backend";
 import { useAppStore } from "../../state";
-import { makeCards } from "./MemoryCard";
-import CustomDropdown from "../../components/CustomDropdown";
 import { WordSet } from "../common/WordSet";
+import Toast from "react-native-toast-message";
+import FrontLlamaCenter from "../../components/FrontLlamaCenter";
 
-type Props = NativeStackScreenProps<MemoryStackParamList, "Start">;
+type Props = NativeStackScreenProps<RaceStackParamList, "Start">;
 
-function MemoryStartScreen({ navigation }: Props) {
+function RaceStartScreen({ navigation }: Props) {
   const [setName, setSetName] = useState<string>("");
   const [setType, setSetType] = useState<string>("");
   const [wordSets, setWordSets] = useState<WordSet[]>([]);
@@ -23,13 +22,10 @@ function MemoryStartScreen({ navigation }: Props) {
   async function startGameHandler() {
     try {
       const setId = wordSets.find((wordSet) => wordSet.polish === setName)?.id;
-      const response = await callTranslations(token, setId, 6);
+      const response = await callTranslations(token, setId, null);
       switch (response.type) {
         case "success":
-          navigation.navigate("Game", {
-            setName: setName,
-            wordsSet: makeCards(response.translations),
-          });
+          navigation.navigate("Game", { translations: response.translations });
           break;
         case "error":
           break;
@@ -55,15 +51,28 @@ function MemoryStartScreen({ navigation }: Props) {
     }
   }, [setWordSets, setType]);
 
+  async function handle(selectedItem: string) {
+    console.log(selectedItem);
+  }
+
   return (
     <View style={mainStyles.container}>
       <View style={gameStyles.contentContainer}>
         <View style={gameStyles.headingContainer}>
-          <Text style={gameStyles.headingText}>Memory</Text>
+          <Text style={gameStyles.headingText}>Race</Text>
         </View>
         <View style={gameStyles.headingContainer}>
           <Text style={gameStyles.secondaryText}>Pick set of words:</Text>
         </View>
+        <Text> </Text>
+        <View style={gameStyles.headingContainer}>
+          <Text style={gameStyles.secondaryText}>Number of players:</Text>
+        </View>
+        <CustomDropdown
+          defaultSelectText={"players amount"}
+          selectData={["2", "3", "4"]}
+          onSelectFunc={handle}
+        />
         <Text> </Text>
         <View style={gameStyles.headingContainer}>
           <Text style={gameStyles.secondaryText}>Type of set:</Text>
@@ -101,4 +110,4 @@ function MemoryStartScreen({ navigation }: Props) {
   );
 }
 
-export default MemoryStartScreen;
+export default RaceStartScreen;
