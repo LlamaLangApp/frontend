@@ -1,6 +1,13 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
-function GameListItem(props) {
+interface GameListItemProps {
+  text: string;
+  id: string;
+  disableHighlight: boolean;
+  onPressItem: () => void;
+}
+
+function GameListItem(props: GameListItemProps) {
   return (
     <TouchableOpacity onPress={props.onPressItem}>
       <View style={styles.gameListItem}>
