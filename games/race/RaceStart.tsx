@@ -5,7 +5,7 @@ import mainStyles from "../../styles/MainStyles";
 import gameStyles from "../../styles/GamesStyles";
 import React, { useState } from "react";
 import CustomDropdown from "../../components/CustomDropdown";
-import { callTranslations, callWordSets } from "../../backend";
+import { callWordSets } from "../../backend";
 import { useAppStore } from "../../state";
 import { WordSet } from "../common/WordSet";
 import Toast from "react-native-toast-message";
@@ -19,17 +19,10 @@ function RaceStartScreen({ navigation }: Props) {
   const [wordSets, setWordSets] = useState<WordSet[]>([]);
   const token = useAppStore.getState().token;
 
-  async function startGameHandler() {
+  async function findOtherPlayersHandler() {
     try {
-      const setId = wordSets.find((wordSet) => wordSet.polish === setName)?.id;
-      const response = await callTranslations(token, setId, null);
-      switch (response.type) {
-        case "success":
-          navigation.navigate("Game", { translations: response.translations });
-          break;
-        case "error":
-          break;
-      }
+      console.log(setName);
+      navigation.navigate("WaitingRoom");
     } catch (error) {
       console.error(error);
     }
@@ -51,10 +44,6 @@ function RaceStartScreen({ navigation }: Props) {
     }
   }, [setWordSets, setType]);
 
-  async function handle(selectedItem: string) {
-    console.log(selectedItem);
-  }
-
   return (
     <View style={mainStyles.container}>
       <View style={gameStyles.contentContainer}>
@@ -64,15 +53,6 @@ function RaceStartScreen({ navigation }: Props) {
         <View style={gameStyles.headingContainer}>
           <Text style={gameStyles.secondaryText}>Pick set of words:</Text>
         </View>
-        <Text> </Text>
-        <View style={gameStyles.headingContainer}>
-          <Text style={gameStyles.secondaryText}>Number of players:</Text>
-        </View>
-        <CustomDropdown
-          defaultSelectText={"players amount"}
-          selectData={["2", "3", "4"]}
-          onSelectFunc={handle}
-        />
         <Text> </Text>
         <View style={gameStyles.headingContainer}>
           <Text style={gameStyles.secondaryText}>Type of set:</Text>
@@ -98,7 +78,7 @@ function RaceStartScreen({ navigation }: Props) {
         <View style={{ flexDirection: "row" }}>
           <TouchableOpacity
             style={gameStyles.startButton}
-            onPress={startGameHandler}
+            onPress={findOtherPlayersHandler}
           >
             <Text style={gameStyles.buttonText}>Play</Text>
           </TouchableOpacity>
