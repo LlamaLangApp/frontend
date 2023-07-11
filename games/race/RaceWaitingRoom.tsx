@@ -4,6 +4,7 @@ import { Text, TouchableOpacity, View } from "react-native";
 import mainStyles from "../../styles/MainStyles";
 import gameStyles from "../../styles/GamesStyles";
 import React from "react";
+import FrontLlamaCenter from "../../components/FrontLlamaCenter";
 
 type Props = NativeStackScreenProps<RaceStackParamList, "WaitingRoom">;
 
@@ -27,6 +28,7 @@ function RaceWaitingRoomScreen({ navigation }: Props) {
             Waiting for other players...
           </Text>
         </View>
+        <Text></Text>
         <View style={{ flexDirection: "row" }}>
           <TouchableOpacity
             style={gameStyles.startButton}
@@ -36,6 +38,7 @@ function RaceWaitingRoomScreen({ navigation }: Props) {
           </TouchableOpacity>
         </View>
       </View>
+      <FrontLlamaCenter />
     </View>
   );
 }

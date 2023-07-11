@@ -4,6 +4,8 @@ import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import mainStyles from "../../styles/MainStyles";
 import gameStyles from "../../styles/GamesStyles";
 import React from "react";
+import { buttonLightPink } from "../../Consts";
+import FrontLlamaCenter from "../../components/FrontLlamaCenter";
 
 type Props = NativeStackScreenProps<RaceStackParamList, "PlayersList">;
 
@@ -19,17 +21,42 @@ function RacePlayersListScreen({ navigation }: Props) {
   return (
     <View style={mainStyles.container}>
       <View style={gameStyles.contentContainer}>
+        <Text></Text>
         <View style={gameStyles.headingContainer}>
           <Text style={gameStyles.headingText}>Race</Text>
         </View>
-        <View style={{ width: "90%", flex: 1 }}>
+        <Text></Text>
+        <View style={gameStyles.headingContainer}>
+          <Text style={gameStyles.secondaryText}>List of players:</Text>
+        </View>
+        <View style={{ flex: 3 }}>
           <FlatList
             showsVerticalScrollIndicator={false}
-            data={[{ name: "alice" }, { name: "marty" }]}
+            data={[
+              { name: "alice" },
+              { name: "marty" },
+              { name: "micheal" },
+              { name: "rafael" },
+              { name: "alice" },
+              { name: "marty" },
+              { name: "micheal" },
+              { name: "rafael" },
+              { name: "alice" },
+              { name: "marty" },
+              { name: "micheal" },
+              { name: "rafael" },
+            ]}
             renderItem={(itemData) => {
               return (
-                <View style={{ width: "90%" }}>
-                  <Text>{itemData.item.name}</Text>
+                <View
+                  style={{
+                    margin: 8,
+                    borderRadius: 15,
+                    backgroundColor: buttonLightPink,
+                    alignItems: "center",
+                  }}
+                >
+                  <Text style={gameStyles.basicText}>{itemData.item.name}</Text>
                 </View>
               );
             }}
@@ -44,6 +71,7 @@ function RacePlayersListScreen({ navigation }: Props) {
           </TouchableOpacity>
         </View>
       </View>
+      <FrontLlamaCenter />
     </View>
   );
 }
