@@ -7,7 +7,7 @@ type RaceCardProps = {
   index: number;
   isChosen: boolean;
   isDisabled: boolean;
-  onClick: (index: number) => void;
+  onClick: (answer: string, index: number) => void;
 };
 const RaceCard: React.FC<RaceCardProps> = ({
   translation,
@@ -19,7 +19,7 @@ const RaceCard: React.FC<RaceCardProps> = ({
   return (
     <TouchableOpacity
       style={!isChosen ? gameStyles.raceCard : gameStyles.raceCardChosen}
-      onPress={() => !isDisabled && onClick(index)}
+      onPress={() => !isDisabled && onClick(translation, index)}
       disabled={isDisabled}
     >
       <View style={gameStyles.textContainer}>

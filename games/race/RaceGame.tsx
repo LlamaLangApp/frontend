@@ -3,26 +3,29 @@ import { RaceStackParamList } from "./RaceStack";
 import { Text, View } from "react-native";
 import mainStyles from "../../styles/MainStyles";
 import gameStyles from "../../styles/GamesStyles";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import RaceCard from "./RaceCard";
+import { RaceWebSocketContext } from "./RaceWebSocket";
 
 type Props = NativeStackScreenProps<RaceStackParamList, "Game">;
 
-function RaceGameScreen({ navigation }: Props) {
-  const [translations] = useState(["banana", "apple", "pear", "orange"]);
+function RaceGameScreen({ route }: Props) {
+  const { question, answers } = route.params;
+  const { ws, setLastAnswer } = useContext(RaceWebSocketContext);
   const [points] = useState(0);
-  const [round] = useState(1);
+  const [round] = useState(0);
   const [chosenCard, setChosenCard] = useState(-1);
   const [disabled, setDisabled] = useState<boolean>(false);
 
-  const handlePress = (index: number) => {
+  useEffect(() => {
+    setChosenCard(-1);
+    setDisabled(false);
+  });
+  const handlePress = (answer: string, index: number) => {
     setDisabled(true);
     setChosenCard(index);
-    try {
-      navigation.navigate("Answer");
-    } catch (error) {
-      console.error(error);
-    }
+    setLastAnswer(answer);
+    ws.send(JSON.stringify({ type: "response", answer }));
   };
 
   return (
@@ -34,7 +37,7 @@ function RaceGameScreen({ navigation }: Props) {
           </View>
           <Text></Text>
           <View style={gameStyles.headingAndPointsContainer}>
-            <Text style={gameStyles.secondaryText}>Round: {round}/5</Text>
+            <Text style={gameStyles.secondaryText}>Round: {round}</Text>
             <Text style={gameStyles.secondaryText}>{points} pkt</Text>
           </View>
           <Text></Text>
@@ -44,13 +47,13 @@ function RaceGameScreen({ navigation }: Props) {
             </Text>
           </View>
           <View style={gameStyles.headingContainer}>
-            <Text style={gameStyles.headingText}>pomarańcza</Text>
+            <Text style={gameStyles.headingText}>{question}</Text>
           </View>
           <Text> </Text>
         </View>
         <View style={{ flex: 3.5 }}>
           <View style={gameStyles.cardsContainer}>
-            {translations.map((translation, index) => {
+            {answers.map((translation, index) => {
               return (
                 <RaceCard
                   key={index}

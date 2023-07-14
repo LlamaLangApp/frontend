@@ -5,25 +5,38 @@ import RaceGameScreen from "./RaceGame";
 import RaceWaitingRoomScreen from "./RaceWaitingRoom";
 import RacePlayersListScreen from "./RacePlayersList";
 import RaceAnswerScreen from "./RaceAnswer";
+import { RaceWebSocketProvider } from "./RaceWebSocket";
+import { useNavigation } from "@react-navigation/native";
 
 export type RaceStackParamList = {
   Start: undefined;
   WaitingRoom: undefined;
-  PlayersList: undefined;
-  Game: undefined;
-  Answer: undefined;
+  PlayersList: {
+    players: string[];
+  };
+  Game: {
+    question: string;
+    answers: string[];
+  };
+  Answer: {
+    question: string;
+    answer: string;
+    correctAnswer: string;
+  };
 };
 const Stack = createNativeStackNavigator<RaceStackParamList>();
 
 const RaceStack = () => {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name={"Start"} component={RaceStartScreen} />
-      <Stack.Screen name={"WaitingRoom"} component={RaceWaitingRoomScreen} />
-      <Stack.Screen name={"PlayersList"} component={RacePlayersListScreen} />
-      <Stack.Screen name={"Game"} component={RaceGameScreen} />
-      <Stack.Screen name={"Answer"} component={RaceAnswerScreen} />
-    </Stack.Navigator>
+    <RaceWebSocketProvider navigation={useNavigation()}>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name={"Start"} component={RaceStartScreen} />
+        <Stack.Screen name={"WaitingRoom"} component={RaceWaitingRoomScreen} />
+        <Stack.Screen name={"PlayersList"} component={RacePlayersListScreen} />
+        <Stack.Screen name={"Game"} component={RaceGameScreen} />
+        <Stack.Screen name={"Answer"} component={RaceAnswerScreen} />
+      </Stack.Navigator>
+    </RaceWebSocketProvider>
   );
 };
 

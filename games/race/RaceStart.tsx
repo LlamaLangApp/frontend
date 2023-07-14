@@ -1,35 +1,29 @@
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { RaceStackParamList } from "./RaceStack";
 import { Text, TouchableOpacity, View } from "react-native";
 import mainStyles from "../../styles/MainStyles";
 import gameStyles from "../../styles/GamesStyles";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import CustomDropdown from "../../components/CustomDropdown";
 import { callWordSets } from "../../backend";
 import { useAppStore } from "../../state";
 import { WordSet } from "../common/WordSet";
 import Toast from "react-native-toast-message";
 import FrontLlamaCenter from "../../components/FrontLlamaCenter";
+import { RaceWebSocketContext } from "./RaceWebSocket";
 
-type Props = NativeStackScreenProps<RaceStackParamList, "Start">;
-
-function RaceStartScreen({ navigation }: Props) {
+function RaceStartScreen() {
+  const { ws } = useContext(RaceWebSocketContext);
   const [setName, setSetName] = useState<string>("");
   const [setType, setSetType] = useState<string>("");
   const [wordSets, setWordSets] = useState<WordSet[]>([]);
   const token = useAppStore.getState().token;
 
   async function findOtherPlayersHandler() {
-    try {
-      console.log(setName);
-      navigation.navigate("WaitingRoom");
-    } catch (error) {
-      console.error(error);
-    }
+    ws.send(JSON.stringify({ type: "waitroom_request", game: "race" }));
   }
 
   const downloadWordSetsHandler = React.useCallback(async () => {
     if (setType === "Default sets") {
+      console.log(setName);
       const response = await callWordSets(token);
       switch (response.type) {
         case "success":

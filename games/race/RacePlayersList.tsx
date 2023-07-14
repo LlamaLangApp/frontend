@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RaceStackParamList } from "./RaceStack";
-import { FlatList, Text, TouchableOpacity, View } from "react-native";
+import { FlatList, Text, View } from "react-native";
 import mainStyles from "../../styles/MainStyles";
 import gameStyles from "../../styles/GamesStyles";
 import React from "react";
@@ -9,19 +9,15 @@ import FrontLlamaCenter from "../../components/FrontLlamaCenter";
 
 type Props = NativeStackScreenProps<RaceStackParamList, "PlayersList">;
 
-function RacePlayersListScreen({ navigation }: Props) {
-  async function startGameHandler() {
-    try {
-      navigation.navigate("Game");
-    } catch (error) {
-      console.error(error);
-    }
-  }
+function RacePlayersListScreen({ route }: Props) {
+  const { players } = route.params;
 
   return (
     <View style={mainStyles.container}>
       <View style={gameStyles.contentContainer}>
-        <Text></Text>
+        <Text style={gameStyles.basicText}>
+          . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+        </Text>
         <View style={gameStyles.headingContainer}>
           <Text style={gameStyles.headingText}>Race</Text>
         </View>
@@ -32,20 +28,7 @@ function RacePlayersListScreen({ navigation }: Props) {
         <View style={{ flex: 3 }}>
           <FlatList
             showsVerticalScrollIndicator={false}
-            data={[
-              { name: "alice" },
-              { name: "marty" },
-              { name: "micheal" },
-              { name: "rafael" },
-              { name: "alice" },
-              { name: "marty" },
-              { name: "micheal" },
-              { name: "rafael" },
-              { name: "alice" },
-              { name: "marty" },
-              { name: "micheal" },
-              { name: "rafael" },
-            ]}
+            data={players}
             renderItem={(itemData) => {
               return (
                 <View
@@ -56,19 +39,11 @@ function RacePlayersListScreen({ navigation }: Props) {
                     alignItems: "center",
                   }}
                 >
-                  <Text style={gameStyles.basicText}>{itemData.item.name}</Text>
+                  <Text style={gameStyles.basicText}>{itemData.item}</Text>
                 </View>
               );
             }}
           />
-        </View>
-        <View style={{ flexDirection: "row" }}>
-          <TouchableOpacity
-            style={gameStyles.startButton}
-            onPress={startGameHandler}
-          >
-            <Text style={gameStyles.buttonText}>Play</Text>
-          </TouchableOpacity>
         </View>
       </View>
       <FrontLlamaCenter />

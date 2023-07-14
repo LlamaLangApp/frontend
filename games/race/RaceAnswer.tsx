@@ -1,18 +1,16 @@
-// import { NativeStackScreenProps } from "@react-navigation/native-stack";
-// import { RaceStackParamList } from "./RaceStack";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { RaceStackParamList } from "./RaceStack";
 import { Text, View } from "react-native";
 import mainStyles from "../../styles/MainStyles";
 import gameStyles from "../../styles/GamesStyles";
 import React, { useState } from "react";
 
-// type Props = NativeStackScreenProps<RaceStackParamList, "Game">;
+type Props = NativeStackScreenProps<RaceStackParamList, "Answer">;
 
-function RaceAnswerScreen() {
+function RaceAnswerScreen({ route }: Props) {
+  const { answer, question, correctAnswer } = route.params;
   const [points] = useState(0);
   const [round] = useState(1);
-  const [word] = useState("pomarańcza");
-  const [correctAnswer] = useState("orange");
-  const [answer] = useState("orange");
 
   return (
     <View style={mainStyles.container}>
@@ -27,7 +25,7 @@ function RaceAnswerScreen() {
           </View>
           <Text></Text>
           <View style={gameStyles.textWithMarginContainer}>
-            <Text style={gameStyles.headingText}>{word}</Text>
+            <Text style={gameStyles.headingText}>{question}</Text>
           </View>
           <View style={gameStyles.textWithMarginContainer}>
             <Text style={gameStyles.basicText}>
