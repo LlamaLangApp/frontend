@@ -28,6 +28,10 @@ interface RaceWebSocketContextType {
   setChosenCard: Dispatch<SetStateAction<number>>;
 }
 
+export function shuffleCards<Card>(list: Card[]): Card[] {
+  return list.sort(() => Math.random() - 0.5);
+}
+
 const RaceWebSocketContext = createContext<RaceWebSocketContextType>({
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
@@ -93,7 +97,7 @@ const RaceWebSocketProvider = ({
           setRound((prevRound) => prevRound + 1);
           navigation.navigate("Game", {
             question: message.question,
-            answers: message.answers,
+            answers: shuffleCards(message.answers),
           });
         }, 1500);
       } else if (
@@ -113,6 +117,10 @@ const RaceWebSocketProvider = ({
         message.type === "result"
       ) {
         console.log("Got points: " + message.points);
+        navigation.navigate("EndGame", {
+          points: message.points,
+          isWinner: true,
+        });
         ws.close();
       } else {
         console.error("Error: " + socketGameState + " " + event.data);

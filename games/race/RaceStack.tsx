@@ -7,6 +7,7 @@ import RacePlayersListScreen from "./RacePlayersList";
 import RaceAnswerScreen from "./RaceAnswer";
 import { RaceWebSocketProvider } from "./RaceWebSocket";
 import { useNavigation } from "@react-navigation/native";
+import RaceEndGameScreen from "./RaceEndGame";
 
 export type RaceStackParamList = {
   Start: undefined;
@@ -23,6 +24,10 @@ export type RaceStackParamList = {
     answer: string;
     correctAnswer: string;
   };
+  EndGame: {
+    points: number;
+    isWinner: boolean;
+  };
 };
 const Stack = createNativeStackNavigator<RaceStackParamList>();
 
@@ -35,6 +40,7 @@ const RaceStack = () => {
         <Stack.Screen name={"PlayersList"} component={RacePlayersListScreen} />
         <Stack.Screen name={"Game"} component={RaceGameScreen} />
         <Stack.Screen name={"Answer"} component={RaceAnswerScreen} />
+        <Stack.Screen name={"EndGame"} component={RaceEndGameScreen} />
       </Stack.Navigator>
     </RaceWebSocketProvider>
   );
