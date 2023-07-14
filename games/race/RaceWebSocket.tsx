@@ -22,6 +22,8 @@ export const SocketGameStates = {
 interface RaceWebSocketContextType {
   ws: WebSocket;
   setLastAnswer: Dispatch<SetStateAction<string>>;
+  points: number;
+  round: number;
 }
 
 const RaceWebSocketContext = createContext<RaceWebSocketContextType>({
@@ -30,6 +32,8 @@ const RaceWebSocketContext = createContext<RaceWebSocketContextType>({
   ws: undefined,
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   setLastAnswer: () => {},
+  points: 0,
+  round: 1,
 });
 
 interface RaceWebSocketProviderProps {
@@ -48,6 +52,9 @@ const RaceWebSocketProvider = ({
   );
   const [lastAnswer, setLastAnswer] = useState("");
   const [lastQuestion, setLastQuestion] = useState("");
+
+  const [points, setPoints] = useState(0);
+  const [round, setRound] = useState(0);
 
   const [ws] = useState<WebSocket>(
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -77,6 +84,7 @@ const RaceWebSocketProvider = ({
         setSocketGameState(SocketGameStates.roundStarted);
         setLastQuestion(message.question);
         setTimeout(() => {
+          setRound((prevRound) => prevRound + 1);
           navigation.navigate("Game", {
             question: message.question,
             answers: message.answers,
@@ -87,6 +95,7 @@ const RaceWebSocketProvider = ({
         message.type === "result"
       ) {
         setSocketGameState(SocketGameStates.beforeRound);
+        setPoints((prevPoints) => prevPoints + message.points);
         navigation.navigate("Answer", {
           answer: lastAnswer,
           question: lastQuestion,
@@ -105,7 +114,7 @@ const RaceWebSocketProvider = ({
   });
 
   return (
-    <RaceWebSocketContext.Provider value={{ ws, setLastAnswer }}>
+    <RaceWebSocketContext.Provider value={{ ws, setLastAnswer, points, round }}>
       {children}
     </RaceWebSocketContext.Provider>
   );

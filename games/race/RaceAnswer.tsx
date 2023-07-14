@@ -3,14 +3,14 @@ import { RaceStackParamList } from "./RaceStack";
 import { Text, View } from "react-native";
 import mainStyles from "../../styles/MainStyles";
 import gameStyles from "../../styles/GamesStyles";
-import React, { useState } from "react";
+import React, { useContext } from "react";
+import { RaceWebSocketContext } from "./RaceWebSocket";
 
 type Props = NativeStackScreenProps<RaceStackParamList, "Answer">;
 
 function RaceAnswerScreen({ route }: Props) {
+  const { points, round } = useContext(RaceWebSocketContext);
   const { answer, question, correctAnswer } = route.params;
-  const [points] = useState(0);
-  const [round] = useState(1);
 
   return (
     <View style={mainStyles.container}>
@@ -20,7 +20,7 @@ function RaceAnswerScreen({ route }: Props) {
             <Text style={gameStyles.headingText}>Race</Text>
           </View>
           <View style={gameStyles.headingAndPointsContainer}>
-            <Text style={gameStyles.secondaryText}>{round}/5</Text>
+            <Text style={gameStyles.secondaryText}>Round: {round}</Text>
             <Text style={gameStyles.secondaryText}>{points}pkt</Text>
           </View>
           <Text></Text>

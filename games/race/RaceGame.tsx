@@ -11,9 +11,7 @@ type Props = NativeStackScreenProps<RaceStackParamList, "Game">;
 
 function RaceGameScreen({ route }: Props) {
   const { question, answers } = route.params;
-  const { ws, setLastAnswer } = useContext(RaceWebSocketContext);
-  const [points] = useState(0);
-  const [round] = useState(0);
+  const { ws, setLastAnswer, points, round } = useContext(RaceWebSocketContext);
   const [chosenCard, setChosenCard] = useState(-1);
   const [disabled, setDisabled] = useState<boolean>(false);
 
