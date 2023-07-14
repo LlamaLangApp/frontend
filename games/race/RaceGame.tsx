@@ -3,7 +3,7 @@ import { RaceStackParamList } from "./RaceStack";
 import { Text, View } from "react-native";
 import mainStyles from "../../styles/MainStyles";
 import gameStyles from "../../styles/GamesStyles";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import RaceCard from "./RaceCard";
 import { RaceWebSocketContext } from "./RaceWebSocket";
 
@@ -11,16 +11,10 @@ type Props = NativeStackScreenProps<RaceStackParamList, "Game">;
 
 function RaceGameScreen({ route }: Props) {
   const { question, answers } = route.params;
-  const { ws, setLastAnswer, points, round } = useContext(RaceWebSocketContext);
-  const [chosenCard, setChosenCard] = useState(-1);
-  const [disabled, setDisabled] = useState<boolean>(false);
+  const { ws, setLastAnswer, points, round, chosenCard, setChosenCard } =
+    useContext(RaceWebSocketContext);
 
-  useEffect(() => {
-    setChosenCard(-1);
-    setDisabled(false);
-  });
   const handlePress = (answer: string, index: number) => {
-    setDisabled(true);
     setChosenCard(index);
     setLastAnswer(answer);
     ws.send(JSON.stringify({ type: "response", answer }));
@@ -58,7 +52,7 @@ function RaceGameScreen({ route }: Props) {
                   translation={translation}
                   index={index}
                   isChosen={chosenCard == index}
-                  isDisabled={disabled}
+                  isDisabled={chosenCard != -1}
                   onClick={handlePress}
                 />
               );

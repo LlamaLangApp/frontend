@@ -24,6 +24,8 @@ interface RaceWebSocketContextType {
   setLastAnswer: Dispatch<SetStateAction<string>>;
   points: number;
   round: number;
+  chosenCard: number;
+  setChosenCard: Dispatch<SetStateAction<number>>;
 }
 
 const RaceWebSocketContext = createContext<RaceWebSocketContextType>({
@@ -34,6 +36,9 @@ const RaceWebSocketContext = createContext<RaceWebSocketContextType>({
   setLastAnswer: () => {},
   points: 0,
   round: 1,
+  chosenCard: -1,
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  setChosenCard: () => {},
 });
 
 interface RaceWebSocketProviderProps {
@@ -55,6 +60,7 @@ const RaceWebSocketProvider = ({
 
   const [points, setPoints] = useState(0);
   const [round, setRound] = useState(0);
+  const [chosenCard, setChosenCard] = useState(-1);
 
   const [ws] = useState<WebSocket>(
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -101,6 +107,7 @@ const RaceWebSocketProvider = ({
           question: lastQuestion,
           correctAnswer: message.correct,
         });
+        setChosenCard(-1);
       } else if (
         socketGameState === SocketGameStates.beforeRound &&
         message.type === "result"
@@ -114,7 +121,9 @@ const RaceWebSocketProvider = ({
   });
 
   return (
-    <RaceWebSocketContext.Provider value={{ ws, setLastAnswer, points, round }}>
+    <RaceWebSocketContext.Provider
+      value={{ ws, setLastAnswer, points, round, chosenCard, setChosenCard }}
+    >
       {children}
     </RaceWebSocketContext.Provider>
   );
