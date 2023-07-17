@@ -1,46 +1,29 @@
 import { Text, TouchableOpacity, View } from "react-native";
 import mainStyles from "../../styles/MainStyles";
 import gameStyles from "../../styles/GamesStyles";
-import React, { useState } from "react";
-import FrontLlamaCenter from "../../components/FrontLlamaCenter";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { MemoryStackParamList } from "./MemoryStack";
-import Toast from "react-native-toast-message";
-import { callTranslations, callWordSets } from "../../backend";
-import { useAppStore } from "../../state";
-import { makeCards } from "./MemoryCard";
+import React, { useState, useContext } from "react";
 import CustomDropdown from "../../components/CustomDropdown";
+import { callWordSets } from "../../backend";
+import { useAppStore } from "../../state";
 import { WordSet } from "../common/WordSet";
+import Toast from "react-native-toast-message";
+import FrontLlamaCenter from "../../components/FrontLlamaCenter";
+import { RaceWebSocketContext } from "./RaceWebSocket";
 
-type Props = NativeStackScreenProps<MemoryStackParamList, "Start">;
-
-function MemoryStartScreen({ navigation }: Props) {
+function RaceStartScreen() {
+  const { ws } = useContext(RaceWebSocketContext);
   const [setName, setSetName] = useState<string>("");
   const [setType, setSetType] = useState<string>("");
   const [wordSets, setWordSets] = useState<WordSet[]>([]);
   const token = useAppStore.getState().token;
 
-  async function startGameHandler() {
-    try {
-      const setId = wordSets.find((wordSet) => wordSet.polish === setName)?.id;
-      const response = await callTranslations(token, setId, 6);
-      switch (response.type) {
-        case "success":
-          navigation.navigate("Game", {
-            setName: setName,
-            wordsSet: makeCards(response.translations),
-          });
-          break;
-        case "error":
-          break;
-      }
-    } catch (error) {
-      console.error(error);
-    }
+  async function findOtherPlayersHandler() {
+    ws.send(JSON.stringify({ type: "waitroom_request", game: "race" }));
   }
 
   const downloadWordSetsHandler = React.useCallback(async () => {
     if (setType === "Default sets") {
+      console.log(setName);
       const response = await callWordSets(token);
       switch (response.type) {
         case "success":
@@ -59,7 +42,7 @@ function MemoryStartScreen({ navigation }: Props) {
     <View style={mainStyles.container}>
       <View style={gameStyles.contentContainer}>
         <View style={gameStyles.headingContainer}>
-          <Text style={gameStyles.headingText}>Memory</Text>
+          <Text style={gameStyles.headingText}>Race</Text>
         </View>
         <View style={gameStyles.headingContainer}>
           <Text style={gameStyles.secondaryText}>Pick set of words:</Text>
@@ -89,7 +72,7 @@ function MemoryStartScreen({ navigation }: Props) {
         <View style={{ flexDirection: "row" }}>
           <TouchableOpacity
             style={gameStyles.startButton}
-            onPress={startGameHandler}
+            onPress={findOtherPlayersHandler}
           >
             <Text style={gameStyles.buttonText}>Play</Text>
           </TouchableOpacity>
@@ -101,4 +84,4 @@ function MemoryStartScreen({ navigation }: Props) {
   );
 }
 
-export default MemoryStartScreen;
+export default RaceStartScreen;

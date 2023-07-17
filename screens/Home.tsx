@@ -29,12 +29,12 @@ function HomeScreen({ navigation }: Props) {
 
   const games: GameItem[] = [
     { id: "1", name: "memory", type: "singlePlayer", screenName: "Memory" },
-    { id: "2", name: "kahoot", type: "multiplayer", screenName: "Memory" },
-    { id: "3", name: "gra2", type: "singlePlayer", screenName: "Memory" },
-    { id: "4", name: "gra3", type: "singlePlayer", screenName: "Memory" },
-    { id: "5", name: "gra4", type: "singlePlayer", screenName: "Memory" },
-    { id: "6", name: "gra5", type: "singlePlayer", screenName: "Memory" },
-    { id: "7", name: "gra6", type: "singlePlayer", screenName: "Memory" },
+    { id: "2", name: "race", type: "multiplayer", screenName: "Race" },
+    { id: "3", name: "memory", type: "singlePlayer", screenName: "Memory" },
+    { id: "4", name: "memory", type: "singlePlayer", screenName: "Memory" },
+    { id: "5", name: "memory", type: "singlePlayer", screenName: "Memory" },
+    { id: "6", name: "memory", type: "singlePlayer", screenName: "Memory" },
+    { id: "7", name: "memory", type: "singlePlayer", screenName: "Memory" },
   ];
 
   return (

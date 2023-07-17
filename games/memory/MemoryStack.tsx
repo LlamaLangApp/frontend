@@ -21,11 +21,7 @@ const Stack = createNativeStackNavigator<MemoryStackParamList>();
 
 const MemoryStack = () => {
   return (
-    <Stack.Navigator
-      screenOptions={{
-        headerShown: false,
-      }}
-    >
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name={"Start"} component={MemoryStartScreen} />
       <Stack.Screen name={"Game"} component={MemoryGameScreen} />
       <Stack.Screen name={"Results"} component={MemoryResultsScreen} />

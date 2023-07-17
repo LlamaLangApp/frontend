@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { buttonLightPink, lightGrey } from "../Consts";
+import { buttonLightPink, lightGrey, pink } from "../Consts";
 
 const gameStyles = StyleSheet.create({
   appContainer: {
@@ -9,6 +9,12 @@ const gameStyles = StyleSheet.create({
     flex: 5.2,
     justifyContent: "flex-end",
     margin: "10%",
+  },
+  contentAnswerContainer: {
+    flex: 5.2,
+    justifyContent: "flex-end",
+    marginHorizontal: "10%",
+    marginTop: "10%",
   },
   cardsContainer: {
     marginHorizontal: "auto",
@@ -21,6 +27,35 @@ const gameStyles = StyleSheet.create({
     height: "23%",
     margin: "1%",
     backgroundColor: lightGrey,
+    borderRadius: 15,
+    borderWidth: 1,
+    borderColor: buttonLightPink,
+  },
+  raceCard: {
+    width: "47%",
+    height: "47%",
+    margin: "1%",
+    backgroundColor: lightGrey,
+    borderRadius: 15,
+    borderWidth: 1,
+    borderColor: buttonLightPink,
+  },
+  pickedRaceCard: {
+    width: "70%",
+    height: "55%",
+    // margin: "20%",
+    marginHorizontal: "15%",
+    marginVertical: "20%",
+    backgroundColor: lightGrey,
+    borderRadius: 15,
+    borderWidth: 1,
+    borderColor: buttonLightPink,
+  },
+  raceCardChosen: {
+    width: "47%",
+    height: "47%",
+    margin: "1%",
+    backgroundColor: pink,
     borderRadius: 15,
     borderWidth: 1,
     borderColor: buttonLightPink,
@@ -54,6 +89,10 @@ const gameStyles = StyleSheet.create({
   },
   headingContainer: {
     // flex: 0.5,
+  },
+  textWithMarginContainer: {
+    // flex: 0.5,
+    marginBottom: "5%",
   },
   headingAndPointsContainer: {
     flexDirection: "row",
