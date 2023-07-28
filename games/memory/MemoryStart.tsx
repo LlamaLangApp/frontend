@@ -10,7 +10,7 @@ import { callTranslations, callWordSets } from "../../backend";
 import { useAppStore } from "../../state";
 import { makeCards } from "./MemoryCard";
 import CustomDropdown from "../../components/CustomDropdown";
-import { WordSet } from "../common/WordSet";
+import { WordSet } from "../GamesTypes";
 
 type Props = NativeStackScreenProps<MemoryStackParamList, "Start">;
 

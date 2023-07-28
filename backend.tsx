@@ -1,6 +1,5 @@
 import Constants from "expo-constants";
-import { WordSet } from "./games/common/WordSet";
-import { Translation } from "./games/common/Translation";
+import { WordSet, Translation } from "./games/GamesTypes";
 
 const { manifest } = Constants;
 export const serverURL = manifest?.debuggerHost

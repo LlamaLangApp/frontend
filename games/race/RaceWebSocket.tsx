@@ -13,7 +13,7 @@ import { NavigationProp } from "@react-navigation/native";
 
 export const SocketGameStates = {
   justConnected: 0,
-  inWaitroom: 1,
+  inWaitRoom: 1,
   beforeRound: 2,
   roundStarted: 3,
   gameEnded: 4,
@@ -45,10 +45,10 @@ const RaceWebSocketContext = createContext<RaceWebSocketContextType>({
   setChosenCard: () => {},
 });
 
-interface RaceWebSocketProviderProps {
+type RaceWebSocketProviderProps = {
   children: ReactNode;
   navigation: NavigationProp<RaceStackParamList>;
-}
+};
 
 const RaceWebSocketProvider = ({
   children,
@@ -79,10 +79,10 @@ const RaceWebSocketProvider = ({
         socketGameState === SocketGameStates.justConnected &&
         message.type === "joined_waitroom"
       ) {
-        setSocketGameState(SocketGameStates.inWaitroom);
+        setSocketGameState(SocketGameStates.inWaitRoom);
         navigation.navigate("WaitingRoom");
       } else if (
-        socketGameState === SocketGameStates.inWaitroom &&
+        socketGameState === SocketGameStates.inWaitRoom &&
         message.type === "game_starting"
       ) {
         setSocketGameState(SocketGameStates.beforeRound);

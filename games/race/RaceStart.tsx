@@ -5,7 +5,7 @@ import React, { useState, useContext } from "react";
 import CustomDropdown from "../../components/CustomDropdown";
 import { callWordSets } from "../../backend";
 import { useAppStore } from "../../state";
-import { WordSet } from "../common/WordSet";
+import { WordSet } from "../GamesTypes";
 import Toast from "react-native-toast-message";
 import FrontLlamaCenter from "../../components/FrontLlamaCenter";
 import { RaceWebSocketContext } from "./RaceWebSocket";

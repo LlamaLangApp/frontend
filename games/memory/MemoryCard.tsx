@@ -1,7 +1,7 @@
 import gameStyles from "../../styles/GamesStyles";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
-import { Translation } from "../common/Translation";
+import { Translation } from "../GamesTypes";
 
 export function makeCards(translations: Translation[]): Card[] {
   return translations.flatMap((translation) => [
