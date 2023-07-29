@@ -1,14 +1,14 @@
 import { Text, TouchableOpacity, View } from "react-native";
-import mainStyles from "../styles/MainStyles";
-import mainGamesStyles from "../styles/games/MainGamesStyles";
-import CustomDropdown from "../components/CustomDropdown";
-import FrontLlamaCenter from "../components/FrontLlamaCenter";
+import mainStyles from "../../styles/MainStyles";
+import mainGamesStyles from "../../styles/games/MainGamesStyles";
+import CustomDropdown from "../../components/CustomDropdown";
+import FrontLlamaCenter from "../../components/FrontLlamaCenter";
 import { useEffect, useState } from "react";
-import { callWordSets } from "../backend";
-import { useAppStore } from "../state";
-import { WordSet } from "./GamesTypes";
-import buttonGamesStyles from "../styles/games/ButtonGamesStyles";
-import textGamesStyles from "../styles/games/TextGamesStyles";
+import { callWordSets } from "../../backend";
+import { useAppStore } from "../../state";
+import { WordSet } from "../GamesTypes";
+import buttonGamesStyles from "../../styles/games/ButtonGamesStyles";
+import textGamesStyles from "../../styles/games/TextGamesStyles";
 
 type SinglePlayerStartProps = {
   gameName: string;

@@ -1,14 +1,13 @@
 import { Text, TouchableOpacity, View } from "react-native";
-import mainStyles from "../styles/MainStyles";
-import mainGamesStyles from "../styles/games/MainGamesStyles";
-import FrontLlamaCenter from "../components/FrontLlamaCenter";
-import Toast from "react-native-toast-message";
-import buttonGamesStyles from "../styles/games/ButtonGamesStyles";
-import textGamesStyles from "../styles/games/TextGamesStyles";
+import mainStyles from "../../styles/MainStyles";
+import mainGamesStyles from "../../styles/games/MainGamesStyles";
+import FrontLlamaCenter from "../../components/FrontLlamaCenter";
+import buttonGamesStyles from "../../styles/games/ButtonGamesStyles";
+import textGamesStyles from "../../styles/games/TextGamesStyles";
 
 type SinglePlayerResultsProps = {
   gameName: string;
-  points: string;
+  points: number;
   hasWon: boolean;
   setName: string;
   exitGameHandler: () => void;
