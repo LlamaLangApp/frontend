@@ -1,6 +1,6 @@
 import { Text, TouchableOpacity, View } from "react-native";
 import mainStyles from "../../styles/MainStyles";
-import gameStyles from "../../styles/GamesStyles";
+import mainGamesStyles from "../../styles/games/MainGamesStyles";
 import React from "react";
 import FrontLlamaCenter from "../../components/FrontLlamaCenter";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
@@ -8,6 +8,8 @@ import Toast from "react-native-toast-message";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { MainStackParamList } from "../../App";
 import { RaceStackParamList } from "./RaceStack";
+import buttonGamesStyles from "../../styles/games/ButtonGamesStyles";
+import textGamesStyles from "../../styles/games/TextGamesStyles";
 
 type Props = NativeStackScreenProps<RaceStackParamList, "EndGame">;
 type MainStack = NavigationProp<MainStackParamList, "Home">;
@@ -26,33 +28,35 @@ function RaceEndGameScreen({ route }: Props) {
 
   return (
     <View style={mainStyles.container}>
-      <View style={gameStyles.contentContainer}>
-        <View style={gameStyles.headingContainer}>
-          <Text style={gameStyles.basicText}>
+      <View style={mainGamesStyles.contentContainer}>
+        <View style={textGamesStyles.textWithMarginContainer}>
+          <Text style={textGamesStyles.basicText}>
             . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
           </Text>
-          <Text style={gameStyles.headingText}>Race</Text>
+          <Text style={textGamesStyles.headingText}>Race</Text>
         </View>
-        <Text> </Text>
-        <View style={gameStyles.textWithMarginContainer}>
-          <Text style={gameStyles.basicText}>You have earned:</Text>
+        <View style={textGamesStyles.textWithMarginContainer}>
+          <Text style={textGamesStyles.basicText}>You have earned:</Text>
         </View>
-        <View style={gameStyles.textWithMarginContainer}>
-          <Text style={gameStyles.secondaryText}>{points} pkt</Text>
+        <View style={textGamesStyles.textWithMarginContainer}>
+          <Text style={textGamesStyles.secondaryText}>{points} pkt</Text>
         </View>
-        <View style={gameStyles.textWithMarginContainer}>
-          <Text style={gameStyles.headingText}>
+        <View style={textGamesStyles.textWithMarginContainer}>
+          <Text style={textGamesStyles.headingText}>
             {isWinner ? "Yay! You win" : "Unfortunately, you lost"}
           </Text>
         </View>
-        <View style={gameStyles.textWithMarginContainer}>
-          <Text style={gameStyles.secondaryText}></Text>
+        <View style={textGamesStyles.textWithMarginContainer}>
+          <Text style={textGamesStyles.secondaryText}></Text>
         </View>
         <Text> </Text>
         <Text> </Text>
         <View style={{ alignItems: "center" }}>
-          <TouchableOpacity style={gameStyles.button} onPress={exitGameHandler}>
-            <Text style={gameStyles.buttonText}>Exit game</Text>
+          <TouchableOpacity
+            style={buttonGamesStyles.button}
+            onPress={exitGameHandler}
+          >
+            <Text style={buttonGamesStyles.buttonText}>Exit game</Text>
           </TouchableOpacity>
         </View>
       </View>

@@ -1,12 +1,13 @@
 import { Dimensions, Text, View } from "react-native";
 import mainStyles from "../../styles/MainStyles";
-import gameStyles from "../../styles/GamesStyles";
+import mainGamesStyles from "../../styles/games/MainGamesStyles";
 import React, { useEffect, useState } from "react";
 import { Bar as ProgressBar } from "react-native-progress";
 import { buttonDarkPink, buttonLightPink } from "../../Consts";
 import MemoryCard, { Card, shuffleCards } from "./MemoryCard";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { MemoryStackParamList } from "./MemoryStack";
+import textGamesStyles from "../../styles/games/TextGamesStyles";
 
 type Props = NativeStackScreenProps<MemoryStackParamList, "Game">;
 
@@ -98,21 +99,20 @@ function MemoryGameScreen({ route, navigation }: Props) {
 
   return (
     <View style={mainStyles.container}>
-      <View style={gameStyles.contentContainer}>
+      <View style={mainGamesStyles.contentContainer}>
         <View style={{ flex: 1.3, marginTop: 30 }}>
-          <View style={gameStyles.headingAndPointsContainer}>
-            <Text style={gameStyles.headingText}>Memory</Text>
-            <Text style={gameStyles.secondaryText}>{points} pkt</Text>
+          <View style={textGamesStyles.headingAndPointsContainer}>
+            <Text style={textGamesStyles.headingText}>Memory</Text>
+            <Text style={textGamesStyles.secondaryText}>{points} pkt</Text>
           </View>
-          <View style={gameStyles.headingContainer}>
-            <Text style={gameStyles.basicText}>
+          <View style={textGamesStyles.textWithMarginContainer}>
+            <Text style={textGamesStyles.basicText}>
               Match the words with their translations
             </Text>
           </View>
-          <Text> </Text>
-          <View style={gameStyles.headingAndPointsContainer}>
-            <Text style={gameStyles.basicText}>Attempts left:</Text>
-            <Text style={gameStyles.secondaryText}>{attempt}/15</Text>
+          <View style={textGamesStyles.headingAndPointsContainer}>
+            <Text style={textGamesStyles.basicText}>Attempts left:</Text>
+            <Text style={textGamesStyles.secondaryText}>{attempt}/15</Text>
           </View>
           <ProgressBar
             progress={progress / 6}
@@ -127,7 +127,7 @@ function MemoryGameScreen({ route, navigation }: Props) {
           />
         </View>
         <View style={{ flex: 3.7 }}>
-          <View style={gameStyles.cardsContainer}>
+          <View style={mainGamesStyles.cardsContainer}>
             {cards.map((card, index) => {
               return (
                 <MemoryCard
@@ -143,13 +143,13 @@ function MemoryGameScreen({ route, navigation }: Props) {
             })}
           </View>
         </View>
-        <View style={gameStyles.popupContainer}>
+        <View style={mainGamesStyles.popupContainer}>
           {correctPick ? (
-            <View style={gameStyles.popup}>
+            <View style={mainGamesStyles.popup}>
               <Text>+10pkt</Text>
             </View>
           ) : wrongPick ? (
-            <View style={gameStyles.popup}>
+            <View style={mainGamesStyles.popup}>
               <Text>Wrong</Text>
             </View>
           ) : (
