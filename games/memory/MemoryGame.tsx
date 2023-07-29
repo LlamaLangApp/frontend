@@ -80,12 +80,8 @@ function MemoryGameScreen({ route, navigation }: Props) {
     }
   }, [wrongPick]);
 
-  async function endGameHandler() {
-    try {
-      navigation.navigate("Results", { points, setName });
-    } catch (error) {
-      console.error(error);
-    }
+  function endGameHandler() {
+    navigation.navigate("Results", { points, setName });
   }
 
   useEffect(() => {

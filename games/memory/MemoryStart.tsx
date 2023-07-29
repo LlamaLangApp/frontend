@@ -1,7 +1,7 @@
 import { Text, TouchableOpacity, View } from "react-native";
 import mainStyles from "../../styles/MainStyles";
 import gameStyles from "../../styles/GamesStyles";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FrontLlamaCenter from "../../components/FrontLlamaCenter";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { MemoryStackParamList } from "./MemoryStack";
@@ -20,40 +20,34 @@ function MemoryStartScreen({ navigation }: Props) {
   const [wordSets, setWordSets] = useState<WordSet[]>([]);
   const token = useAppStore.getState().token;
 
-  async function startGameHandler() {
-    try {
-      const setId = wordSets.find((wordSet) => wordSet.polish === setName)?.id;
-      const response = await callTranslations(token, setId, 6);
-      switch (response.type) {
-        case "success":
-          navigation.navigate("Game", {
-            setName: setName,
-            wordsSet: makeCards(response.translations),
-          });
-          break;
-        case "error":
-          break;
+  // const [isSetTypeDisabled, setIsSetTypeDisabled] = useState<string>("");
+  // const [isPlayButtonDisabled, setIsPlayButtonDisabled] = useState<string>("");
+
+  function startGameHandler() {
+    const setId = wordSets.find((wordSet) => wordSet.polish === setName)?.id;
+    callTranslations(token, setId, 6).then((response) => {
+      if (response.type === "success") {
+        navigation.navigate("Game", {
+          setName: setName,
+          wordsSet: makeCards(response.translations),
+        });
       }
-    } catch (error) {
-      console.error(error);
-    }
+    });
   }
 
-  const downloadWordSetsHandler = React.useCallback(async () => {
+  useEffect(() => {
     if (setType === "Default sets") {
-      const response = await callWordSets(token);
-      switch (response.type) {
-        case "success":
+      callWordSets(token).then((response) => {
+        if (response.type === "success") {
           setWordSets(response.wordSets);
-          break;
-        case "error":
+        } else {
           setWordSets([]);
-          break;
-      }
+        }
+      });
     } else {
       setWordSets([]);
     }
-  }, [setWordSets, setType]);
+  }, [setType]);
 
   return (
     <View style={mainStyles.container}>
@@ -71,10 +65,7 @@ function MemoryStartScreen({ navigation }: Props) {
         <CustomDropdown
           defaultSelectText={"type"}
           selectData={["Default sets", "Custom sets (coming soon...)"]}
-          onSelectFunc={async (selectedItem) => {
-            setSetType(selectedItem);
-            await downloadWordSetsHandler();
-          }}
+          onSelectFunc={setSetType}
         />
         <Text> </Text>
         <View style={gameStyles.headingContainer}>
