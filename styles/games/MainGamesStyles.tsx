@@ -30,6 +30,9 @@ const mainGamesStyles = StyleSheet.create({
     borderRadius: 15,
     borderWidth: 1,
     borderColor: buttonLightPink,
+    // shadowColor: "#2d2d2e",
+    // shadowOffset: { width: 0.5, height: 1 },
+    // shadowRadius: 2,
   },
   raceCard: {
     width: "47%",
@@ -65,28 +68,6 @@ const mainGamesStyles = StyleSheet.create({
     height: "100%",
     justifyContent: "flex-end",
     alignItems: "center",
-  },
-  popupContainer: {
-    flex: 0.2,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  popup: {
-    width: "45%",
-    height: "100%",
-    backgroundColor: lightGrey,
-    borderRadius: 15,
-    borderWidth: 1,
-    borderColor: buttonLightPink,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  progressBar: {
-    // width: "100%",
-    backgroundColor: "#ffffff",
-    borderRadius: 15,
-    borderWidth: 1,
-    borderColor: buttonLightPink,
   },
 });
 

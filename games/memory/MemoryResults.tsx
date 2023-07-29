@@ -14,9 +14,9 @@ function MemoryResultsScreen({ route, navigation }: Props) {
 
   return (
     <SinglePlayerResultsScreen
-      gameName={"Race"}
+      gameName={"Memory"}
       points={points}
-      hasWon={true}
+      hasWon={points >= 60}
       setName={setName}
       exitGameHandler={() => {
         parentNavigation.navigate("Home");
