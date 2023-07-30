@@ -1,7 +1,8 @@
-import gameStyles from "../../styles/GamesStyles";
+import mainGamesStyles from "../../styles/games/MainGamesStyles";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
-import { Translation } from "../common/Translation";
+import { Translation } from "../GamesTypes";
+import textGamesStyles from "../../styles/games/TextGamesStyles";
 
 export function makeCards(translations: Translation[]): Card[] {
   return translations.flatMap((translation) => [
@@ -24,7 +25,7 @@ type MemoryCardProps = {
   index: number;
   isFlipped: boolean;
   isDisabled: boolean;
-  isDisabledBack: boolean;
+  isAllDisabled: boolean;
   onClick: (index: number) => void;
 };
 const MemoryCard: React.FC<MemoryCardProps> = ({
@@ -32,24 +33,24 @@ const MemoryCard: React.FC<MemoryCardProps> = ({
   index,
   isFlipped,
   isDisabled,
-  isDisabledBack,
+  isAllDisabled,
   onClick,
 }) => {
   return (
     <TouchableOpacity
-      style={gameStyles.card}
+      style={mainGamesStyles.card}
       onPress={() => !isFlipped && !isDisabled && onClick(index)}
-      disabled={isDisabledBack || isFlipped || isDisabled}
+      disabled={isAllDisabled || isFlipped || isDisabled}
     >
       {!isFlipped && !isDisabled ? (
-        <View style={gameStyles.llamaContainer}>
+        <View style={mainGamesStyles.llamaContainer}>
           <Image
             source={require("../../assets/llama_without_background.png")}
             style={{ width: "90%", height: "90%" }}
           />
         </View>
       ) : (
-        <View style={gameStyles.textContainer}>
+        <View style={textGamesStyles.textContainer}>
           <Text>{card.word}</Text>
         </View>
       )}

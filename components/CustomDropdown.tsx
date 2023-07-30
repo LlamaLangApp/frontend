@@ -1,6 +1,6 @@
-import gameStyles from "../styles/GamesStyles";
 import { FontAwesome } from "@expo/vector-icons";
 import SelectDropdown from "react-native-select-dropdown";
+import dropdownStyles from "../styles/DropdownStyles";
 
 interface CustomDropdownProps {
   defaultSelectText: string;
@@ -21,8 +21,8 @@ const CustomDropdown = (props: CustomDropdownProps) => {
       rowTextForSelection={(item) => {
         return item;
       }}
-      buttonStyle={gameStyles.dropdownButton}
-      buttonTextStyle={gameStyles.dropdownButtonText}
+      buttonStyle={dropdownStyles.dropdownButton}
+      buttonTextStyle={dropdownStyles.dropdownButtonText}
       renderDropdownIcon={(isOpened) => {
         return (
           <FontAwesome
@@ -33,9 +33,9 @@ const CustomDropdown = (props: CustomDropdownProps) => {
         );
       }}
       dropdownIconPosition={"right"}
-      dropdownStyle={gameStyles.dropdown}
-      rowStyle={gameStyles.dropdownRow}
-      rowTextStyle={gameStyles.dropdownRowText}
+      dropdownStyle={dropdownStyles.dropdown}
+      rowStyle={dropdownStyles.dropdownRow}
+      rowTextStyle={dropdownStyles.dropdownRowText}
     />
   );
 };

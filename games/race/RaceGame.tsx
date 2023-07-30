@@ -2,10 +2,11 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RaceStackParamList } from "./RaceStack";
 import { Text, View } from "react-native";
 import mainStyles from "../../styles/MainStyles";
-import gameStyles from "../../styles/GamesStyles";
+import mainGamesStyles from "../../styles/games/MainGamesStyles";
 import React, { useContext } from "react";
 import RaceCard from "./RaceCard";
 import { RaceWebSocketContext } from "./RaceWebSocket";
+import textGamesStyles from "../../styles/games/TextGamesStyles";
 
 type Props = NativeStackScreenProps<RaceStackParamList, "Game">;
 
@@ -22,29 +23,26 @@ function RaceGameScreen({ route }: Props) {
 
   return (
     <View style={mainStyles.container}>
-      <View style={gameStyles.contentContainer}>
+      <View style={mainGamesStyles.contentContainer}>
         <View style={{ flex: 1.7, marginTop: 30 }}>
-          <View style={gameStyles.headingContainer}>
-            <Text style={gameStyles.headingText}>Race</Text>
+          <View style={textGamesStyles.textWithMarginContainer}>
+            <Text style={textGamesStyles.headingText}>Race</Text>
           </View>
-          <Text></Text>
-          <View style={gameStyles.headingAndPointsContainer}>
-            <Text style={gameStyles.secondaryText}>Round: {round}</Text>
-            <Text style={gameStyles.secondaryText}>{points} pkt</Text>
+          <View style={textGamesStyles.headingAndPointsContainer}>
+            <Text style={textGamesStyles.secondaryText}>Round: {round}</Text>
+            <Text style={textGamesStyles.secondaryText}>{points} pkt</Text>
           </View>
-          <Text></Text>
-          <View style={gameStyles.headingContainer}>
-            <Text style={gameStyles.basicText}>
+          <View style={textGamesStyles.headingContainer}>
+            <Text style={textGamesStyles.basicText}>
               Choose the correct translations of word:
             </Text>
           </View>
-          <View style={gameStyles.headingContainer}>
-            <Text style={gameStyles.headingText}>{question}</Text>
+          <View style={textGamesStyles.textWithMarginContainer}>
+            <Text style={textGamesStyles.headingText}>{question}</Text>
           </View>
-          <Text> </Text>
         </View>
         <View style={{ flex: 3.5 }}>
-          <View style={gameStyles.cardsContainer}>
+          <View style={mainGamesStyles.cardsContainer}>
             {answers.map((translation, index) => {
               return (
                 <RaceCard

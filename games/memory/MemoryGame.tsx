@@ -1,12 +1,14 @@
 import { Dimensions, Text, View } from "react-native";
 import mainStyles from "../../styles/MainStyles";
-import gameStyles from "../../styles/GamesStyles";
+import mainGamesStyles from "../../styles/games/MainGamesStyles";
 import React, { useEffect, useState } from "react";
 import { Bar as ProgressBar } from "react-native-progress";
 import { buttonDarkPink, buttonLightPink } from "../../Consts";
 import MemoryCard, { Card, shuffleCards } from "./MemoryCard";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { MemoryStackParamList } from "./MemoryStack";
+import textGamesStyles from "../../styles/games/TextGamesStyles";
+import Toast from "react-native-toast-message";
 
 type Props = NativeStackScreenProps<MemoryStackParamList, "Game">;
 
@@ -20,8 +22,6 @@ function MemoryGameScreen({ route, navigation }: Props) {
   const [matchedCards, setMatchedCards] = useState<string[]>([]);
   const [progress, setProgress] = useState(0);
   const [attempt, setAttempt] = useState(15);
-  const [wrongPick, setWrongPick] = useState(false);
-  const [correctPick, setCorrectPick] = useState(false);
   const [disabled, setDisabled] = useState<boolean>(false);
   const checkIsFlipped = (index: number) => {
     return openCards.includes(index);
@@ -29,15 +29,6 @@ function MemoryGameScreen({ route, navigation }: Props) {
 
   const checkIsDisabled = (card: Card) => {
     return matchedCards.includes(card.word);
-  };
-
-  const handlePress = (index: number) => {
-    if (openCards.length === 1) {
-      setOpenCards((prev) => [...prev, index]);
-      setAttempt((prevAttempt) => prevAttempt - 1);
-    } else {
-      setOpenCards([index]);
-    }
   };
 
   const evaluateCardsMatching = () => {
@@ -48,15 +39,23 @@ function MemoryGameScreen({ route, navigation }: Props) {
         cards[first].word,
         cards[first].translation,
       ]);
-      setCorrectPick(true);
+      Toast.show({
+        type: "success",
+        visibilityTime: 1600,
+        text1: `Correct! ${cards[first].word} = ${cards[second].word}`,
+        text2: `+10pts`,
+      });
       setPoints((prevState: number) => prevState + 10);
       setProgress((prevProgress) => prevProgress + 1);
-      setOpenCards([]);
-      return;
     } else {
-      setWrongPick(true);
-      setOpenCards([]);
+      Toast.show({
+        type: "error",
+        visibilityTime: 1600,
+        text1: `Wrong! ${cards[first].word} != ${cards[second].word}`,
+      });
     }
+    setAttempt((prevAttempt) => prevAttempt - 1);
+    setOpenCards([]);
   };
 
   useEffect(() => {
@@ -68,55 +67,32 @@ function MemoryGameScreen({ route, navigation }: Props) {
     }
   }, [openCards]);
 
-  useEffect(() => {
-    if (correctPick) {
-      setTimeout(() => setCorrectPick(false), 1300);
-    }
-  }, [correctPick]);
-
-  useEffect(() => {
-    if (wrongPick) {
-      setTimeout(() => setWrongPick(false), 1300);
-    }
-  }, [wrongPick]);
-
-  async function endGameHandler() {
-    try {
-      navigation.navigate("Results", { points, setName });
-    } catch (error) {
-      console.error(error);
-    }
+  function endGameHandler() {
+    navigation.navigate("Results", { points, setName });
   }
 
   useEffect(() => {
-    if (progress >= 6) {
+    if (progress >= 6 || attempt <= 0) {
       setTimeout(() => endGameHandler(), 1300);
     }
-  }, [progress]);
-
-  useEffect(() => {
-    if (attempt <= 0) {
-      setTimeout(() => endGameHandler(), 1300);
-    }
-  }, [attempt]);
+  }, [progress, attempt]);
 
   return (
     <View style={mainStyles.container}>
-      <View style={gameStyles.contentContainer}>
-        <View style={{ flex: 1.3, marginTop: 30 }}>
-          <View style={gameStyles.headingAndPointsContainer}>
-            <Text style={gameStyles.headingText}>Memory</Text>
-            <Text style={gameStyles.secondaryText}>{points} pkt</Text>
+      <View style={mainGamesStyles.contentContainer}>
+        <View style={{ flex: 1.3, marginTop: 30, marginBottom: "5%" }}>
+          <View style={textGamesStyles.headingAndPointsContainer}>
+            <Text style={textGamesStyles.headingText}>Memory</Text>
+            <Text style={textGamesStyles.secondaryText}>{points} pts</Text>
           </View>
-          <View style={gameStyles.headingContainer}>
-            <Text style={gameStyles.basicText}>
+          <View style={textGamesStyles.textWithMarginContainer}>
+            <Text style={textGamesStyles.basicText}>
               Match the words with their translations
             </Text>
           </View>
-          <Text> </Text>
-          <View style={gameStyles.headingAndPointsContainer}>
-            <Text style={gameStyles.basicText}>Attempts left:</Text>
-            <Text style={gameStyles.secondaryText}>{attempt}/15</Text>
+          <View style={textGamesStyles.headingAndPointsContainer}>
+            <Text style={textGamesStyles.basicText}>Attempts left:</Text>
+            <Text style={textGamesStyles.secondaryText}>{attempt}/15</Text>
           </View>
           <ProgressBar
             progress={progress / 6}
@@ -130,8 +106,8 @@ function MemoryGameScreen({ route, navigation }: Props) {
             animationType="timing"
           />
         </View>
-        <View style={{ flex: 3.7 }}>
-          <View style={gameStyles.cardsContainer}>
+        <View style={{ flex: 3.7, marginBottom: "7%" }}>
+          <View style={mainGamesStyles.cardsContainer}>
             {cards.map((card, index) => {
               return (
                 <MemoryCard
@@ -140,27 +116,17 @@ function MemoryGameScreen({ route, navigation }: Props) {
                   index={index}
                   isFlipped={checkIsFlipped(index)}
                   isDisabled={checkIsDisabled(card)}
-                  isDisabledBack={disabled}
-                  onClick={handlePress}
+                  isAllDisabled={disabled}
+                  onClick={(index: number) => {
+                    setOpenCards((prev) => [...prev, index]);
+                  }}
                 />
               );
             })}
           </View>
         </View>
-        <View style={gameStyles.popupContainer}>
-          {correctPick ? (
-            <View style={gameStyles.popup}>
-              <Text>+10pkt</Text>
-            </View>
-          ) : wrongPick ? (
-            <View style={gameStyles.popup}>
-              <Text>Wrong</Text>
-            </View>
-          ) : (
-            <Text />
-          )}
-        </View>
       </View>
+      <Toast position="bottom" bottomOffset={8} />
     </View>
   );
 }

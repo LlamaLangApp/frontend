@@ -2,10 +2,11 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RaceStackParamList } from "./RaceStack";
 import { FlatList, Text, View } from "react-native";
 import mainStyles from "../../styles/MainStyles";
-import gameStyles from "../../styles/GamesStyles";
+import mainGamesStyles from "../../styles/games/MainGamesStyles";
 import React from "react";
 import { buttonLightPink } from "../../Consts";
 import FrontLlamaCenter from "../../components/FrontLlamaCenter";
+import textGamesStyles from "../../styles/games/TextGamesStyles";
 
 type Props = NativeStackScreenProps<RaceStackParamList, "PlayersList">;
 
@@ -14,16 +15,15 @@ function RacePlayersListScreen({ route }: Props) {
 
   return (
     <View style={mainStyles.container}>
-      <View style={gameStyles.contentContainer}>
-        <Text style={gameStyles.basicText}>
+      <View style={mainGamesStyles.contentContainer}>
+        <Text style={textGamesStyles.basicText}>
           . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
         </Text>
-        <View style={gameStyles.headingContainer}>
-          <Text style={gameStyles.headingText}>Race</Text>
+        <View style={textGamesStyles.textWithMarginContainer}>
+          <Text style={textGamesStyles.headingText}>Race</Text>
         </View>
-        <Text></Text>
-        <View style={gameStyles.headingContainer}>
-          <Text style={gameStyles.secondaryText}>List of players:</Text>
+        <View style={textGamesStyles.textWithMarginContainer}>
+          <Text style={textGamesStyles.secondaryText}>List of players:</Text>
         </View>
         <View style={{ flex: 3 }}>
           <FlatList
@@ -39,7 +39,7 @@ function RacePlayersListScreen({ route }: Props) {
                     alignItems: "center",
                   }}
                 >
-                  <Text style={gameStyles.basicText}>{itemData.item}</Text>
+                  <Text style={textGamesStyles.basicText}>{itemData.item}</Text>
                 </View>
               );
             }}
