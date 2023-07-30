@@ -6,7 +6,6 @@ import CustomDropdown from "../../components/CustomDropdown";
 import { callWordSets } from "../../backend";
 import { useAppStore } from "../../state";
 import { WordSet } from "../GamesTypes";
-import Toast from "react-native-toast-message";
 import FrontLlamaCenter from "../../components/FrontLlamaCenter";
 import { RaceWebSocketContext } from "./RaceWebSocket";
 import buttonGamesStyles from "../../styles/games/ButtonGamesStyles";
