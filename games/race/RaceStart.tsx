@@ -52,22 +52,26 @@ function RaceStartScreen() {
         <View style={textGamesStyles.textWithMarginContainer}>
           <Text style={textGamesStyles.secondaryText}>Type of set:</Text>
         </View>
-        <CustomDropdown
-          defaultSelectText={"type"}
-          selectData={["Default sets", "Custom sets (coming soon...)"]}
-          onSelectFunc={async (selectedItem) => {
-            setSetType(selectedItem);
-            await downloadWordSetsHandler();
-          }}
-        />
+        <View style={textGamesStyles.textWithMarginContainer}>
+          <CustomDropdown
+            defaultSelectText={"type"}
+            selectData={["Default sets", "Custom sets (coming soon...)"]}
+            onSelectFunc={async (selectedItem) => {
+              setSetType(selectedItem);
+              await downloadWordSetsHandler();
+            }}
+          />
+        </View>
         <View style={textGamesStyles.textWithMarginContainer}>
           <Text style={textGamesStyles.secondaryText}>Set:</Text>
         </View>
-        <CustomDropdown
-          defaultSelectText={"set"}
-          selectData={wordSets.map((wordSet) => wordSet.polish)}
-          onSelectFunc={setSetName}
-        />
+        <View style={textGamesStyles.textWithMarginContainer}>
+          <CustomDropdown
+            defaultSelectText={"set"}
+            selectData={wordSets.map((wordSet) => wordSet.polish)}
+            onSelectFunc={setSetName}
+          />
+        </View>
         <View style={{ flexDirection: "row" }}>
           <TouchableOpacity
             style={buttonGamesStyles.startButton}

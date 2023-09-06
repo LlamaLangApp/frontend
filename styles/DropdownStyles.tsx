@@ -17,10 +17,15 @@ const dropdownStyles = StyleSheet.create({
   dropdownButton: {
     width: "100%",
     backgroundColor: "#ffffff",
-    borderRadius: 15,
     borderWidth: 1,
     borderColor: buttonLightPink,
-    marginBottom: "8%",
+  },
+  dropdownButtonClosed: {
+    borderRadius: 15,
+  },
+  dropdownButtonOpen: {
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
   },
   dropdownButtonText: {
     color: "#444444",

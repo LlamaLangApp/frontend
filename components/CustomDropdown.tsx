@@ -1,6 +1,7 @@
 import { FontAwesome } from "@expo/vector-icons";
 import SelectDropdown from "react-native-select-dropdown";
 import dropdownStyles from "../styles/DropdownStyles";
+import { useState } from "react";
 
 interface CustomDropdownProps {
   defaultSelectText: string;
@@ -10,6 +11,9 @@ interface CustomDropdownProps {
 
 const CustomDropdown = (props: CustomDropdownProps) => {
   const { defaultSelectText, selectData, onSelectFunc } = props;
+
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <SelectDropdown
       data={selectData}
@@ -21,7 +25,14 @@ const CustomDropdown = (props: CustomDropdownProps) => {
       rowTextForSelection={(item) => {
         return item;
       }}
-      buttonStyle={dropdownStyles.dropdownButton}
+      onFocus={() => setIsOpen(true)}
+      onBlur={() => setIsOpen(false)}
+      buttonStyle={{
+        ...dropdownStyles.dropdownButton,
+        ...(isOpen
+          ? dropdownStyles.dropdownButtonOpen
+          : dropdownStyles.dropdownButtonClosed),
+      }}
       buttonTextStyle={dropdownStyles.dropdownButtonText}
       renderDropdownIcon={(isOpened) => {
         return (
@@ -36,6 +47,7 @@ const CustomDropdown = (props: CustomDropdownProps) => {
       dropdownStyle={dropdownStyles.dropdown}
       rowStyle={dropdownStyles.dropdownRow}
       rowTextStyle={dropdownStyles.dropdownRowText}
+      statusBarTranslucent={true}
     />
   );
 };
