@@ -20,6 +20,7 @@ const SinglePlayerStartScreen = (props: SinglePlayerStartProps) => {
   const { gameName, setWordSetName, setWordSetId, startGameHandler } = props;
 
   const [wordSetType, setWordSetType] = useState<string>("");
+  // const [wordSet, setWordSet] = useState<string>("");
   const [wordSets, setWordSets] = useState<WordSet[]>([]);
   const token = useAppStore.getState().token;
 

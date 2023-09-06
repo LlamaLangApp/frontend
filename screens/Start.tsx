@@ -8,20 +8,12 @@ import { AuthStackParamList } from "../navgation/AuthStack";
 type Props = NativeStackScreenProps<AuthStackParamList, "Start">;
 
 function StartScreen({ navigation }: Props) {
-  async function signInHandler() {
-    try {
-      navigation.navigate("Login");
-    } catch (error) {
-      console.error(error);
-    }
+  function signInHandler() {
+    navigation.navigate("Login");
   }
 
-  async function signUpHandler() {
-    try {
-      navigation.navigate("Register");
-    } catch (error) {
-      console.error(error);
-    }
+  function signUpHandler() {
+    navigation.navigate("Register");
   }
 
   return (
@@ -30,10 +22,7 @@ function StartScreen({ navigation }: Props) {
         <View style={authStyles.logoContainer}>
           <Image
             source={require("../assets/logo_without_background.png")}
-            style={{
-              width: 325,
-              height: 220,
-            }}
+            style={{ width: 325, height: 220 }}
           />
         </View>
         <View style={authStyles.startContainer}>

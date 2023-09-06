@@ -18,12 +18,8 @@ function RaceEndGameScreen({ route }: Props) {
   const parentNavigation = useNavigation<MainStack>();
   const { points, isWinner } = route.params;
 
-  async function exitGameHandler() {
-    try {
-      parentNavigation.navigate("Home");
-    } catch (error) {
-      console.error(error);
-    }
+  function exitGameHandler() {
+    parentNavigation.navigate("Home");
   }
 
   return (
