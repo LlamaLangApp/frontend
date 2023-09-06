@@ -1,16 +1,20 @@
 import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { WordSetStackParamList } from "../navgation/WordSetStack";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import mainStyles from "../styles/MainStyles";
 import { buttonDarkPink, buttonLightPink } from "../Consts";
 import homeStyles from "../styles/HomeStyles";
+import { WordSet } from "../games/GamesTypes";
+import { useAppStore } from "../state";
+import { callWordSets } from "../backend";
 
 type Props = NativeStackScreenProps<WordSetStackParamList, "List">;
 
 function WordSetsListScreen({ navigation }: Props) {
   type WordSetType = "default" | "custom";
   const [wordSetType, setWordSetType] = useState("default");
+  const token = useAppStore.getState().token;
   const defaultPlayerButtonHandler = () => {
     setWordSetType("default");
   };
@@ -19,16 +23,25 @@ function WordSetsListScreen({ navigation }: Props) {
   };
 
   type WordSetItem = {
-    id: string;
     name: string;
     type: WordSetType;
   };
+  const [wordSetsList, setWordSetsList] = useState<WordSetItem[]>([
+    { name: "coming soon ...", type: "custom" },
+  ]);
 
-  const wordSets: WordSetItem[] = [
-    { id: "1", name: "animals", type: "default" },
-    { id: "2", name: "coming soon ...", type: "custom" },
-    { id: "3", name: "beach", type: "default" },
-  ];
+  useEffect(() => {
+    callWordSets(token).then((response) => {
+      if (response.type === "success") {
+        const wordSets: WordSet[] = response.wordSets;
+        const newWordSetItem: WordSetItem[] = wordSets.map((wordSet) => ({
+          name: wordSet.english,
+          type: "default",
+        }));
+        setWordSetsList((prevState) => [...prevState, ...newWordSetItem]);
+      }
+    });
+  }, []);
 
   return (
     <View style={mainStyles.container}>
@@ -68,7 +81,7 @@ function WordSetsListScreen({ navigation }: Props) {
       <View style={{ width: "90%", flex: 1 }}>
         <FlatList
           showsVerticalScrollIndicator={false}
-          data={wordSets.filter((wordSet) => wordSet.type == wordSetType)}
+          data={wordSetsList.filter((wordSet) => wordSet.type == wordSetType)}
           renderItem={(itemData) => {
             return (
               <TouchableOpacity
