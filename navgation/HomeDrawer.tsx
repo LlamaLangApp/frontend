@@ -4,6 +4,8 @@ import CustomDrawer from "../components/CustomDrawer";
 import { FontAwesome } from "@expo/vector-icons";
 import FriendsScreen from "../screens/Friends";
 import { pink } from "../Consts";
+import ScoreboardScreen from "../screens/Scoreboard";
+import { FontAwesome5 } from "@expo/vector-icons";
 
 const Drawer = createDrawerNavigator();
 
@@ -35,6 +37,15 @@ const HomeDrawer = () => {
         options={{
           drawerIcon: ({ color }) => (
             <FontAwesome name="users" size={22} color={color} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Scoreboard"
+        component={ScoreboardScreen}
+        options={{
+          drawerIcon: ({ color }) => (
+            <FontAwesome5 name="medal" size={24} color={color} />
           ),
         }}
       />

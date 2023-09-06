@@ -11,3 +11,5 @@ yarn install
 ```commandline
 yarn start
 ```
+
+Uses twemojis under CC-BY 4.0: https://twemoji.twitter.com/
