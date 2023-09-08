@@ -51,25 +51,29 @@ const SinglePlayerStartScreen = (props: SinglePlayerStartProps) => {
         <View style={textGamesStyles.textWithMarginContainer}>
           <Text style={textGamesStyles.secondaryText}>Type of set:</Text>
         </View>
-        <CustomDropdown
-          defaultSelectText={"type"}
-          selectData={["Default sets", "Custom sets (coming soon...)"]}
-          onSelectFunc={setWordSetType}
-        />
+        <View style={textGamesStyles.textWithMarginContainer}>
+          <CustomDropdown
+            defaultSelectText={"type"}
+            selectData={["Default sets", "Custom sets (coming soon...)"]}
+            onSelectFunc={setWordSetType}
+          />
+        </View>
         <View style={textGamesStyles.textWithMarginContainer}>
           <Text style={textGamesStyles.secondaryText}>Set:</Text>
         </View>
-        <CustomDropdown
-          defaultSelectText={"set"}
-          selectData={wordSets.map((wordSet) => wordSet.polish)}
-          onSelectFunc={(selectedItem) => {
-            setWordSetName(selectedItem);
-            setWordSetId(
-              wordSets.find((wordSet) => wordSet.polish === selectedItem)?.id ??
-                -1
-            );
-          }}
-        />
+        <View style={textGamesStyles.textWithMarginContainer}>
+          <CustomDropdown
+            defaultSelectText={"set"}
+            selectData={wordSets.map((wordSet) => wordSet.polish)}
+            onSelectFunc={(selectedItem) => {
+              setWordSetName(selectedItem);
+              setWordSetId(
+                wordSets.find((wordSet) => wordSet.polish === selectedItem)
+                  ?.id ?? -1
+              );
+            }}
+          />
+        </View>
         <View style={{ flexDirection: "row" }}>
           <TouchableOpacity
             style={buttonGamesStyles.startButton}
