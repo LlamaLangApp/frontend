@@ -1,7 +1,7 @@
 import { Dimensions, Text, View } from "react-native";
 import mainStyles from "../../styles/MainStyles";
 import mainGamesStyles from "../../styles/games/MainGamesStyles";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Bar as ProgressBar } from "react-native-progress";
 import { buttonDarkPink, buttonLightPink } from "../../Consts";
 import MemoryCard, { Card, shuffleCards } from "./MemoryCard";
@@ -12,8 +12,12 @@ import Toast from "react-native-toast-message";
 
 type Props = NativeStackScreenProps<MemoryStackParamList, "Game">;
 
+const maxAttempts = 15;
+
 function MemoryGameScreen({ route, navigation }: Props) {
-  const { setName, wordsSet } = route.params;
+  const { setName, wordsSet, wordsSetID } = route.params;
+
+  const [startTime] = useState(() => Date.now());
 
   const screenWidth = Dimensions.get("window").width;
   const [cards] = useState(() => shuffleCards(wordsSet));
@@ -21,7 +25,7 @@ function MemoryGameScreen({ route, navigation }: Props) {
   const [openCards, setOpenCards] = useState<number[]>([]);
   const [matchedCards, setMatchedCards] = useState<string[]>([]);
   const [progress, setProgress] = useState(0);
-  const [attempt, setAttempt] = useState(15);
+  const [attempt, setAttempt] = useState(maxAttempts);
   const [disabled, setDisabled] = useState<boolean>(false);
   const checkIsFlipped = (index: number) => {
     return openCards.includes(index);
@@ -68,12 +72,21 @@ function MemoryGameScreen({ route, navigation }: Props) {
   }, [openCards]);
 
   function endGameHandler() {
-    navigation.navigate("Results", { points, setName });
+    const endTime = Date.now();
+
+    navigation.navigate("Results", {
+      points,
+      accuracy: progress / (maxAttempts - attempt),
+      duration: endTime - startTime,
+      wordsSetID,
+      setName,
+    });
   }
 
+  const currentTimeout = useRef<null | NodeJS.Timeout>(null);
   useEffect(() => {
-    if (progress >= 6 || attempt <= 0) {
-      setTimeout(() => endGameHandler(), 1300);
+    if (!currentTimeout.current && (progress >= 6 || attempt <= 0)) {
+      currentTimeout.current = setTimeout(() => endGameHandler(), 1300);
     }
   }, [progress, attempt]);
 
