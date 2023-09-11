@@ -169,12 +169,11 @@ export async function callTranslations(
   } catch (_) {
     return { type: "error", message: "Unknown network error" };
   }
-
   const tokenResponse: Translation[] = await response.json();
 
   if (!response.ok) {
     return { type: "error", message: "Unable to get translations" };
   }
-
+  console.log(tokenResponse);
   return { type: "success", translations: tokenResponse };
 }
