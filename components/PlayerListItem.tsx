@@ -9,7 +9,13 @@ const imageStyle = {
   backgroundColor: buttonLightPink,
 };
 
-export default ({ username, place }: { username: string; place: number }) => {
+export type PlaceItem = {
+  username: string;
+  stat: string;
+  place: number;
+};
+
+export default ({ username, place, stat }: PlaceItem) => {
   const placeElem = useMemo(() => {
     if (place == 1) {
       return (
@@ -37,6 +43,7 @@ export default ({ username, place }: { username: string; place: number }) => {
         backgroundColor: pink,
         borderRadius: 15,
         height: 70,
+        justifyContent: "space-between",
       }}
     >
       <View
@@ -54,6 +61,17 @@ export default ({ username, place }: { username: string; place: number }) => {
       </View>
       <Text style={{ fontSize: 30, padding: 15, color: "white" }}>
         {username}
+      </Text>
+      <Text
+        style={{
+          fontSize: 30,
+          padding: 15,
+          borderRadius: 15,
+          color: "white",
+          backgroundColor: buttonLightPink,
+        }}
+      >
+        {stat}
       </Text>
     </View>
   );

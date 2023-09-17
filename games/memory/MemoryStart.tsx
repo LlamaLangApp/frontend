@@ -22,6 +22,7 @@ function MemoryStartScreen({ navigation }: Props) {
         navigation.navigate("Game", {
           setName: setName,
           wordsSet: makeCards(response.translations),
+          wordsSetID: setId,
         });
       }
     });
