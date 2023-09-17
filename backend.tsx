@@ -157,7 +157,7 @@ export async function callTranslations(
   let response;
   try {
     response = await fetch(
-      `http://${serverURL}/wordset/${setId}/translations${argument}`,
+      `http://${serverURL}/wordset/${setId}/translations/${argument}`,
       {
         method: "GET",
         headers: {

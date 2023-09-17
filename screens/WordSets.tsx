@@ -11,12 +11,12 @@ import { NavigationProp } from "@react-navigation/native";
 import { WordSetStackParamList } from "../navgation/WordSetStack";
 import { Translation, WordSet } from "../games/GamesTypes";
 import { callTranslations, callWordSets } from "../backend";
-import { makeCards } from "../games/memory/MemoryCard";
 
 interface WordSetContextType {
   chosenSetName: string;
-  // chosenCard: number;
+  chosenPolish: boolean;
   setChosenSetName: Dispatch<SetStateAction<string>>;
+  setChosenPolish: Dispatch<SetStateAction<boolean>>;
   setChosenSetId: Dispatch<SetStateAction<number | undefined>>;
   wordSetsList: WordSetItem[];
   chosenSet: Translation[];
@@ -24,8 +24,12 @@ interface WordSetContextType {
 
 const WordSetContext = createContext<WordSetContextType>({
   chosenSetName: "",
+  chosenPolish: true,
   setChosenSetName: () => {
     return "";
+  },
+  setChosenPolish: () => {
+    return true;
   },
   setChosenSetId: () => {
     return undefined;
@@ -52,6 +56,7 @@ const WordSetProvider = ({ children, navigation }: WordSetProviderProps) => {
   const [chosenSetName, setChosenSetName] = useState<string>("");
   const [chosenSetId, setChosenSetId] = useState<number | undefined>(undefined);
   const [chosenSet, setChosenSet] = useState<Translation[]>([]);
+  const [chosenPolish, setChosenPolish] = useState<boolean>(true);
   const [wordSetsList, setWordSetsList] = useState<WordSetItem[]>([
     { id: undefined, name: "coming soon ...", type: "custom" },
   ]);
@@ -75,8 +80,7 @@ const WordSetProvider = ({ children, navigation }: WordSetProviderProps) => {
     if (chosenSetName != "") {
       callTranslations(token, chosenSetId, null).then((response) => {
         if (response.type === "success") {
-          // setChosenSet();
-          console.log(response.translations);
+          setChosenSet(response.translations);
         }
       });
       navigation.navigate("Display");
@@ -87,7 +91,9 @@ const WordSetProvider = ({ children, navigation }: WordSetProviderProps) => {
     <WordSetContext.Provider
       value={{
         chosenSetName,
+        chosenPolish,
         setChosenSetName,
+        setChosenPolish,
         setChosenSetId,
         wordSetsList,
         chosenSet,
