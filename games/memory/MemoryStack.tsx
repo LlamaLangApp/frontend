@@ -10,9 +10,13 @@ export type MemoryStackParamList = {
   Game: {
     setName: string;
     wordsSet: Card[];
+    wordsSetID: number;
   };
   Results: {
     points: number;
+    accuracy: number;
+    duration: number;
+    wordsSetID: number;
     setName: string;
   };
 };

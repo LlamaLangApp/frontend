@@ -177,3 +177,78 @@ export async function callTranslations(
   console.log(tokenResponse);
   return { type: "success", translations: tokenResponse };
 }
+
+type SaveMemoryGameReponse =
+  | { type: "success" }
+  | { type: "error"; message: string };
+
+export async function saveMemoryGame(
+  token: string,
+  score: number,
+  accuracy: number,
+  duration: number,
+  wordset: number
+): Promise<SaveMemoryGameReponse> {
+  let response;
+  try {
+    response = await fetch(`http://${serverURL}/memory-game/`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: "Token " + token,
+      },
+      body: JSON.stringify({
+        score,
+        accuracy,
+        duration,
+        timestamp: Date.now(),
+        wordset,
+      }),
+    });
+  } catch (_) {
+    return { type: "error", message: "Unknown network error" };
+  }
+
+  if (!response.ok) {
+    return { type: "error", message: "Unable to save memory game" };
+  }
+
+  return { type: "success" };
+}
+
+type GetStatisticsReponse =
+  | { type: "success"; result: { username: string; stat: number }[] }
+  | { type: "error"; message: string };
+
+export async function getStatistics(
+  token: string,
+  game: "memory",
+  period: "all_time" | "this_week",
+  aggregate: "sum" | "avg" | "min" | "count",
+  statistic: string
+): Promise<GetStatisticsReponse> {
+  let response;
+  try {
+    response = await fetch(`http://${serverURL}/statistics/`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: "Token " + token,
+      },
+      body: JSON.stringify({
+        game,
+        period,
+        aggregate,
+        statistic,
+      }),
+    });
+  } catch (_) {
+    return { type: "error", message: "Unknown network error" };
+  }
+
+  if (!response.ok) {
+    return { type: "error", message: "Unable to get statistics" };
+  }
+
+  return { type: "success", result: await response.json() };
+}
