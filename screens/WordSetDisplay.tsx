@@ -8,8 +8,13 @@ import WordListItem from "../components/WordListItem";
 import { Fontisto } from "@expo/vector-icons";
 
 function WordSetDisplayScreen() {
-  const { chosenSetName, chosenPolish, chosenSet, setChosenPolish } =
-    useContext(WordSetContext);
+  const {
+    chosenSetName,
+    chosenPolish,
+    chosenSet,
+    setChosenPolish,
+    handleFlashCardsButton,
+  } = useContext(WordSetContext);
   return (
     <View style={mainStyles.container}>
       <View style={{ marginTop: "4%" }}>
@@ -25,7 +30,10 @@ function WordSetDisplayScreen() {
           <Fontisto name={"arrow-swap"} size={25} color={"white"} />
           {/*<Text style={wordSetsStyles.buttonText}>Switch language</Text>*/}
         </TouchableOpacity>
-        <TouchableOpacity style={wordSetsStyles.buttonShorter}>
+        <TouchableOpacity
+          style={wordSetsStyles.buttonShorter}
+          onPress={handleFlashCardsButton}
+        >
           <Text style={wordSetsStyles.buttonText}>Flash Cards</Text>
         </TouchableOpacity>
       </View>

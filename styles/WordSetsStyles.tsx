@@ -10,6 +10,16 @@ const wordSetsStyles = StyleSheet.create({
     borderRadius: 15,
     marginHorizontal: "1%",
   },
+  buttonFlashCards: {
+    alignItems: "center",
+    justifyContent: "center",
+    color: "#cccccc",
+    width: "48%",
+    height: "30%",
+    backgroundColor: buttonLightPink,
+    borderRadius: 15,
+    marginHorizontal: "1%",
+  },
   buttonShorter: {
     alignItems: "center",
     color: "#cccccc",
