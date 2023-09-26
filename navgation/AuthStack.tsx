@@ -1,7 +1,7 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import StartScreen from "../screens/Start";
-import LogScreen from "../screens/Login";
-import RegisterScreen from "../screens/Register";
+import StartScreen from "../screens/auth/Start";
+import LogScreen from "../screens/auth/Login";
+import RegisterScreen from "../screens/auth/Register";
 import * as React from "react";
 
 export type AuthStackParamList = {
