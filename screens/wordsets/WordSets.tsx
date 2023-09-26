@@ -6,53 +6,49 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { useAppStore } from "../state";
+import { useAppStore } from "../../state";
 import { NavigationProp } from "@react-navigation/native";
-import { WordSetStackParamList } from "../navgation/WordSetStack";
-import { Translation, WordSet } from "../games/GamesTypes";
-import { callTranslations, callWordSets } from "../backend";
+import { WordSetStackParamList } from "../../navgation/WordSetStack";
+import { Translation, WordSet } from "../../games/GamesTypes";
+import { callTranslations, callWordSets } from "../../backend";
 
 export type FlashCards = {
-  showAnswer: boolean;
   english: string;
   polish: string;
 };
+
 interface WordSetContextType {
   chosenSetName: string;
   chosenPolish: boolean;
   startFlashCards: boolean;
+  setFlashCards: Dispatch<SetStateAction<FlashCards[]>>;
   setStartFlashCards: Dispatch<SetStateAction<boolean>>;
-  setChosenSetName: Dispatch<SetStateAction<string>>;
   setChosenPolish: Dispatch<SetStateAction<boolean>>;
-  setChosenSetId: Dispatch<SetStateAction<number | undefined>>;
   wordSetsList: WordSetItem[];
   chosenSet: Translation[];
   flashCards: FlashCards[];
   handleFlashCardsButton: () => void;
+  handleChosenSet: (name: string, id: number | undefined) => void;
 }
 
 const WordSetContext = createContext<WordSetContextType>({
   chosenSetName: "",
   chosenPolish: true,
   startFlashCards: true,
+  setFlashCards: () => {
+    return [];
+  },
   setStartFlashCards: () => {
     return true;
-  },
-  setChosenSetName: () => {
-    return "";
   },
   setChosenPolish: () => {
     return true;
   },
-  setChosenSetId: () => {
-    return undefined;
-  },
   wordSetsList: [],
   chosenSet: [],
   flashCards: [],
-  handleFlashCardsButton: () => {
-    console.log(`1`);
-  },
+  handleChosenSet: () => console.log(`1`),
+  handleFlashCardsButton: () => console.log(`1`),
 });
 
 type WordSetProviderProps = {
@@ -60,7 +56,7 @@ type WordSetProviderProps = {
   navigation: NavigationProp<WordSetStackParamList>;
 };
 
-type WordSetType = "default" | "custom";
+type WordSetType = "Default" | "Custom";
 
 type WordSetItem = {
   id: number | undefined;
@@ -80,14 +76,22 @@ const WordSetProvider = ({ children, navigation }: WordSetProviderProps) => {
 
   function handleFlashCardsButton() {
     setFlashCards(
-      chosenSet.map((translation) => ({
-        showAnswer: chosenPolish,
-        english: translation.english,
-        polish: translation.polish,
-      }))
+      chosenSet
+        .map((translation) => ({
+          showAnswer: chosenPolish,
+          english: translation.english,
+          polish: translation.polish,
+        }))
+        .sort(() => Math.random() - 0.5)
     );
     setStartFlashCards(true);
     navigation.navigate("FlashCards");
+  }
+
+  function handleChosenSet(name: string, id: number | undefined) {
+    setChosenSetName(name);
+    setChosenSetId(id);
+    navigation.navigate("Display");
   }
 
   useEffect(() => {
@@ -97,16 +101,14 @@ const WordSetProvider = ({ children, navigation }: WordSetProviderProps) => {
         const newWordSetItem: WordSetItem[] = wordSets.map((wordSet) => ({
           id: wordSet.id,
           name: wordSet.english,
-          type: "default",
+          type: "Default",
         }));
         setWordSetsList(newWordSetItem);
       }
     });
   }, []);
-  // const [chosenCard, setChosenCard] = useState(-1);
 
   useEffect(() => {
-    console.log(chosenSetName);
     if (chosenSetName != "") {
       callTranslations(token, chosenSetId, null).then((response) => {
         if (response.type === "success") {
@@ -123,14 +125,14 @@ const WordSetProvider = ({ children, navigation }: WordSetProviderProps) => {
         chosenSetName,
         chosenPolish,
         startFlashCards,
+        setFlashCards,
         setStartFlashCards,
-        setChosenSetName,
         setChosenPolish,
-        setChosenSetId,
         wordSetsList,
         chosenSet,
         flashCards,
         handleFlashCardsButton,
+        handleChosenSet,
       }}
     >
       {children}

@@ -1,14 +1,14 @@
 import { Text, TouchableOpacity, View } from "react-native";
 import React, { useContext } from "react";
 import { WordSetContext } from "./WordSets";
-import mainStyles from "../styles/MainStyles";
-import wordSetsStyles from "../styles/WordSetsStyles";
+import mainStyles from "../../styles/MainStyles";
+import wordSetsStyles from "../../styles/WordSetsStyles";
 import { FlatList } from "react-native-gesture-handler";
-import WordListItem from "../components/WordListItem";
+import WordListItem from "../../components/WordListItem";
 import { Fontisto } from "@expo/vector-icons";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { WordSetStackParamList } from "../navgation/WordSetStack";
-import CloseButton from "../components/CloseButton";
+import { WordSetStackParamList } from "../../navgation/WordSetStack";
+import CloseButton from "../../components/CloseButton";
 
 type Props = NativeStackScreenProps<WordSetStackParamList, "Display">;
 
@@ -34,7 +34,6 @@ function WordSetDisplayScreen({ navigation }: Props) {
           }}
         >
           <Fontisto name={"arrow-swap"} size={25} color={"white"} />
-          {/*<Text style={wordSetsStyles.buttonText}>Switch language</Text>*/}
         </TouchableOpacity>
         <TouchableOpacity
           style={wordSetsStyles.buttonShorter}

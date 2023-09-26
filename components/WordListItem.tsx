@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { View, Text } from "react-native";
-import { pink } from "../Consts";
+import wordSetsStyles from "../styles/WordSetsStyles";
 
 export type WordItem = {
   polish: string;
@@ -27,18 +27,7 @@ const WordListItem = ({ polish, english, chosenPolish }: WordItem) => {
     }
   }, [chosenPolish]);
 
-  return (
-    <View
-      style={{
-        margin: "1%",
-        backgroundColor: pink,
-        borderRadius: 15,
-        justifyContent: "space-between",
-      }}
-    >
-      {placeElem}
-    </View>
-  );
+  return <View style={wordSetsStyles.flatListItem}>{placeElem}</View>;
 };
 
 export default WordListItem;

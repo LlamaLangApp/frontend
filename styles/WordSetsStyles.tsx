@@ -1,7 +1,21 @@
 import { StyleSheet } from "react-native";
-import { buttonLightPink } from "../Consts";
+import { buttonLightPink, pink } from "../Consts";
 
 const wordSetsStyles = StyleSheet.create({
+  containerFlashCards: {
+    flex: 1.3,
+    marginTop: "15%",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
+  },
+  flatListItem: {
+    margin: "1%",
+    backgroundColor: pink,
+    borderRadius: 15,
+    justifyContent: "space-between",
+  },
+
   button: {
     alignItems: "center",
     color: "#cccccc",
