@@ -20,12 +20,11 @@ const FlashCardScreen = ({ navigation }: Props) => {
     setStartFlashCards,
     chosenPolish,
   } = useContext(WordSetContext);
-  const [showPolish, setShowPolish] = useState(chosenPolish);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [showPolish, setShowPolish] = useState<boolean>(chosenPolish);
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
 
   useEffect(() => {
     setStartFlashCards(false);
-    setFlashCards(flashCards.sort(() => Math.random() - 0.5));
     setCurrentIndex(0);
     setShowPolish(chosenPolish);
   }, [startFlashCards]);
@@ -80,7 +79,8 @@ const FlashCardScreen = ({ navigation }: Props) => {
             <IconButton
               icon={"spinner-refresh"}
               onPress={() => {
-                setShowPolish(chosenPolish);
+                setFlashCards(flashCards.sort(() => Math.random() - 0.5));
+                setStartFlashCards(true);
               }}
             />
           </View>
