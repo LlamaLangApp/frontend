@@ -7,7 +7,7 @@ import React, {
   useState,
 } from "react";
 import { useAppStore } from "../../state";
-import { serverURL } from "../../backend";
+import { serverURL } from "../../backend/CommonBackend";
 import { RaceStackParamList } from "./RaceStack";
 import { NavigationProp } from "@react-navigation/native";
 

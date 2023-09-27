@@ -3,7 +3,7 @@ import mainStyles from "../../styles/MainStyles";
 import mainGamesStyles from "../../styles/games/MainGamesStyles";
 import React, { useState, useContext } from "react";
 import CustomDropdown from "../../components/CustomDropdown";
-import { callWordSets } from "../../backend";
+import { callWordSets } from "../../backend/WordSetsBackend";
 import { useAppStore } from "../../state";
 import { WordSet } from "../GamesTypes";
 import FrontLlamaCenter from "../../components/FrontLlamaCenter";

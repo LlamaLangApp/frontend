@@ -4,7 +4,7 @@ import { MemoryStackParamList } from "./MemoryStack";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { MainStackParamList } from "../../App";
 import SinglePlayerResultsScreen from "../common_singleplayer/SingleplayerResults";
-import { saveMemoryGame } from "../../backend";
+import { saveMemoryGame } from "../../backend/GamesBackend";
 import { useAppStore } from "../../state";
 
 type Props = NativeStackScreenProps<MemoryStackParamList, "Results">;
