@@ -5,7 +5,7 @@ import {
 } from "@react-navigation/drawer";
 import { ImageBackground, Text, TouchableOpacity, View } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
-import { serverURL } from "../backend";
+import { serverURL } from "../backend/CommonBackend";
 import { useAppStore } from "../state";
 
 const CustomDrawer = (props: DrawerContentComponentProps) => {
