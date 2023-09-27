@@ -10,7 +10,7 @@ import { useAppStore } from "../../state";
 import { NavigationProp } from "@react-navigation/native";
 import { WordSetStackParamList } from "../../navgation/WordSetStack";
 import { Translation, WordSet } from "../../games/GamesTypes";
-import { callTranslations, callWordSets } from "../../backend";
+import { callTranslations, callWordSets } from "../../backend/WordSetsBackend";
 
 export type FlashCards = {
   english: string;
