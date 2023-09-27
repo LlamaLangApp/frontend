@@ -9,7 +9,7 @@ import { games, purple } from "../Consts";
 import ScoreboardStyles from "../styles/ScoreboardStyles";
 import { FlatList } from "react-native-gesture-handler";
 import PlayerListItem, { PlaceItem } from "../components/PlayerListItem";
-import { getStatistics } from "../backend";
+import { getStatistics } from "../backend/StatisticsBackend";
 import { useAppStore } from "../state";
 import { useIsFocused } from "@react-navigation/native";
 
