@@ -4,6 +4,7 @@ import CustomDrawer from "../components/CustomDrawer";
 import { FontAwesome } from "@expo/vector-icons";
 import FriendsScreen from "../screens/Friends";
 import { pink } from "../Consts";
+import WordSetStack from "./WordSetStack";
 import ScoreboardScreen from "../screens/Scoreboard";
 import { FontAwesome5 } from "@expo/vector-icons";
 
@@ -28,6 +29,15 @@ const HomeDrawer = () => {
         options={{
           drawerIcon: ({ color }) => (
             <FontAwesome name="gamepad" size={22} color={color} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Wordsets"
+        component={WordSetStack}
+        options={{
+          drawerIcon: ({ color }) => (
+            <FontAwesome name="book" size={22} color={color} />
           ),
         }}
       />

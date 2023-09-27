@@ -8,14 +8,14 @@ import {
   Pressable,
 } from "react-native";
 import React, { useState } from "react";
-import authStyles from "../styles/AuthStyles";
-import mainStyles from "../styles/MainStyles";
-import { callLogin, callRegister } from "../backend/AuthBackend";
+import authStyles from "../../styles/AuthStyles";
+import mainStyles from "../../styles/MainStyles";
+import { callLogin, callRegister } from "../../backend/AuthBackend";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { AuthStackParamList } from "../navgation/AuthStack";
+import { AuthStackParamList } from "../../navgation/AuthStack";
 import Toast from "react-native-toast-message";
-import { useAppStore } from "../state";
-import FrontLlamaCenter from "../components/FrontLlamaCenter";
+import { useAppStore } from "../../state";
+import FrontLlamaCenter from "../../components/FrontLlamaCenter";
 
 type Props = NativeStackScreenProps<AuthStackParamList, "Register">;
 
