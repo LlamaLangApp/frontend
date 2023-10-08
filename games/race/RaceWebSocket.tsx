@@ -105,7 +105,7 @@ const RaceWebSocketProvider = ({
         message.type === "result"
       ) {
         setSocketGameState(SocketGameStates.beforeRound);
-        setPoints((prevPoints) => prevPoints + message.points);
+        setPoints(message.points);
         navigation.navigate("Answer", {
           answer: lastAnswer,
           question: lastQuestion,
@@ -114,12 +114,10 @@ const RaceWebSocketProvider = ({
         setChosenCard(-1);
       } else if (
         socketGameState === SocketGameStates.beforeRound &&
-        message.type === "result"
+        message.type === "final_result"
       ) {
-        console.log("Got points: " + message.points);
         navigation.navigate("EndGame", {
-          points: message.points,
-          isWinner: true,
+          scoreboard: message.scoreboard,
         });
         ws.close();
       } else {

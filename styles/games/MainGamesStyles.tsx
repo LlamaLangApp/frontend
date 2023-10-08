@@ -10,6 +10,13 @@ const mainGamesStyles = StyleSheet.create({
     justifyContent: "flex-end",
     margin: "10%",
   },
+  multiplayerContentContainer: {
+    flex: 5,
+    width: "90%",
+    justifyContent: "flex-end",
+    margin: "5%",
+    marginTop: "20%",
+  },
   mainContentContainer: {
     flex: 5.2,
     justifyContent: "flex-end",
