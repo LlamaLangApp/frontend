@@ -3,7 +3,13 @@ import {
   DrawerContentScrollView,
   DrawerItemList,
 } from "@react-navigation/drawer";
-import { ImageBackground, Text, TouchableOpacity, View } from "react-native";
+import {
+  Image,
+  ImageBackground,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { serverURL } from "../backend/CommonBackend";
 import { useAppStore } from "../state";
@@ -34,17 +40,43 @@ const CustomDrawer = (props: DrawerContentComponentProps) => {
       >
         <ImageBackground
           source={require("../assets/background.jpg")}
-          style={{ padding: 20 }}
+          style={{}}
         >
-          <FontAwesome name="user-circle" size={80} />
-          <Text
+          <View
             style={{
-              fontSize: 18,
+              flexDirection: "row",
+              marginVertical: "6%",
+              marginLeft: "6%",
+              marginRight: "1%",
             }}
           >
-            John Doe
-          </Text>
-          <Text>200 Coins</Text>
+            <View
+              style={{
+                width: 100,
+                height: 100,
+                borderRadius: 50,
+                overflow: "hidden",
+              }}
+            >
+              <Image
+                source={require("../assets/default_avatar.png")}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                }}
+              />
+            </View>
+            <View style={{ justifyContent: "center", alignItems: "center" }}>
+              <Text
+                style={{
+                  fontSize: 18,
+                }}
+              >
+                John Doe
+              </Text>
+              <Text>200 Coins</Text>
+            </View>
+          </View>
         </ImageBackground>
         <View style={{ flex: 1, backgroundColor: "#fff", paddingTop: 10 }}>
           <DrawerItemList {...props} />
