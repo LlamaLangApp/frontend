@@ -13,7 +13,7 @@ const textGamesStyles = StyleSheet.create({
   textWithMarginContainer: {
     // flex: 0.5,
     width: "100%",
-    marginBottom: "5%",
+    marginBottom: "3%",
   },
   headingAndPointsContainer: {
     flexDirection: "row",

@@ -25,8 +25,7 @@ export type RaceStackParamList = {
     correctAnswer: string;
   };
   EndGame: {
-    points: number;
-    isWinner: boolean;
+    scoreboard: { username: string; points: number }[];
   };
 };
 const Stack = createNativeStackNavigator<RaceStackParamList>();
