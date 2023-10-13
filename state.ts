@@ -2,19 +2,21 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
+export type UserDataToSet = {
+  token?: null | string;
+  username?: string | null;
+  avatar?: string | null;
+  level?: number;
+  score?: number;
+};
+
 interface AppState {
   token: null | string;
   username: string | null;
   avatar: string | null;
   level: number;
   score: number;
-  setUserData: (data: {
-    token?: null | string;
-    username?: string | null;
-    avatar?: string | null;
-    level?: number;
-    score?: number;
-  }) => void;
+  setUserData: (data: UserDataToSet) => void;
   setToken: (token: null | string) => void;
 }
 

@@ -11,31 +11,19 @@ import {
   View,
 } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
-import { serverURL } from "../backend/CommonBackend";
 import { useAppStore } from "../state";
+import { logoutHandler } from "../backend/AuthBackend";
 
 const CustomDrawer = (props: DrawerContentComponentProps) => {
-  const { setToken, username, avatar, level } = useAppStore((store) => ({
-    setToken: store.setToken,
-    username: store.username,
-    avatar: store.avatar,
-    level: store.level,
-  }));
-
-  async function logoutHandler() {
-    try {
-      const response = await fetch(`http://${serverURL}/auth/token/logout/`, {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-      });
-      console.log(response + " " + JSON.stringify(await response.json()));
-      setToken(null);
-    } catch (error) {
-      console.error(error);
-    }
-  }
+  const { setUserData, username, avatar, level, token } = useAppStore(
+    (store) => ({
+      setUserData: store.setUserData,
+      username: store.username,
+      avatar: store.avatar,
+      level: store.level,
+      token: store.token,
+    })
+  );
 
   return (
     <View style={{ flex: 1 }}>
@@ -100,7 +88,7 @@ const CustomDrawer = (props: DrawerContentComponentProps) => {
           </View>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={logoutHandler}
+          onPress={() => logoutHandler(token, setUserData)}
           style={{ paddingVertical: 15 }}
         >
           <View style={{ flexDirection: "row", alignItems: "center" }}>
