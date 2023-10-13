@@ -16,6 +16,7 @@ import Toast from "react-native-toast-message";
 import { AuthStackParamList } from "../../navgation/AuthStack";
 import { useAppStore } from "../../state";
 import FrontLlamaCenter from "../../components/FrontLlamaCenter";
+import { getUserData } from "../../backend/UserBackend";
 
 type Props = NativeStackScreenProps<AuthStackParamList, "Login">;
 
@@ -23,7 +24,7 @@ function LogScreen({ navigation }: Props) {
   const [enteredUsername, setEnteredUsername] = useState("");
   const [enteredPassword, setEnteredPassword] = useState("");
 
-  const setToken = useAppStore((store) => store.setToken);
+  const setUserData = useAppStore((store) => store.setUserData);
 
   function usernameInputHandler(
     enteredText: NativeSyntheticEvent<TextInputChangeEventData>
@@ -37,21 +38,29 @@ function LogScreen({ navigation }: Props) {
     setEnteredPassword(enteredText.nativeEvent.text);
   }
 
-  const loginHandler = React.useCallback(async () => {
-    const response = await callLogin(enteredUsername, enteredPassword);
-
-    switch (response.type) {
-      case "success":
-        setToken(response.authToken);
-        break;
-      case "error":
+  const loginHandler = React.useCallback(() => {
+    callLogin(enteredUsername, enteredPassword).then((loginResponse) => {
+      if (loginResponse.type === "success") {
+        getUserData(loginResponse.authToken).then((response) => {
+          if (response.type === "success") {
+            setUserData({
+              token: loginResponse.authToken,
+              username: response.result.username,
+              score: response.result.score,
+              level: response.result.level,
+              avatar:
+                "data:image/png;base64," + response.result.avatar.toString(),
+            });
+          }
+        });
+      } else {
         Toast.show({
           type: "error",
-          text1: response.message,
+          text1: loginResponse.message,
         });
-        break;
-    }
-  }, [setToken, enteredUsername, enteredPassword]);
+      }
+    });
+  }, [setUserData, enteredUsername, enteredPassword]);
 
   return (
     <View style={mainStyles.container}>

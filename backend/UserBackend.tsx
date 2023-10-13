@@ -28,7 +28,7 @@ export async function getUserData(
     return { type: "error", message: "Unknown network error" };
   }
   const tokenResponse: UserData = await response.json();
-  console.log(tokenResponse);
+  // console.log(tokenResponse);
 
   if (!response.ok) {
     return { type: "error", message: "Unable to get word sets" };

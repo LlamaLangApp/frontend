@@ -15,7 +15,12 @@ import { serverURL } from "../backend/CommonBackend";
 import { useAppStore } from "../state";
 
 const CustomDrawer = (props: DrawerContentComponentProps) => {
-  const setToken = useAppStore((store) => store.setToken);
+  const { setToken, username, avatar, level } = useAppStore((store) => ({
+    setToken: store.setToken,
+    username: store.username,
+    avatar: store.avatar,
+    level: store.level,
+  }));
 
   async function logoutHandler() {
     try {
@@ -59,7 +64,7 @@ const CustomDrawer = (props: DrawerContentComponentProps) => {
               }}
             >
               <Image
-                source={require("../assets/default_avatar.png")}
+                source={{ uri: avatar ? avatar : "" }}
                 style={{
                   width: "100%",
                   height: "100%",
@@ -72,9 +77,9 @@ const CustomDrawer = (props: DrawerContentComponentProps) => {
                   fontSize: 18,
                 }}
               >
-                John Doe
+                {username}
               </Text>
-              <Text>200 Coins</Text>
+              <Text>{level}</Text>
             </View>
           </View>
         </ImageBackground>

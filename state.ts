@@ -4,13 +4,29 @@ import { createJSONStorage, persist } from "zustand/middleware";
 
 interface AppState {
   token: null | string;
+  username: string | null;
+  avatar: string | null;
+  level: number;
+  score: number;
+  setUserData: (data: {
+    token?: null | string;
+    username?: string | null;
+    avatar?: string | null;
+    level?: number;
+    score?: number;
+  }) => void;
   setToken: (token: null | string) => void;
 }
 
 const useAppStore = create<AppState>()(
   persist(
     (set) => ({
+      username: null,
+      avatar: null,
+      score: 0,
+      level: 0,
       token: null,
+      setUserData: (data) => set(data),
       setToken: (token) => set({ token }),
     }),
     {
