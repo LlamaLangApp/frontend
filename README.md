@@ -13,3 +13,13 @@ yarn start
 ```
 
 Uses twemojis under CC-BY 4.0: https://twemoji.twitter.com/
+
+### Building an android apk
+1. Login to expo
+```commandline
+yarn expo login
+```
+2. Build
+```commandline
+yarn aes build -p android
+```
