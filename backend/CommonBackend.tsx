@@ -1,7 +1,7 @@
 import Constants from "expo-constants";
 
-const { manifest } = Constants;
-export const serverURL = manifest?.debuggerHost
-  ?.split(`:`)
-  ?.shift()
-  ?.concat(`:8000`);
+const { expoConfig } = Constants;
+export const serverURL = expoConfig?.hostUri
+    ?.split(`:`)
+    ?.shift()
+    ?.concat(`:8000`);
