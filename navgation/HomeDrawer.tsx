@@ -7,6 +7,7 @@ import { pink } from "../Consts";
 import WordSetStack from "./WordSetStack";
 import ScoreboardScreen from "../screens/Scoreboard";
 import { FontAwesome5 } from "@expo/vector-icons";
+import UserStack from "./UserStack";
 
 const Drawer = createDrawerNavigator();
 
@@ -14,8 +15,8 @@ const HomeDrawer = () => {
   return (
     <Drawer.Navigator
       drawerContent={(props) => <CustomDrawer {...props} />}
+      initialRouteName={"Games"}
       screenOptions={{
-        // headerShown: false,
         headerTintColor: "#000",
         drawerActiveBackgroundColor: pink,
         drawerInactiveTintColor: "#333",
@@ -23,6 +24,15 @@ const HomeDrawer = () => {
         drawerLabelStyle: { marginLeft: -25, fontSize: 15 },
       }}
     >
+      <Drawer.Screen
+        name="Profile"
+        component={UserStack}
+        options={{
+          drawerIcon: ({ color }) => (
+            <FontAwesome name="user" size={22} color={color} />
+          ),
+        }}
+      />
       <Drawer.Screen
         name="Games"
         component={HomeScreen}

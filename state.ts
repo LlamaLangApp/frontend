@@ -17,7 +17,6 @@ interface AppState {
   level: number;
   score: number;
   setUserData: (data: UserDataToSet) => void;
-  setToken: (token: null | string) => void;
 }
 
 const useAppStore = create<AppState>()(
@@ -29,7 +28,6 @@ const useAppStore = create<AppState>()(
       level: 0,
       token: null,
       setUserData: (data) => set(data),
-      setToken: (token) => set({ token }),
     }),
     {
       name: "llamalang-storage",
