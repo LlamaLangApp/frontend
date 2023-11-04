@@ -29,7 +29,7 @@ const mainGamesStyles = StyleSheet.create({
     flexWrap: "wrap",
     alignItems: "stretch",
   },
-  card: {
+  memoryCard: {
     width: "31.3%",
     height: "23%",
     margin: "1%",
@@ -40,6 +40,9 @@ const mainGamesStyles = StyleSheet.create({
     // shadowColor: "#2d2d2e",
     // shadowOffset: { width: 0.5, height: 1 },
     // shadowRadius: 2,
+  },
+  fallingWordsCard: {
+    backgroundColor: lightGrey,
   },
   raceCard: {
     width: "47%",
