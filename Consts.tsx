@@ -4,6 +4,7 @@ export const buttonLightPink = "#c77d90";
 export const pink = "#e09cab";
 export const purple = "#6C0BA9";
 export const lightGrey = "#efefef";
+export const grey = "#696368";
 
 export type GameType = {
   // Name for users
