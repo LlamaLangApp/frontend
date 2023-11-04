@@ -83,7 +83,7 @@ function ProfileScreen({ navigation }: Props) {
           </View>
         </View>
         <TouchableOpacity
-          style={userStyles.llamaContainer}
+          style={userStyles.profileLlamaContainer}
           onPress={() => navigation.navigate("Llama")}
         >
           <View style={userStyles.llamaTextContainer}>
