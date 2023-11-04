@@ -125,8 +125,7 @@ export const loginHandler = (
             username: response.result.username,
             score: response.result.score,
             level: response.result.level,
-            avatar:
-              "data:image/png;base64," + response.result.avatar.toString(),
+            avatar: response.result.avatar,
           });
         }
       });
