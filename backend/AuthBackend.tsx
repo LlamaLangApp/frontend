@@ -1,4 +1,7 @@
 import { serverURL } from "./CommonBackend";
+import { getUserData } from "./UserBackend";
+import Toast from "react-native-toast-message";
+import { UserDataToSet } from "../state";
 
 type LoginResponse =
   | { type: "success"; authToken: string }
@@ -107,3 +110,54 @@ export async function callRegister(
     username: registerResponse.username,
   };
 }
+
+export const loginHandler = (
+  enteredUsername: string,
+  enteredPassword: string,
+  setUserData: (data: UserDataToSet) => void
+) => {
+  callLogin(enteredUsername, enteredPassword).then((loginResponse) => {
+    if (loginResponse.type === "success") {
+      getUserData(loginResponse.authToken).then((response) => {
+        if (response.type === "success") {
+          setUserData({
+            token: loginResponse.authToken,
+            username: response.result.username,
+            score: response.result.score,
+            level: response.result.level,
+            avatar: response.result.avatar,
+          });
+        }
+      });
+    } else {
+      Toast.show({
+        type: "error",
+        text1: loginResponse.message,
+      });
+    }
+  });
+};
+
+export const logoutHandler = (
+  token: string | null,
+  setUserData: (data: UserDataToSet) => void
+) => {
+  fetch(`http://${serverURL}/auth/token/logout/`, {
+    method: "POST",
+    body: JSON.stringify({ token }),
+    headers: {
+      "Content-type": "application/json",
+      Authorization: "Token " + token,
+    },
+  })
+    .then(() =>
+      setUserData({
+        token: null,
+        username: null,
+        avatar: null,
+        level: 0,
+        score: 0,
+      })
+    )
+    .catch((error) => console.error(error));
+};

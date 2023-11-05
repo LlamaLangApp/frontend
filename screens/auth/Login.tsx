@@ -10,12 +10,12 @@ import {
 import React, { useState } from "react";
 import authStyles from "../../styles/AuthStyles";
 import mainStyles from "../../styles/MainStyles";
-import { callLogin } from "../../backend/AuthBackend";
+import { loginHandler } from "../../backend/AuthBackend";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import Toast from "react-native-toast-message";
 import { AuthStackParamList } from "../../navgation/AuthStack";
-import { useAppStore } from "../../state";
 import FrontLlamaCenter from "../../components/FrontLlamaCenter";
+import { useAppStore } from "../../state";
 
 type Props = NativeStackScreenProps<AuthStackParamList, "Login">;
 
@@ -23,7 +23,7 @@ function LogScreen({ navigation }: Props) {
   const [enteredUsername, setEnteredUsername] = useState("");
   const [enteredPassword, setEnteredPassword] = useState("");
 
-  const setToken = useAppStore((store) => store.setToken);
+  const setUserData = useAppStore((store) => store.setUserData);
 
   function usernameInputHandler(
     enteredText: NativeSyntheticEvent<TextInputChangeEventData>
@@ -37,21 +37,9 @@ function LogScreen({ navigation }: Props) {
     setEnteredPassword(enteredText.nativeEvent.text);
   }
 
-  const loginHandler = React.useCallback(async () => {
-    const response = await callLogin(enteredUsername, enteredPassword);
-
-    switch (response.type) {
-      case "success":
-        setToken(response.authToken);
-        break;
-      case "error":
-        Toast.show({
-          type: "error",
-          text1: response.message,
-        });
-        break;
-    }
-  }, [setToken, enteredUsername, enteredPassword]);
+  const pressLoginButton = React.useCallback(() => {
+    loginHandler(enteredUsername, enteredPassword, setUserData);
+  }, [setUserData, enteredUsername, enteredPassword]);
 
   return (
     <View style={mainStyles.container}>
@@ -87,25 +75,17 @@ function LogScreen({ navigation }: Props) {
               onChange={passwordInputHandler}
             />
           </View>
-          <View
-            style={{
-              flexDirection: "row",
-            }}
-          >
+          <View>
             <TouchableOpacity
               style={authStyles.loginButton}
-              onPress={loginHandler}
+              onPress={pressLoginButton}
             >
               <Text style={authStyles.buttonText}>Sign in</Text>
             </TouchableOpacity>
           </View>
         </View>
         <View style={authStyles.loginContainer}>
-          <View
-            style={{
-              flexDirection: "row",
-            }}
-          >
+          <View style={{ flexDirection: "row" }}>
             <Text style={authStyles.plainText}>New to LlamaLang? </Text>
             <Pressable onPress={() => navigation.navigate("Register")}>
               <Text style={authStyles.linkedText}>Create an account</Text>
