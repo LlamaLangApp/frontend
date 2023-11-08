@@ -14,21 +14,57 @@ import {
 } from "../../Consts";
 import React from "react";
 import userStyles from "../../styles/UserStyles";
+import * as ImagePicker from "expo-image-picker";
+import { serverURL } from "../../backend/CommonBackend";
+import { getUserData } from "../../backend/UserBackend";
 
 type Props = NativeStackScreenProps<UserStackParamList, "User">;
 
 function ProfileScreen({ navigation }: Props) {
-  const { username, avatar, level, score } = useAppStore((store) => ({
-    username: store.username,
-    avatar: store.avatar ? store.avatar : "",
-    level: store.level,
-    score: store.score,
-  }));
+  const { username, avatar, level, score, token, setUserData } = useAppStore(
+    (store) => ({
+      username: store.username,
+      avatar: store.avatar ? store.avatar : "",
+      level: store.level,
+      score: store.score,
+      token: store.token,
+      setUserData: store.setUserData,
+    })
+  );
   const screenWidth = Dimensions.get("window").width;
+
+  const pickImage = async () => {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+    if (!result.canceled) {
+      fetch(result.assets[0].uri)
+        .then((response) => response.blob())
+        .then((blob) => {
+          fetch(`http://${serverURL}/avatar-upload/`, {
+            method: "POST",
+            body: blob,
+            headers: {
+              Authorization: `Token ${token}`,
+              "Content-Disposition": `attachment; filename=avatar.jpg`,
+            },
+          }).then(() =>
+            getUserData(token).then((response) => {
+              if (response.type === "success") {
+                setUserData(response.result);
+              }
+            })
+          );
+        });
+    }
+  };
 
   return (
     <View style={mainStyles.container}>
-      <TouchableOpacity style={userStyles.settingsIcon}>
+      <TouchableOpacity style={userStyles.settingsIcon} onPress={pickImage}>
         <FontAwesome5 name="edit" size={30} color={"#696368"} />
       </TouchableOpacity>
       <View style={userStyles.mainContainer}>
