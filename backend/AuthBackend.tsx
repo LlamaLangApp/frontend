@@ -121,6 +121,7 @@ export const loginHandler = (
       getUserData(loginResponse.authToken).then((response) => {
         if (response.type === "success") {
           setUserData({
+            id: response.result.id,
             token: loginResponse.authToken,
             username: response.result.username,
             score: response.result.score,

@@ -11,7 +11,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#e5b3bb"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -22,11 +24,6 @@
       },
       "softwareKeyboardLayoutMode": "pan",
       "package": "com.llamalang.llamalang"
-    },
-    "extra": {
-      "eas": {
-        "projectId": "0c450777-baff-4d62-805b-ef54d3e490ac"
-      }
     },
     "owner": "llamalang"
   }

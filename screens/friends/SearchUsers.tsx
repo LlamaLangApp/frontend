@@ -1,6 +1,7 @@
 import {
+  Button,
   FlatList,
-  Image,
+  Modal,
   Text,
   TextInput,
   TouchableOpacity,
@@ -11,14 +12,11 @@ import { FriendData, getUsersData } from "../../backend/FriendsBackend";
 import { useAppStore } from "../../state";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { FriendsStackParamList } from "../../navgation/FriendsStack";
-import {
-  buttonDarkPink,
-  buttonLightPink,
-  grey,
-  lightGrey,
-  pink,
-} from "../../Consts";
-import React, { useEffect, useState } from "react";
+import { grey } from "../../Consts";
+import React, { useContext, useEffect, useState } from "react";
+import friendsStyles from "../../styles/FriendsStyles";
+import UserListItem from "../../components/UserListItem";
+import { FriendsContext } from "./Friends";
 
 type Props = NativeStackScreenProps<FriendsStackParamList, "Search">;
 
@@ -27,21 +25,24 @@ function SearchUsersScreen({}: Props) {
     token: store.token,
     username: store.username,
   }));
+  const {
+    friends,
+    setFriends,
+    filteredUsers,
+    setFilteredUsers,
+    users,
+    setUsers,
+  } = useContext(FriendsContext);
   const [searchText, setSearchText] = useState("");
-  const [users, setUsers] = useState<FriendData[]>([]);
-  const [filteredUsers, setFilteredUsers] = useState<FriendData[]>([]);
+  const [modalVisible, setModalVisible] = useState(false);
 
-  useEffect(() => {
-    getUsersData(token).then((response) => {
-      if (response.type === "success") {
-        const usersData = response.result.filter(
-          (user) => user.username !== username
-        );
-        setUsers(usersData);
-        setFilteredUsers(usersData);
-      }
-    });
-  }, []);
+  const openModal = () => {
+    setModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setModalVisible(false);
+  };
 
   useEffect(() => {
     const filtered = users.filter((user) =>
@@ -52,105 +53,63 @@ function SearchUsersScreen({}: Props) {
 
   return (
     <View style={mainStyles.container}>
-      <View style={{ flex: 5, width: "100%", height: "100%" }}>
+      <Modal
+        visible={modalVisible}
+        onRequestClose={closeModal}
+        transparent={true}
+      >
         <View
           style={{
-            flex: 0.4,
-            justifyContent: "flex-end",
-            marginLeft: "6%",
-            marginBottom: "1%",
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
           }}
         >
+          <View
+            style={{
+              marginTop: "20%",
+              width: "80%",
+              height: "45%",
+              backgroundColor: "white",
+              padding: 20,
+              borderRadius: 10,
+            }}
+          >
+            <Text>Modal Content Goes Here</Text>
+
+            {/* Button to close the modal */}
+            <Button title="Close Modal" onPress={closeModal} />
+          </View>
+        </View>
+      </Modal>
+      <View style={friendsStyles.mainContainer}>
+        <View style={friendsStyles.titleContainer}>
           <Text style={{ fontSize: 24, color: grey }}>Search users</Text>
         </View>
-        <View
-          style={{
-            flex: 4.6,
-            width: "90%",
-            marginHorizontal: "5%",
-            marginBottom: "10%",
-            backgroundColor: lightGrey,
-            borderWidth: 3,
-            borderRadius: 15,
-            borderColor: buttonDarkPink,
-          }}
-        >
-          <View>
-            <TextInput
-              placeholder="search users..."
-              style={{
-                marginHorizontal: "2%",
-                marginVertical: "2%",
-                borderWidth: 2,
-                borderColor: buttonDarkPink,
-                borderRadius: 10,
-                width: "96%",
-                height: "6%",
-                paddingVertical: 8,
-                paddingHorizontal: 5,
-                backgroundColor: "white",
-                color: grey,
-                fontSize: 18,
-              }}
-              // value={}
-              onChangeText={setSearchText}
-            />
-            <FlatList
-              style={{
-                width: "96%",
-                height: "90%",
-                marginHorizontal: "2%",
-                marginBottom: "2%",
-                borderRadius: 10,
-              }}
-              showsVerticalScrollIndicator={false}
-              data={filteredUsers}
-              renderItem={(itemData) => {
-                return (
-                  <TouchableOpacity>
-                    <View
-                      style={{
-                        marginVertical: "1%",
-                        backgroundColor: pink,
-                        borderColor: buttonLightPink,
-                        borderWidth: 2,
-                        borderRadius: 10,
-                        justifyContent: "space-between",
-                      }}
-                    >
-                      <View
-                        style={{
-                          flexDirection: "row",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                        }}
-                      >
-                        <View
-                          style={{
-                            width: 60,
-                            height: 60,
-                            borderRadius: 30,
-                            borderWidth: 2,
-                            borderColor: buttonDarkPink,
-                            overflow: "hidden",
-                            margin: 3,
-                          }}
-                        >
-                          <Image
-                            source={{ uri: itemData.item.avatar }}
-                            style={{ width: "100%", height: "100%" }}
-                          />
-                        </View>
-                        <Text style={{ fontSize: 21, color: "white" }}>
-                          {itemData.item.username}
-                        </Text>
-                      </View>
-                    </View>
-                  </TouchableOpacity>
-                );
-              }}
-            />
-          </View>
+        <View style={friendsStyles.searchContainer}>
+          <TextInput
+            placeholder="search users..."
+            style={friendsStyles.textInput}
+            onChangeText={setSearchText}
+          />
+          <TouchableOpacity onPress={openModal}>
+            <Text>MARTYNAAAAAAAAAAA</Text>
+          </TouchableOpacity>
+          <FlatList
+            style={friendsStyles.usersList}
+            showsVerticalScrollIndicator={false}
+            data={filteredUsers}
+            renderItem={(item) => {
+              return (
+                <UserListItem
+                  username={item.item.username}
+                  avatar={item.item.avatar}
+                  level={item.item.level}
+                />
+              );
+            }}
+          />
         </View>
       </View>
     </View>

@@ -3,6 +3,7 @@ import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
 export type UserDataToSet = {
+  id?: number;
   token?: null | string;
   username?: string | null;
   avatar?: string | null;
@@ -11,6 +12,7 @@ export type UserDataToSet = {
 };
 
 interface AppState {
+  id: number;
   token: null | string;
   username: string | null;
   avatar: string | null;
@@ -22,6 +24,7 @@ interface AppState {
 const useAppStore = create<AppState>()(
   persist(
     (set) => ({
+      id: 0,
       username: null,
       avatar: null,
       score: 0,
