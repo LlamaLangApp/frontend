@@ -1,6 +1,6 @@
 import { serverURL } from "./CommonBackend";
 
-type GetStatisticsReponse =
+type GetStatisticsResponse =
   | { type: "success"; result: { username: string; stat: number }[] }
   | { type: "error"; message: string };
 
@@ -10,7 +10,7 @@ export async function getStatistics(
   period: "all_time" | "this_week",
   aggregate: "sum" | "avg" | "min" | "count",
   statistic: string
-): Promise<GetStatisticsReponse> {
+): Promise<GetStatisticsResponse> {
   let response;
   try {
     response = await fetch(`http://${serverURL}/statistics/`, {

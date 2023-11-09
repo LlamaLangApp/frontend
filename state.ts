@@ -2,16 +2,32 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
+export type UserDataToSet = {
+  token?: null | string;
+  username?: string | null;
+  avatar?: string | null;
+  level?: number;
+  score?: number;
+};
+
 interface AppState {
   token: null | string;
-  setToken: (token: null | string) => void;
+  username: string | null;
+  avatar: string | null;
+  level: number;
+  score: number;
+  setUserData: (data: UserDataToSet) => void;
 }
 
 const useAppStore = create<AppState>()(
   persist(
     (set) => ({
+      username: null,
+      avatar: null,
+      score: 0,
+      level: 0,
       token: null,
-      setToken: (token) => set({ token }),
+      setUserData: (data) => set(data),
     }),
     {
       name: "llamalang-storage",
