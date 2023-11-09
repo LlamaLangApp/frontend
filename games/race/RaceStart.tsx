@@ -24,7 +24,6 @@ function RaceStartScreen() {
 
   const downloadWordSetsHandler = React.useCallback(async () => {
     if (setType === "Default sets") {
-      console.log(setName);
       const response = await callWordSets(token);
       switch (response.type) {
         case "success":

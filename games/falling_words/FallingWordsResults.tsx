@@ -34,7 +34,7 @@ function FallingWordsResultsScreen({ route, navigation }: Props) {
     <SinglePlayerResultsScreen
       gameName={"FallingWords"}
       points={points}
-      hasWon={points >= 60}
+      hasWon={accuracy === 1}
       setName={setName}
       exitGameHandler={() => {
         parentNavigation.navigate("Home");

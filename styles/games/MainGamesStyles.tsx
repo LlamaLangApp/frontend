@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { buttonLightPink, lightGrey, pink } from "../../Consts";
+import { buttonDarkPink, buttonLightPink, lightGrey, pink } from "../../Consts";
 
 const mainGamesStyles = StyleSheet.create({
   appContainer: {
@@ -42,7 +42,8 @@ const mainGamesStyles = StyleSheet.create({
     // shadowRadius: 2,
   },
   fallingWordsCard: {
-    backgroundColor: lightGrey,
+    backgroundColor: buttonDarkPink,
+    padding: 3,
   },
   raceCard: {
     width: "47%",

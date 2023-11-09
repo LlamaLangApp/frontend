@@ -1,14 +1,28 @@
-import React, { useState } from "react";
-import { View, StyleSheet, PanResponder, Dimensions } from "react-native";
+import React from "react";
+import { Dimensions, PanResponder, StyleSheet, View, Image } from "react-native";
 
-const Bucket = () => {
-  const screenWidth = Dimensions.get("window").width;
-  const [bucketStyles, setBucketStyles] = useState({ left: 0, top: 0 });
+export const bucketWidth = 70;
+
+type FallingWordsCardProps = {
+  setPosition: React.Dispatch<
+    React.SetStateAction<{ left: number; top: number }>
+  >;
+  bucketPosition: { left: number; top: number };
+};
+
+const Bucket: React.FC<FallingWordsCardProps> = ({
+  setPosition,
+  bucketPosition,
+}) => {
+  const screenWidth = Math.max(
+    Dimensions.get("window").width,
+    Dimensions.get("window").height
+  );
   const panResponder = PanResponder.create({
     onStartShouldSetPanResponder: () => true,
     onPanResponderMove: (event, gestureState) => {
-      const newX = gestureState.moveX - Math.floor(screenWidth / 2) - 25; // Adjust for the bucket's width
-      setBucketStyles({
+      const newX = gestureState.moveX - screenWidth / 2 - bucketWidth / 2;
+      setPosition({
         left: newX,
         top: 0,
       });
@@ -18,9 +32,11 @@ const Bucket = () => {
   return (
     <View style={styles.container}>
       <View
-        style={[styles.bucket, bucketStyles]}
+        style={[styles.bucket, bucketPosition]}
         {...panResponder.panHandlers}
-      />
+      >
+        <Image source={require("../../assets/llama_with_bucket.png")} />
+      </View>
     </View>
   );
 };
@@ -32,10 +48,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   bucket: {
-    width: 50,
-    height: 50,
-    backgroundColor: "pink",
+    // width: bucketWidth,
+    // height: 50,
+    // backgroundColor: buttonLightPink,
     position: "absolute",
+    // borderBottomLeftRadius: 25,
+    // borderBottomRightRadius: 25,
   },
 });
 

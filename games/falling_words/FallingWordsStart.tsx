@@ -5,10 +5,11 @@ import { useAppStore } from "../../state";
 import SinglePlayerStartScreen from "../common_singleplayer/SingleplayerStart";
 import { callTranslations } from "../../backend/WordSetsBackend";
 import { Card, choseMainWord, makeCards } from "./FallingWordsCard";
+import { Dimensions } from "react-native";
 
 type Props = NativeStackScreenProps<FallingWordsStackParamList, "Start">;
 
-const roundsNumber = 1;
+const roundsNumber = 2;
 
 export type Round = {
   id: number;
@@ -16,25 +17,44 @@ export type Round = {
   mainWordCard: Card;
 };
 
+const screenWidth = Math.min(
+  Dimensions.get("window").width,
+  Dimensions.get("window").height
+);
+
 function FallingWordsStartScreen({ navigation }: Props) {
   const [setName, setSetName] = useState<string>("");
   const [setId, setSetId] = useState<number>(-1);
   const [rounds, setRounds] = useState<Round[]>([]);
   const token = useAppStore.getState().token;
 
-  const startGameHandler = () => {
+  const startGameHandler = async () => {
+    const allRounds = [];
     for (let i = 0; i < roundsNumber; i++) {
-      callTranslations(token, setId, 6).then((response) => {
-        if (response.type === "success") {
-          const round = {
-            id: i,
-            cards: makeCards(response.translations),
-            mainWordCard: choseMainWord(response.translations),
-          };
-          setRounds((rounds) => [...rounds, round]);
+      const response = await callTranslations(token, setId, 6);
+      if (response.type === "success") {
+        const cards = makeCards(response.translations);
+
+        let lastPos = 9999999999;
+        for (const card of cards) {
+          let cardPos;
+          while (!cardPos || Math.abs(lastPos - cardPos) < 100) {
+            cardPos =
+              Math.random() * (screenWidth - 10) - (screenWidth - 10) / 2;
+          }
+          card.leftPosition = cardPos;
+          lastPos = cardPos;
         }
-      });
+
+        const round = {
+          id: i,
+          cards,
+          mainWordCard: choseMainWord(response.translations),
+        };
+        allRounds.push(round);
+      }
     }
+    setRounds(allRounds);
   };
 
   useEffect(() => {
