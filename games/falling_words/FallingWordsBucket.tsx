@@ -1,5 +1,11 @@
 import React from "react";
-import { Dimensions, PanResponder, StyleSheet, View, Image } from "react-native";
+import {
+  Dimensions,
+  Image,
+  PanResponder,
+  StyleSheet,
+  View,
+} from "react-native";
 
 export const bucketWidth = 70;
 
