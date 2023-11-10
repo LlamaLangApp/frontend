@@ -8,8 +8,8 @@ import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { MainStackParamList } from "../../App";
 import { RaceStackParamList } from "./RaceStack";
 import buttonGamesStyles from "../../styles/games/ButtonGamesStyles";
-import textGamesStyles from "../../styles/games/TextGamesStyles";
 import PlayerListItem, { PlaceItem } from "../../components/PlayerListItem";
+import { buttonLightPink } from "../../Consts";
 
 type Props = NativeStackScreenProps<RaceStackParamList, "EndGame">;
 type MainStack = NavigationProp<MainStackParamList, "Home">;
@@ -50,25 +50,33 @@ function RaceEndGameScreen({ route }: Props) {
   return (
     <View style={mainStyles.container}>
       <View style={mainGamesStyles.multiplayerContentContainer}>
-        <View style={{ flex: 2 }}>
-          <View style={textGamesStyles.textWithMarginContainer}>
-            <Text style={textGamesStyles.headingText}>Race</Text>
-          </View>
-          <View style={textGamesStyles.textWithMarginContainer}>
-            <Text style={textGamesStyles.basicText}>You have earned:</Text>
-          </View>
-          <View style={textGamesStyles.textWithMarginContainer}>
-            <Text style={textGamesStyles.secondaryText}> pkt</Text>
-          </View>
-          <View style={textGamesStyles.textWithMarginContainer}>
-            <Text style={textGamesStyles.headingText}>
-              "Yay! You win"
-              {/*{true ? "Yay! You win" : "Unfortunately, you lost"}*/}
-              {/*fix when user will be added*/}
+        <View
+          style={{
+            flex: 1.5,
+            alignItems: "center",
+            justifyContent: "flex-end",
+            marginBottom: "10%",
+          }}
+        >
+          <View
+            style={{
+              width: "100%",
+              marginBottom: "3%",
+              alignItems: "center",
+              justifyContent: "flex-end",
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 45,
+                color: "white",
+                textShadowColor: "#2d2d2e",
+                textShadowOffset: { width: 2, height: 2 },
+                textShadowRadius: 4,
+              }}
+            >
+              Race
             </Text>
-          </View>
-          <View style={textGamesStyles.textWithMarginContainer}>
-            <Text style={textGamesStyles.secondaryText}>gg</Text>
           </View>
         </View>
         <View
@@ -94,7 +102,13 @@ function RaceEndGameScreen({ route }: Props) {
 
         <View style={{ alignItems: "center", flex: 0.5 }}>
           <TouchableOpacity
-            style={buttonGamesStyles.button}
+            style={{
+              alignItems: "center",
+              width: "50%",
+              backgroundColor: buttonLightPink,
+              borderRadius: 30,
+              margin: "1%",
+            }}
             onPress={exitGameHandler}
           >
             <Text style={buttonGamesStyles.buttonText}>Exit game</Text>
