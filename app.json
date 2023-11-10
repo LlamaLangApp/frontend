@@ -13,7 +13,8 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "requireFullScreen": true
     },
     "android": {
       "adaptiveIcon": {
@@ -23,11 +24,17 @@
       "softwareKeyboardLayoutMode": "pan",
       "package": "com.llamalang.llamalang"
     },
-    "extra": {
-      "eas": {
-        "projectId": "0c450777-baff-4d62-805b-ef54d3e490ac"
-      }
+    "web": {
+      "favicon": "./assets/favicon.png"
     },
+    "plugins": [
+      [
+        "expo-screen-orientation",
+        {
+          "initialOrientation": "DEFAULT"
+        }
+      ]
+    ],
     "owner": "llamalang"
   }
 }

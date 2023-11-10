@@ -24,7 +24,7 @@ const CustomDrawer = (props: DrawerContentComponentProps) => {
       token: store.token,
     })
   );
-
+  console.log(avatar);
   return (
     <View style={{ flex: 1 }}>
       <DrawerContentScrollView
@@ -52,7 +52,8 @@ const CustomDrawer = (props: DrawerContentComponentProps) => {
               }}
             >
               <Image
-                source={{ uri: avatar ? avatar : "" }}
+                // source={{ uri: avatar ? avatar : "" }}
+                source={require("../assets/Haker.jpg")}
                 style={{
                   width: "100%",
                   height: "100%",

@@ -38,7 +38,7 @@ const MemoryCard: React.FC<MemoryCardProps> = ({
 }) => {
   return (
     <TouchableOpacity
-      style={mainGamesStyles.card}
+      style={mainGamesStyles.memoryCard}
       onPress={() => !isFlipped && !isDisabled && onClick(index)}
       disabled={isAllDisabled || isFlipped || isDisabled}
     >
