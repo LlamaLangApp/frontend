@@ -81,7 +81,6 @@ function FallingWordsGame({ route, navigation }: Props) {
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      let allFallen = true;
       for (const id in cards.current) {
         if (checkInBucket(cards.current[id]) && !cards.current[id].fallen) {
           if (cards.current[id].word === rounds[round].mainWordCard.word) {
@@ -104,30 +103,14 @@ function FallingWordsGame({ route, navigation }: Props) {
         }
         if (checkCardFallen(cards.current[id])) {
           cards.current[id].fallen = true;
-          console.log(
-            cards.current[id].translation,
-            cards.current[id].fallen,
-            true
-          );
-        } else {
-          console.log(
-            cards.current[id].translation,
-            cards.current[id].fallen,
-            false
-          );
-          allFallen = false;
         }
       }
-      if (allFallen) {
+      if (
+        Object.keys(cards).length != 0 &&
+        Object.values(cards).every((card) => card.fallen)
+      ) {
         setEndRound(true);
       }
-      // if (Object.keys(cards).length != 0) {
-      //   for (const id in cards.current) {
-      //     console.log(cards.current[id].fallen);
-      //     if (!cards.current[id].fallen) return;
-      //   }
-      //   setEndRound(true);
-      // }
     }, 32);
     return () => {
       clearInterval(intervalId);
@@ -203,10 +186,10 @@ function FallingWordsGameScreen({ route, navigation }: Props) {
     setTimeout(() => {
       ScreenOrientation.unlockAsync().then(() => {
         ScreenOrientation.lockAsync(
-          ScreenOrientation.OrientationLock.LANDSCAPE_LEFT
+          ScreenOrientation.OrientationLock.LANDSCAPE
         ).then(() => setChangedOrientation(true));
       });
-    }, 1000);
+    }, 400);
   }, []);
 
   return changedOrientation ? (
