@@ -26,14 +26,14 @@ const CustomDrawer = (props: DrawerContentComponentProps) => {
   );
   console.log(avatar);
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, width: "100%" }}>
       <DrawerContentScrollView
         {...props}
         contentContainerStyle={{ backgroundColor: "#ffd5d5" }}
       >
         <ImageBackground
           source={require("../assets/background.jpg")}
-          style={{}}
+          style={{ width: "100%", justifyContent: "space-between" }}
         >
           <View
             style={{
@@ -41,6 +41,7 @@ const CustomDrawer = (props: DrawerContentComponentProps) => {
               marginVertical: "6%",
               marginLeft: "6%",
               marginRight: "1%",
+              width: "30%",
             }}
           >
             <View
@@ -60,15 +61,22 @@ const CustomDrawer = (props: DrawerContentComponentProps) => {
                 }}
               />
             </View>
-            <View style={{ justifyContent: "center", alignItems: "center" }}>
+            <View
+              style={{
+                marginLeft: 20,
+                justifyContent: "center",
+                alignItems: "center",
+                marginRight: -30,
+              }}
+            >
               <Text
                 style={{
-                  fontSize: 18,
+                  fontSize: 26,
                 }}
               >
                 {username}
               </Text>
-              <Text>{level}</Text>
+              <Text>Level: {level}</Text>
             </View>
           </View>
         </ImageBackground>
