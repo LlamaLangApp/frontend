@@ -6,13 +6,14 @@ import wordSetsStyles from "../../styles/WordSetsStyles";
 import { FlatList } from "react-native-gesture-handler";
 import WordListItem from "../../components/WordListItem";
 import { Fontisto } from "@expo/vector-icons";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { WordSetStackParamList } from "../../navgation/WordSetStack";
-import CloseButton from "../../components/CloseButton";
+// import { NativeStackScreenProps } from "@react-navigation/native-stack";
+// import { WordSetStackParamList } from "../../navgation/WordSetStack";
+// import CloseButton from "../../components/CloseButton";
 
-type Props = NativeStackScreenProps<WordSetStackParamList, "Display">;
+// type Props = NativeStackScreenProps<WordSetStackParamList, "Display">;
 
-function WordSetDisplayScreen({ navigation }: Props) {
+// function WordSetDisplayScreen({ navigation }: Props) {
+function WordSetDisplayScreen() {
   const {
     chosenSetName,
     chosenPolish,
@@ -22,7 +23,7 @@ function WordSetDisplayScreen({ navigation }: Props) {
   } = useContext(WordSetContext);
   return (
     <View style={mainStyles.container}>
-      <CloseButton onPress={() => navigation.navigate("List")} />
+      {/*<CloseButton onPress={() => navigation.navigate("List")} />*/}
       <View style={{ marginTop: "4%" }}>
         <Text style={wordSetsStyles.headingText}>{chosenSetName}</Text>
       </View>
