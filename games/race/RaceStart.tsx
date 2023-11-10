@@ -1,7 +1,7 @@
 import { Text, TouchableOpacity, View } from "react-native";
 import mainStyles from "../../styles/MainStyles";
 import mainGamesStyles from "../../styles/games/MainGamesStyles";
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import CustomDropdown from "../../components/CustomDropdown";
 import { callWordSets } from "../../backend/WordSetsBackend";
 import { useAppStore } from "../../state";
@@ -13,30 +13,35 @@ import textGamesStyles from "../../styles/games/TextGamesStyles";
 
 function RaceStartScreen() {
   const { ws } = useContext(RaceWebSocketContext);
-  const [setName, setSetName] = useState<string>("");
   const [setType, setSetType] = useState<string>("");
+  const [setId, setSetId] = useState<number>(0);
   const [wordSets, setWordSets] = useState<WordSet[]>([]);
   const token = useAppStore.getState().token;
 
   async function findOtherPlayersHandler() {
-    ws.send(JSON.stringify({ type: "waitroom_request", game: "race" }));
+    ws.send(
+      JSON.stringify({
+        type: "waitroom_request",
+        game: "race",
+        wordset_id: setId,
+      })
+    );
   }
 
-  const downloadWordSetsHandler = React.useCallback(async () => {
+  useEffect(() => {
     if (setType === "Default sets") {
-      const response = await callWordSets(token);
-      switch (response.type) {
-        case "success":
+      callWordSets(token).then((response) => {
+        if (response.type === "success") {
           setWordSets(response.wordSets);
-          break;
-        case "error":
+        } else {
           setWordSets([]);
-          break;
-      }
+        }
+      });
     } else {
       setWordSets([]);
+      setSetId(-1);
     }
-  }, [setWordSets, setType]);
+  }, [setType]);
 
   return (
     <View style={mainStyles.container}>
@@ -55,10 +60,7 @@ function RaceStartScreen() {
           <CustomDropdown
             defaultSelectText={"type"}
             selectData={["Default sets", "Custom sets (coming soon...)"]}
-            onSelectFunc={async (selectedItem) => {
-              setSetType(selectedItem);
-              await downloadWordSetsHandler();
-            }}
+            onSelectFunc={setSetType}
           />
         </View>
         <View style={textGamesStyles.textWithMarginContainer}>
@@ -68,7 +70,12 @@ function RaceStartScreen() {
           <CustomDropdown
             defaultSelectText={"set"}
             selectData={wordSets.map((wordSet) => wordSet.polish)}
-            onSelectFunc={setSetName}
+            onSelectFunc={(selectedItem) => {
+              setSetId(
+                wordSets.find((wordSet) => wordSet.polish === selectedItem)
+                  ?.id ?? -1
+              );
+            }}
           />
         </View>
         <View style={{ flexDirection: "row" }}>
