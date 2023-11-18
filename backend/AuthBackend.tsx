@@ -160,5 +160,13 @@ export const logoutHandler = (
         score: 0,
       })
     )
-    .catch((error) => console.error(error));
+    .catch(() =>
+      setUserData({
+        token: null,
+        username: null,
+        avatar: null,
+        level: 0,
+        score: 0,
+      })
+    );
 };

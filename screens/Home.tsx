@@ -23,7 +23,12 @@ function HomeScreen({ navigation }: Props) {
   const games: GameItem[] = [
     { id: "1", name: "memory", type: "SinglePlayer", screenName: "Memory" },
     { id: "2", name: "race", type: "MultiPlayer", screenName: "Race" },
-    { id: "3", name: "memory", type: "SinglePlayer", screenName: "Memory" },
+    {
+      id: "3",
+      name: "falling words",
+      type: "SinglePlayer",
+      screenName: "FallingWords",
+    },
     { id: "4", name: "memory", type: "SinglePlayer", screenName: "Memory" },
     { id: "5", name: "memory", type: "SinglePlayer", screenName: "Memory" },
     { id: "6", name: "memory", type: "SinglePlayer", screenName: "Memory" },

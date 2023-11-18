@@ -73,7 +73,8 @@ function ProfileScreen({ navigation }: Props) {
             <View style={userStyles.avatar}>
               {avatar && (
                 <Image
-                  source={{ uri: avatar }}
+                  // source={{ uri: avatar }}
+                  source={require("../../assets/Haker.jpg")}
                   style={userStyles.avatarImage}
                 />
               )}

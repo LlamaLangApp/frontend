@@ -1,18 +1,19 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import { useContext } from "react";
 import { WordSetContext } from "./WordSets";
 import { pink } from "../../Consts";
 import mainStyles from "../../styles/MainStyles";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { WordSetStackParamList } from "../../navgation/WordSetStack";
-import CloseButton from "../../components/CloseButton";
+// import { NativeStackScreenProps } from "@react-navigation/native-stack";
+// import { WordSetStackParamList } from "../../navgation/WordSetStack";
+// import CloseButton from "../../components/CloseButton";
 import IconButton from "../../components/IconButton";
 import wordSetsStyles from "../../styles/WordSetsStyles";
 
-type Props = NativeStackScreenProps<WordSetStackParamList, "FlashCards">;
+// type Props = NativeStackScreenProps<WordSetStackParamList, "FlashCards">;
 
-const FlashCardScreen = ({ navigation }: Props) => {
+// const FlashCardScreen = ({ navigation }: Props) => {
+const FlashCardScreen = () => {
   const {
     flashCards,
     setFlashCards,
@@ -44,9 +45,9 @@ const FlashCardScreen = ({ navigation }: Props) => {
 
   return (
     <View style={mainStyles.container}>
-      <CloseButton onPress={() => navigation.navigate("Display")} />
+      {/*<CloseButton onPress={() => navigation.navigate("Display")} />*/}
       <View style={wordSetsStyles.containerFlashCards}>
-        <View
+        <TouchableOpacity
           style={{
             flex: 0.9,
             marginVertical: "15%",
@@ -55,17 +56,27 @@ const FlashCardScreen = ({ navigation }: Props) => {
             borderRadius: 15,
             justifyContent: "center",
           }}
+          onPress={() => {
+            setShowPolish((prevState) => !prevState);
+          }}
         >
           {cardText}
-        </View>
+        </TouchableOpacity>
         {currentIndex < flashCards.length ? (
-          <View style={{ flex: 0.4, width: "80%", flexDirection: "row" }}>
-            <IconButton
-              icon={"arrow-swap"}
-              onPress={() => {
-                setShowPolish((prevState) => !prevState);
-              }}
-            />
+          <View
+            style={{
+              flex: 0.4,
+              width: "80%",
+              flexDirection: "row",
+              justifyContent: "center",
+            }}
+          >
+            {/*<IconButton*/}
+            {/*  icon={"arrow-swap"}*/}
+            {/*  onPress={() => {*/}
+            {/*    setShowPolish((prevState) => !prevState);*/}
+            {/*  }}*/}
+            {/*/>*/}
             <IconButton
               icon={"arrow-right-l"}
               onPress={() => {
