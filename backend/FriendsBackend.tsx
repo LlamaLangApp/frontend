@@ -38,7 +38,6 @@ export async function getUsersData(
     return { type: "error", message: "Unknown network error" };
   }
   const tokenResponse: FriendData[] = await response.json();
-  console.log(tokenResponse);
 
   if (!response.ok) {
     return { type: "error", message: "Unable to get word sets" };
@@ -63,7 +62,6 @@ export async function getFriendsData(
     return { type: "error", message: "Unknown network error" };
   }
   const tokenResponse: FriendData[] = await response.json();
-  console.log(tokenResponse);
 
   if (!response.ok) {
     return { type: "error", message: "Unable to get word sets" };
@@ -78,21 +76,17 @@ export async function getSentRequestsData(
 ): Promise<GetRequestsDataResponse> {
   let response;
   try {
-    response = await fetch(
-      `http://${serverURL}/friend-request/${user_id}/sent`,
-      {
-        method: "GET",
-        headers: {
-          "Content-type": "application/json",
-          Authorization: "Token " + token,
-        },
-      }
-    );
+    response = await fetch(`http://${serverURL}/friend-request/sent/`, {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: "Token " + token,
+      },
+    });
   } catch (_) {
     return { type: "error", message: "Unknown network error" };
   }
   const tokenResponse: RequestData[] = await response.json();
-  console.log(tokenResponse);
 
   if (!response.ok) {
     return { type: "error", message: "Unable to get word sets" };
@@ -107,21 +101,17 @@ export async function getReceivedRequestsData(
 ): Promise<GetRequestsDataResponse> {
   let response;
   try {
-    response = await fetch(
-      `http://${serverURL}/friend-request/${user_id}/received`,
-      {
-        method: "GET",
-        headers: {
-          "Content-type": "application/json",
-          Authorization: "Token " + token,
-        },
-      }
-    );
+    response = await fetch(`http://${serverURL}/friend-request/received/`, {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: "Token " + token,
+      },
+    });
   } catch (_) {
     return { type: "error", message: "Unknown network error" };
   }
   const tokenResponse: RequestData[] = await response.json();
-  console.log(tokenResponse);
 
   if (!response.ok) {
     return { type: "error", message: "Unable to get word sets" };

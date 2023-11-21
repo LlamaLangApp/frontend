@@ -26,6 +26,7 @@ function SearchUsersScreen({}: Props) {
     username: store.username,
   }));
   const {
+    allUsers,
     friends,
     setFriends,
     filteredUsers,
@@ -45,7 +46,7 @@ function SearchUsersScreen({}: Props) {
   };
 
   useEffect(() => {
-    const filtered = users.filter((user) =>
+    const filtered = allUsers.filter((user) =>
       user.username.toLowerCase().includes(searchText.toLowerCase())
     );
     setFilteredUsers(filtered);
