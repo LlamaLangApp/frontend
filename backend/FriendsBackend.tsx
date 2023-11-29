@@ -18,8 +18,20 @@ type GetUsersDataResponse =
   | { type: "success"; result: FriendData[] }
   | { type: "error"; message: string };
 
+type GetFriendsDataResponse =
+  | { type: "success"; result: { friendship_id: number; friend: FriendData }[] }
+  | { type: "error"; message: string };
+
 type GetRequestsDataResponse =
   | { type: "success"; result: RequestData[] }
+  | { type: "error"; message: string };
+
+type InviteDataResponse =
+  | { type: "success"; result: RequestData }
+  | { type: "error"; message: string };
+
+type ResponseToInviteDataResponse =
+  | { type: "success"; result: { friendship_id: number } }
   | { type: "error"; message: string };
 
 export async function getUsersData(
@@ -48,7 +60,7 @@ export async function getUsersData(
 
 export async function getFriendsData(
   token: string | null
-): Promise<GetUsersDataResponse> {
+): Promise<GetFriendsDataResponse> {
   let response;
   try {
     response = await fetch(`http://${serverURL}/friendship/`, {
@@ -61,7 +73,8 @@ export async function getFriendsData(
   } catch (_) {
     return { type: "error", message: "Unknown network error" };
   }
-  const tokenResponse: FriendData[] = await response.json();
+  const tokenResponse: { friendship_id: number; friend: FriendData }[] =
+    await response.json();
 
   if (!response.ok) {
     return { type: "error", message: "Unable to get word sets" };
@@ -115,6 +128,92 @@ export async function getReceivedRequestsData(
 
   if (!response.ok) {
     return { type: "error", message: "Unable to get word sets" };
+  }
+
+  return { type: "success", result: tokenResponse };
+}
+
+export async function sendFriendsInvite(
+  ourId: number,
+  userId: number,
+  token: string | null
+): Promise<InviteDataResponse> {
+  let response;
+  try {
+    response = await fetch(`http://${serverURL}/friend-request/`, {
+      method: "POST",
+      body: JSON.stringify({
+        sender: userId,
+        receiver: ourId,
+      }),
+      headers: {
+        "Content-type": "application/json",
+        Authorization: "Token " + token,
+      },
+    });
+  } catch (_) {
+    return { type: "error", message: "Unknown network error" };
+  }
+  const tokenResponse: RequestData = await response.json();
+
+  if (!response.ok) {
+    return { type: "error", message: tokenResponse.toString() };
+  }
+
+  return { type: "success", result: tokenResponse };
+}
+
+export async function acceptFriendsInvite(
+  inviteId: number | null,
+  token: string | null
+): Promise<ResponseToInviteDataResponse> {
+  let response;
+  try {
+    response = await fetch(
+      `http://${serverURL}/friend-request/${inviteId}/accept/`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-type": "application/json",
+          Authorization: "Token " + token,
+        },
+      }
+    );
+  } catch (_) {
+    return { type: "error", message: "Unknown network error" };
+  }
+  const tokenResponse: { friendship_id: number } = await response.json();
+
+  if (!response.ok) {
+    return { type: "error", message: tokenResponse.toString() };
+  }
+
+  return { type: "success", result: tokenResponse };
+}
+
+export async function rejectFriendsInvite(
+  inviteId: number | null,
+  token: string | null
+): Promise<ResponseToInviteDataResponse> {
+  let response;
+  try {
+    response = await fetch(
+      `http://${serverURL}/friend-request/${inviteId}/reject/`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-type": "application/json",
+          Authorization: "Token " + token,
+        },
+      }
+    );
+  } catch (_) {
+    return { type: "error", message: "Unknown network error" };
+  }
+  const tokenResponse: { friendship_id: number } = await response.json();
+
+  if (!response.ok) {
+    return { type: "error", message: tokenResponse.toString() };
   }
 
   return { type: "success", result: tokenResponse };

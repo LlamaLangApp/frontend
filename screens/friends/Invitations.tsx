@@ -1,63 +1,27 @@
-import {
-  Button,
-  FlatList,
-  Modal,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import mainStyles from "../../styles/MainStyles";
+import { FlatList, Modal, Text, TouchableOpacity, View } from "react-native";
 import { useAppStore } from "../../state";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { FriendsStackParamList } from "../../navgation/FriendsStack";
-import { grey, lightGrey } from "../../Consts";
+import { grey } from "../../Consts";
 import React, { useContext, useEffect, useMemo, useState } from "react";
 import friendsStyles from "../../styles/FriendsStyles";
 import UserListItem from "../../components/UserListItem";
 import { FriendsContext, User } from "./Friends";
-import UserDisplayModal from "../../components/UserDisplayModal";
 import { FontAwesome } from "@expo/vector-icons";
+import FriendsButtonRow from "../../components/FriendsButtonRow";
 
-type Props = NativeStackScreenProps<FriendsStackParamList, "Search">;
+type Props = NativeStackScreenProps<FriendsStackParamList, "Invitations">;
 
-function SearchUsersScreen({ navigation }: Props) {
+function InvitationsScreen({ navigation }: Props) {
   const { token, id, username } = useAppStore((store) => ({
     token: store.token,
     id: store.id,
     username: store.username,
   }));
-  const {
-    allUsers,
-    friends,
-    setFriends,
-    filteredUsers,
-    setFilteredUsers,
-    users,
-    setUsers,
-  } = useContext(FriendsContext);
-  const [searchText, setSearchText] = useState("");
-  const [modalVisible, setModalVisible] = useState(false);
-  const [chosenUserId, setChosenUserId] = useState<number>(0);
+  const { allUsers } = useContext(FriendsContext);
+  const [invitationType, setInvitationType] = useState("Sent");
 
-  const openModal = (id: number) => {
-    setChosenUserId(id);
-    setModalVisible(true);
-  };
-
-  const closeModal = () => {
-    setModalVisible(false);
-  };
-
-  useEffect(() => {
-    const filtered = Object.values(allUsers).filter((user) =>
-      user.username.toLowerCase().includes(searchText.toLowerCase())
-    );
-    setFilteredUsers(filtered);
-  }, [searchText]);
-
-  // useMemo()Object.values(filteredUsers)
-
+  console.log(Object.values(allUsers).filter((user) => user.receivedInvite));
   return (
     <View
       style={{
@@ -66,18 +30,6 @@ function SearchUsersScreen({ navigation }: Props) {
         alignItems: "center",
       }}
     >
-      <Modal
-        visible={modalVisible}
-        onRequestClose={closeModal}
-        transparent={true}
-      >
-        <UserDisplayModal
-          userId={chosenUserId}
-          id={id}
-          token={token}
-          closeModal={closeModal}
-        />
-      </Modal>
       <View style={friendsStyles.mainContainer}>
         <View style={friendsStyles.searchContainer}>
           <View
@@ -88,7 +40,11 @@ function SearchUsersScreen({ navigation }: Props) {
             }}
           >
             <TouchableOpacity
-              style={{ flexDirection: "row", alignItems: "center" }}
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                width: "20%",
+              }}
               onPress={() => navigation.navigate("List")}
             >
               <FontAwesome name={"chevron-left"} size={12} color={grey} />
@@ -96,25 +52,20 @@ function SearchUsersScreen({ navigation }: Props) {
                 Friends
               </Text>
             </TouchableOpacity>
-            <TextInput
-              placeholder="search users..."
-              style={friendsStyles.textInput}
-              onChangeText={setSearchText}
+            <FriendsButtonRow
+              choices={["Sent", "Received"]}
+              onSelect={setInvitationType}
             />
           </View>
           <Text style={{ fontSize: 20, marginLeft: 5, color: grey }}>
-            All users:
+            Your invitations:
           </Text>
           <FlatList
-            style={{
-              width: "96%",
-              height: "90%",
-              marginHorizontal: "2%",
-              marginBottom: "2%",
-              borderRadius: 10,
-            }}
+            style={friendsStyles.usersList}
             showsVerticalScrollIndicator={false}
-            data={filteredUsers}
+            data={Object.values(allUsers).filter((user) =>
+              invitationType === "Sent" ? user.sentInvite : user.receivedInvite
+            )}
             ItemSeparatorComponent={() => {
               return <View style={{ height: 1, backgroundColor: "#bababa" }} />;
             }}
@@ -125,7 +76,7 @@ function SearchUsersScreen({ navigation }: Props) {
                   username={item.item.username}
                   avatar={item.item.avatar}
                   level={item.item.level}
-                  onPress={openModal}
+                  onPress={() => undefined}
                 />
               );
             }}
@@ -136,4 +87,4 @@ function SearchUsersScreen({ navigation }: Props) {
   );
 }
 
-export default SearchUsersScreen;
+export default InvitationsScreen;

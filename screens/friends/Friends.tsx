@@ -17,16 +17,20 @@ import {
   getUsersData,
   RequestData,
 } from "../../backend/FriendsBackend";
+import { serverURL } from "../../backend/CommonBackend";
 
 interface FriendsContextType {
   users: FriendData[];
   setUsers: Dispatch<SetStateAction<FriendData[]>>;
-  allUsers: User[];
-  setAllUsers: Dispatch<SetStateAction<User[]>>;
+  allUsers: Users;
+  setAllUsers: Dispatch<SetStateAction<Users>>;
+  setUserInAllUsers: (user: User) => void;
   friends: FriendData[];
   setFriends: Dispatch<SetStateAction<FriendData[]>>;
   filteredUsers: User[];
   setFilteredUsers: Dispatch<SetStateAction<User[]>>;
+  filteredFriends: User[];
+  setFilteredFriends: Dispatch<SetStateAction<User[]>>;
 }
 
 const FriendsContext = createContext<FriendsContextType>({
@@ -38,12 +42,19 @@ const FriendsContext = createContext<FriendsContextType>({
   setAllUsers: () => {
     return [];
   },
+  setUserInAllUsers: () => {
+    return;
+  },
   friends: [],
   setFriends: () => {
     return [];
   },
   filteredUsers: [],
   setFilteredUsers: () => {
+    return [];
+  },
+  filteredFriends: [],
+  setFilteredFriends: () => {
     return [];
   },
 });
@@ -53,14 +64,17 @@ type FriendsProviderProps = {
   navigation: NavigationProp<FriendsStackParamList>;
 };
 
-type User = {
+export type User = {
   id: number;
   username: string;
   avatar: string;
   level: number;
-  isFriend: boolean;
-  sentInvite: boolean;
-  receivedInvite: boolean;
+  isFriend: null | number;
+  sentInvite: null | number;
+  receivedInvite: null | number;
+};
+export type Users = {
+  [id: number]: User;
 };
 
 const FriendsProvider = ({ children, navigation }: FriendsProviderProps) => {
@@ -74,17 +88,34 @@ const FriendsProvider = ({ children, navigation }: FriendsProviderProps) => {
   const [receivedInvitations, setReceivedInvitations] = useState<RequestData[]>(
     []
   );
-  const [allUsers, setAllUsers] = useState<User[]>([]);
+  const [allUsers, setAllUsers] = useState<Users>([]);
   const [sentInvitations, setSentInvitations] = useState<RequestData[]>([]);
   const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
+  const [filteredFriends, setFilteredFriends] = useState<User[]>([]);
 
   function createModifiedUser(
     item: FriendData,
-    isFriend: boolean,
-    sentInvite: boolean,
-    receivedInvite: boolean
+    avatar: string,
+    isFriend: null | number,
+    sentInvite: null | number,
+    receivedInvite: null | number
   ): User {
-    return { ...item, isFriend, sentInvite, receivedInvite };
+    return {
+      id: item.id,
+      username: item.username,
+      avatar: avatar,
+      level: item.level,
+      isFriend: isFriend,
+      sentInvite: sentInvite,
+      receivedInvite: receivedInvite,
+    };
+  }
+  console.log(username);
+  console.log(friends);
+
+  function setUserInAllUsers(user: User) {
+    console.log(user);
+    setAllUsers({ ...allUsers, [user.id]: user });
   }
 
   useEffect(() => {
@@ -102,27 +133,61 @@ const FriendsProvider = ({ children, navigation }: FriendsProviderProps) => {
           receivedResponse.type === "success" &&
           sentResponse.type === "success"
         ) {
-          const friendList = friendsResponse.result.map((item) =>
-            createModifiedUser(item, true, false, false)
-          );
-          const otherUsers = usersResponse.result
-            .filter(
-              (userItem) => !friendList.some((item) => userItem.id === item.id)
-            )
-            .map((item) =>
-              createModifiedUser(
-                item,
-                false,
-                sentResponse.result.some(
-                  (sentItem) => sentItem.receiver === item.id
-                ),
-                receivedResponse.result.some(
-                  (receivedItem) => receivedItem.sender === item.id
-                )
+          console.log(
+            friendsResponse.result
+              .map(
+                (item) => `friends :: http://${serverURL}${item.friend.avatar}`
               )
-            );
-          setAllUsers([...friendList, ...otherUsers]);
-          setFilteredUsers([...friendList, ...otherUsers]);
+              .join("\n")
+          );
+          const friendList: Users = Object.fromEntries(
+            friendsResponse.result.map((item) => [
+              item.friend.id,
+              createModifiedUser(
+                item.friend,
+                `http://${serverURL}${item.friend.avatar}`,
+                item.friendship_id,
+                null,
+                null
+              ),
+            ])
+          );
+          console.log(
+            usersResponse.result
+              .map((item) => `users: ${item.avatar}`)
+              .join("\n")
+          );
+          const otherUsers = Object.fromEntries(
+            usersResponse.result
+              .filter(
+                (userItem) => !(userItem.id in friendList) && userItem.id !== id
+              )
+              .map((item) => {
+                const sentInvite = sentResponse.result.find(
+                  (sentItem) => sentItem.receiver === item.id
+                );
+                const receivedInvite = receivedResponse.result.find(
+                  (receivedItem) => receivedItem.sender === item.id
+                );
+                return [
+                  item.id,
+                  createModifiedUser(
+                    item,
+                    item.avatar,
+                    null,
+                    sentInvite !== undefined ? sentInvite.id : null,
+                    receivedInvite !== undefined ? receivedInvite.id : null
+                  ),
+                ];
+              })
+          );
+          console.log({ ...friendList, ...otherUsers });
+          setAllUsers({ ...friendList, ...otherUsers });
+          setFilteredUsers([
+            ...Object.values(friendList),
+            ...Object.values(otherUsers),
+          ]);
+          setFilteredFriends([...Object.values(friendList)]);
         }
       }
     );
@@ -135,10 +200,13 @@ const FriendsProvider = ({ children, navigation }: FriendsProviderProps) => {
         setUsers,
         allUsers,
         setAllUsers,
+        setUserInAllUsers,
         friends,
         setFriends,
         filteredUsers,
         setFilteredUsers,
+        filteredFriends,
+        setFilteredFriends,
       }}
     >
       {children}

@@ -1,36 +1,53 @@
 import React, { useMemo } from "react";
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 import friendsStyles from "../styles/FriendsStyles";
-import { grey, lightGrey } from "../Consts";
+import { grey, lightGrey, pink } from "../Consts";
+import { FontAwesome } from "@expo/vector-icons";
 
 type UserItem = {
+  id: number;
   username: string;
   avatar: string;
   level: number;
+  onPress: (id: number) => void;
 };
 
-const UserListItem = ({ username, avatar, level }: UserItem) => {
-  const userElement = useMemo(() => {
+const UserListItem = ({ id, username, avatar, level, onPress }: UserItem) => {
+  return useMemo(() => {
     return (
-      <View style={friendsStyles.usersListItem}>
-        <View style={friendsStyles.avatarUsernameContainer}>
+      <TouchableOpacity
+        style={{
+          justifyContent: "space-between",
+          flexDirection: "row",
+          alignItems: "center",
+        }}
+        onPress={() => onPress(id)}
+      >
+        <View
+          style={{
+            flexDirection: "row",
+            marginVertical: "1.5%",
+            marginRight: 10,
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
           <View style={friendsStyles.userImage}>
             <Image
               source={{ uri: avatar }}
               style={{ width: "100%", height: "100%" }}
             />
           </View>
-          <Text style={{ fontSize: 23, color: lightGrey }}>{username}</Text>
+          <View>
+            <Text style={{ fontSize: 20, color: grey }}>{username}</Text>
+            <Text style={{ fontSize: 13, color: grey }}>Level: {level}</Text>
+          </View>
         </View>
         <View style={friendsStyles.levelContainer}>
-          <Text style={{ color: grey, fontSize: 40 }}>{level}</Text>
-          <Text style={{ color: grey, fontSize: 10, marginTop: -10 }}>
-            Level
-          </Text>
+          <FontAwesome name={"chevron-down"} size={12} color={grey} />
         </View>
-      </View>
+      </TouchableOpacity>
     );
   }, [username, avatar, level]);
-  return <TouchableOpacity>{userElement}</TouchableOpacity>;
 };
 export default UserListItem;
