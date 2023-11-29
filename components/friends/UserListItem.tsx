@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import friendsStyles from "../../styles/FriendsStyles";
-import { grey, lightGrey, pink } from "../../Consts";
+import { grey } from "../../Consts";
 import { FontAwesome } from "@expo/vector-icons";
 
 type UserItem = {
@@ -16,22 +16,10 @@ const UserListItem = ({ id, username, avatar, level, onPress }: UserItem) => {
   return useMemo(() => {
     return (
       <TouchableOpacity
-        style={{
-          justifyContent: "space-between",
-          flexDirection: "row",
-          alignItems: "center",
-        }}
+        style={friendsStyles.usersListItem}
         onPress={() => onPress(id)}
       >
-        <View
-          style={{
-            flexDirection: "row",
-            marginVertical: "1.5%",
-            marginRight: 10,
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
+        <View style={friendsStyles.userDisplay}>
           <View style={friendsStyles.userImage}>
             <Image
               source={{ uri: avatar }}

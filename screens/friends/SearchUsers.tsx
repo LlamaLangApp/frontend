@@ -15,6 +15,7 @@ import UserListItem from "../../components/friends/UserListItem";
 import { FriendsContext } from "./Friends";
 import UserDisplayModal from "../../components/friends/UserDisplayModal";
 import { FontAwesome } from "@expo/vector-icons";
+import mainStyles from "../../styles/MainStyles";
 
 type Props = NativeStackScreenProps<FriendsStackParamList, "Search">;
 
@@ -37,24 +38,23 @@ function SearchUsersScreen({ navigation }: Props) {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const onRefresh = () => {
     setIsRefreshing(true);
-    fetchAllFriendsData().then(() => setIsRefreshing(false));
+    fetchAllFriendsData().then(() => {
+      changeFilteredUsers();
+      setIsRefreshing(false);
+    });
   };
 
-  useEffect(() => {
+  const changeFilteredUsers = () => {
     const filtered = Object.values(allUsers).filter((user) =>
       user.username.toLowerCase().includes(searchText.toLowerCase())
     );
     setFilteredUsers(filtered);
-  }, [searchText]);
+  };
+
+  useEffect(() => changeFilteredUsers, [searchText]);
 
   return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: "#fffcff",
-        alignItems: "center",
-      }}
-    >
+    <View style={mainStyles.whiteBackgroundContainer}>
       <Modal
         visible={modalVisible}
         onRequestClose={closeModal}
@@ -64,15 +64,9 @@ function SearchUsersScreen({ navigation }: Props) {
       </Modal>
       <View style={friendsStyles.mainContainer}>
         <View style={friendsStyles.searchContainer}>
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              marginVertical: "2%",
-            }}
-          >
+          <View style={friendsStyles.titleContainer}>
             <TouchableOpacity
-              style={{ flexDirection: "row", alignItems: "center" }}
+              style={friendsStyles.goBackButton}
               onPress={() => navigation.navigate("List")}
             >
               <FontAwesome name={"chevron-left"} size={12} color={grey} />
@@ -82,7 +76,7 @@ function SearchUsersScreen({ navigation }: Props) {
             </TouchableOpacity>
             <TextInput
               placeholder="search users..."
-              style={friendsStyles.textInput}
+              style={friendsStyles.textInputUsers}
               onChangeText={setSearchText}
             />
           </View>
@@ -90,13 +84,7 @@ function SearchUsersScreen({ navigation }: Props) {
             All users:
           </Text>
           <FlatList
-            style={{
-              width: "96%",
-              height: "90%",
-              marginHorizontal: "2%",
-              marginBottom: "2%",
-              borderRadius: 10,
-            }}
+            style={friendsStyles.usersList}
             refreshing={isRefreshing}
             onRefresh={onRefresh}
             showsVerticalScrollIndicator={false}

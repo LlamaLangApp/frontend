@@ -8,11 +8,18 @@ import { FriendsContext } from "./Friends";
 import { FontAwesome } from "@expo/vector-icons";
 import FriendsButtonRow from "../../components/friends/FriendsButtonRow";
 import InviteListItem from "../../components/friends/InviteListItem";
+import mainStyles from "../../styles/MainStyles";
 
 type Props = NativeStackScreenProps<FriendsStackParamList, "Invitations">;
 
 function InvitationsScreen({ navigation }: Props) {
-  const { allUsers, fetchAllFriendsData } = useContext(FriendsContext);
+  const {
+    allUsers,
+    handleAcceptInvite,
+    handleRejectInvite,
+    handleCancelInvite,
+    fetchAllFriendsData,
+  } = useContext(FriendsContext);
   const [invitationType, setInvitationType] = useState("Received");
   const [isRefreshing, setIsRefreshing] = useState(false);
   const onRefresh = () => {
@@ -20,30 +27,13 @@ function InvitationsScreen({ navigation }: Props) {
     fetchAllFriendsData().then(() => setIsRefreshing(false));
   };
 
-  console.log(Object.values(allUsers).filter((user) => user.receivedInvite));
   return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: "#fffcff",
-        alignItems: "center",
-      }}
-    >
+    <View style={mainStyles.whiteBackgroundContainer}>
       <View style={friendsStyles.mainContainer}>
         <View style={friendsStyles.searchContainer}>
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              marginVertical: "2%",
-            }}
-          >
+          <View style={friendsStyles.titleContainer}>
             <TouchableOpacity
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                width: "20%",
-              }}
+              style={friendsStyles.goBackButton}
               onPress={() => navigation.navigate("List")}
             >
               <FontAwesome name={"chevron-left"} size={12} color={grey} />
@@ -78,8 +68,12 @@ function InvitationsScreen({ navigation }: Props) {
                   username={item.item.username}
                   avatar={item.item.avatar}
                   level={item.item.level}
-                  onPress1={() => undefined}
-                  onPress2={() => undefined}
+                  onPress1={handleAcceptInvite}
+                  onPress2={
+                    invitationType === "Sent"
+                      ? handleCancelInvite
+                      : handleRejectInvite
+                  }
                 />
               );
             }}

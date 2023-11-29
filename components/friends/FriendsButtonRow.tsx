@@ -1,13 +1,8 @@
 import { TouchableOpacity, View, Text } from "react-native";
-import {
-  buttonDarkPink,
-  buttonLightPink,
-  defaultBackgroundColor,
-  lightGrey,
-  pink,
-} from "../../Consts";
+import { defaultBackgroundColor, pink } from "../../Consts";
 import homeStyles from "../../styles/HomeStyles";
 import { useMemo, useState } from "react";
+import friendsStyles from "../../styles/FriendsStyles";
 
 const FriendsButtonRow = ({
   choices,
@@ -41,21 +36,7 @@ const FriendsButtonRow = ({
     [choices, selected]
   );
 
-  return (
-    <View
-      style={{
-        flexDirection: "row",
-        backgroundColor: defaultBackgroundColor,
-        width: "78%",
-        borderRadius: 15,
-        height: "60%",
-        marginHorizontal: "2%",
-        marginVertical: "4%",
-      }}
-    >
-      {buttons}
-    </View>
-  );
+  return <View style={friendsStyles.doubleButton}>{buttons}</View>;
 };
 
 export default FriendsButtonRow;

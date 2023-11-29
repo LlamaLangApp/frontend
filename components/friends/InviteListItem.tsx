@@ -25,22 +25,8 @@ const InviteListItem = ({
 }: InviteItem) => {
   return useMemo(() => {
     return (
-      <View
-        style={{
-          justifyContent: "space-between",
-          flexDirection: "row",
-          alignItems: "center",
-        }}
-      >
-        <View
-          style={{
-            flexDirection: "row",
-            marginVertical: "1.5%",
-            marginRight: 10,
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
+      <View style={friendsStyles.usersListItem}>
+        <View style={friendsStyles.userDisplay}>
           <View style={friendsStyles.userImage}>
             <Image
               source={{ uri: avatar }}
@@ -53,20 +39,9 @@ const InviteListItem = ({
           </View>
         </View>
         {invitationType === "Received" ? (
-          <View
-            style={{
-              alignItems: "center",
-              justifyContent: "center",
-              flexDirection: "row",
-            }}
-          >
+          <View style={friendsStyles.iconsContainer}>
             <TouchableOpacity
-              style={{
-                borderWidth: 2,
-                borderRadius: 20,
-                margin: 5,
-                borderColor: "#6aa162",
-              }}
+              style={friendsStyles.acceptButton}
               onPress={() => onPress1(id)}
             >
               <View style={{ margin: 7 }}>
@@ -74,12 +49,7 @@ const InviteListItem = ({
               </View>
             </TouchableOpacity>
             <TouchableOpacity
-              style={{
-                borderWidth: 2,
-                borderRadius: 20,
-                margin: 5,
-                borderColor: buttonDarkPink,
-              }}
+              style={friendsStyles.rejectButton}
               onPress={() => onPress2(id)}
             >
               <View style={{ margin: 7, marginHorizontal: 9 }}>
@@ -89,12 +59,7 @@ const InviteListItem = ({
           </View>
         ) : (
           <TouchableOpacity
-            style={{
-              borderWidth: 2,
-              borderRadius: 20,
-              margin: 5,
-              borderColor: buttonDarkPink,
-            }}
+            style={friendsStyles.rejectButton}
             onPress={() => onPress2(id)}
           >
             <View style={{ margin: 7, marginHorizontal: 9 }}>

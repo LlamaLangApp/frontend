@@ -1,5 +1,10 @@
 import { StyleSheet } from "react-native";
-import { grey, lightGrey, pink } from "../Consts";
+import {
+  buttonDarkPink,
+  defaultBackgroundColor,
+  grey,
+  lightGrey,
+} from "../Consts";
 
 const userStyles = StyleSheet.create({
   appContainer: {
@@ -11,22 +16,17 @@ const userStyles = StyleSheet.create({
     height: "100%",
   },
   titleContainer: {
-    flex: 0.4,
-    justifyContent: "flex-end",
-    marginLeft: "6%",
-    marginBottom: "1%",
+    flexDirection: "row",
+    alignItems: "center",
+    marginVertical: "2%",
   },
   searchContainer: {
     flex: 4.6,
     width: "90%",
     marginHorizontal: "5%",
     marginBottom: "10%",
-    // backgroundColor: lightGrey,
-    // borderWidth: 3,
-    // borderRadius: 15,
-    // borderColor: lightGrey,
   },
-  textInput: {
+  textInputUsers: {
     marginHorizontal: "2%",
     marginVertical: "4%",
     borderWidth: 2,
@@ -40,7 +40,7 @@ const userStyles = StyleSheet.create({
     color: grey,
     fontSize: 18,
   },
-  textInput2: {
+  textInputFriends: {
     marginVertical: "6%",
     borderWidth: 2,
     borderColor: lightGrey,
@@ -61,24 +61,30 @@ const userStyles = StyleSheet.create({
     borderRadius: 10,
   },
   usersListItem: {
-    marginVertical: "1%",
-    backgroundColor: pink,
-    // borderColor: buttonLightPink,
-    // borderWidth: 2,
-    borderRadius: 10,
     justifyContent: "space-between",
     flexDirection: "row",
     alignItems: "center",
+  },
+  userDisplay: {
+    flexDirection: "row",
+    marginVertical: "1.5%",
+    marginRight: 10,
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   userImage: {
     width: 60,
     height: 60,
     borderRadius: 30,
-    // borderWidth: 1,
-    // borderColor: pink,
     overflow: "hidden",
     margin: 3,
     marginRight: 10,
+  },
+  modal: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
   userModalImage: {
     width: 150,
@@ -88,16 +94,27 @@ const userStyles = StyleSheet.create({
     margin: 3,
     marginRight: 10,
   },
-  avatarUsernameContainer: {
-    flexDirection: "row",
-    marginRight: 10,
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
   levelContainer: {
     justifyContent: "center",
     alignItems: "center",
     marginRight: 10,
+  },
+  iconsContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+  },
+  acceptButton: {
+    borderWidth: 2,
+    borderRadius: 20,
+    margin: 5,
+    borderColor: "#6aa162",
+  },
+  rejectButton: {
+    borderWidth: 2,
+    borderRadius: 20,
+    margin: 5,
+    borderColor: buttonDarkPink,
   },
   halfButton: {
     width: "48%",
@@ -108,6 +125,11 @@ const userStyles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 20,
     marginLeft: "2%",
+  },
+  goBackButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    width: "20%",
   },
   button: {
     width: "80%",
@@ -126,6 +148,15 @@ const userStyles = StyleSheet.create({
     padding: 20,
     borderRadius: 10,
     alignItems: "center",
+  },
+  doubleButton: {
+    flexDirection: "row",
+    backgroundColor: defaultBackgroundColor,
+    width: "78%",
+    borderRadius: 15,
+    height: "60%",
+    marginHorizontal: "2%",
+    marginVertical: "4%",
   },
 });
 

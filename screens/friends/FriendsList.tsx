@@ -15,6 +15,7 @@ import { buttonLightPink, friendsActions, grey, purple } from "../../Consts";
 import UserListItem from "../../components/friends/UserListItem";
 import { FloatingAction } from "react-native-floating-action";
 import UserDisplayModal from "../../components/friends/UserDisplayModal";
+import mainStyles from "../../styles/MainStyles";
 
 type Props = NativeStackScreenProps<FriendsStackParamList, "List">;
 
@@ -64,13 +65,7 @@ function FriendsListScreen({ navigation }: Props) {
   };
 
   return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: "#fffcff",
-        alignItems: "center",
-      }}
-    >
+    <View style={mainStyles.whiteBackgroundContainer}>
       <Modal
         visible={modalVisible}
         onRequestClose={closeModal}
@@ -82,7 +77,7 @@ function FriendsListScreen({ navigation }: Props) {
         <View style={friendsStyles.searchContainer}>
           <TextInput
             placeholder="search friends..."
-            style={friendsStyles.textInput2}
+            style={friendsStyles.textInputFriends}
             onChangeText={setSearchText}
           />
           <Text style={{ fontSize: 20, marginLeft: 5, color: grey }}>
@@ -90,13 +85,7 @@ function FriendsListScreen({ navigation }: Props) {
           </Text>
           {allUsers ? (
             <FlatList
-              style={{
-                width: "96%",
-                height: "90%",
-                marginHorizontal: "2%",
-                marginBottom: "2%",
-                borderRadius: 10,
-              }}
+              style={friendsStyles.usersList}
               refreshing={isRefreshing}
               onRefresh={onRefresh}
               showsVerticalScrollIndicator={false}

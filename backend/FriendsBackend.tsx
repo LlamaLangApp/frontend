@@ -239,9 +239,6 @@ export async function cancelFriendsInvite(
   } catch (_) {
     return { type: "error", message: "Unknown network error" };
   }
-  // console.log(response);
-  // const tokenResponse: { friendship_id: number } = await response.json();
-  // console.log(tokenResponse);
 
   if (!response.ok) {
     return { type: "error", message: "" };

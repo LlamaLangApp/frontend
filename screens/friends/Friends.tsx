@@ -19,19 +19,13 @@ import {
   getSentRequestsData,
   getUsersData,
   rejectFriendsInvite,
-  RequestData,
   sendFriendsInvite,
 } from "../../backend/FriendsBackend";
 import { serverURL } from "../../backend/CommonBackend";
 
 interface FriendsContextType {
-  users: FriendData[];
-  setUsers: Dispatch<SetStateAction<FriendData[]>>;
   allUsers: Users;
   setAllUsers: Dispatch<SetStateAction<Users>>;
-  setUserInAllUsers: (user: User) => void;
-  friends: FriendData[];
-  setFriends: Dispatch<SetStateAction<FriendData[]>>;
   filteredUsers: User[];
   setFilteredUsers: Dispatch<SetStateAction<User[]>>;
   filteredFriends: User[];
@@ -41,23 +35,12 @@ interface FriendsContextType {
   handleRejectInvite: (userId: number) => void;
   handleCancelInvite: (userId: number) => void;
   handleDeleteFriend: (userId: number) => void;
-  fetchAllFriendsData: () => Promise<any>;
+  fetchAllFriendsData: () => Promise<void>;
 }
 
 const FriendsContext = createContext<FriendsContextType>({
-  users: [],
-  setUsers: () => {
-    return [];
-  },
   allUsers: [],
   setAllUsers: () => {
-    return [];
-  },
-  setUserInAllUsers: () => {
-    return;
-  },
-  friends: [],
-  setFriends: () => {
     return [];
   },
   filteredUsers: [],
@@ -94,14 +77,12 @@ export type Users = {
   [id: number]: User;
 };
 
-const FriendsProvider = ({ children, navigation }: FriendsProviderProps) => {
-  const { id, token, username } = useAppStore((store) => ({
+const FriendsProvider = ({ children }: FriendsProviderProps) => {
+  const { id, token } = useAppStore((store) => ({
     id: store.id,
     token: store.token,
     username: store.username,
   }));
-  const [friends, setFriends] = useState<FriendData[]>([]);
-  const [users, setUsers] = useState<FriendData[]>([]);
   const [allUsers, setAllUsers] = useState<Users>([]);
   const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
   const [filteredFriends, setFilteredFriends] = useState<User[]>([]);
@@ -138,20 +119,12 @@ const FriendsProvider = ({ children, navigation }: FriendsProviderProps) => {
       getSentRequestsData(id, token),
     ]).then(
       ([friendsResponse, usersResponse, receivedResponse, sentResponse]) => {
-        console.log(friendsResponse);
         if (
           friendsResponse.type === "success" &&
           usersResponse.type === "success" &&
           receivedResponse.type === "success" &&
           sentResponse.type === "success"
         ) {
-          console.log(
-            friendsResponse.result
-              .map(
-                (item) => `friends :: http://${serverURL}${item.friend.avatar}`
-              )
-              .join("\n")
-          );
           const friendList: Users = Object.fromEntries(
             friendsResponse.result.map((item) => [
               item.friend.id,
@@ -163,11 +136,6 @@ const FriendsProvider = ({ children, navigation }: FriendsProviderProps) => {
                 null
               ),
             ])
-          );
-          console.log(
-            usersResponse.result
-              .map((item) => `users: ${item.avatar}`)
-              .join("\n")
           );
           const otherUsers = Object.fromEntries(
             usersResponse.result
@@ -193,7 +161,6 @@ const FriendsProvider = ({ children, navigation }: FriendsProviderProps) => {
                 ];
               })
           );
-          console.log({ ...friendList, ...otherUsers });
           setAllUsers({ ...friendList, ...otherUsers });
           setFilteredUsers([
             ...Object.values(friendList),
@@ -211,7 +178,6 @@ const FriendsProvider = ({ children, navigation }: FriendsProviderProps) => {
 
   const handleInvite = (userId: number) => {
     sendFriendsInvite(allUsers[userId].id, id, token).then((response) => {
-      console.log(response);
       if (response.type === "success") {
         setUserInAllUsers({
           ...allUsers[userId],
@@ -224,7 +190,6 @@ const FriendsProvider = ({ children, navigation }: FriendsProviderProps) => {
   const handleAcceptInvite = (userId: number) => {
     acceptFriendsInvite(allUsers[userId].receivedInvite, token).then(
       (response) => {
-        console.log(response);
         if (response.type === "success") {
           setUserInAllUsers({
             ...allUsers[userId],
@@ -239,7 +204,6 @@ const FriendsProvider = ({ children, navigation }: FriendsProviderProps) => {
   const handleRejectInvite = (userId: number) => {
     rejectFriendsInvite(allUsers[userId].receivedInvite, token).then(
       (response) => {
-        console.log(response);
         if (response.type === "success") {
           setUserInAllUsers({
             ...allUsers[userId],
@@ -252,7 +216,6 @@ const FriendsProvider = ({ children, navigation }: FriendsProviderProps) => {
 
   const handleCancelInvite = (userId: number) => {
     cancelFriendsInvite(allUsers[userId].sentInvite, token).then((response) => {
-      console.log(response);
       if (response.type === "success") {
         setUserInAllUsers({
           ...allUsers[userId],
@@ -264,7 +227,6 @@ const FriendsProvider = ({ children, navigation }: FriendsProviderProps) => {
 
   const handleDeleteFriend = (userId: number) => {
     deleteFriend(allUsers[userId].isFriend, token).then((response) => {
-      console.log(response);
       if (response.type === "success") {
         setUserInAllUsers({
           ...allUsers[userId],
@@ -277,13 +239,8 @@ const FriendsProvider = ({ children, navigation }: FriendsProviderProps) => {
   return (
     <FriendsContext.Provider
       value={{
-        users,
-        setUsers,
         allUsers,
         setAllUsers,
-        setUserInAllUsers,
-        friends,
-        setFriends,
         filteredUsers,
         setFilteredUsers,
         filteredFriends,

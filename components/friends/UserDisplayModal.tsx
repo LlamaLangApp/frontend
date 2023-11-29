@@ -1,4 +1,4 @@
-import React, { useContext, useMemo } from "react";
+import React, { useContext } from "react";
 import { Button, Image, Text, TouchableOpacity, View } from "react-native";
 import { FriendsContext } from "../../screens/friends/Friends";
 import friendsStyles from "../../styles/FriendsStyles";
@@ -20,14 +20,7 @@ const UserDisplayModal = ({ userId, closeModal }: UserModal) => {
   } = useContext(FriendsContext);
 
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "rgba(0, 0, 0, 0.5)",
-      }}
-    >
+    <View style={friendsStyles.modal}>
       <View style={friendsStyles.modalDisplay}>
         <View style={friendsStyles.userModalImage}>
           <Image
@@ -83,6 +76,6 @@ const UserDisplayModal = ({ userId, closeModal }: UserModal) => {
       </View>
     </View>
   );
-  // }, [user]);
 };
+
 export default UserDisplayModal;
