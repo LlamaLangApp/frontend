@@ -1,11 +1,5 @@
 import { StyleSheet } from "react-native";
-import {
-  buttonDarkPink,
-  buttonLightPink,
-  grey,
-  lightGrey,
-  pink,
-} from "../Consts";
+import { grey, lightGrey, pink } from "../Consts";
 
 const userStyles = StyleSheet.create({
   appContainer: {
@@ -104,6 +98,34 @@ const userStyles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginRight: 10,
+  },
+  halfButton: {
+    width: "48%",
+    height: "100%",
+    backgroundColor: "lightgrey",
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 20,
+    marginLeft: "2%",
+  },
+  button: {
+    width: "80%",
+    height: "12%",
+    backgroundColor: "lightgrey",
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 20,
+  },
+  modalDisplay: {
+    marginTop: "20%",
+    width: "80%",
+    height: "45%",
+    backgroundColor: "white",
+    padding: 20,
+    borderRadius: 10,
+    alignItems: "center",
   },
 });
 

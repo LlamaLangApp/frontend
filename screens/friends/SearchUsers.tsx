@@ -1,5 +1,4 @@
 import {
-  Button,
   FlatList,
   Modal,
   Text,
@@ -7,35 +6,21 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import mainStyles from "../../styles/MainStyles";
-import { useAppStore } from "../../state";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { FriendsStackParamList } from "../../navgation/FriendsStack";
-import { grey, lightGrey } from "../../Consts";
-import React, { useContext, useEffect, useMemo, useState } from "react";
+import { grey } from "../../Consts";
+import React, { useContext, useEffect, useState } from "react";
 import friendsStyles from "../../styles/FriendsStyles";
-import UserListItem from "../../components/UserListItem";
-import { FriendsContext, User } from "./Friends";
-import UserDisplayModal from "../../components/UserDisplayModal";
+import UserListItem from "../../components/friends/UserListItem";
+import { FriendsContext } from "./Friends";
+import UserDisplayModal from "../../components/friends/UserDisplayModal";
 import { FontAwesome } from "@expo/vector-icons";
 
 type Props = NativeStackScreenProps<FriendsStackParamList, "Search">;
 
 function SearchUsersScreen({ navigation }: Props) {
-  const { token, id, username } = useAppStore((store) => ({
-    token: store.token,
-    id: store.id,
-    username: store.username,
-  }));
-  const {
-    allUsers,
-    friends,
-    setFriends,
-    filteredUsers,
-    setFilteredUsers,
-    users,
-    setUsers,
-  } = useContext(FriendsContext);
+  const { allUsers, filteredUsers, setFilteredUsers, fetchAllFriendsData } =
+    useContext(FriendsContext);
   const [searchText, setSearchText] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
   const [chosenUserId, setChosenUserId] = useState<number>(0);
@@ -49,14 +34,18 @@ function SearchUsersScreen({ navigation }: Props) {
     setModalVisible(false);
   };
 
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const onRefresh = () => {
+    setIsRefreshing(true);
+    fetchAllFriendsData().then(() => setIsRefreshing(false));
+  };
+
   useEffect(() => {
     const filtered = Object.values(allUsers).filter((user) =>
       user.username.toLowerCase().includes(searchText.toLowerCase())
     );
     setFilteredUsers(filtered);
   }, [searchText]);
-
-  // useMemo()Object.values(filteredUsers)
 
   return (
     <View
@@ -71,12 +60,7 @@ function SearchUsersScreen({ navigation }: Props) {
         onRequestClose={closeModal}
         transparent={true}
       >
-        <UserDisplayModal
-          userId={chosenUserId}
-          id={id}
-          token={token}
-          closeModal={closeModal}
-        />
+        <UserDisplayModal userId={chosenUserId} closeModal={closeModal} />
       </Modal>
       <View style={friendsStyles.mainContainer}>
         <View style={friendsStyles.searchContainer}>
@@ -113,6 +97,8 @@ function SearchUsersScreen({ navigation }: Props) {
               marginBottom: "2%",
               borderRadius: 10,
             }}
+            refreshing={isRefreshing}
+            onRefresh={onRefresh}
             showsVerticalScrollIndicator={false}
             data={filteredUsers}
             ItemSeparatorComponent={() => {

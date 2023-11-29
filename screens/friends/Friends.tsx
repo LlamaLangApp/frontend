@@ -10,12 +10,17 @@ import { useAppStore } from "../../state";
 import { NavigationProp } from "@react-navigation/native";
 import { FriendsStackParamList } from "../../navgation/FriendsStack";
 import {
+  acceptFriendsInvite,
+  cancelFriendsInvite,
+  deleteFriend,
   FriendData,
   getFriendsData,
   getReceivedRequestsData,
   getSentRequestsData,
   getUsersData,
+  rejectFriendsInvite,
   RequestData,
+  sendFriendsInvite,
 } from "../../backend/FriendsBackend";
 import { serverURL } from "../../backend/CommonBackend";
 
@@ -31,6 +36,12 @@ interface FriendsContextType {
   setFilteredUsers: Dispatch<SetStateAction<User[]>>;
   filteredFriends: User[];
   setFilteredFriends: Dispatch<SetStateAction<User[]>>;
+  handleInvite: (userId: number) => void;
+  handleAcceptInvite: (userId: number) => void;
+  handleRejectInvite: (userId: number) => void;
+  handleCancelInvite: (userId: number) => void;
+  handleDeleteFriend: (userId: number) => void;
+  fetchAllFriendsData: () => Promise<any>;
 }
 
 const FriendsContext = createContext<FriendsContextType>({
@@ -57,6 +68,12 @@ const FriendsContext = createContext<FriendsContextType>({
   setFilteredFriends: () => {
     return [];
   },
+  handleInvite: () => null,
+  handleAcceptInvite: () => null,
+  handleRejectInvite: () => null,
+  handleCancelInvite: () => null,
+  handleDeleteFriend: () => null,
+  fetchAllFriendsData: async () => undefined,
 });
 
 type FriendsProviderProps = {
@@ -85,11 +102,7 @@ const FriendsProvider = ({ children, navigation }: FriendsProviderProps) => {
   }));
   const [friends, setFriends] = useState<FriendData[]>([]);
   const [users, setUsers] = useState<FriendData[]>([]);
-  const [receivedInvitations, setReceivedInvitations] = useState<RequestData[]>(
-    []
-  );
   const [allUsers, setAllUsers] = useState<Users>([]);
-  const [sentInvitations, setSentInvitations] = useState<RequestData[]>([]);
   const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
   const [filteredFriends, setFilteredFriends] = useState<User[]>([]);
 
@@ -110,16 +123,15 @@ const FriendsProvider = ({ children, navigation }: FriendsProviderProps) => {
       receivedInvite: receivedInvite,
     };
   }
-  console.log(username);
-  console.log(friends);
 
   function setUserInAllUsers(user: User) {
     console.log(user);
     setAllUsers({ ...allUsers, [user.id]: user });
+    console.log(allUsers);
   }
 
-  useEffect(() => {
-    Promise.all([
+  const fetchAllFriendsData = async () => {
+    await Promise.all([
       getFriendsData(token),
       getUsersData(token),
       getReceivedRequestsData(id, token),
@@ -191,7 +203,76 @@ const FriendsProvider = ({ children, navigation }: FriendsProviderProps) => {
         }
       }
     );
+  };
+
+  useEffect(() => {
+    fetchAllFriendsData().then();
   }, []);
+
+  const handleInvite = (userId: number) => {
+    sendFriendsInvite(allUsers[userId].id, id, token).then((response) => {
+      console.log(response);
+      if (response.type === "success") {
+        setUserInAllUsers({
+          ...allUsers[userId],
+          sentInvite: response.result.id,
+        });
+      }
+    });
+  };
+
+  const handleAcceptInvite = (userId: number) => {
+    acceptFriendsInvite(allUsers[userId].receivedInvite, token).then(
+      (response) => {
+        console.log(response);
+        if (response.type === "success") {
+          setUserInAllUsers({
+            ...allUsers[userId],
+            receivedInvite: null,
+            isFriend: response.result.friendship_id,
+          });
+        }
+      }
+    );
+  };
+
+  const handleRejectInvite = (userId: number) => {
+    rejectFriendsInvite(allUsers[userId].receivedInvite, token).then(
+      (response) => {
+        console.log(response);
+        if (response.type === "success") {
+          setUserInAllUsers({
+            ...allUsers[userId],
+            receivedInvite: null,
+          });
+        }
+      }
+    );
+  };
+
+  const handleCancelInvite = (userId: number) => {
+    cancelFriendsInvite(allUsers[userId].sentInvite, token).then((response) => {
+      console.log(response);
+      if (response.type === "success") {
+        setUserInAllUsers({
+          ...allUsers[userId],
+          sentInvite: null,
+        });
+      }
+    });
+  };
+
+  const handleDeleteFriend = (userId: number) => {
+    deleteFriend(allUsers[userId].isFriend, token).then((response) => {
+      console.log(response);
+      if (response.type === "success") {
+        setUserInAllUsers({
+          ...allUsers[userId],
+          isFriend: null,
+        });
+      }
+    });
+  };
 
   return (
     <FriendsContext.Provider
@@ -207,6 +288,12 @@ const FriendsProvider = ({ children, navigation }: FriendsProviderProps) => {
         setFilteredUsers,
         filteredFriends,
         setFilteredFriends,
+        handleInvite,
+        handleAcceptInvite,
+        handleRejectInvite,
+        handleCancelInvite,
+        handleDeleteFriend,
+        fetchAllFriendsData,
       }}
     >
       {children}

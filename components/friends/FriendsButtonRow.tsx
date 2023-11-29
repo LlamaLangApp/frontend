@@ -5,8 +5,8 @@ import {
   defaultBackgroundColor,
   lightGrey,
   pink,
-} from "../Consts";
-import homeStyles from "../styles/HomeStyles";
+} from "../../Consts";
+import homeStyles from "../../styles/HomeStyles";
 import { useMemo, useState } from "react";
 
 const FriendsButtonRow = ({

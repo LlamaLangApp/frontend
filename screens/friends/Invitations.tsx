@@ -1,25 +1,24 @@
-import { FlatList, Modal, Text, TouchableOpacity, View } from "react-native";
-import { useAppStore } from "../../state";
+import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { FriendsStackParamList } from "../../navgation/FriendsStack";
 import { grey } from "../../Consts";
-import React, { useContext, useEffect, useMemo, useState } from "react";
+import React, { useContext, useState } from "react";
 import friendsStyles from "../../styles/FriendsStyles";
-import UserListItem from "../../components/UserListItem";
-import { FriendsContext, User } from "./Friends";
+import { FriendsContext } from "./Friends";
 import { FontAwesome } from "@expo/vector-icons";
-import FriendsButtonRow from "../../components/FriendsButtonRow";
+import FriendsButtonRow from "../../components/friends/FriendsButtonRow";
+import InviteListItem from "../../components/friends/InviteListItem";
 
 type Props = NativeStackScreenProps<FriendsStackParamList, "Invitations">;
 
 function InvitationsScreen({ navigation }: Props) {
-  const { token, id, username } = useAppStore((store) => ({
-    token: store.token,
-    id: store.id,
-    username: store.username,
-  }));
-  const { allUsers } = useContext(FriendsContext);
-  const [invitationType, setInvitationType] = useState("Sent");
+  const { allUsers, fetchAllFriendsData } = useContext(FriendsContext);
+  const [invitationType, setInvitationType] = useState("Received");
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const onRefresh = () => {
+    setIsRefreshing(true);
+    fetchAllFriendsData().then(() => setIsRefreshing(false));
+  };
 
   console.log(Object.values(allUsers).filter((user) => user.receivedInvite));
   return (
@@ -53,7 +52,7 @@ function InvitationsScreen({ navigation }: Props) {
               </Text>
             </TouchableOpacity>
             <FriendsButtonRow
-              choices={["Sent", "Received"]}
+              choices={["Received", "Sent"]}
               onSelect={setInvitationType}
             />
           </View>
@@ -62,6 +61,8 @@ function InvitationsScreen({ navigation }: Props) {
           </Text>
           <FlatList
             style={friendsStyles.usersList}
+            refreshing={isRefreshing}
+            onRefresh={onRefresh}
             showsVerticalScrollIndicator={false}
             data={Object.values(allUsers).filter((user) =>
               invitationType === "Sent" ? user.sentInvite : user.receivedInvite
@@ -71,12 +72,14 @@ function InvitationsScreen({ navigation }: Props) {
             }}
             renderItem={(item) => {
               return (
-                <UserListItem
+                <InviteListItem
                   id={item.item.id}
+                  invitationType={invitationType}
                   username={item.item.username}
                   avatar={item.item.avatar}
                   level={item.item.level}
-                  onPress={() => undefined}
+                  onPress1={() => undefined}
+                  onPress2={() => undefined}
                 />
               );
             }}

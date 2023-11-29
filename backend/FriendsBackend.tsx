@@ -34,6 +34,10 @@ type ResponseToInviteDataResponse =
   | { type: "success"; result: { friendship_id: number } }
   | { type: "error"; message: string };
 
+type DeleteInviteDataResponse =
+  | { type: "success"; result: string }
+  | { type: "error"; message: string };
+
 export async function getUsersData(
   token: string | null
 ): Promise<GetUsersDataResponse> {
@@ -217,4 +221,55 @@ export async function rejectFriendsInvite(
   }
 
   return { type: "success", result: tokenResponse };
+}
+
+export async function cancelFriendsInvite(
+  inviteId: number | null,
+  token: string | null
+): Promise<DeleteInviteDataResponse> {
+  let response;
+  try {
+    response = await fetch(`http://${serverURL}/friend-request/${inviteId}/`, {
+      method: "DELETE",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: "Token " + token,
+      },
+    });
+  } catch (_) {
+    return { type: "error", message: "Unknown network error" };
+  }
+  // console.log(response);
+  // const tokenResponse: { friendship_id: number } = await response.json();
+  // console.log(tokenResponse);
+
+  if (!response.ok) {
+    return { type: "error", message: "" };
+  }
+
+  return { type: "success", result: "success" };
+}
+
+export async function deleteFriend(
+  friendshipId: number | null,
+  token: string | null
+): Promise<DeleteInviteDataResponse> {
+  let response;
+  try {
+    response = await fetch(`http://${serverURL}/friendship/${friendshipId}/`, {
+      method: "DELETE",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: "Token " + token,
+      },
+    });
+  } catch (_) {
+    return { type: "error", message: "Unknown network error" };
+  }
+
+  if (!response.ok) {
+    return { type: "error", message: "" };
+  }
+
+  return { type: "success", result: "success" };
 }

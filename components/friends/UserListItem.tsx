@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
-import friendsStyles from "../styles/FriendsStyles";
-import { grey, lightGrey, pink } from "../Consts";
+import friendsStyles from "../../styles/FriendsStyles";
+import { grey, lightGrey, pink } from "../../Consts";
 import { FontAwesome } from "@expo/vector-icons";
 
 type UserItem = {

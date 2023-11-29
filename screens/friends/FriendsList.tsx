@@ -1,48 +1,26 @@
 import {
   ActivityIndicator,
   FlatList,
+  Modal,
   Text,
   TextInput,
-  TouchableOpacity,
   View,
 } from "react-native";
-import mainStyles from "../../styles/MainStyles";
-import { FriendData, getFriendsData } from "../../backend/FriendsBackend";
-import { useAppStore } from "../../state";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { FriendsStackParamList } from "../../navgation/FriendsStack";
 import React, { useContext, useEffect, useState } from "react";
-import { FriendsContext, User } from "./Friends";
+import { FriendsContext } from "./Friends";
 import friendsStyles from "../../styles/FriendsStyles";
-import { FontAwesome } from "@expo/vector-icons";
-import {
-  buttonLightPink,
-  defaultBackgroundColor,
-  grey,
-  lightGrey,
-  pink,
-  purple,
-} from "../../Consts";
-import UserListItem from "../../components/UserListItem";
+import { buttonLightPink, friendsActions, grey, purple } from "../../Consts";
+import UserListItem from "../../components/friends/UserListItem";
 import { FloatingAction } from "react-native-floating-action";
+import UserDisplayModal from "../../components/friends/UserDisplayModal";
 
 type Props = NativeStackScreenProps<FriendsStackParamList, "List">;
 
 function FriendsListScreen({ navigation }: Props) {
-  const { token } = useAppStore((store) => ({
-    token: store.token,
-  }));
-  const {
-    allUsers,
-    friends,
-    setFriends,
-    filteredUsers,
-    setFilteredUsers,
-    users,
-    setUsers,
-    setFilteredFriends,
-    filteredFriends,
-  } = useContext(FriendsContext);
+  const { allUsers, setFilteredFriends, fetchAllFriendsData, filteredFriends } =
+    useContext(FriendsContext);
   const [searchText, setSearchText] = useState("");
 
   useEffect(
@@ -60,32 +38,31 @@ function FriendsListScreen({ navigation }: Props) {
     );
     setFilteredFriends(filtered);
   }, [searchText]);
-  const actions = [
-    {
-      text: "Search for more users",
-      icon: require("../../assets/1f50d.png"), // Replace with your icon
-      name: "Search",
-      position: 1,
-      buttonSize: 50,
-      textStyle: { fontSize: 16 },
-      color: defaultBackgroundColor,
-      margin: 5,
-    },
-    {
-      text: "Check your invitations",
-      icon: require("../../assets/medal-2.png"), // Replace with your icon
-      name: "Invitations",
-      position: 2,
-      buttonSize: 50,
-      textStyle: { fontSize: 16 },
-      color: buttonLightPink,
-      margin: 5,
-    },
-    // Add more options as needed
-  ];
-  const handlePress = (name: "List" | "Invitations") => {
-    navigation.navigate(name);
+
+  const handlePress = (name: string | undefined) => {
+    if (name === "Invitations" || name === "Search") {
+      navigation.navigate(name);
+    }
   };
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const [chosenUserId, setChosenUserId] = useState<number>(0);
+
+  const openModal = (id: number) => {
+    setChosenUserId(id);
+    setModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setModalVisible(false);
+  };
+
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const onRefresh = () => {
+    setIsRefreshing(true);
+    fetchAllFriendsData().then(() => setIsRefreshing(false));
+  };
+
   return (
     <View
       style={{
@@ -94,6 +71,13 @@ function FriendsListScreen({ navigation }: Props) {
         alignItems: "center",
       }}
     >
+      <Modal
+        visible={modalVisible}
+        onRequestClose={closeModal}
+        transparent={true}
+      >
+        <UserDisplayModal userId={chosenUserId} closeModal={closeModal} />
+      </Modal>
       <View style={friendsStyles.mainContainer}>
         <View style={friendsStyles.searchContainer}>
           <TextInput
@@ -113,6 +97,8 @@ function FriendsListScreen({ navigation }: Props) {
                 marginBottom: "2%",
                 borderRadius: 10,
               }}
+              refreshing={isRefreshing}
+              onRefresh={onRefresh}
               showsVerticalScrollIndicator={false}
               data={filteredFriends}
               ItemSeparatorComponent={() => {
@@ -127,7 +113,7 @@ function FriendsListScreen({ navigation }: Props) {
                     username={item.item.username}
                     avatar={item.item.avatar}
                     level={item.item.level}
-                    onPress={() => {}}
+                    onPress={() => openModal(item.item.id)}
                   />
                 );
               }}
@@ -138,9 +124,9 @@ function FriendsListScreen({ navigation }: Props) {
         </View>
       </View>
       <FloatingAction
-        actions={actions}
+        actions={friendsActions}
         onPressItem={(name) => handlePress(name)}
-        color={pink}
+        color={buttonLightPink}
         buttonSize={65}
       />
     </View>
