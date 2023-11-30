@@ -109,7 +109,13 @@ function FriendsListScreen({ navigation }: Props) {
                 );
               }}
               ListEmptyComponent={() => {
-                return (
+                return searchText ? (
+                  <View style={friendsStyles.emptyListContainer}>
+                    <Text style={{ color: "#bababa" }}>
+                      No matching friends for "{searchText}"
+                    </Text>
+                  </View>
+                ) : (
                   <View style={friendsStyles.emptyListContainer}>
                     <Text style={{ color: "#bababa" }}>
                       Your friend list is waiting to be filled!

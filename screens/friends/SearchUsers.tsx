@@ -39,19 +39,19 @@ function SearchUsersScreen({ navigation }: Props) {
   const onRefresh = () => {
     setIsRefreshing(true);
     fetchAllFriendsData().then(() => {
-      changeFilteredUsers();
+      changeFilteredUsers(searchText);
       setIsRefreshing(false);
     });
   };
 
-  const changeFilteredUsers = () => {
+  const changeFilteredUsers = (searchText: string) => {
     const filtered = Object.values(allUsers).filter((user) =>
       user.username.toLowerCase().includes(searchText.toLowerCase())
     );
     setFilteredUsers(filtered);
   };
 
-  useEffect(() => changeFilteredUsers, [searchText]);
+  useEffect(() => changeFilteredUsers(searchText), [searchText]);
 
   return (
     <View style={mainStyles.whiteBackgroundContainer}>
@@ -93,7 +93,13 @@ function SearchUsersScreen({ navigation }: Props) {
               return <View style={{ height: 1, backgroundColor: "#bababa" }} />;
             }}
             ListEmptyComponent={() => {
-              return (
+              return searchText ? (
+                <View style={friendsStyles.emptyListContainer}>
+                  <Text style={{ color: "#bababa" }}>
+                    No matching friends for "{searchText}"
+                  </Text>
+                </View>
+              ) : (
                 <View style={friendsStyles.emptyListContainer}>
                   <Text style={{ color: "#bababa" }}>
                     Your are the first user on our server!
