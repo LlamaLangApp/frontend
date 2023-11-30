@@ -24,7 +24,7 @@ function ProfileScreen({ navigation }: Props) {
   const { username, avatar, level, score, token, setUserData } = useAppStore(
     (store) => ({
       username: store.username,
-      avatar: store.avatar ? store.avatar : "",
+      avatar: store.avatar,
       level: store.level,
       score: store.score,
       token: store.token,
@@ -73,8 +73,7 @@ function ProfileScreen({ navigation }: Props) {
             <View style={userStyles.avatar}>
               {avatar && (
                 <Image
-                  // source={{ uri: avatar }}
-                  source={require("../../assets/Haker.jpg")}
+                  source={{ uri: avatar }}
                   style={userStyles.avatarImage}
                 />
               )}

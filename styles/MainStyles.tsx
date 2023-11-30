@@ -9,5 +9,10 @@ const mainStyles = StyleSheet.create({
     alignItems: "center",
     // justifyContent: "center",
   },
+  whiteBackgroundContainer: {
+    flex: 1,
+    backgroundColor: "#fffcff",
+    alignItems: "center",
+  },
 });
 export default mainStyles;

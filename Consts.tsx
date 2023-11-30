@@ -44,3 +44,27 @@ export const games: GameType[] = [
   },
   { name: "Race", backend_name: "race", statistics: [] },
 ];
+
+export const friendsActions = [
+  {
+    text: "Search for more users",
+    icon: require("./assets/mag.png"),
+    name: "Search",
+    position: 1,
+    buttonSize: 50,
+    textStyle: { fontSize: 16 },
+    color: defaultBackgroundColor,
+
+    margin: 5,
+  },
+  {
+    text: "Check your invitations",
+    icon: require("./assets/envelope.png"),
+    name: "Invitations",
+    position: 2,
+    buttonSize: 50,
+    textStyle: { fontSize: 16 },
+    color: pink,
+    margin: 5,
+  },
+];
