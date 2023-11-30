@@ -1,6 +1,5 @@
 import { TouchableOpacity, View, Text } from "react-native";
 import { defaultBackgroundColor, pink } from "../../Consts";
-import homeStyles from "../../styles/HomeStyles";
 import { useMemo, useState } from "react";
 import friendsStyles from "../../styles/FriendsStyles";
 
@@ -30,7 +29,9 @@ const FriendsButtonRow = ({
           }}
           key={choice}
         >
-          <Text style={homeStyles.buttonText}>{choice}</Text>
+          <Text style={{ padding: 10, fontSize: 16, color: "white" }}>
+            {choice}
+          </Text>
         </TouchableOpacity>
       )),
     [choices, selected]

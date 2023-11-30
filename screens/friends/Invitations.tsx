@@ -60,6 +60,30 @@ function InvitationsScreen({ navigation }: Props) {
             ItemSeparatorComponent={() => {
               return <View style={{ height: 1, backgroundColor: "#bababa" }} />;
             }}
+            ListEmptyComponent={() => {
+              return invitationType === "Received" ? (
+                <View style={friendsStyles.emptyListContainer}>
+                  <Text style={{ color: "#bababa" }}>
+                    No friend requests to accept?
+                  </Text>
+                  <Text style={{ color: "#bababa" }}>
+                    Be the first to reach out and connect!
+                  </Text>
+                </View>
+              ) : (
+                <View style={friendsStyles.emptyListContainer}>
+                  <Text style={{ color: "#bababa" }}>
+                    No pending friend requests?
+                  </Text>
+                  <Text style={{ color: "#bababa" }}>
+                    Send out some invitations and start connecting!
+                  </Text>
+                  <Text style={{ color: "#bababa" }}>
+                    Your new friends are just a message away.
+                  </Text>
+                </View>
+              );
+            }}
             renderItem={(item) => {
               return (
                 <InviteListItem
@@ -78,6 +102,17 @@ function InvitationsScreen({ navigation }: Props) {
               );
             }}
           />
+          <View style={friendsStyles.searchButtonContainer}>
+            <TouchableOpacity
+              style={friendsStyles.searchButton}
+              onPress={() => navigation.navigate("Search")}
+            >
+              <Text style={{ fontSize: 14, color: grey, marginRight: 5 }}>
+                Search for more users
+              </Text>
+              <FontAwesome name={"search"} size={12} color={grey} />
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </View>

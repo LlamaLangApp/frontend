@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { FriendsStackParamList } from "../../navgation/FriendsStack";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useCallback } from "react";
 import { FriendsContext } from "./Friends";
 import friendsStyles from "../../styles/FriendsStyles";
 import { buttonLightPink, friendsActions, grey, purple } from "../../Consts";
@@ -16,6 +16,7 @@ import UserListItem from "../../components/friends/UserListItem";
 import { FloatingAction } from "react-native-floating-action";
 import UserDisplayModal from "../../components/friends/UserDisplayModal";
 import mainStyles from "../../styles/MainStyles";
+import { useFocusEffect } from "@react-navigation/native";
 
 type Props = NativeStackScreenProps<FriendsStackParamList, "List">;
 
@@ -23,6 +24,18 @@ function FriendsListScreen({ navigation }: Props) {
   const { allUsers, setFilteredFriends, fetchAllFriendsData, filteredFriends } =
     useContext(FriendsContext);
   const [searchText, setSearchText] = useState("");
+
+  useFocusEffect(
+    useCallback(() => {
+      const filtered = Object.values(allUsers).filter(
+        (user) =>
+          user.isFriend &&
+          user.username.toLowerCase().includes(searchText.toLowerCase())
+      );
+      setFilteredFriends(filtered);
+      return () => setSearchText("");
+    }, [allUsers])
+  );
 
   useEffect(
     () =>
@@ -93,6 +106,18 @@ function FriendsListScreen({ navigation }: Props) {
               ItemSeparatorComponent={() => {
                 return (
                   <View style={{ height: 1, backgroundColor: "#bababa" }} />
+                );
+              }}
+              ListEmptyComponent={() => {
+                return (
+                  <View style={friendsStyles.emptyListContainer}>
+                    <Text style={{ color: "#bababa" }}>
+                      Your friend list is waiting to be filled!
+                    </Text>
+                    <Text style={{ color: "#bababa" }}>
+                      Start connecting now.
+                    </Text>
+                  </View>
                 );
               }}
               renderItem={(item) => {

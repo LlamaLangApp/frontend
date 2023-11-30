@@ -13,7 +13,6 @@ import {
 import { FontAwesome } from "@expo/vector-icons";
 import { useAppStore } from "../state";
 import { logoutHandler } from "../backend/AuthBackend";
-import userStyles from "../styles/UserStyles";
 import React from "react";
 
 const CustomDrawer = (props: DrawerContentComponentProps) => {
@@ -54,14 +53,17 @@ const CustomDrawer = (props: DrawerContentComponentProps) => {
                 overflow: "hidden",
               }}
             >
-              <Image
-                // source={{ uri: avatar ? avatar : "" }}
-                source={require("../assets/Haker.jpg")}
-                style={{
-                  width: "100%",
-                  height: "100%",
-                }}
-              />
+              {avatar ? (
+                <Image
+                  source={{ uri: avatar }}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                  }}
+                />
+              ) : (
+                <View />
+              )}
             </View>
             <View
               style={{

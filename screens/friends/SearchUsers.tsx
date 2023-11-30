@@ -92,6 +92,15 @@ function SearchUsersScreen({ navigation }: Props) {
             ItemSeparatorComponent={() => {
               return <View style={{ height: 1, backgroundColor: "#bababa" }} />;
             }}
+            ListEmptyComponent={() => {
+              return (
+                <View style={friendsStyles.emptyListContainer}>
+                  <Text style={{ color: "#bababa" }}>
+                    Your are the first user on our server!
+                  </Text>
+                </View>
+              );
+            }}
             renderItem={(item) => {
               return (
                 <UserListItem

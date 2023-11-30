@@ -28,29 +28,33 @@ const UserDisplayModal = ({ userId, closeModal }: UserModal) => {
             style={{ width: "100%", height: "100%" }}
           />
         </View>
-        <Text style={{ color: grey, fontSize: 30 }}>
+        <Text style={{ color: grey, fontSize: 30, marginBottom: 3 }}>
           {allUsers[userId].username}
         </Text>
-        <Text style={{ color: grey, fontSize: 16 }}>
+        <Text style={{ color: grey, fontSize: 16, marginBottom: 20 }}>
           Level: {allUsers[userId].level}
         </Text>
 
         {allUsers[userId].isFriend ? (
-          <TouchableOpacity
-            style={friendsStyles.button}
-            onPress={() => handleDeleteFriend(userId)}
-          >
-            <Text>Delete Friend</Text>
-          </TouchableOpacity>
+          <View style={friendsStyles.buttonModalContainer}>
+            <TouchableOpacity
+              style={friendsStyles.button}
+              onPress={() => handleDeleteFriend(userId)}
+            >
+              <Text>Delete Friend</Text>
+            </TouchableOpacity>
+          </View>
         ) : allUsers[userId].sentInvite ? (
-          <TouchableOpacity
-            style={friendsStyles.button}
-            onPress={() => handleCancelInvite(userId)}
-          >
-            <Text>Cancel Invite</Text>
-          </TouchableOpacity>
+          <View style={friendsStyles.buttonModalContainer}>
+            <TouchableOpacity
+              style={friendsStyles.button}
+              onPress={() => handleCancelInvite(userId)}
+            >
+              <Text>Cancel Invite</Text>
+            </TouchableOpacity>
+          </View>
         ) : allUsers[userId].receivedInvite ? (
-          <View style={{ flexDirection: "row", width: "80%", height: "12%" }}>
+          <View style={friendsStyles.buttonModalContainer}>
             <TouchableOpacity
               style={friendsStyles.halfButton}
               onPress={() => handleAcceptInvite(userId)}
@@ -65,12 +69,14 @@ const UserDisplayModal = ({ userId, closeModal }: UserModal) => {
             </TouchableOpacity>
           </View>
         ) : (
-          <TouchableOpacity
-            style={friendsStyles.button}
-            onPress={() => handleInvite(userId)}
-          >
-            <Text>Invite</Text>
-          </TouchableOpacity>
+          <View style={friendsStyles.buttonModalContainer}>
+            <TouchableOpacity
+              style={friendsStyles.button}
+              onPress={() => handleInvite(userId)}
+            >
+              <Text>Invite</Text>
+            </TouchableOpacity>
+          </View>
         )}
         <Button title="Close" onPress={closeModal} />
       </View>

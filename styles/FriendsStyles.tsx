@@ -24,7 +24,7 @@ const userStyles = StyleSheet.create({
     flex: 4.6,
     width: "90%",
     marginHorizontal: "5%",
-    marginBottom: "10%",
+    marginBottom: "5%",
   },
   textInputUsers: {
     marginHorizontal: "2%",
@@ -89,10 +89,10 @@ const userStyles = StyleSheet.create({
   userModalImage: {
     width: 150,
     height: 150,
-    borderRadius: 50,
+    borderRadius: 60,
     overflow: "hidden",
     margin: 3,
-    marginRight: 10,
+    marginBottom: 15,
   },
   levelContainer: {
     justifyContent: "center",
@@ -117,14 +117,14 @@ const userStyles = StyleSheet.create({
     borderColor: buttonDarkPink,
   },
   halfButton: {
-    width: "48%",
+    width: "46%",
     height: "100%",
-    backgroundColor: "lightgrey",
+    backgroundColor: lightGrey,
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 20,
-    marginLeft: "2%",
+    marginHorizontal: "2%",
   },
   goBackButton: {
     flexDirection: "row",
@@ -133,8 +133,8 @@ const userStyles = StyleSheet.create({
   },
   button: {
     width: "80%",
-    height: "12%",
-    backgroundColor: "lightgrey",
+    height: "100%",
+    backgroundColor: lightGrey,
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
@@ -142,12 +142,19 @@ const userStyles = StyleSheet.create({
   },
   modalDisplay: {
     marginTop: "20%",
-    width: "80%",
+    width: "70%",
     height: "45%",
     backgroundColor: "white",
-    padding: 20,
+    padding: 30,
     borderRadius: 10,
     alignItems: "center",
+  },
+  buttonModalContainer: {
+    flexDirection: "row",
+    width: "100%",
+    height: "12%",
+    marginBottom: "5%",
+    justifyContent: "center",
   },
   doubleButton: {
     flexDirection: "row",
@@ -157,6 +164,29 @@ const userStyles = StyleSheet.create({
     height: "60%",
     marginHorizontal: "2%",
     marginVertical: "4%",
+  },
+  searchButtonContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    height: "5%",
+    width: "100%",
+    marginTop: "2%",
+  },
+  searchButton: {
+    borderWidth: 2,
+    borderColor: lightGrey,
+    borderRadius: 10,
+    width: "80%",
+    height: "100%",
+    backgroundColor: "white",
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+  },
+  emptyListContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: "10%",
   },
 });
 
