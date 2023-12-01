@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { buttonDarkPink, grey, lightGrey, pink } from "../Consts";
+import { grey, lightGrey, pink } from "../Consts";
 
 const userStyles = StyleSheet.create({
   appContainer: {
@@ -19,8 +19,8 @@ const userStyles = StyleSheet.create({
     marginTop: "5%",
     marginBottom: "3%",
     borderRadius: 15,
-    borderWidth: 3,
-    borderColor: pink,
+    // borderWidth: 3,
+    // borderColor: pink,
     backgroundColor: lightGrey,
     justifyContent: "flex-end",
   },
@@ -54,8 +54,8 @@ const userStyles = StyleSheet.create({
     width: "90%",
     height: "100%",
     borderRadius: 15,
-    borderWidth: 3,
-    borderColor: pink,
+    // borderWidth: 3,
+    // borderColor: pink,
     backgroundColor: lightGrey,
     marginHorizontal: "5%",
     flexDirection: "row",
@@ -87,8 +87,8 @@ const userStyles = StyleSheet.create({
     width: "26%",
     height: "91%",
     borderRadius: 15,
-    borderWidth: 3,
-    borderColor: grey,
+    // borderWidth: 3,
+    // borderColor: grey,
     backgroundColor: lightGrey,
     alignItems: "center",
     justifyContent: "center",
@@ -108,8 +108,8 @@ const userStyles = StyleSheet.create({
   storeContainer: {
     flex: 2,
     backgroundColor: pink,
-    borderColor: buttonDarkPink,
-    borderTopWidth: 3,
+    // borderColor: buttonDarkPink,
+    // borderTopWidth: 3,
   },
   skinsContainer: {
     width: "100%",
@@ -124,8 +124,8 @@ const userStyles = StyleSheet.create({
     height: "91%",
     borderRadius: 15,
     backgroundColor: lightGrey,
-    borderWidth: 3,
-    borderColor: "green",
+    // borderWidth: 3,
+    // borderColor: "green",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -134,7 +134,7 @@ const userStyles = StyleSheet.create({
     justifyContent: "center",
     width: "90%",
     height: "40%",
-    borderWidth: 3,
+    // borderWidth: 3,
     borderRadius: 15,
   },
   llama: {
@@ -142,7 +142,7 @@ const userStyles = StyleSheet.create({
     height: "100%",
   },
   llamaImage: {
-    width: "110%",
+    width: "100%",
     height: "100%",
   },
   avatar: {
@@ -150,8 +150,8 @@ const userStyles = StyleSheet.create({
     width: "60%",
     height: "90%",
     borderRadius: 50,
-    borderColor: buttonDarkPink,
-    borderWidth: 4,
+    // borderColor: buttonDarkPink,
+    // borderWidth: 4,
     overflow: "hidden",
   },
   avatarImage: {
