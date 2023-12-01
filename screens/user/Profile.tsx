@@ -15,16 +15,23 @@ import { getUserData } from "../../backend/UserBackend";
 type Props = NativeStackScreenProps<UserStackParamList, "User">;
 
 function ProfileScreen({ navigation }: Props) {
-  const { username, avatar, level, score, token, setUserData } = useAppStore(
-    (store) => ({
-      username: store.username,
-      avatar: store.avatar,
-      level: store.level,
-      score: store.score,
-      token: store.token,
-      setUserData: store.setUserData,
-    })
-  );
+  const {
+    username,
+    avatar,
+    level,
+    score,
+    token,
+    points_to_next_level,
+    setUserData,
+  } = useAppStore((store) => ({
+    username: store.username,
+    avatar: store.avatar,
+    level: store.level,
+    score: store.score,
+    token: store.token,
+    points_to_next_level: store.points_to_next_level,
+    setUserData: store.setUserData,
+  }));
   const screenWidth = Dimensions.get("window").width;
 
   const pickImage = async () => {
@@ -94,7 +101,7 @@ function ProfileScreen({ navigation }: Props) {
             </View>
             <View style={userStyles.barContainer}>
               <ProgressBar
-                progress={score / 1000}
+                progress={score / (points_to_next_level + score)}
                 width={screenWidth * 0.8}
                 height={40}
                 color={buttonLightPink}
@@ -107,7 +114,7 @@ function ProfileScreen({ navigation }: Props) {
             </View>
             <View>
               <Text style={{ color: "#8c878c", fontSize: 9 }}>
-                {1000 - score} points to next level
+                {points_to_next_level} points to next level
               </Text>
             </View>
           </View>

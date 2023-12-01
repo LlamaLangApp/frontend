@@ -4,10 +4,10 @@ import React, { useState } from "react";
 import GameListItem from "../components/GameListItem";
 import FrontLlamaRight from "../components/FrontLlamaRight";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { MainStackParamList } from "../App";
 import ButtonRow from "../components/ButtonRow";
+import { GamesStackParamList } from "../navgation/GamesStack";
 
-type Props = NativeStackScreenProps<MainStackParamList, "Home">;
+type Props = NativeStackScreenProps<GamesStackParamList, "Home">;
 
 function HomeScreen({ navigation }: Props) {
   type GameType = "SinglePlayer" | "MultiPlayer";
@@ -17,7 +17,7 @@ function HomeScreen({ navigation }: Props) {
     id: string;
     name: string;
     type: GameType;
-    screenName: keyof MainStackParamList;
+    screenName: keyof GamesStackParamList;
   };
 
   const games: GameItem[] = [

@@ -1,5 +1,4 @@
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import HomeScreen from "../screens/Home";
 import CustomDrawer from "../components/CustomDrawer";
 import { FontAwesome } from "@expo/vector-icons";
 import { pink } from "../Consts";
@@ -8,6 +7,7 @@ import ScoreboardScreen from "../screens/Scoreboard";
 import { FontAwesome5 } from "@expo/vector-icons";
 import UserStack from "./UserStack";
 import FriendsStack from "./FriendsStack";
+import GamesStack from "./GamesStack";
 
 const Drawer = createDrawerNavigator();
 
@@ -35,7 +35,7 @@ const HomeDrawer = () => {
       />
       <Drawer.Screen
         name="Games"
-        component={HomeScreen}
+        component={GamesStack}
         options={{
           drawerIcon: ({ color }) => (
             <FontAwesome name="gamepad" size={22} color={color} />

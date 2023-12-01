@@ -5,6 +5,8 @@ export type UserData = {
   level: number;
   score: number;
   current_week_points: number;
+  llama: number;
+  points_to_next_level: number;
   avatar: string;
   username: string;
   email: string;
@@ -28,7 +30,6 @@ export async function getUserData(
     return { type: "error", message: "Unknown network error" };
   }
   const tokenResponse: UserData = await response.json();
-  // console.log(tokenResponse);
 
   if (!response.ok) {
     return { type: "error", message: "Unable to get word sets" };

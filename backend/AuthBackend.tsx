@@ -124,9 +124,13 @@ export const loginHandler = (
             id: response.result.id,
             token: loginResponse.authToken,
             username: response.result.username,
+            email: response.result.email,
             score: response.result.score,
             level: response.result.level,
             avatar: response.result.avatar,
+            llama: response.result.llama,
+            points_to_next_level: response.result.points_to_next_level,
+            current_week_points: response.result.current_week_points,
           });
         }
       });
@@ -155,18 +159,26 @@ export const logoutHandler = (
       setUserData({
         token: null,
         username: null,
+        email: null,
         avatar: null,
         level: 0,
         score: 0,
+        llama: 0,
+        points_to_next_level: 0,
+        current_week_points: null,
       })
     )
     .catch(() =>
       setUserData({
         token: null,
         username: null,
+        email: null,
         avatar: null,
         level: 0,
         score: 0,
+        llama: 0,
+        points_to_next_level: 0,
+        current_week_points: null,
       })
     );
 };
