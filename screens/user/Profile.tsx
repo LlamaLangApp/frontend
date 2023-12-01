@@ -5,13 +5,7 @@ import mainStyles from "../../styles/MainStyles";
 import { useAppStore } from "../../state";
 import { Bar as ProgressBar } from "react-native-progress";
 import { FontAwesome5 } from "@expo/vector-icons";
-import {
-  buttonDarkPink,
-  buttonLightPink,
-  grey,
-  lightGrey,
-  pink,
-} from "../../Consts";
+import { buttonLightPink, grey, lightGrey, pink } from "../../Consts";
 import React from "react";
 import userStyles from "../../styles/UserStyles";
 import * as ImagePicker from "expo-image-picker";
@@ -63,7 +57,7 @@ function ProfileScreen({ navigation }: Props) {
   };
 
   return (
-    <View style={mainStyles.container}>
+    <View style={mainStyles.whiteBackgroundContainer}>
       <TouchableOpacity style={userStyles.settingsIcon} onPress={pickImage}>
         <FontAwesome5 name="edit" size={30} color={"#696368"} />
       </TouchableOpacity>
@@ -107,7 +101,7 @@ function ProfileScreen({ navigation }: Props) {
                 unfilledColor={"#ffffff"}
                 borderWidth={2}
                 borderRadius={15}
-                borderColor={buttonDarkPink}
+                borderColor={grey}
                 animationType="timing"
               />
             </View>
@@ -129,7 +123,7 @@ function ProfileScreen({ navigation }: Props) {
           </View>
           <View style={userStyles.llama}>
             <Image
-              source={require("../../assets/llama_without_background.png")}
+              source={require("../../assets/llama.png")}
               style={userStyles.llamaImage}
             />
           </View>
