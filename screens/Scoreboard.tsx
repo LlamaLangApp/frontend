@@ -1,5 +1,3 @@
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { MainStackParamList } from "../App";
 import { ActivityIndicator, View } from "react-native";
 import mainStyles from "../styles/MainStyles";
 import ButtonRow from "../components/ButtonRow";
@@ -12,8 +10,6 @@ import PlayerListItem, { PlaceItem } from "../components/PlayerListItem";
 import { getStatistics } from "../backend/StatisticsBackend";
 import { useAppStore } from "../state";
 import { useIsFocused } from "@react-navigation/native";
-
-type Props = NativeStackScreenProps<MainStackParamList, "Home">;
 
 const ranges = {
   thisWeek: "This Week",
@@ -49,7 +45,7 @@ function handleResults(
   return final;
 }
 
-export default ({}: Props) => {
+export default () => {
   const isFocused = useIsFocused();
   const token = useAppStore((store) => store.token);
 

@@ -1,4 +1,4 @@
-import { TouchableOpacity, View, Text } from "react-native";
+import { TouchableOpacity, View, Text, ViewStyle } from "react-native";
 import { buttonDarkPink, buttonLightPink } from "../Consts";
 import homeStyles from "../styles/HomeStyles";
 import { useMemo, useState } from "react";
@@ -13,7 +13,7 @@ export default ({
   const [selected, setSelected] = useState(choices[0]);
 
   const width = useMemo(
-    () => `${(100 - 20) / choices.length}%`,
+    () => `${(100 - 20) / choices.length}%` as ViewStyle["width"],
     [choices.length]
   );
 
