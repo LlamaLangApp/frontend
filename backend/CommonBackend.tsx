@@ -9,19 +9,14 @@ function setServerURL(newURL: string) {
 }
 
 export type ErrorResponse = { type: "error"; message: string };
-type ApiResponse<T> =
-  | { type: "success"; result: T }
-  | { type: "error"; message: string };
+type ApiResponse<T> = { type: "success"; result: T } | ErrorResponse;
 
 async function makeApiRequest<T>(
   endpoint: string,
   method: string,
   token: string | null,
   body?: object,
-  customErrorHandling?: (
-    response: Response,
-    result: T
-  ) => { type: "error"; message: string }
+  customErrorHandling?: (response: Response, result: T) => ErrorResponse
 ): Promise<ApiResponse<T>> {
   let response;
 

@@ -41,7 +41,7 @@ export async function callLogin(
 function handleRegisterError(
   response: Response,
   result: { email: string; id: number; username: string }
-): { type: "error"; message: string } {
+): ErrorResponse {
   const errorDetails = Object.keys(result);
   if (response.status >= 400 && response.status < 500) {
     if (errorDetails.includes("username")) {
