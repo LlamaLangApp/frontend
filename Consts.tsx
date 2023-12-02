@@ -6,6 +6,18 @@ export const purple = "#6C0BA9";
 export const lightGrey = "#efefef";
 export const grey = "#696368";
 
+export const defaultUserData = {
+  token: null,
+  username: null,
+  email: null,
+  avatar: null,
+  level: 0,
+  score: 0,
+  llama: 0,
+  points_to_next_level: 0,
+  current_week_points: null,
+};
+
 export type GameType = {
   // Name for users
   name: string;
@@ -54,7 +66,6 @@ export const friendsActions = [
     buttonSize: 50,
     textStyle: { fontSize: 16 },
     color: defaultBackgroundColor,
-
     margin: 5,
   },
   {

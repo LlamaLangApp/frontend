@@ -21,7 +21,7 @@ function MemoryStartScreen({ navigation }: Props) {
       if (response.type === "success") {
         navigation.navigate("Game", {
           setName: setName,
-          wordsSet: makeCards(response.translations),
+          wordsSet: makeCards(response.result),
           wordsSetID: setId,
         });
       }

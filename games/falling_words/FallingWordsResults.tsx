@@ -2,18 +2,18 @@ import React, { useEffect, useState } from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { FallingWordsStackParamList } from "./FallingWordsStack";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { MainStackParamList } from "../../App";
 import SinglePlayerResultsScreen from "../common_singleplayer/SingleplayerResults";
-import { saveFallingWordsGame } from "../../backend/GamesBackend";
+import { saveSinglePlayerGame } from "../../backend/GamesBackend";
 import { useAppStore } from "../../state";
 import * as ScreenOrientation from "expo-screen-orientation";
+import { GamesStackParamList } from "../../navgation/GamesStack";
 
 type Props = NativeStackScreenProps<FallingWordsStackParamList, "Results">;
-type MainStack = NavigationProp<MainStackParamList, "Home">;
+type GamesStack = NavigationProp<GamesStackParamList, "Home">;
 
 function FallingWordsResultsScreen({ route, navigation }: Props) {
   const [changedOrientation, setChangedOrientation] = useState(false);
-  const parentNavigation = useNavigation<MainStack>();
+  const parentNavigation = useNavigation<GamesStack>();
   const { points, accuracy, duration, wordsSetID, setName } = route.params;
   const token = useAppStore((state) => state.token);
 
@@ -32,7 +32,14 @@ function FallingWordsResultsScreen({ route, navigation }: Props) {
       console.warn("No token when saving memory results!");
       return;
     }
-    saveFallingWordsGame(token, points, accuracy, duration, wordsSetID);
+    saveSinglePlayerGame(
+      token,
+      "falling-words",
+      points,
+      accuracy,
+      duration,
+      wordsSetID
+    ).then();
   });
 
   return changedOrientation ? (

@@ -33,7 +33,7 @@ function FallingWordsStartScreen({ navigation }: Props) {
     for (let i = 0; i < roundsNumber; i++) {
       const response = await callTranslations(token, setId, 6);
       if (response.type === "success") {
-        const cards = makeCards(response.translations);
+        const cards = makeCards(response.result);
 
         let lastPos = 9999999999;
         for (const card of cards) {
@@ -49,7 +49,7 @@ function FallingWordsStartScreen({ navigation }: Props) {
         const round = {
           id: i,
           cards,
-          mainWordCard: choseMainWord(response.translations),
+          mainWordCard: choseMainWord(response.result),
         };
         allRounds.push(round);
       }

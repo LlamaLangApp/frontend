@@ -27,7 +27,7 @@ const SinglePlayerStartScreen = (props: SinglePlayerStartProps) => {
     if (wordSetType === "Default sets") {
       callWordSets(token).then((response) => {
         if (response.type === "success") {
-          setWordSets(response.wordSets);
+          setWordSets(response.result);
         } else {
           setWordSets([]);
         }

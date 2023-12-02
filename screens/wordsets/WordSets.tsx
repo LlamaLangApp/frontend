@@ -97,7 +97,7 @@ const WordSetProvider = ({ children, navigation }: WordSetProviderProps) => {
   useEffect(() => {
     callWordSets(token).then((response) => {
       if (response.type === "success") {
-        const wordSets: WordSet[] = response.wordSets;
+        const wordSets: WordSet[] = response.result;
         const newWordSetItem: WordSetItem[] = wordSets.map((wordSet) => ({
           id: wordSet.id,
           name: wordSet.english,
@@ -112,7 +112,7 @@ const WordSetProvider = ({ children, navigation }: WordSetProviderProps) => {
     if (chosenSetName != "") {
       callTranslations(token, chosenSetId, null).then((response) => {
         if (response.type === "success") {
-          setChosenSet(response.translations);
+          setChosenSet(response.result);
         }
       });
       navigation.navigate("Display");

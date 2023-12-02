@@ -115,8 +115,8 @@ const FriendsProvider = ({ children }: FriendsProviderProps) => {
     await Promise.all([
       getFriendsData(token),
       getUsersData(token),
-      getReceivedRequestsData(id, token),
-      getSentRequestsData(id, token),
+      getReceivedRequestsData(token),
+      getSentRequestsData(token),
     ]).then(
       ([friendsResponse, usersResponse, receivedResponse, sentResponse]) => {
         if (
