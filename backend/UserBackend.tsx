@@ -1,39 +1,42 @@
-import { serverURL } from "./CommonBackend";
+import { ApiResponse, makeApiRequest } from "./CommonBackend";
+import { UserDataToSet } from "../state";
 
 export type UserData = {
   id: number;
-  level: number;
-  score: number;
-  current_week_points: number;
-  llama: number;
-  points_to_next_level: number;
-  avatar: string;
   username: string;
   email: string;
+  avatar: string;
+  llama: number;
+  level: number;
+  score: number;
+  points_to_next_level: number;
+  current_week_points: number;
 };
-type GetUserDataResponse =
-  | { type: "success"; result: UserData }
-  | { type: "error"; message: string };
+
 export async function getUserData(
   token: string | null
-): Promise<GetUserDataResponse> {
-  let response;
-  try {
-    response = await fetch(`http://${serverURL}/auth/users/me/`, {
-      method: "GET",
-      headers: {
-        "Content-type": "application/json",
-        Authorization: "Token " + token,
-      },
-    });
-  } catch (_) {
-    return { type: "error", message: "Unknown network error" };
-  }
-  const tokenResponse: UserData = await response.json();
-
-  if (!response.ok) {
-    return { type: "error", message: "Unable to get word sets" };
-  }
-
-  return { type: "success", result: tokenResponse };
+): Promise<ApiResponse<UserData>> {
+  return makeApiRequest<UserData>("auth/users/me/", "GET", token);
 }
+
+export const handleSetUserData = (
+  token: string | null,
+  setUserData: (data: UserDataToSet) => void
+) => {
+  getUserData(token).then((response) => {
+    if (response.type === "success") {
+      setUserData({
+        id: response.result.id,
+        token: token,
+        username: response.result.username,
+        email: response.result.email,
+        score: response.result.score,
+        level: response.result.level,
+        avatar: response.result.avatar,
+        llama: response.result.llama,
+        points_to_next_level: response.result.points_to_next_level,
+        current_week_points: response.result.current_week_points,
+      });
+    }
+  });
+};

@@ -2,16 +2,16 @@ import React, { useEffect } from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { MemoryStackParamList } from "./MemoryStack";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { MainStackParamList } from "../../App";
 import SinglePlayerResultsScreen from "../common_singleplayer/SingleplayerResults";
-import { saveMemoryGame } from "../../backend/GamesBackend";
+import { saveSinglePlayerGame } from "../../backend/GamesBackend";
 import { useAppStore } from "../../state";
+import { GamesStackParamList } from "../../navgation/GamesStack";
 
 type Props = NativeStackScreenProps<MemoryStackParamList, "Results">;
-type MainStack = NavigationProp<MainStackParamList, "Home">;
+type GamesStack = NavigationProp<GamesStackParamList, "Home">;
 
 function MemoryResultsScreen({ route, navigation }: Props) {
-  const parentNavigation = useNavigation<MainStack>();
+  const parentNavigation = useNavigation<GamesStack>();
   const { points, accuracy, duration, wordsSetID, setName } = route.params;
   const token = useAppStore((state) => state.token);
 
@@ -20,7 +20,14 @@ function MemoryResultsScreen({ route, navigation }: Props) {
       console.warn("No token when saving memory results!");
       return;
     }
-    saveMemoryGame(token, points, accuracy, duration, wordsSetID);
+    saveSinglePlayerGame(
+      token,
+      "memory-game",
+      points,
+      accuracy,
+      duration,
+      wordsSetID
+    ).then();
   });
 
   return (
