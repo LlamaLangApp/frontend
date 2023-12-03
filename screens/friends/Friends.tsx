@@ -3,6 +3,8 @@ import React, {
   Dispatch,
   ReactNode,
   SetStateAction,
+  useCallback,
+  useContext,
   useEffect,
   useState,
 } from "react";
@@ -22,6 +24,7 @@ import {
   sendFriendsInvite,
 } from "../../backend/FriendsBackend";
 import { serverURL } from "../../backend/CommonBackend";
+import { UpdateHandlerContext } from "../../backend/UpdateHandler";
 
 interface FriendsContextType {
   allUsers: Users;
@@ -113,7 +116,7 @@ const FriendsProvider = ({ children }: FriendsProviderProps) => {
     console.log(allUsers);
   }
 
-  const fetchAllFriendsData = () => {
+  const fetchAllFriendsData = useCallback(() => {
     Promise.all([
       getFriendsData(token),
       getUsersData(token),
@@ -172,11 +175,18 @@ const FriendsProvider = ({ children }: FriendsProviderProps) => {
         }
       }
     );
-  };
+  }, []);
 
   useEffect(() => {
     fetchAllFriendsData();
   }, []);
+
+  const { onFriendsStatusUpdate } = useContext(UpdateHandlerContext);
+
+  useEffect(() => {
+    const cleanupFunction = onFriendsStatusUpdate(fetchAllFriendsData);
+    return cleanupFunction;
+  }, [fetchAllFriendsData]);
 
   const handleInvite = (userId: number) => {
     sendFriendsInvite(allUsers[userId].id, id, token).then((response) => {
