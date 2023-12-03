@@ -3,13 +3,14 @@ import mainStyles from "../styles/MainStyles";
 import React, { useState } from "react";
 import GameListItem from "../components/GameListItem";
 import FrontLlamaRight from "../components/FrontLlamaRight";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import ButtonRow from "../components/ButtonRow";
 import { GamesStackParamList } from "../navgation/GamesStack";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 
-type Props = NativeStackScreenProps<GamesStackParamList, "Home">;
+type GamesStack = NavigationProp<GamesStackParamList, "Home">;
 
-function HomeScreen({ navigation }: Props) {
+function HomeScreen() {
+  const navigation = useNavigation<GamesStack>();
   type GameType = "SinglePlayer" | "MultiPlayer";
   const [gameType, setGameType] = useState("SinglePlayer");
 
