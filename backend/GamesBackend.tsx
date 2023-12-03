@@ -6,13 +6,13 @@ export async function saveSinglePlayerGame(
   score: number,
   accuracy: number,
   duration: number,
-  wordSet: number
+  wordset: number
 ): Promise<ApiResponse<string>> {
   return makeApiRequest<string>(`${game}/`, "POST", token, {
     score,
     accuracy,
     duration,
     timestamp: Date.now(),
-    wordSet,
+    wordset,
   });
 }

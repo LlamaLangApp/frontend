@@ -16,6 +16,7 @@ async function makeApiRequest<T>(
   method: string,
   token: string | null,
   body?: object,
+  additionalHeaders?: object,
   customErrorHandling?: (response: Response, result: T) => ErrorResponse
 ): Promise<ApiResponse<T>> {
   let response;
@@ -25,12 +26,16 @@ async function makeApiRequest<T>(
     headers: {
       "Content-type": "application/json",
       ...(token && { Authorization: "Token " + token }),
+      ...(additionalHeaders && additionalHeaders),
     },
-    ...(body && { body: JSON.stringify(body) }),
+    ...(body && { body: body instanceof Blob ? body : JSON.stringify(body) }),
   };
 
   try {
     response = await fetch(`http://${serverURL}/${endpoint}`, requestOptions);
+    if (response.ok && method === "DELETE") {
+      return { type: "success", result: "OK!" as T };
+    }
 
     const result: T = await response.json();
 

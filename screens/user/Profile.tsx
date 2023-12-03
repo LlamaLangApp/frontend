@@ -9,8 +9,8 @@ import { buttonLightPink, grey, lightGrey, pink } from "../../Consts";
 import React from "react";
 import userStyles from "../../styles/UserStyles";
 import * as ImagePicker from "expo-image-picker";
-import { serverURL } from "../../backend/CommonBackend";
-import { getUserData } from "../../backend/UserBackend";
+import { makeApiRequest } from "../../backend/CommonBackend";
+import { getUserData, UserData } from "../../backend/UserBackend";
 
 type Props = NativeStackScreenProps<UserStackParamList, "User">;
 
@@ -45,13 +45,8 @@ function ProfileScreen({ navigation }: Props) {
       fetch(result.assets[0].uri)
         .then((response) => response.blob())
         .then((blob) => {
-          fetch(`http://${serverURL}/avatar-upload/`, {
-            method: "POST",
-            body: blob,
-            headers: {
-              Authorization: `Token ${token}`,
-              "Content-Disposition": `attachment; filename=avatar.jpg`,
-            },
+          makeApiRequest<UserData>("avatar-upload/", "POST", token, blob, {
+            "Content-Disposition": `attachment; filename=avatar.jpg`,
           }).then(() =>
             getUserData(token).then((response) => {
               if (response.type === "success") {

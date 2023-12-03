@@ -38,10 +38,9 @@ function SearchUsersScreen({ navigation }: Props) {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const onRefresh = () => {
     setIsRefreshing(true);
-    fetchAllFriendsData().then(() => {
-      changeFilteredUsers(searchText);
-      setIsRefreshing(false);
-    });
+    fetchAllFriendsData();
+    changeFilteredUsers(searchText);
+    setIsRefreshing(false);
   };
 
   const changeFilteredUsers = (searchText: string) => {
