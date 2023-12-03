@@ -50,7 +50,9 @@ export default ({ username, place, stat }: PlaceItem) => {
         style={{
           backgroundColor: buttonLightPink,
           flexDirection: "column",
-          borderRadius: 15,
+          // borderRadius: 15,
+          borderBottomLeftRadius: 15,
+          borderTopLeftRadius: 15,
           height: 70,
           width: 50 + 15 + 15,
           alignItems: "center",
@@ -62,17 +64,23 @@ export default ({ username, place, stat }: PlaceItem) => {
       <Text style={{ fontSize: 30, padding: 15, color: "white" }}>
         {username}
       </Text>
-      <Text
+      <View
         style={{
-          fontSize: 30,
-          padding: 15,
-          borderRadius: 15,
-          color: "white",
+          borderBottomRightRadius: 15,
+          borderTopRightRadius: 15,
           backgroundColor: buttonLightPink,
         }}
       >
-        {stat}
-      </Text>
+        <Text
+          style={{
+            fontSize: 35,
+            padding: 15,
+            color: "white",
+          }}
+        >
+          {stat}
+        </Text>
+      </View>
     </View>
   );
 };

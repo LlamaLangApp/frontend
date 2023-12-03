@@ -1,17 +1,21 @@
 import { StyleSheet } from "react-native";
 
 const textGamesStyles = StyleSheet.create({
-  textContainer: {
-    width: "100%",
-    height: "100%",
-    justifyContent: "center",
-    alignItems: "center",
+  instructionContainer: {
+    margin: "3%",
+  },
+  instructionText: {
+    fontSize: 21,
+    color: "white",
+    fontWeight: "bold",
+    textShadowColor: "rgba(0, 0, 0, 0.2)",
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 4,
   },
   headingContainer: {
     // flex: 0.5,
   },
   textWithMarginContainer: {
-    // flex: 0.5,
     width: "100%",
     marginBottom: "3%",
   },
