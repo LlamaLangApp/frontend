@@ -51,8 +51,6 @@ const mainGamesStyles = StyleSheet.create({
     margin: "1%",
     backgroundColor: lightGrey,
     borderRadius: 15,
-    borderWidth: 1,
-    borderColor: buttonLightPink,
   },
   pickedRaceCard: {
     width: "70%",
@@ -62,8 +60,6 @@ const mainGamesStyles = StyleSheet.create({
     marginVertical: "20%",
     backgroundColor: lightGrey,
     borderRadius: 15,
-    borderWidth: 1,
-    borderColor: buttonLightPink,
   },
   raceCardChosen: {
     width: "47%",
@@ -71,8 +67,6 @@ const mainGamesStyles = StyleSheet.create({
     margin: "1%",
     backgroundColor: pink,
     borderRadius: 15,
-    borderWidth: 1,
-    borderColor: buttonLightPink,
   },
   llamaContainer: {
     width: "100%",

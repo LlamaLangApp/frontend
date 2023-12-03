@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { FallingWordsStackParamList } from "./FallingWordsStack";
 import { useAppStore } from "../../state";
-import SinglePlayerStartScreen from "../common_singleplayer/SingleplayerStart";
 import { callTranslations } from "../../backend/WordSetsBackend";
 import { Card, choseMainWord, makeCards } from "./FallingWordsCard";
 import { Dimensions } from "react-native";
+import GameStartScreen from "../common/GameStart";
 
 type Props = NativeStackScreenProps<FallingWordsStackParamList, "Start">;
 
@@ -70,11 +70,11 @@ function FallingWordsStartScreen({ navigation }: Props) {
   }, [rounds]);
 
   return (
-    <SinglePlayerStartScreen
+    <GameStartScreen
       gameName={"Falling Words"}
       setWordSetId={setSetId}
       setWordSetName={setSetName}
-      startGameHandler={startGameHandler}
+      onPressHandler={startGameHandler}
     />
   );
 }

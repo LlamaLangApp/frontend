@@ -3,22 +3,22 @@ import mainStyles from "../../styles/MainStyles";
 import mainGamesStyles from "../../styles/games/MainGamesStyles";
 import CustomDropdown from "../../components/CustomDropdown";
 import FrontLlamaCenter from "../../components/FrontLlamaCenter";
-import { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { callWordSets } from "../../backend/WordSetsBackend";
 import { useAppStore } from "../../state";
 import { WordSet } from "../GamesTypes";
 import buttonGamesStyles from "../../styles/games/ButtonGamesStyles";
 import textGamesStyles from "../../styles/games/TextGamesStyles";
 
-type SinglePlayerStartProps = {
+type StartScreenProps = {
   gameName: string;
   setWordSetName: (selectedItem: string) => void;
   setWordSetId: (selectedItem: number) => void;
-  startGameHandler: () => void;
+  onPressHandler: () => void;
 };
-const SinglePlayerStartScreen = (props: SinglePlayerStartProps) => {
-  const { gameName, setWordSetName, setWordSetId, startGameHandler } = props;
 
+const GameStartScreen = (props: StartScreenProps) => {
+  const { gameName, setWordSetName, setWordSetId, onPressHandler } = props;
   const [wordSetType, setWordSetType] = useState<string>("");
   const [wordSets, setWordSets] = useState<WordSet[]>([]);
   const token = useAppStore.getState().token;
@@ -34,7 +34,6 @@ const SinglePlayerStartScreen = (props: SinglePlayerStartProps) => {
       });
     } else {
       setWordSets([]);
-      setWordSetName("");
       setWordSetId(-1);
     }
   }, [wordSetType]);
@@ -77,7 +76,7 @@ const SinglePlayerStartScreen = (props: SinglePlayerStartProps) => {
         <View style={{ flexDirection: "row" }}>
           <TouchableOpacity
             style={buttonGamesStyles.startButton}
-            onPress={startGameHandler}
+            onPress={onPressHandler}
           >
             <Text style={buttonGamesStyles.buttonText}>Play</Text>
           </TouchableOpacity>
@@ -88,4 +87,4 @@ const SinglePlayerStartScreen = (props: SinglePlayerStartProps) => {
   );
 };
 
-export default SinglePlayerStartScreen;
+export default GameStartScreen;

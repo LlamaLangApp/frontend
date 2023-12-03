@@ -26,7 +26,7 @@ const RaceCard: React.FC<RaceCardProps> = ({
       disabled={isDisabled}
     >
       <View style={textGamesStyles.textContainer}>
-        <Text>{translation}</Text>
+        <Text style={{ fontSize: 20 }}>{translation}</Text>
       </View>
     </TouchableOpacity>
   );

@@ -3,8 +3,8 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { MemoryStackParamList } from "./MemoryStack";
 import { useAppStore } from "../../state";
 import { makeCards } from "./MemoryCard";
-import SinglePlayerStartScreen from "../common_singleplayer/SingleplayerStart";
 import { callTranslations } from "../../backend/WordSetsBackend";
+import GameStartScreen from "../common/GameStart";
 
 type Props = NativeStackScreenProps<MemoryStackParamList, "Start">;
 
@@ -29,11 +29,11 @@ function MemoryStartScreen({ navigation }: Props) {
   }
 
   return (
-    <SinglePlayerStartScreen
+    <GameStartScreen
       gameName={"Memory"}
       setWordSetId={setSetId}
       setWordSetName={setSetName}
-      startGameHandler={startGameHandler}
+      onPressHandler={startGameHandler}
     />
   );
 }
