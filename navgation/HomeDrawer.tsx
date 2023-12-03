@@ -72,6 +72,7 @@ const HomeDrawer = () => {
           }}
         />
       </Drawer.Navigator>
+    </UpdateHandlerProvider>
   );
 };
 
