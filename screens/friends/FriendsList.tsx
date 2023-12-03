@@ -74,7 +74,8 @@ function FriendsListScreen({ navigation }: Props) {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const onRefresh = () => {
     setIsRefreshing(true);
-    fetchAllFriendsData().then(() => setIsRefreshing(false));
+    fetchAllFriendsData();
+    setIsRefreshing(false);
   };
 
   return (

@@ -35,7 +35,7 @@ interface FriendsContextType {
   handleRejectInvite: (userId: number) => void;
   handleCancelInvite: (userId: number) => void;
   handleDeleteFriend: (userId: number) => void;
-  fetchAllFriendsData: () => Promise<void>;
+  fetchAllFriendsData: () => void;
 }
 
 const FriendsContext = createContext<FriendsContextType>({
@@ -56,7 +56,9 @@ const FriendsContext = createContext<FriendsContextType>({
   handleRejectInvite: () => null,
   handleCancelInvite: () => null,
   handleDeleteFriend: () => null,
-  fetchAllFriendsData: async () => undefined,
+  fetchAllFriendsData: () => {
+    return;
+  },
 });
 
 type FriendsProviderProps = {
@@ -111,8 +113,8 @@ const FriendsProvider = ({ children }: FriendsProviderProps) => {
     console.log(allUsers);
   }
 
-  const fetchAllFriendsData = async () => {
-    await Promise.all([
+  const fetchAllFriendsData = () => {
+    Promise.all([
       getFriendsData(token),
       getUsersData(token),
       getReceivedRequestsData(token),
@@ -173,7 +175,7 @@ const FriendsProvider = ({ children }: FriendsProviderProps) => {
   };
 
   useEffect(() => {
-    fetchAllFriendsData().then();
+    fetchAllFriendsData();
   }, []);
 
   const handleInvite = (userId: number) => {
