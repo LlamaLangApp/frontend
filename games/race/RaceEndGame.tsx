@@ -5,17 +5,17 @@ import React, { useEffect, useState } from "react";
 import FrontLlamaCenter from "../../components/FrontLlamaCenter";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { MainStackParamList } from "../../App";
 import { RaceStackParamList } from "./RaceStack";
 import buttonGamesStyles from "../../styles/games/ButtonGamesStyles";
 import PlayerListItem, { PlaceItem } from "../../components/PlayerListItem";
 import { buttonLightPink } from "../../Consts";
+import { GamesStackParamList } from "../../navgation/GamesStack";
 
 type Props = NativeStackScreenProps<RaceStackParamList, "EndGame">;
-type MainStack = NavigationProp<MainStackParamList, "Home">;
+type GamesStack = NavigationProp<GamesStackParamList, "Home">;
 
 function RaceEndGameScreen({ route }: Props) {
-  const parentNavigation = useNavigation<MainStack>();
+  const parentNavigation = useNavigation<GamesStack>();
   const { scoreboard } = route.params;
   const [final, setFinal] = useState<PlaceItem[]>();
 

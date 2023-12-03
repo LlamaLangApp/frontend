@@ -7,7 +7,7 @@ import ScoreboardScreen from "../screens/Scoreboard";
 import { FontAwesome5 } from "@expo/vector-icons";
 import UserStack from "./UserStack";
 import FriendsStack from "./FriendsStack";
-import GamesStack from "./GamesStack";
+import HomeScreen from "../screens/Home";
 import { UpdateHandlerProvider } from "../backend/UpdateHandler";
 
 const Drawer = createDrawerNavigator();
@@ -37,7 +37,7 @@ const HomeDrawer = () => {
         />
         <Drawer.Screen
           name="Games"
-          component={GamesStack}
+          component={HomeScreen}
           options={{
             drawerIcon: ({ color }) => (
               <FontAwesome name="gamepad" size={22} color={color} />
