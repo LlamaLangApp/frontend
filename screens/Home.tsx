@@ -37,7 +37,7 @@ function HomeScreen() {
   ];
 
   return (
-    <View style={mainStyles.container}>
+    <View style={mainStyles.whiteBackgroundContainer}>
       <View style={{ marginTop: 30, marginBottom: 30 }}>
         <ButtonRow
           choices={["SinglePlayer", "MultiPlayer"]}
