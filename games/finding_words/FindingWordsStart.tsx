@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { FindingWordsWebSocketContext } from "./WebSocket";
+import { FindingWordsWebSocketContext } from "./FindingWordsWebSocket";
 import GameStartScreen from "../common/GameStart";
 
 function FindingWordsStartScreen() {

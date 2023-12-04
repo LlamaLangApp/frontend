@@ -1,13 +1,13 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { FindingWordsStackParamList } from "./Stack";
+import { FindingWordsStackParamList } from "./FindingWordsStack";
 import { Dimensions, Text, View } from "react-native";
 import React, { useContext, useEffect, useMemo, useState } from "react";
-import { FindingWordsWebSocketContext } from "./WebSocket";
+import { FindingWordsWebSocketContext } from "./FindingWordsWebSocket";
 import ScrabbleBlock, {
   Letter,
   scrabbleBlockGap,
   scrabbleBlockSize,
-} from "./ScrabbleBlock";
+} from "./FindingWordsScrabbleBlock";
 import mainStyles from "../../styles/MainStyles";
 import textGamesStyles from "../../styles/games/TextGamesStyles";
 import * as ScreenOrientation from "expo-screen-orientation";
@@ -16,8 +16,8 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 type Props = NativeStackScreenProps<FindingWordsStackParamList, "Game">;
 
-const selectedTopPosition = 50;
-const nonSelectedTopPosition = 180;
+const selectedTopPosition = 100;
+const nonSelectedTopPosition = 200;
 
 type LettersStaticPositions = {
   [id: number]: { top: number; left: number };
@@ -64,7 +64,9 @@ function FindingWordsGame({ route }: Props) {
     ).remove;
   }, []);
 
-  const { points, round } = useContext(FindingWordsWebSocketContext);
+  const { ws, setLastAnswer, points, round } = useContext(
+    FindingWordsWebSocketContext
+  );
 
   const [letters, setLetters] = useState<Letter[]>([]);
 
@@ -83,15 +85,19 @@ function FindingWordsGame({ route }: Props) {
     );
   }, [letterStrings]);
 
-  // useEffect(() => {
-  //   const answer = letters
-  //     .filter(({ selected }) => selected)
-  //     .map(({ char: letter }) => letter)
-  //     .join("");
-  //   console.log(answer);
-  //   setLastAnswer(answer);
-  //   ws?.send(JSON.stringify({ type: "response", answer }));
-  // }, [letters]);
+  useEffect(() => {
+    if (
+      letters.filter(({ selected }) => !selected).length == 0 &&
+      letters.filter(({ selected }) => selected).length != 0
+    ) {
+      const answer = letters
+        .filter(({ selected }) => selected)
+        .map(({ char: letter }) => letter)
+        .join("");
+      setLastAnswer(answer);
+      ws?.send(JSON.stringify({ type: "response", answer }));
+    }
+  }, [letters]);
 
   function toggleSelectionForLetter(id: number) {
     setLetters((letters) => {
@@ -185,6 +191,7 @@ function FindingWordsGame({ route }: Props) {
     </View>
   );
 }
+
 function FindingWordsGameScreen({ route, navigation }: Props) {
   const [changedOrientation, setChangedOrientation] = useState(false);
 

@@ -1,13 +1,13 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as React from "react";
-import FindingWordsStartScreen from "./Start";
-import FindingWordsGameScreen from "./Game";
-import FindingWordsWaitingRoomScreen from "./WaitingRoom";
-import FindingWordsPlayersListScreen from "./PlayersList";
-import { FindingWordsWebSocketProvider } from "./WebSocket";
+import FindingWordsStartScreen from "./FindingWordsStart";
+import FindingWordsGameScreen from "./FindingWordsGame";
+import FindingWordsWaitingRoomScreen from "./FindingWordsWaitingRoom";
+import FindingWordsPlayersListScreen from "./FindingWordsPlayersList";
+import { FindingWordsWebSocketProvider } from "./FindingWordsWebSocket";
 import { useNavigation } from "@react-navigation/native";
-import FindingWordsEndGameScreen from "./EndGame";
-import FindingWordsAnswerScreen from "./Answer";
+import FindingWordsEndGameScreen from "./FindingWordsEndGame";
+import FindingWordsAnswerScreen from "./FindingWordsAnswer";
 
 export type FindingWordsStackParamList = {
   Start: undefined;

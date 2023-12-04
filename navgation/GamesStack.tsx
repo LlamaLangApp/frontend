@@ -3,7 +3,7 @@ import MemoryStack from "../games/memory/MemoryStack";
 import RaceStack from "../games/race/RaceStack";
 import FallingWordsStack from "../games/falling_words/FallingWordsStack";
 import HomeDrawer from "./HomeDrawer";
-import FindingWordsStack from "../games/finding_words/Stack";
+import FindingWordsStack from "../games/finding_words/FindingWordsStack";
 import { gestureHandlerRootHOC } from "react-native-gesture-handler";
 
 export type GamesStackParamList = {

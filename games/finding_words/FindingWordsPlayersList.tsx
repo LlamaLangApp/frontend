@@ -1,5 +1,5 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { FindingWordsStackParamList } from "./Stack";
+import { FindingWordsStackParamList } from "./FindingWordsStack";
 import React from "react";
 import MultiplayerPlayersListScreen from "../common/MultiplayerPlayersList";
 

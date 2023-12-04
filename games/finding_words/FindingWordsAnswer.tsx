@@ -1,10 +1,10 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { FindingWordsStackParamList } from "./Stack";
+import { FindingWordsStackParamList } from "./FindingWordsStack";
 import { StyleSheet, Text, View } from "react-native";
 import mainStyles from "../../styles/MainStyles";
 import mainGamesStyles from "../../styles/games/MainGamesStyles";
 import React, { useContext } from "react";
-import { FindingWordsWebSocketContext } from "./WebSocket";
+import { FindingWordsWebSocketContext } from "./FindingWordsWebSocket";
 import textGamesStyles from "../../styles/games/TextGamesStyles";
 
 type Props = NativeStackScreenProps<FindingWordsStackParamList, "Answer">;
@@ -31,7 +31,7 @@ function FindingWordsAnswerScreen({ route }: Props) {
           <View style={textGamesStyles.textWithMarginContainer}>
             <Text style={styles.basicText}>
               {answer === correctAnswer
-                ? "Good answer!    +15pkt"
+                ? `Good answer!    + ${points}pkt`
                 : "Unfortunately, it is wrong answer\n\n" +
                   "Correct answer is " +
                   correctAnswer}

@@ -8,7 +8,7 @@ import React, {
 } from "react";
 import { useAppStore } from "../../state";
 import { serverURL } from "../../backend/CommonBackend";
-import { FindingWordsStackParamList } from "./Stack";
+import { FindingWordsStackParamList } from "./FindingWordsStack";
 import { NavigationProp } from "@react-navigation/native";
 
 export const SocketGameStates = {
