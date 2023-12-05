@@ -1,26 +1,57 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { buttonLightPink, grey } from "../Consts";
 
-const buttonSingleMultiPlayer = () => {
+const SingleMultiPlayerButton = ({
+  choices,
+  onSelect,
+}: {
+  choices: string[];
+  onSelect: (arg0: string) => void;
+}) => {
+  const [selected, setSelected] = useState(choices[0]);
+
   return (
     <View style={styles.backgroundStyle}>
-      <View style={styles.placeHolderStyle} />
-      <TouchableOpacity style={styles.buttonStyleClicked}>
-        <View style={styles.textContainerStyle}>
-          <FontAwesome5 name="user-alt" size={35} color={buttonLightPink} />
-          <Text style={styles.textStyle}>SinglePlayer</Text>
-        </View>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.buttonStyleUnclicked}>
-        <View style={styles.textContainerStyle}>
-          <FontAwesome5 name="user-friends" size={40} color={buttonLightPink} />
-          <Text style={styles.textStyle}>MultiPlayer</Text>
-        </View>
-      </TouchableOpacity>
-
-      <View style={styles.placeHolderStyle} />
+      <View style={styles.buttonsContainerStyle}>
+        <TouchableOpacity
+          style={
+            selected === "SinglePlayer"
+              ? styles.buttonStyleClicked
+              : styles.buttonStyleUnclicked
+          }
+          onPress={() => {
+            setSelected("SinglePlayer");
+            onSelect("SinglePlayer");
+          }}
+        >
+          <View style={styles.textContainerStyle}>
+            <FontAwesome5 name="user-alt" size={30} color={buttonLightPink} />
+            <Text style={styles.textStyle}>SinglePlayer</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={
+            selected === "MultiPlayer"
+              ? styles.buttonStyleClicked
+              : styles.buttonStyleUnclicked
+          }
+          onPress={() => {
+            setSelected("MultiPlayer");
+            onSelect("MultiPlayer");
+          }}
+        >
+          <View style={styles.textContainerStyle}>
+            <FontAwesome5
+              name="user-friends"
+              size={35}
+              color={buttonLightPink}
+            />
+            <Text style={styles.textStyle}>MultiPlayer</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -31,10 +62,14 @@ const styles = StyleSheet.create({
     borderRadius: 13,
     width: "87%",
     height: 60,
-    marginTop: 30,
-    marginBottom: 20,
+  },
+  buttonsContainerStyle: {
+    width: "100%",
+    height: "100%",
     flexDirection: "row",
+    marginHorizontal: "2%",
     alignItems: "center",
+    justifyContent: "center",
   },
   buttonStyleClicked: {
     flex: 1,
@@ -42,6 +77,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: "white",
     alignItems: "center",
+    justifyContent: "center",
   },
   buttonStyleUnclicked: {
     flex: 1,
@@ -49,6 +85,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: "#D9D9D9",
     alignItems: "center",
+    justifyContent: "center",
   },
   textContainerStyle: {
     flexDirection: "row",
@@ -57,8 +94,5 @@ const styles = StyleSheet.create({
   textStyle: {
     color: grey,
   },
-  placeHolderStyle: {
-    flex: 0.03,
-  },
 });
-export default buttonSingleMultiPlayer;
+export default SingleMultiPlayerButton;
