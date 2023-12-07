@@ -24,7 +24,7 @@ function RaceGameScreen({ route }: Props) {
   return (
     <View style={mainStyles.container}>
       <View style={mainGamesStyles.contentContainer}>
-        <View style={{ flex: 1.7, marginTop: 30 }}>
+        <View style={{ flex: 1.5, marginTop: 80 }}>
           <View style={textGamesStyles.textWithMarginContainer}>
             <Text style={textGamesStyles.headingText}>Race</Text>
           </View>

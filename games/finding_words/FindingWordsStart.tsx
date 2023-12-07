@@ -1,18 +1,18 @@
 import React, { useState, useContext } from "react";
-import { RaceWebSocketContext } from "./RaceWebSocket";
+import { FindingWordsWebSocketContext } from "./FindingWordsWebSocket";
 import GameStartScreen from "../common/GameStart";
 
-function RaceStartScreen() {
-  const { ws } = useContext(RaceWebSocketContext);
+function FindingWordsStartScreen() {
+  const { ws } = useContext(FindingWordsWebSocketContext);
   const [setName, setSetName] = useState<string>("");
   const [setId, setSetId] = useState<number>(0);
 
   async function findOtherPlayersHandler() {
     console.log("Finding players for game ", setName);
-    ws.send(
+    ws?.send(
       JSON.stringify({
         type: "waitroom_request",
-        game: "race",
+        game: "finding_words",
         wordset_id: setId,
       })
     );
@@ -20,7 +20,7 @@ function RaceStartScreen() {
 
   return (
     <GameStartScreen
-      gameName={"Race"}
+      gameName={"Finding words"}
       setWordSetName={setSetName}
       setWordSetId={setSetId}
       onPressHandler={findOtherPlayersHandler}
@@ -28,4 +28,4 @@ function RaceStartScreen() {
   );
 }
 
-export default RaceStartScreen;
+export default FindingWordsStartScreen;

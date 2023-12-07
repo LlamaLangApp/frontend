@@ -10,7 +10,16 @@ import FriendsStack from "./FriendsStack";
 import HomeScreen from "../screens/Home";
 import { UpdateHandlerProvider } from "../backend/UpdateHandler";
 
-const Drawer = createDrawerNavigator();
+export type HomeDrawerParamList = {
+  Games: undefined;
+  Profile: undefined;
+  Llama: undefined;
+  Wordsets: undefined;
+  Friends: undefined;
+  Scoreboard: undefined;
+};
+
+const Drawer = createDrawerNavigator<HomeDrawerParamList>();
 
 const HomeDrawer = () => {
   return (

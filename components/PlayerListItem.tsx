@@ -46,6 +46,8 @@ export default ({ username, place, stat }: PlaceItem) => {
     >
       <View
         style={{
+          height: 70,
+          width: 50 + 15 + 15,
           flexDirection: "row",
           marginVertical: "1.5%",
           marginRight: 10,

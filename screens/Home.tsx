@@ -30,7 +30,12 @@ function HomeScreen() {
       type: "SinglePlayer",
       screenName: "FallingWords",
     },
-    // { id: "4", name: "memory", type: "SinglePlayer", screenName: "Memory" },
+    {
+      id: "4",
+      name: "finding words",
+      type: "MultiPlayer",
+      screenName: "FindingWords",
+    },
     // { id: "5", name: "memory", type: "SinglePlayer", screenName: "Memory" },
     // { id: "6", name: "memory", type: "SinglePlayer", screenName: "Memory" },
     // { id: "7", name: "memory", type: "SinglePlayer", screenName: "Memory" },

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { FallingWordsStackParamList } from "./FallingWordsStack";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import SinglePlayerResultsScreen from "../common_singleplayer/SingleplayerResults";
+import SinglePlayerResultsScreen from "../common/SingleplayerResults";
 import { saveSinglePlayerGame } from "../../backend/GamesBackend";
 import { useAppStore } from "../../state";
 import * as ScreenOrientation from "expo-screen-orientation";
