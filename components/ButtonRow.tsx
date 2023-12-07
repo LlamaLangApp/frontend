@@ -1,19 +1,25 @@
-import { TouchableOpacity, View, Text, ViewStyle } from "react-native";
-import { buttonDarkPink, buttonLightPink } from "../Consts";
-import homeStyles from "../styles/HomeStyles";
-import { useMemo, useState } from "react";
+import {
+  TouchableOpacity,
+  View,
+  Text,
+  ViewStyle,
+  StyleSheet,
+} from "react-native";
+import { buttonLightPink, grey } from "../Consts";
+import React, { useMemo, useState } from "react";
+import { FontAwesome5 } from "@expo/vector-icons";
 
 export default ({
   choices,
   onSelect,
 }: {
-  choices: string[];
+  choices: { choice: string; icon: string }[];
   onSelect: (arg0: string) => void;
 }) => {
-  const [selected, setSelected] = useState(choices[0]);
+  const [selected, setSelected] = useState<string>(choices[0].choice);
 
   const width = useMemo(
-    () => `${(100 - 20) / choices.length}%` as ViewStyle["width"],
+    () => `${(100 - 50) / choices.length}%` as ViewStyle["width"],
     [choices.length]
   );
 
@@ -21,36 +27,76 @@ export default ({
     () =>
       choices.map((choice) => (
         <TouchableOpacity
-          style={{
-            alignItems: "center",
-            width: width,
-            borderRadius: 15,
-            backgroundColor:
-              selected === choice ? buttonDarkPink : buttonLightPink,
-          }}
+          style={[
+            selected === choice.choice
+              ? styles.buttonStyleClicked
+              : styles.buttonStyleUnclicked,
+            { width: width },
+          ]}
           onPress={() => {
-            setSelected(choice);
-            onSelect(choice);
+            setSelected(choice.choice);
+            onSelect(choice.choice);
           }}
-          key={choice}
+          key={choice.choice}
         >
-          <Text style={homeStyles.buttonText}>{choice}</Text>
+          <View style={styles.textContainerStyle}>
+            <FontAwesome5
+              name={choice.icon}
+              size={30}
+              color={buttonLightPink}
+            />
+            <Text style={styles.textStyle}>{choice.choice}</Text>
+          </View>
         </TouchableOpacity>
       )),
     [choices, selected, width]
   );
 
   return (
-    <View style={{ alignItems: "center", width: "100%" }}>
-      <View
-        style={{
-          flexDirection: "row",
-          backgroundColor: buttonLightPink,
-          borderRadius: 15,
-        }}
-      >
-        {buttons}
-      </View>
+    <View style={styles.backgroundStyle}>
+      <View style={styles.buttonsContainerStyle}>{buttons}</View>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  backgroundStyle: {
+    backgroundColor: "#D9D9D9",
+    borderRadius: 13,
+    width: "86%",
+    marginHorizontal: "7%",
+    height: 60,
+  },
+  buttonsContainerStyle: {
+    width: "96%",
+    height: "100%",
+    flexDirection: "row",
+    marginHorizontal: "2%",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  buttonStyleClicked: {
+    flex: 1,
+    height: "85%",
+    borderRadius: 10,
+    backgroundColor: "white",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  buttonStyleUnclicked: {
+    flex: 1,
+    height: "80%",
+    borderRadius: 10,
+    backgroundColor: "#D9D9D9",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  textContainerStyle: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+  },
+  textStyle: {
+    color: grey,
+  },
+});

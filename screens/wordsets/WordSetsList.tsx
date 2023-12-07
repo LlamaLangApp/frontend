@@ -5,6 +5,9 @@ import React, { useContext, useState } from "react";
 import mainStyles from "../../styles/MainStyles";
 import { WordSetContext } from "./WordSets";
 import ButtonRow from "../../components/ButtonRow";
+import friendsStyles from "../../styles/FriendsStyles";
+import { grey } from "../../Consts";
+import { FontAwesome5 } from "@expo/vector-icons";
 import wordSetsStyles from "../../styles/WordSetsStyles";
 
 type Props = NativeStackScreenProps<WordSetStackParamList, "List">;
@@ -14,14 +17,32 @@ function WordSetsListScreen({}: Props) {
   const [wordSetType, setWordSetType] = useState("Default");
 
   return (
-    <View style={mainStyles.container}>
-      <View style={{ marginTop: 30, marginBottom: 30 }}>
-        <ButtonRow choices={["Default", "Custom"]} onSelect={setWordSetType} />
+    <View style={mainStyles.whiteBackgroundContainer}>
+      <View style={{ marginTop: 30, width: "100%" }}>
+        <ButtonRow
+          choices={[
+            { choice: "Default", icon: "book" },
+            { choice: "Custom", icon: "carrot" },
+          ]}
+          onSelect={setWordSetType}
+        />
       </View>
       <FlatList
-        style={{ width: "82%", marginBottom: "5%" }}
-        showsVerticalScrollIndicator={false}
+        style={{ width: "86%", borderRadius: 10, marginVertical: "5%" }}
         data={wordSetsList.filter((wordSet) => wordSet.type == wordSetType)}
+        showsVerticalScrollIndicator={false}
+        ItemSeparatorComponent={() => {
+          return <View style={{ height: 1, backgroundColor: "#bababa" }} />;
+        }}
+        ListEmptyComponent={() => {
+          return (
+            <View style={friendsStyles.emptyListContainer}>
+              <Text style={{ color: "#bababa" }}>
+                There are no word sets available
+              </Text>
+            </View>
+          );
+        }}
         renderItem={(itemData) => {
           return (
             <TouchableOpacity
@@ -30,11 +51,10 @@ function WordSetsListScreen({}: Props) {
               }
             >
               <View style={wordSetsStyles.flatListItem}>
-                <View style={{ margin: 10 }}>
-                  <Text style={{ fontSize: 21, color: "white" }}>
-                    {itemData.item.name}
-                  </Text>
-                </View>
+                <Text style={{ fontSize: 20, color: grey }}>
+                  {itemData.item.name}
+                </Text>
+                <FontAwesome5 name="arrow-right" size={20} color={grey} />
               </View>
             </TouchableOpacity>
           );

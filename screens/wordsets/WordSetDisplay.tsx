@@ -6,13 +6,8 @@ import wordSetsStyles from "../../styles/WordSetsStyles";
 import { FlatList } from "react-native-gesture-handler";
 import WordListItem from "../../components/WordListItem";
 import { Fontisto } from "@expo/vector-icons";
-// import { NativeStackScreenProps } from "@react-navigation/native-stack";
-// import { WordSetStackParamList } from "../../navgation/WordSetStack";
-// import CloseButton from "../../components/CloseButton";
+import { grey } from "../../Consts";
 
-// type Props = NativeStackScreenProps<WordSetStackParamList, "Display">;
-
-// function WordSetDisplayScreen({ navigation }: Props) {
 function WordSetDisplayScreen() {
   const {
     chosenSetName,
@@ -22,12 +17,11 @@ function WordSetDisplayScreen() {
     handleFlashCardsButton,
   } = useContext(WordSetContext);
   return (
-    <View style={mainStyles.container}>
-      {/*<CloseButton onPress={() => navigation.navigate("List")} />*/}
-      <View style={{ marginTop: "4%" }}>
-        <Text style={wordSetsStyles.headingText}>{chosenSetName}</Text>
+    <View style={mainStyles.whiteBackgroundContainer}>
+      <View style={{ marginVertical: "6%", width: "84%" }}>
+        <Text style={{ fontSize: 27, color: grey }}>{chosenSetName}</Text>
       </View>
-      <View style={{ width: "80%", marginVertical: 30, flexDirection: "row" }}>
+      <View style={{ width: "86%", flexDirection: "row" }}>
         <TouchableOpacity
           style={wordSetsStyles.buttonIcon}
           onPress={() => {
@@ -44,8 +38,12 @@ function WordSetDisplayScreen() {
         </TouchableOpacity>
       </View>
       <FlatList
-        style={{ width: "80%", marginBottom: "5%" }}
+        style={{ width: "86%", borderRadius: 10, marginVertical: "5%" }}
         data={chosenSet}
+        showsVerticalScrollIndicator={false}
+        ItemSeparatorComponent={() => {
+          return <View style={{ height: 1, backgroundColor: "#bababa" }} />;
+        }}
         renderItem={({ item }) => (
           <WordListItem
             polish={item.polish}

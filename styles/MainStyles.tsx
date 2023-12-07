@@ -5,9 +5,7 @@ const mainStyles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: defaultBackgroundColor,
-    // backgroundColor: "#eec7cd",
     alignItems: "center",
-    // justifyContent: "center",
   },
   whiteBackgroundContainer: {
     flex: 1,

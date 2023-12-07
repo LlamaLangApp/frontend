@@ -6,7 +6,7 @@ const frontLlamaRight = () => {
   return (
     <View style={homeStyles.logoContainer}>
       <Image
-        source={require("../assets/llama_without_background.png")}
+        source={require("../assets/llama.png")}
         style={{
           width: 200,
           height: 200,

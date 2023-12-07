@@ -1,6 +1,7 @@
-import { useMemo } from "react";
+import React, { useMemo } from "react";
 import { View, Text } from "react-native";
 import wordSetsStyles from "../styles/WordSetsStyles";
+import { grey } from "../Consts";
 
 export type WordItem = {
   polish: string;
@@ -12,15 +13,15 @@ const WordListItem = ({ polish, english, chosenPolish }: WordItem) => {
   const placeElem = useMemo(() => {
     if (chosenPolish) {
       return (
-        <View style={{ margin: 10 }}>
-          <Text style={{ fontSize: 21, color: "white" }}>{polish}</Text>
+        <View>
+          <Text style={{ fontSize: 20, color: grey }}>{polish}</Text>
           <Text style={{ fontSize: 16, color: "grey" }}>{english}</Text>
         </View>
       );
     } else {
       return (
-        <View style={{ margin: 10 }}>
-          <Text style={{ fontSize: 21, color: "white" }}>{english}</Text>
+        <View>
+          <Text style={{ fontSize: 20, color: grey }}>{english}</Text>
           <Text style={{ fontSize: 16, color: "grey" }}>{polish}</Text>
         </View>
       );
