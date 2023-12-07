@@ -7,10 +7,11 @@ interface CustomDropdownProps {
   defaultSelectText: string;
   selectData: string[];
   onSelectFunc: (selectedItem: string) => void;
+  defaultValue?: string;
 }
 
 const CustomDropdown = (props: CustomDropdownProps) => {
-  const { defaultSelectText, selectData, onSelectFunc } = props;
+  const { defaultSelectText, selectData, onSelectFunc, defaultValue } = props;
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -18,6 +19,7 @@ const CustomDropdown = (props: CustomDropdownProps) => {
     <SelectDropdown
       data={selectData}
       onSelect={(selectedItem) => onSelectFunc(selectedItem)}
+      defaultValue={defaultValue ? defaultValue : null}
       defaultButtonText={`-- Select ${defaultSelectText} --`}
       buttonTextAfterSelection={(selectedItem) => {
         return selectedItem;

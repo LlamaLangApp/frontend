@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { buttonLightPink, pink } from "../Consts";
+import { buttonLightPink } from "../Consts";
 
 const wordSetsStyles = StyleSheet.create({
   containerFlashCards: {
@@ -10,9 +10,11 @@ const wordSetsStyles = StyleSheet.create({
     width: "100%",
   },
   flatListItem: {
-    margin: "1%",
-    backgroundColor: pink,
-    borderRadius: 15,
+    flexDirection: "row",
+    marginVertical: "4%",
+    marginHorizontal: "3%",
+    marginRight: 10,
+    alignItems: "center",
     justifyContent: "space-between",
   },
 
