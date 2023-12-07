@@ -157,7 +157,7 @@ export default () => {
       </View>
       {data || !readyToFetch ? (
         <FlatList
-          style={{ width: "86%", borderRadius: 10 }}
+          style={{ width: "86%", borderRadius: 10, marginBottom: "3%" }}
           data={data}
           showsVerticalScrollIndicator={false}
           ItemSeparatorComponent={() => {

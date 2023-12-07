@@ -94,6 +94,7 @@ const styles = StyleSheet.create({
   textContainerStyle: {
     flexDirection: "row",
     alignItems: "center",
+    gap: 8,
   },
   textStyle: {
     color: grey,
