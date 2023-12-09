@@ -4,15 +4,9 @@ import { useContext } from "react";
 import { WordSetContext } from "./WordSets";
 import { pink } from "../../Consts";
 import mainStyles from "../../styles/MainStyles";
-// import { NativeStackScreenProps } from "@react-navigation/native-stack";
-// import { WordSetStackParamList } from "../../navgation/WordSetStack";
-// import CloseButton from "../../components/CloseButton";
 import IconButton from "../../components/IconButton";
 import wordSetsStyles from "../../styles/WordSetsStyles";
 
-// type Props = NativeStackScreenProps<WordSetStackParamList, "FlashCards">;
-
-// const FlashCardScreen = ({ navigation }: Props) => {
 const FlashCardScreen = () => {
   const {
     flashCards,
