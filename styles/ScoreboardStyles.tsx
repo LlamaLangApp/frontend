@@ -6,6 +6,6 @@ export default StyleSheet.create({
     marginHorizontal: "7%",
     gap: 10,
     marginTop: 20,
-    marginBottom: 40,
+    marginBottom: "4%",
   },
 });

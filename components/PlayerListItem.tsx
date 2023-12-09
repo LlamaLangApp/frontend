@@ -4,7 +4,7 @@ import { grey } from "../Consts";
 
 export type PlaceItem = {
   username: string;
-  stat: string;
+  stat: number;
   place: number;
 };
 

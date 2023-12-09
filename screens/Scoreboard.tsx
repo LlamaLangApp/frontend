@@ -1,164 +1,85 @@
 import { ActivityIndicator, Text, View } from "react-native";
 import mainStyles from "../styles/MainStyles";
 import ButtonRow from "../components/ButtonRow";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import CustomDropdown from "../components/CustomDropdown";
-import { games, pink } from "../Consts";
+import { grey, pink } from "../Consts";
 import ScoreboardStyles from "../styles/ScoreboardStyles";
 import { FlatList } from "react-native-gesture-handler";
-import PlayerListItem, { PlaceItem } from "../components/PlayerListItem";
-import { getStatistics } from "../backend/StatisticsBackend";
+import PlayerListItem from "../components/PlayerListItem";
+import { getScoreboard, ScoreboardData } from "../backend/ScoreboardBackend";
 import { useAppStore } from "../state";
 import { useIsFocused } from "@react-navigation/native";
 import friendsStyles from "../styles/FriendsStyles";
 
 const ranges = {
-  thisWeek: "This Week",
   allTime: "All Time",
+  thisWeek: "This Week",
 };
 
-const gameNames = games.map((game) => game.name);
-const defaultValue = "Memory";
-
-function handleResults(
-  results: { username: string; stat: number }[],
-  sort: "asc" | "desc",
-  display: (stat: number) => string
-): PlaceItem[] {
-  if (sort === "asc") {
-    results.sort((a, b) => a.stat - b.stat);
-  } else if (sort === "desc") {
-    results.sort((a, b) => b.stat - a.stat);
-  }
-
-  const final = [];
-
-  let currentPlace = 0;
-  let currentStat = null;
-  for (const { username, stat } of results) {
-    if (stat !== currentStat) {
-      currentPlace += 1;
-      currentStat = stat;
-    }
-
-    final.push({ username, stat: display(stat), place: currentPlace });
-  }
-
-  return final;
-}
+const defaultValue = ranges.thisWeek;
 
 export default () => {
   const isFocused = useIsFocused();
   const token = useAppStore((store) => store.token);
 
-  const [range, setRange] = useState(ranges.thisWeek);
+  const [timePeriod, setTimePeriod] = useState<string>(ranges.allTime);
+  const [scoreboardType, setScoreboardType] = useState<string>("Global");
 
-  const [gameName, setGameName] = useState<string | null>(defaultValue);
-  const selectedGame = games.find((game) => game.name == gameName);
-
-  const [scoreType, setScoreType] = useState<string | null>(null);
-  const selectedType = selectedGame?.statistics?.find(
-    (stat) => stat.name === scoreType
-  );
-  const [selected, setSelected] = useState(false);
-  const typeDropdown = useMemo(() => {
-    if (!selectedGame) {
-      return null;
-    }
-
-    const options = selectedGame.statistics.map((stat) => stat.name);
-
-    if (options.length == 0) {
-      return null;
-    }
-
-    return (
-      <CustomDropdown
-        defaultSelectText={"Type"}
-        selectData={options}
-        onSelectFunc={(item) => {
-          setScoreType(item);
-          setSelected(true);
-        }}
-      />
-    );
-  }, [selectedGame, setScoreType]);
-
-  const readyToFetch = selectedGame && selectedType;
-  const [data, setData] = useState<null | PlaceItem[]>(null);
+  const [data, setData] = useState<ScoreboardData | null>(null);
 
   useEffect(() => {
-    if (!readyToFetch || !isFocused) {
+    if (!isFocused) {
       setData(null);
       return;
     }
-    let period: null | "all_time" | "this_week" = null;
-    if (range === ranges.allTime) {
+    let period: "all_time" | "this_week";
+    if (timePeriod === ranges.allTime) {
       period = "all_time";
-    } else if (range == ranges.thisWeek) {
-      period = "this_week";
     } else {
-      return;
+      period = "this_week";
     }
     if (!token) {
       console.warn("No token for fetching scoreboard");
       return;
     }
-    if (selectedGame.backend_name !== "memory") {
-      console.warn("Only memory supported for now");
-      return;
-    }
 
-    getStatistics(
-      token,
-      selectedGame.backend_name,
-      period,
-      selectedType.aggregate,
-      selectedType.statistic
-    ).then((response) => {
-      if (response.type === "error") {
-        console.error(response.message);
-        return;
+    getScoreboard(token, period, scoreboardType.toLowerCase()).then(
+      (response) => {
+        if (response.type === "error") {
+          console.error(response.message);
+          return;
+        }
+        setData(response.result);
       }
-      setData(
-        handleResults(
-          response.result,
-          selectedType.order,
-          selectedType.display ?? String
-        )
-      );
-    });
-  }, [range, selectedGame, selectedType, isFocused]);
+    );
+  }, [scoreboardType, timePeriod, isFocused]);
 
   return (
     <View style={mainStyles.whiteBackgroundContainer}>
       <View style={{ marginTop: 30, width: "100%" }}>
         <ButtonRow
           choices={[
-            { choice: ranges.thisWeek, icon: "user-friends" },
-            { choice: ranges.allTime, icon: "user-friends" },
+            { choice: "Global", icon: "globe-americas" },
+            { choice: "Friends", icon: "user-friends" },
           ]}
-          onSelect={setRange}
+          onSelect={setScoreboardType}
         />
       </View>
       <View style={ScoreboardStyles.optionsContainer}>
         <CustomDropdown
           defaultSelectText={"Game"}
-          selectData={gameNames}
-          onSelectFunc={(game) => {
-            if (game !== gameName) {
-              setGameName(game);
-              setScoreType(null);
-            }
+          selectData={[ranges.allTime, ranges.thisWeek]}
+          onSelectFunc={(item) => {
+            setTimePeriod(item);
           }}
           defaultValue={defaultValue}
         />
-        {typeDropdown}
       </View>
-      {data || !readyToFetch ? (
+      {data ? (
         <FlatList
           style={{ width: "86%", borderRadius: 10, marginBottom: "3%" }}
-          data={data}
+          data={data?.top_100}
           showsVerticalScrollIndicator={false}
           ItemSeparatorComponent={() => {
             return <View style={{ height: 1, backgroundColor: "#bababa" }} />;
@@ -167,9 +88,7 @@ export default () => {
             return (
               <View style={friendsStyles.emptyListContainer}>
                 <Text style={{ color: "#bababa" }}>
-                  {selected
-                    ? "There is nothing to show"
-                    : "Chose statistics to display"}
+                  There is nothing to show
                 </Text>
               </View>
             );
@@ -178,13 +97,26 @@ export default () => {
             <PlayerListItem
               username={item.username}
               place={item.place}
-              stat={item.stat}
+              stat={item.points}
             />
           )}
         />
       ) : (
         <ActivityIndicator size={"large"} color={pink} />
       )}
+      <View style={{ width: "86%", height: "12%", marginBottom: "5%" }}>
+        <Text style={{ color: grey, marginBottom: "0.9%" }}>Your place:</Text>
+        <View style={{ height: 1, backgroundColor: grey }} />
+        {data ? (
+          <PlayerListItem
+            username={data.user.username}
+            place={data.user.place}
+            stat={data.user.points}
+          />
+        ) : (
+          <View />
+        )}
+      </View>
     </View>
   );
 };
