@@ -1,8 +1,8 @@
 import { Animated, Dimensions, Easing, Text } from "react-native";
 import React, { useEffect, useState } from "react";
-import { Translation } from "../GamesTypes";
 import mainGamesStyles from "../../styles/games/MainGamesStyles";
 import textGamesStyles from "../../styles/games/TextGamesStyles";
+import { Translation } from "../../backend/WordSetsBackend";
 
 const screenWidth = Math.min(
   Dimensions.get("window").width,

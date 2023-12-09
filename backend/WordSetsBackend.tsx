@@ -1,5 +1,28 @@
-import { WordSet, Translation } from "../games/GamesTypes";
 import { ApiResponse, makeApiRequest } from "./CommonBackend";
+
+export type WordSet = {
+  id: number;
+  english: string;
+  polish: string;
+  category: string;
+  difficulty: number;
+  locked: boolean;
+  accuracy: number;
+  depends_on: {
+    id: number;
+    english: string;
+    polish: string;
+    category: string;
+    difficulty: number;
+  }[];
+};
+
+export type Translation = {
+  id: number;
+  english: string;
+  polish: string;
+  star: boolean;
+};
 
 export async function callWordSets(
   token: string | null
