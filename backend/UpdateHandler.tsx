@@ -1,4 +1,4 @@
-import {
+import React, {
   ReactNode,
   createContext,
   useCallback,
@@ -15,15 +15,22 @@ const dummyCleanupFunction: CallbackCleanupFunction = () => {
 };
 
 type FriendStatusListener = () => void;
+type WaitRoomInvitationListener = () => void;
 
 type UpdateHandlerContextType = {
   onFriendsStatusUpdate: (
     listener: FriendStatusListener
   ) => CallbackCleanupFunction;
+  onWaitRoomInvitation: (
+    listener: WaitRoomInvitationListener
+  ) => CallbackCleanupFunction;
 };
 
 const UpdateHandlerContext = createContext<UpdateHandlerContextType>({
   onFriendsStatusUpdate: () => {
+    return dummyCleanupFunction;
+  },
+  onWaitRoomInvitation: () => {
     return dummyCleanupFunction;
   },
 });
@@ -32,6 +39,7 @@ function UpdateHandlerProvider({ children }: { children: ReactNode }) {
   const token = useAppStore((store) => store.token);
 
   const friendStatusListeners = useRef<FriendStatusListener[]>([]);
+  const waitRoomInvitationListeners = useRef<WaitRoomInvitationListener[]>([]);
 
   const [ws, setWs] = useState<null | WebSocket>(null);
 
@@ -58,6 +66,11 @@ function UpdateHandlerProvider({ children }: { children: ReactNode }) {
         const payload = JSON.parse(event.data);
         if (payload.type === "friend_status_update") {
           for (const listener of friendStatusListeners.current) {
+            listener();
+          }
+        } else if (payload.type === "waitroom_invitation") {
+          console.log("Hi steve");
+          for (const listener of waitRoomInvitationListeners.current) {
             listener();
           }
         } else {
@@ -93,9 +106,23 @@ function UpdateHandlerProvider({ children }: { children: ReactNode }) {
     },
     []
   );
+  const onWaitRoomInvitation = useCallback(
+    (listener: WaitRoomInvitationListener) => {
+      waitRoomInvitationListeners.current.push(listener);
+
+      // Return cleanup function
+      return () => {
+        waitRoomInvitationListeners.current =
+          waitRoomInvitationListeners.current.filter((l) => l === listener);
+      };
+    },
+    []
+  );
 
   return (
-    <UpdateHandlerContext.Provider value={{ onFriendsStatusUpdate }}>
+    <UpdateHandlerContext.Provider
+      value={{ onFriendsStatusUpdate, onWaitRoomInvitation }}
+    >
       {children}
     </UpdateHandlerContext.Provider>
   );

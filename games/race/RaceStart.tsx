@@ -1,9 +1,9 @@
 import React, { useState, useContext } from "react";
 import { RaceWebSocketContext } from "./RaceWebSocket";
-import GameStartScreen from "../common/GameStart";
+import MultiplayerGameStartScreen from "../common/MultiplayerGameStart";
 
 function RaceStartScreen() {
-  const { ws, setWithFriends } = useContext(RaceWebSocketContext);
+  const { ws, setWithFriends, withFriends } = useContext(RaceWebSocketContext);
   const [setName, setSetName] = useState<string>("");
   const [setId, setSetId] = useState<number>(0);
 
@@ -13,12 +13,13 @@ function RaceStartScreen() {
       JSON.stringify({
         type: "waitroom_request",
         wordset_id: setId,
+        ...(withFriends && { as_owner: true }),
       })
     );
   }
 
   return (
-    <GameStartScreen
+    <MultiplayerGameStartScreen
       gameName={"Race"}
       setWordSetName={setSetName}
       setWordSetId={setSetId}

@@ -1,6 +1,24 @@
 import { StyleSheet } from "react-native";
+import { grey } from "../../Consts";
 
 const textGamesStyles = StyleSheet.create({
+  gameName: {
+    fontSize: 27,
+    color: grey,
+    fontWeight: "800",
+  },
+  information: {
+    fontSize: 18,
+    color: grey,
+  },
+  finePrint: {
+    color: "#bababa",
+    fontSize: 12,
+  },
+  button: {
+    fontWeight: "600",
+    fontSize: 19,
+  },
   instructionContainer: {
     margin: "3%",
   },
@@ -36,7 +54,6 @@ const textGamesStyles = StyleSheet.create({
     textShadowColor: "#2d2d2e",
     textShadowOffset: { width: 2, height: 2 },
     textShadowRadius: 4,
-    // fontFamily: "Roboto",
   },
   secondaryText: {
     fontSize: 21,
@@ -45,10 +62,6 @@ const textGamesStyles = StyleSheet.create({
   basicText: {
     fontSize: 16,
     color: "white",
-    // textShadowColor: "#2d2d2e",
-    // textShadowOffset: { width: 0.5, height: 1 },
-    // textShadowRadius: 2,
-    // fontFamily: "Roboto",
   },
 });
 
