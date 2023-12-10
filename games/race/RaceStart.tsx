@@ -3,7 +3,7 @@ import { RaceWebSocketContext } from "./RaceWebSocket";
 import GameStartScreen from "../common/GameStart";
 
 function RaceStartScreen() {
-  const { ws } = useContext(RaceWebSocketContext);
+  const { ws, setWithFriends } = useContext(RaceWebSocketContext);
   const [setName, setSetName] = useState<string>("");
   const [setId, setSetId] = useState<number>(0);
 
@@ -12,7 +12,6 @@ function RaceStartScreen() {
     ws.send(
       JSON.stringify({
         type: "waitroom_request",
-        game: "race",
         wordset_id: setId,
       })
     );
@@ -24,6 +23,7 @@ function RaceStartScreen() {
       setWordSetName={setSetName}
       setWordSetId={setSetId}
       onPressHandler={findOtherPlayersHandler}
+      playWithFriends={setWithFriends}
     />
   );
 }

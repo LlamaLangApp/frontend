@@ -1,8 +1,8 @@
 import React from "react";
-import MultiplayerWaitingRoom from "../common/MultiplayerWaitingRoom";
+import MultiPlayerOwnerWaitingRoomScreen from "../common/MultiplayerOwnerWaitingRoom";
 
 function RaceWaitingRoomScreen() {
-  return <MultiplayerWaitingRoom gameName={"Race"} />;
+  return <MultiPlayerOwnerWaitingRoomScreen gameName={"Race"} />;
 }
 
 export default RaceWaitingRoomScreen;

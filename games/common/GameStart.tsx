@@ -1,26 +1,35 @@
-import { Text, TouchableOpacity, View } from "react-native";
+import { Text, TouchableOpacity, View, Switch } from "react-native";
 import mainStyles from "../../styles/MainStyles";
 import mainGamesStyles from "../../styles/games/MainGamesStyles";
 import CustomDropdown from "../../components/CustomDropdown";
 import FrontLlamaCenter from "../../components/FrontLlamaCenter";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Dispatch, SetStateAction } from "react";
 import { callWordSets } from "../../backend/WordSetsBackend";
 import { useAppStore } from "../../state";
 import { WordSet } from "../GamesTypes";
 import buttonGamesStyles from "../../styles/games/ButtonGamesStyles";
 import textGamesStyles from "../../styles/games/TextGamesStyles";
+import { buttonLightPink, grey } from "../../Consts";
 
 type StartScreenProps = {
   gameName: string;
   setWordSetName: (selectedItem: string) => void;
   setWordSetId: (selectedItem: number) => void;
   onPressHandler: () => void;
+  playWithFriends?: Dispatch<SetStateAction<boolean>>;
 };
 
 const GameStartScreen = (props: StartScreenProps) => {
-  const { gameName, setWordSetName, setWordSetId, onPressHandler } = props;
+  const {
+    gameName,
+    setWordSetName,
+    setWordSetId,
+    onPressHandler,
+    playWithFriends,
+  } = props;
   const [wordSetType, setWordSetType] = useState<string>("");
   const [wordSets, setWordSets] = useState<WordSet[]>([]);
+  const [isChecked, setChecked] = useState(false);
   const token = useAppStore.getState().token;
 
   useEffect(() => {
@@ -73,6 +82,31 @@ const GameStartScreen = (props: StartScreenProps) => {
             }}
           />
         </View>
+
+        {(gameName === "Finding words" || gameName === "Race") &&
+          playWithFriends && (
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                marginVertical: 10,
+              }}
+            >
+              <Switch
+                trackColor={{ false: grey, true: "white" }}
+                thumbColor={buttonLightPink}
+                ios_backgroundColor="#3e3e3e"
+                onValueChange={() => {
+                  playWithFriends((previousState) => !previousState);
+                  setChecked((previousState) => !previousState);
+                }}
+                value={isChecked}
+              />
+              <Text style={{ marginLeft: 8, fontSize: 16, color: grey }}>
+                Play with friends
+              </Text>
+            </View>
+          )}
         <View style={{ flexDirection: "row" }}>
           <TouchableOpacity
             style={buttonGamesStyles.startButton}

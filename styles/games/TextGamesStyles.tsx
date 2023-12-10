@@ -41,10 +41,6 @@ const textGamesStyles = StyleSheet.create({
   secondaryText: {
     fontSize: 21,
     color: "white",
-    // textShadowColor: "#2d2d2e",
-    // textShadowOffset: { width: 0.5, height: 1 },
-    // textShadowRadius: 2,
-    // fontFamily: "Roboto",
   },
   basicText: {
     fontSize: 16,

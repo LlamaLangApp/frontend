@@ -13,10 +13,12 @@ import { NavigationProp } from "@react-navigation/native";
 
 export const SocketGameStates = {
   justConnected: 0,
-  inWaitRoom: 1,
-  beforeRound: 2,
-  roundStarted: 3,
-  gameEnded: 4,
+  inWaitRoomRandom: 1,
+  inWaitRoomAsOwner: 2,
+  inWaitRoomJoinedFriend: 3,
+  beforeRound: 4,
+  roundStarted: 5,
+  gameEnded: 6,
 };
 
 interface FindingWordsWebSocketContextType {
@@ -24,11 +26,13 @@ interface FindingWordsWebSocketContextType {
   setLastAnswer: Dispatch<SetStateAction<string>>;
   points: number;
   round: number;
+  withFriends: boolean;
+  setWithFriends: Dispatch<SetStateAction<boolean>>;
 }
 
-export function shuffleCards<Card>(list: Card[]): Card[] {
-  return list.sort(() => Math.random() - 0.5);
-}
+// export function shuffleCards<Card>(list: Card[]): Card[] {
+//   return list.sort(() => Math.random() - 0.5);
+// }
 
 const FindingWordsWebSocketContext =
   createContext<FindingWordsWebSocketContextType>({
@@ -38,6 +42,10 @@ const FindingWordsWebSocketContext =
     },
     points: 0,
     round: 1,
+    withFriends: false,
+    setWithFriends: () => {
+      return;
+    },
   });
 
 type FindingWordsWebSocketProviderProps = {
@@ -57,6 +65,7 @@ const FindingWordsWebSocketProvider = ({
   const [lastAnswer, setLastAnswer] = useState("");
   const [points, setPoints] = useState(0);
   const [round, setRound] = useState(0);
+  const [withFriends, setWithFriends] = useState<boolean>(false);
 
   const [ws] = useState<WebSocket>(
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -69,12 +78,20 @@ const FindingWordsWebSocketProvider = ({
       const message = JSON.parse(event.data);
       if (
         socketGameState === SocketGameStates.justConnected &&
-        message.type === "joined_waitroom"
+        message.type === "joined_waitroom" &&
+        !withFriends
       ) {
-        setSocketGameState(SocketGameStates.inWaitRoom);
+        setSocketGameState(SocketGameStates.inWaitRoomRandom);
         navigation.navigate("WaitingRoom");
       } else if (
-        socketGameState === SocketGameStates.inWaitRoom &&
+        socketGameState === SocketGameStates.justConnected &&
+        message.type === "joined_waitroom" &&
+        withFriends
+      ) {
+        setSocketGameState(SocketGameStates.inWaitRoomAsOwner);
+        navigation.navigate("WaitingRoom");
+      } else if (
+        socketGameState === SocketGameStates.inWaitRoomRandom &&
         message.type === "game_starting"
       ) {
         setSocketGameState(SocketGameStates.beforeRound);
@@ -122,6 +139,8 @@ const FindingWordsWebSocketProvider = ({
         setLastAnswer,
         points,
         round,
+        withFriends,
+        setWithFriends,
       }}
     >
       {children}

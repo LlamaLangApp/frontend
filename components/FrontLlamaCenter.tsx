@@ -6,7 +6,7 @@ const FrontLlamaCenter = () => {
   return (
     <View style={authStyles.llamaContainer}>
       <Image
-        source={require("../assets/llama_without_background.png")}
+        source={require("../assets/llama.png")}
         style={{
           width: 200,
           height: 200,
