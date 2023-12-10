@@ -1,4 +1,9 @@
-import { Dimensions, StyleSheet, Text, View } from "react-native";
+import {
+  Dimensions,
+  StyleSheet,
+  Text,
+  TouchableWithoutFeedback,
+} from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { FlashCards } from "../screens/wordsets/WordSets";
 import Animated, {
@@ -9,6 +14,7 @@ import Animated, {
   withSpring,
 } from "react-native-reanimated";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
+import { Dispatch, SetStateAction, useState } from "react";
 
 const screenWidth = Dimensions.get("screen").width;
 export const tinderCardWidth = screenWidth * 0.7;
@@ -18,14 +24,23 @@ type TinderCardProps = {
   numOfCards: number;
   index: number;
   activeIndex: SharedValue<number>;
+  firstTranslation: boolean;
+  setLearnedCards: Dispatch<SetStateAction<FlashCards[]>>;
+  setUnlearnedCards: Dispatch<SetStateAction<FlashCards[]>>;
 };
 const TinderCard = ({
   flashCard,
   numOfCards,
   index,
   activeIndex,
+  firstTranslation,
+  setLearnedCards,
+  setUnlearnedCards,
 }: TinderCardProps) => {
+  const [showTranslation, setShowTranslation] = useState(firstTranslation);
+  const [flippedCard, setFlippedCard] = useState(false);
   const translationX = useSharedValue(0);
+  const flipping = useSharedValue(0);
 
   const animatedCard = useAnimatedStyle(() => ({
     opacity: interpolate(
@@ -34,20 +49,6 @@ const TinderCard = ({
       [1 - 1 / 3.5, 1, 1]
     ),
     transform: [
-      // {
-      //   scale: interpolate(
-      //     activeIndex.value,
-      //     [index - 1, index, index + 1],
-      //     [0.95, 1, 1]
-      //   ),
-      // },
-      // {
-      //   translateY: interpolate(
-      //     activeIndex.value,
-      //     [index - 1, index, index + 1],
-      //     [-30, 0, 0]
-      //   ),
-      // },
       {
         translateX: translationX.value,
       },
@@ -72,36 +73,49 @@ const TinderCard = ({
     })
     .onEnd((event) => {
       if (Math.abs(event.velocityX) > 400) {
-        // translationX.value = withDecay({ velocity: event.velocityX });
+        if (translationX.value > 0) {
+          setLearnedCards((prevState) => [...prevState, flashCard]);
+        } else {
+          setUnlearnedCards((prevState) => [...prevState, flashCard]);
+        }
         translationX.value = withSpring(Math.sign(event.velocityX) * 500, {
           velocity: event.velocityX,
         });
-        // activeIndex.value = withSpring(activeIndex.value + 1);
         activeIndex.value = index + 1;
       } else {
         translationX.value = withSpring(0);
       }
-    });
+    })
+    .runOnJS(true);
 
   return (
     <GestureDetector gesture={gesture}>
-      <Animated.View
-        style={[
-          styles.card,
-          animatedCard,
-          {
-            zIndex: numOfCards - index,
-          },
-        ]}
+      <TouchableWithoutFeedback
+        onPress={() => {
+          setShowTranslation((prevState) => !prevState);
+          setFlippedCard((prevState) => !prevState);
+          flipping.value = 1;
+        }}
       >
-        <LinearGradient
-          colors={["transparent", "rgba(255,0,0,0.8"]}
-          style={[styles.overlay, StyleSheet.absoluteFillObject]}
-        />
-        <View style={styles.footer}>
-          <Text style={styles.textStyle}>{flashCard.polish}</Text>
-        </View>
-      </Animated.View>
+        <Animated.View
+          style={[
+            styles.card,
+            animatedCard,
+            {
+              zIndex: numOfCards - index,
+              backgroundColor: flippedCard ? "#fafafa" : "white",
+            },
+          ]}
+        >
+          <LinearGradient
+            colors={["transparent", "rgba(255,0,0,0.8"]}
+            style={[styles.overlay, StyleSheet.absoluteFillObject]}
+          />
+          <Text style={styles.textStyle}>
+            {showTranslation ? flashCard.polish : flashCard.english}
+          </Text>
+        </Animated.View>
+      </TouchableWithoutFeedback>
     </GestureDetector>
   );
 };
@@ -123,10 +137,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.22,
     shadowRadius: 2.22,
     elevation: 3,
-    backgroundColor: "white",
-    marginTop: 90,
+    marginTop: 170,
   },
-  footer: {},
   textStyle: {
     fontSize: 30,
   },
