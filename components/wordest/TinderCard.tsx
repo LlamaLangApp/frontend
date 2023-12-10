@@ -5,13 +5,14 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { FlashCards } from "../screens/wordsets/WordSets";
+import { FlashCards } from "../../screens/wordsets/WordSets";
 import Animated, {
   interpolate,
   SharedValue,
   useAnimatedStyle,
   useSharedValue,
   withSpring,
+  withTiming,
 } from "react-native-reanimated";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import { Dispatch, SetStateAction, useState } from "react";
@@ -26,7 +27,7 @@ type TinderCardProps = {
   activeIndex: SharedValue<number>;
   firstTranslation: boolean;
   setLearnedCards: Dispatch<SetStateAction<FlashCards[]>>;
-  setUnlearnedCards: Dispatch<SetStateAction<FlashCards[]>>;
+  setNeedPracticeCards: Dispatch<SetStateAction<FlashCards[]>>;
 };
 const TinderCard = ({
   flashCard,
@@ -35,19 +36,13 @@ const TinderCard = ({
   activeIndex,
   firstTranslation,
   setLearnedCards,
-  setUnlearnedCards,
+  setNeedPracticeCards,
 }: TinderCardProps) => {
   const [showTranslation, setShowTranslation] = useState(firstTranslation);
-  const [flippedCard, setFlippedCard] = useState(false);
   const translationX = useSharedValue(0);
-  const flipping = useSharedValue(0);
+  const rotateY = useSharedValue(0);
 
   const animatedCard = useAnimatedStyle(() => ({
-    opacity: interpolate(
-      activeIndex.value,
-      [index - 1, index, index + 1],
-      [1 - 1 / 3.5, 1, 1]
-    ),
     transform: [
       {
         translateX: translationX.value,
@@ -58,6 +53,14 @@ const TinderCard = ({
           [-screenWidth / 2, 0, screenWidth / 2],
           [-15, 0, 15]
         )}deg`,
+      },
+      {
+        rotateY: withTiming(
+          `${interpolate(rotateY.value, [0, 1], [0, 180])}deg`,
+          {
+            duration: 1000,
+          }
+        ),
       },
     ],
   }));
@@ -76,7 +79,7 @@ const TinderCard = ({
         if (translationX.value > 0) {
           setLearnedCards((prevState) => [...prevState, flashCard]);
         } else {
-          setUnlearnedCards((prevState) => [...prevState, flashCard]);
+          setNeedPracticeCards((prevState) => [...prevState, flashCard]);
         }
         translationX.value = withSpring(Math.sign(event.velocityX) * 500, {
           velocity: event.velocityX,
@@ -92,9 +95,8 @@ const TinderCard = ({
     <GestureDetector gesture={gesture}>
       <TouchableWithoutFeedback
         onPress={() => {
+          rotateY.value = rotateY ? 0 : 1;
           setShowTranslation((prevState) => !prevState);
-          setFlippedCard((prevState) => !prevState);
-          flipping.value = 1;
         }}
       >
         <Animated.View
@@ -103,7 +105,7 @@ const TinderCard = ({
             animatedCard,
             {
               zIndex: numOfCards - index,
-              backgroundColor: flippedCard ? "#fafafa" : "white",
+              backgroundColor: "white",
             },
           ]}
         >
@@ -129,6 +131,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     position: "absolute",
     overflow: "hidden",
+    backfaceVisibility: "hidden",
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -137,7 +140,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.22,
     shadowRadius: 2.22,
     elevation: 3,
-    marginTop: 170,
+    marginTop: 130,
   },
   textStyle: {
     fontSize: 30,

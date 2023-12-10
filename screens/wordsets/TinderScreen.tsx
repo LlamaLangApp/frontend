@@ -1,6 +1,6 @@
 import { Dimensions, StyleSheet, Text, View } from "react-native";
-import TinderCard from "../../components/TinderCard";
-import { useContext, useMemo, useState } from "react";
+import TinderCard from "../../components/wordest/TinderCard";
+import { useContext, useState } from "react";
 import { FlashCards, WordSetContext } from "./WordSets";
 import { Bar as ProgressBar } from "react-native-progress";
 
@@ -10,50 +10,18 @@ import {
   useSharedValue,
 } from "react-native-reanimated";
 import { buttonLightPink } from "../../Consts";
+import SwipedCardCounter from "../../components/wordest/SwipedCardCounter";
+import AllFlashCards from "../../components/wordest/SwipedAllFlashCards";
 
 const screenWidth = Dimensions.get("screen").width;
 
 const TinderScreen = () => {
-  const { flashCards, chosenPolish } = useContext(WordSetContext);
+  const { flashCards: allCards, chosenPolish } = useContext(WordSetContext);
+  const [flashCards] = useState<FlashCards[]>(allCards);
   const activeIndex = useSharedValue(0);
   const [index, setIndex] = useState(0);
   const [learnedCards, setLearnedCards] = useState<FlashCards[]>([]);
-  const [unlearnedCards, setUnlearnedCards] = useState<FlashCards[]>([]);
-
-  const swipedCardCounters = useMemo(() => {
-    return (
-      <View style={styles.swipedCardsRow}>
-        <View
-          style={[
-            styles.counterContainer,
-            {
-              borderTopRightRadius: 15,
-              borderBottomRightRadius: 15,
-              borderColor: "red",
-            },
-          ]}
-        >
-          <Text style={[styles.counterText, { color: "red" }]}>
-            {unlearnedCards.length}
-          </Text>
-        </View>
-        <View
-          style={[
-            styles.counterContainer,
-            {
-              borderTopLeftRadius: 15,
-              borderBottomLeftRadius: 15,
-              borderColor: "green",
-            },
-          ]}
-        >
-          <Text style={[styles.counterText, { color: "green" }]}>
-            {learnedCards.length}
-          </Text>
-        </View>
-      </View>
-    );
-  }, [unlearnedCards, learnedCards]);
+  const [needPracticeCards, setNeedPracticeCards] = useState<FlashCards[]>([]);
 
   useAnimatedReaction(
     () => activeIndex.value,
@@ -65,12 +33,7 @@ const TinderScreen = () => {
   );
 
   return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: "center",
-      }}
-    >
+    <View style={styles.container}>
       <ProgressBar
         progress={index / flashCards.length}
         width={screenWidth}
@@ -79,39 +42,61 @@ const TinderScreen = () => {
         unfilledColor={"white"}
         borderWidth={0}
       />
-      {swipedCardCounters}
-      {flashCards.map((flashCard, index) => (
-        <TinderCard
-          key={index}
-          flashCard={flashCard}
-          numOfCards={flashCards.length}
-          index={index}
+      {index === flashCards.length ? (
+        <AllFlashCards
+          learnedCards={learnedCards}
+          flashCards={flashCards}
+          needPracticeCards={needPracticeCards}
           activeIndex={activeIndex}
-          firstTranslation={chosenPolish}
           setLearnedCards={setLearnedCards}
-          setUnlearnedCards={setUnlearnedCards}
+          setNeedPracticeCards={setNeedPracticeCards}
         />
-      ))}
+      ) : (
+        <View style={{ alignItems: "center", width: "100%" }}>
+          <SwipedCardCounter
+            needPracticeCards={needPracticeCards}
+            learnedCards={learnedCards}
+          />
+          {flashCards.map((flashCard, index) => (
+            <TinderCard
+              key={index}
+              flashCard={flashCard}
+              numOfCards={flashCards.length}
+              index={index}
+              activeIndex={activeIndex}
+              firstTranslation={chosenPolish}
+              setLearnedCards={setLearnedCards}
+              setNeedPracticeCards={setNeedPracticeCards}
+            />
+          ))}
+          <Text style={styles.instructionText}>
+            <Text>swipe left to mark flashcard as </Text>
+            <Text style={{ fontStyle: "italic", color: "red" }}>
+              need practice{" "}
+            </Text>
+            <Text>and right to mark as </Text>
+            <Text style={{ fontStyle: "italic", color: "green" }}>
+              {" "}
+              learned
+            </Text>
+          </Text>
+        </View>
+      )}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  swipedCardsRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    width: "100%",
-    marginTop: 50,
-  },
-  counterContainer: {
-    width: 40,
-    borderWidth: 1,
+  container: {
+    flex: 1,
     alignItems: "center",
   },
-  counterText: {
-    padding: 3,
-    fontSize: 20,
-    fontWeight: "bold",
+  instructionText: {
+    marginTop: 500,
+    width: "70%",
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
   },
 });
 
