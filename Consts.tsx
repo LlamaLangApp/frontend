@@ -18,6 +18,13 @@ export const defaultUserData = {
   current_week_points: null,
 };
 
+export type Games =
+  | "all_games"
+  | "memory"
+  | "falling_words"
+  | "race"
+  | "finding_words";
+
 export type GameType = {
   // Name for users
   name: string;
