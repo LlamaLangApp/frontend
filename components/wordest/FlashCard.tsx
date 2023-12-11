@@ -18,9 +18,9 @@ import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import { Dispatch, SetStateAction, useState } from "react";
 
 const screenWidth = Dimensions.get("screen").width;
-export const tinderCardWidth = screenWidth * 0.7;
+export const FlashCardWidth = screenWidth * 0.7;
 
-type TinderCardProps = {
+type FlashCardProps = {
   flashCard: FlashCards;
   numOfCards: number;
   index: number;
@@ -37,7 +37,7 @@ const FlashCard = ({
   firstTranslation,
   setLearnedCards,
   setNeedPracticeCards,
-}: TinderCardProps) => {
+}: FlashCardProps) => {
   const [showTranslation, setShowTranslation] = useState(firstTranslation);
   const translationX = useSharedValue(0);
   const rotateY = useSharedValue(0);
@@ -124,7 +124,7 @@ const FlashCard = ({
 
 const styles = StyleSheet.create({
   card: {
-    width: tinderCardWidth,
+    width: FlashCardWidth,
     aspectRatio: 1 / 1.5,
     borderRadius: 15,
     justifyContent: "center",
