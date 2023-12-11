@@ -1,14 +1,15 @@
-import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Circle as ProgressCircle } from "react-native-progress";
-import { buttonDarkPink, buttonLightPink, pink } from "../../Consts";
-import { FlashCards } from "../../screens/wordsets/WordSets";
+import { buttonDarkPink, buttonLightPink, grey, pink } from "../../Consts";
+import { FlashCards, WordSetContext } from "../../screens/wordsets/WordSets";
 import { SharedValue } from "react-native-reanimated";
-import { Dispatch, SetStateAction } from "react";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Dispatch, SetStateAction, useContext } from "react";
+import { Fontisto, MaterialCommunityIcons } from "@expo/vector-icons";
 
 export default ({
   learnedCards,
   flashCards,
+  setFlashCards,
   needPracticeCards,
   activeIndex,
   setLearnedCards,
@@ -16,11 +17,29 @@ export default ({
 }: {
   learnedCards: FlashCards[];
   flashCards: FlashCards[];
+  setFlashCards: Dispatch<SetStateAction<FlashCards[]>>;
   needPracticeCards: FlashCards[];
   activeIndex: SharedValue<number>;
   setLearnedCards: Dispatch<SetStateAction<FlashCards[]>>;
   setNeedPracticeCards: Dispatch<SetStateAction<FlashCards[]>>;
 }) => {
+  const { flashCards: allCards } = useContext(WordSetContext);
+
+  const repeat = () => {
+    activeIndex.value = 0;
+    setLearnedCards([]);
+    setNeedPracticeCards([]);
+  };
+
+  const repeatNeedPractice = () => {
+    setFlashCards(needPracticeCards);
+    repeat();
+  };
+  const resetFlashCards = () => {
+    setFlashCards(allCards);
+    repeat();
+  };
+
   return (
     <View style={styles.container}>
       {learnedCards.length > 0 ? (
@@ -51,34 +70,38 @@ export default ({
           </View>
         </View>
       ) : null}
-      <TouchableOpacity style={styles.buttonPink}>
+      <TouchableOpacity
+        style={[styles.bPink, styles.button]}
+        onPress={repeatNeedPractice}
+      >
         <Text>
           <MaterialCommunityIcons
             name={"card-multiple"}
             size={20}
             color={"white"}
           />
-          <Text style={{ fontSize: 20, color: "white" }}>
+          <Text style={styles.whiteText}>
             {" "}
             Repeat {needPracticeCards.length} words
           </Text>
         </Text>
       </TouchableOpacity>
-      <Button
-        title={"reset flash cards"}
-        onPress={() => {
-          activeIndex.value = 0;
-          setLearnedCards([]);
-          setNeedPracticeCards([]);
-        }}
-      />
+      <TouchableOpacity onPress={repeat} style={[styles.bGrey, styles.button]}>
+        <Text>
+          <Fontisto name={"spinner-refresh"} size={18} color={grey} />{" "}
+          <Text style={{ fontSize: 18, color: grey }}>Repeat</Text>
+        </Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.textButton} onPress={resetFlashCards}>
+        <Text style={{ color: "#007AFF" }}>reset flash cards</Text>
+      </TouchableOpacity>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 60,
+    marginTop: 80,
     width: "70%",
     // alignItems: "center",
   },
@@ -101,15 +124,22 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
   },
-  buttonPink: {
-    // width: "100%",
+  button: {
     alignItems: "center",
     paddingVertical: 13,
-    paddingHorizontal: 40,
+    width: 240,
     borderRadius: 10,
-    backgroundColor: pink,
-    marginTop: 340,
-    marginBottom: 20,
     alignSelf: "center",
+    marginBottom: 10,
   },
+  bGrey: {
+    backgroundColor: "#dbdbdb",
+  },
+  bPink: {
+    marginTop: 80,
+    backgroundColor: pink,
+    // paddingHorizontal: 40,
+  },
+  whiteText: { fontSize: 20, color: "white" },
+  textButton: { alignSelf: "center", marginTop: 10 },
 });

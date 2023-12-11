@@ -17,7 +17,7 @@ const screenWidth = Dimensions.get("screen").width;
 
 const TinderScreen = () => {
   const { flashCards: allCards, chosenPolish } = useContext(WordSetContext);
-  const [flashCards] = useState<FlashCards[]>(allCards);
+  const [flashCards, setFlashCards] = useState<FlashCards[]>(allCards);
   const activeIndex = useSharedValue(0);
   const [index, setIndex] = useState(0);
   const [learnedCards, setLearnedCards] = useState<FlashCards[]>([]);
@@ -46,6 +46,7 @@ const TinderScreen = () => {
         <AllFlashCards
           learnedCards={learnedCards}
           flashCards={flashCards}
+          setFlashCards={setFlashCards}
           needPracticeCards={needPracticeCards}
           activeIndex={activeIndex}
           setLearnedCards={setLearnedCards}
