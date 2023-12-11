@@ -16,6 +16,7 @@ const containerGamesStyles = StyleSheet.create({
   },
   dropDown: {
     width: "80%",
+    height: "10%",
     marginBottom: "8%",
     alignItems: "center",
   },

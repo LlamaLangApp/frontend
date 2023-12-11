@@ -14,6 +14,7 @@ const textGamesStyles = StyleSheet.create({
   finePrint: {
     color: "#bababa",
     fontSize: 12,
+    textAlign: "center",
   },
   button: {
     fontWeight: "600",

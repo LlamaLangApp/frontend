@@ -30,6 +30,7 @@ interface RaceWebSocketContextType {
   setChosenCard: Dispatch<SetStateAction<number>>;
   withFriends: boolean;
   setWithFriends: Dispatch<SetStateAction<boolean>>;
+  usersInWaitRoom: string[];
 }
 
 export function shuffleCards<Card>(list: Card[]): Card[] {
@@ -51,6 +52,7 @@ const RaceWebSocketContext = createContext<RaceWebSocketContextType>({
   setWithFriends: () => {
     return;
   },
+  usersInWaitRoom: [],
 });
 
 type RaceWebSocketProviderProps = {
@@ -74,6 +76,12 @@ const RaceWebSocketProvider = ({
   const [round, setRound] = useState(0);
   const [chosenCard, setChosenCard] = useState(-1);
   const [withFriends, setWithFriends] = useState<boolean>(false);
+  const [usersInWaitRoom, setUsersInWaitRoom] = useState([
+    "Steve",
+    "alpaka",
+    "Nikita",
+    "Marti",
+  ]);
 
   const [ws] = useState<WebSocket>(
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -84,6 +92,7 @@ const RaceWebSocketProvider = ({
   useEffect(() => {
     ws.onmessage = (event) => {
       const message = JSON.parse(event.data);
+      console.log(message);
       if (
         socketGameState === SocketGameStates.justConnected &&
         message.type === "joined_waitroom" &&
@@ -154,6 +163,7 @@ const RaceWebSocketProvider = ({
         setChosenCard,
         withFriends,
         setWithFriends,
+        usersInWaitRoom,
       }}
     >
       {children}

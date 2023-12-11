@@ -38,7 +38,7 @@ function MultiplayerResult(props: MultiplayerResultProps) {
         currentPoints = points;
       }
       // if (username == ) fix when user will be added
-      final.push({ username, stat: points.toString(), place: currentPlace });
+      final.push({ username, stat: points, place: currentPlace });
     }
 
     return final;

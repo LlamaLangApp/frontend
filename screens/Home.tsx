@@ -6,6 +6,7 @@ import FrontLlamaRight from "../components/FrontLlamaRight";
 import { GamesStackParamList } from "../navgation/GamesStack";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import ButtonRow from "../components/ButtonRow";
+import Toast from "react-native-toast-message";
 
 type GamesStack = NavigationProp<GamesStackParamList, "Home">;
 
@@ -71,6 +72,7 @@ function HomeScreen() {
         />
       </View>
       <FrontLlamaRight />
+      <Toast position="top" bottomOffset={5} />
     </View>
   );
 }

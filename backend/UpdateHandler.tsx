@@ -1,6 +1,6 @@
 import React, {
-  ReactNode,
   createContext,
+  ReactNode,
   useCallback,
   useEffect,
   useRef,
@@ -15,7 +15,7 @@ const dummyCleanupFunction: CallbackCleanupFunction = () => {
 };
 
 type FriendStatusListener = () => void;
-type WaitRoomInvitationListener = () => void;
+type WaitRoomInvitationListener = (game: string, waitRoom: string) => void;
 
 type UpdateHandlerContextType = {
   onFriendsStatusUpdate: (
@@ -71,7 +71,7 @@ function UpdateHandlerProvider({ children }: { children: ReactNode }) {
         } else if (payload.type === "waitroom_invitation") {
           console.log("Hi steve");
           for (const listener of waitRoomInvitationListeners.current) {
-            listener();
+            listener(payload.game, payload.waitroom);
           }
         } else {
           console.error("Unknown update: ", payload);

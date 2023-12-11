@@ -1,11 +1,13 @@
 import React, { useState, useContext } from "react";
 import { RaceWebSocketContext } from "./RaceWebSocket";
 import MultiplayerGameStartScreen from "../common/MultiplayerGameStart";
+import MultiplayerPlayersListScreen from "../common/MultiplayerPlayersList";
 
 function RaceStartScreen() {
-  const { ws, setWithFriends, withFriends } = useContext(RaceWebSocketContext);
+  const { ws, setWithFriends, usersInWaitRoom, withFriends } =
+    useContext(RaceWebSocketContext);
   const [setName, setSetName] = useState<string>("");
-  const [setId, setSetId] = useState<number>(0);
+  const [setId, setSetId] = useState<number>(1);
 
   async function findOtherPlayersHandler() {
     console.log("Finding players for game ", setName);
@@ -18,7 +20,17 @@ function RaceStartScreen() {
     );
   }
 
-  return (
+  return ws ? (
+    <MultiplayerPlayersListScreen
+      gameName={"Race"}
+      hostName={"Steve"}
+      players={usersInWaitRoom}
+    />
+  ) : (
+    // <MultiplayerJoinRoomScreen
+    //   gameName={"Race"}
+    //   onPressHandler={findOtherPlayersHandler}
+    // />
     <MultiplayerGameStartScreen
       gameName={"Race"}
       setWordSetName={setSetName}

@@ -1,4 +1,4 @@
-import { Text, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
 import mainStyles from "../../styles/MainStyles";
 import React, { useContext, useEffect, useState } from "react";
 import { grey, lightGrey, pink } from "../../Consts";
@@ -113,10 +113,23 @@ function MultiPlayerOwnerWaitingRoomScreen(props: MultiPlayerWaitingRoomProps) {
           <Text style={textGamesStyles.information}>
             You are the owner of this room
           </Text>
-          <Text style={[textGamesStyles.information, { marginBottom: "50%" }]}>
+          <Text style={textGamesStyles.information}>
             Decide with who you want to play
           </Text>
         </View>
+        {!otherPlayersInRoom && (
+          <View style={{ height: "30%" }}>
+            {/*<Text style={textGamesStyles.finePrint}>*/}
+            {/*  Waiting for players to join*/}
+            {/*</Text>*/}
+            <ActivityIndicator
+              size={"large"}
+              color={pink}
+              style={{ marginTop: "10%" }}
+            />
+          </View>
+        )}
+
         <TouchableOpacity
           style={[buttonGamesStyles.basic, { backgroundColor: lightGrey }]}
           onPress={openModal}
