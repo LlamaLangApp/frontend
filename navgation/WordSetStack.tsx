@@ -3,7 +3,7 @@ import WordSetsListScreen from "../screens/wordsets/WordSetsList";
 import WordSetDisplayScreen from "../screens/wordsets/WordSetDisplay";
 import { useNavigation } from "@react-navigation/native";
 import { WordSetProvider } from "../screens/wordsets/WordSets";
-import TinderScreen from "../screens/wordsets/TinderScreen";
+import FlashCardScreen from "../screens/wordsets/FlashCardScreen";
 
 export type WordSetStackParamList = {
   List: undefined;
@@ -19,7 +19,7 @@ const WordSetStack = () => {
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name={"List"} component={WordSetsListScreen} />
         <Stack.Screen name={"Display"} component={WordSetDisplayScreen} />
-        <Stack.Screen name={"FlashCards"} component={TinderScreen} />
+        <Stack.Screen name={"FlashCards"} component={FlashCardScreen} />
       </Stack.Navigator>
     </WordSetProvider>
   );

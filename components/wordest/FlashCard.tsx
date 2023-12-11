@@ -29,7 +29,7 @@ type TinderCardProps = {
   setLearnedCards: Dispatch<SetStateAction<FlashCards[]>>;
   setNeedPracticeCards: Dispatch<SetStateAction<FlashCards[]>>;
 };
-const TinderCard = ({
+const FlashCard = ({
   flashCard,
   numOfCards,
   index,
@@ -152,4 +152,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TinderCard;
+export default FlashCard;

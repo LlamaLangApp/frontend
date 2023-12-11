@@ -1,5 +1,5 @@
 import { Dimensions, StyleSheet, Text, View } from "react-native";
-import TinderCard from "../../components/wordest/TinderCard";
+import FlashCard from "../../components/wordest/FlashCard";
 import { useContext, useState } from "react";
 import { FlashCards, WordSetContext } from "./WordSets";
 import { Bar as ProgressBar } from "react-native-progress";
@@ -15,7 +15,7 @@ import AllFlashCards from "../../components/wordest/SwipedAllFlashCards";
 
 const screenWidth = Dimensions.get("screen").width;
 
-const TinderScreen = () => {
+const FlashCardScreen = () => {
   const { flashCards: allCards, chosenPolish } = useContext(WordSetContext);
   const [flashCards, setFlashCards] = useState<FlashCards[]>(allCards);
   const activeIndex = useSharedValue(0);
@@ -59,7 +59,7 @@ const TinderScreen = () => {
             learnedCards={learnedCards}
           />
           {flashCards.map((flashCard, index) => (
-            <TinderCard
+            <FlashCard
               key={index}
               flashCard={flashCard}
               numOfCards={flashCards.length}
@@ -101,4 +101,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TinderScreen;
+export default FlashCardScreen;
