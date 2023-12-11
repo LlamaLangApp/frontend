@@ -43,7 +43,7 @@ export default ({
             <FontAwesome5
               name={choice.icon}
               size={30}
-              color={buttonLightPink}
+              color={selected === choice.choice ? buttonLightPink : grey}
             />
             <Text style={styles.textStyle}>{choice.choice}</Text>
           </View>
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
   },
   buttonStyleClicked: {
     flex: 1,
-    height: "85%",
+    height: "80%",
     borderRadius: 10,
     backgroundColor: "white",
     alignItems: "center",
@@ -98,5 +98,6 @@ const styles = StyleSheet.create({
   },
   textStyle: {
     color: grey,
+    fontSize: 17,
   },
 });
