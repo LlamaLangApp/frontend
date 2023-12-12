@@ -26,7 +26,7 @@ function RaceStartScreen() {
     ws.send(
       JSON.stringify({
         type: "waitroom_request",
-        owned_room: "37",
+        owned_room: "39",
       })
     );
   }

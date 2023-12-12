@@ -45,7 +45,7 @@ const MemoryCard: React.FC<MemoryCardProps> = ({
       {!isFlipped && !isDisabled ? (
         <View style={mainGamesStyles.llamaContainer}>
           <Image
-            source={require("../../assets/llama_without_background.png")}
+            source={require("../../assets/llama.png")}
             style={{ width: "90%", height: "90%" }}
           />
         </View>

@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { lightGrey } from "../../Consts";
 
 const containerGamesStyles = StyleSheet.create({
   screen: {
@@ -37,6 +38,11 @@ const containerGamesStyles = StyleSheet.create({
     height: "48%",
     margin: "1%",
     borderRadius: 15,
+  },
+  thinLine: {
+    borderBottomWidth: 1,
+    borderColor: lightGrey,
+    width: "100%",
   },
 });
 

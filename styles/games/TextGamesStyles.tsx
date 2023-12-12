@@ -11,6 +11,19 @@ const textGamesStyles = StyleSheet.create({
     fontSize: 18,
     color: grey,
   },
+  basicWeight600: {
+    fontWeight: "600",
+    fontSize: 14,
+    color: grey,
+  },
+  biggerBasicWeight600: {
+    fontWeight: "600",
+    fontSize: 20,
+    color: grey,
+  },
+  weight700: {
+    fontWeight: "700",
+  },
   finePrint: {
     color: "#bababa",
     fontSize: 12,

@@ -1,14 +1,8 @@
-import {
-  ActivityIndicator,
-  FlatList,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import mainStyles from "../../styles/MainStyles";
 import React, { useContext, useEffect, useState } from "react";
 import { grey, lightGrey, pink } from "../../Consts";
-import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
+import { FontAwesome5 } from "@expo/vector-icons";
 import { getFriendsData } from "../../backend/FriendsBackend";
 import { useAppStore } from "../../state";
 import { RaceWebSocketContext } from "../race/RaceWebSocket";
@@ -18,6 +12,7 @@ import buttonGamesStyles from "../../styles/games/ButtonGamesStyles";
 import InviteFriendsModal from "../../components/games/InviteFriendsModal";
 import Llama from "../../components/games/Llama";
 import Toast from "react-native-toast-message";
+import BlockedButton from "./components/BlockedButton";
 
 type MultiPlayerWaitingRoomProps = {
   gameName: string;
@@ -38,8 +33,7 @@ function MultiPlayerOwnerWaitingRoomScreen(props: MultiPlayerWaitingRoomProps) {
   const { token } = useAppStore((store) => ({
     token: store.token,
   }));
-  const { ws, leaveGame, usersInWaitRoom, startGameAsOwner } =
-    useContext(RaceWebSocketContext);
+  const { ws, leaveGame, usersInWaitRoom } = useContext(RaceWebSocketContext);
 
   const { gameName } = props;
 
@@ -188,26 +182,11 @@ function MultiPlayerOwnerWaitingRoomScreen(props: MultiPlayerWaitingRoomProps) {
             Invite friends
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={[
-            buttonGamesStyles.basic,
-            { backgroundColor: otherPlayersInRoom() ? pink : grey },
-          ]}
-          activeOpacity={otherPlayersInRoom() ? 0.2 : 1}
+        <BlockedButton
+          buttonText={"Start game"}
+          condition={otherPlayersInRoom()}
           onPress={startGameHandler}
-        >
-          <Text
-            style={[
-              textGamesStyles.button,
-              { color: otherPlayersInRoom() ? "white" : lightGrey },
-            ]}
-          >
-            Start game
-          </Text>
-          {!otherPlayersInRoom() && (
-            <FontAwesome name={"lock"} size={19} color={lightGrey} />
-          )}
-        </TouchableOpacity>
+        />
         <Text style={textGamesStyles.finePrint}>
           You need some friends to join to start the game
         </Text>

@@ -1,8 +1,11 @@
 import { Text, TouchableOpacity, View } from "react-native";
 import mainStyles from "../../styles/MainStyles";
-import FrontLlamaCenter from "../../components/FrontLlamaCenter";
 import buttonGamesStyles from "../../styles/games/ButtonGamesStyles";
-import { buttonLightPink } from "../../Consts";
+import { grey, lightGrey, pink } from "../../Consts";
+import containerGamesStyles from "../../styles/games/ContainerGamesStyles";
+import textGamesStyles from "../../styles/games/TextGamesStyles";
+import Llama from "../../components/games/Llama";
+import React from "react";
 
 type SinglePlayerResultsProps = {
   gameName: string;
@@ -17,129 +20,85 @@ const SinglePlayerResultsScreen = (props: SinglePlayerResultsProps) => {
   const {
     gameName,
     points,
-    hasWon,
+    // hasWon,
     setName,
     exitGameHandler,
     playAgainHandler,
   } = props;
   return (
-    <View style={mainStyles.container}>
-      <View
-        style={{
-          flex: 5.2,
-          justifyContent: "flex-end",
-          marginHorizontal: "10%",
-          marginTop: "10%",
-          width: "80%",
-          alignItems: "center",
-        }}
-      >
+    <View style={mainStyles.whiteBackgroundContainer}>
+      <View style={containerGamesStyles.screen}>
+        <View style={containerGamesStyles.textWithMargin}>
+          <Text style={textGamesStyles.gameName}>{gameName.toUpperCase()}</Text>
+        </View>
         <View
-          style={{
-            width: "100%",
-            height: "30%",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
+          style={[containerGamesStyles.textWithMargin, { marginBottom: "10%" }]}
         >
           <Text
-            style={{
-              fontSize: 60,
-              color: "white",
-              textShadowColor: "#2d2d2e",
-              textShadowOffset: { width: 2, height: 2 },
-              textShadowRadius: 4,
-            }}
+            style={[
+              textGamesStyles.information,
+              { color: pink, fontWeight: "600" },
+            ]}
           >
-            {gameName}
+            FINAL RESULTS
           </Text>
         </View>
-        <View
-          style={{
-            width: "80%",
-            height: "8%",
-            marginHorizontal: "10%",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
+        <View style={containerGamesStyles.textWithMargin}>
+          <Text style={textGamesStyles.information}>
+            <Text>You were repeating words from set:</Text>
+          </Text>
+        </View>
+        <View style={containerGamesStyles.textWithMargin}>
+          <Text style={textGamesStyles.important}>
+            <Text>{setName.toUpperCase()}</Text>
+          </Text>
+        </View>
+        <View style={containerGamesStyles.textWithMargin}>
+          <Text style={textGamesStyles.information}>
+            <Text>You answered </Text>
+            <Text style={{ fontWeight: "600", color: pink, fontSize: 20 }}>
+              {points / 10}/6
+            </Text>
+            <Text> of them correctly</Text>
+          </Text>
+        </View>
+        <View style={containerGamesStyles.textWithMargin}>
           <Text
-            style={{
-              fontSize: 20,
-              color: "white",
-            }}
+            style={[textGamesStyles.information, textGamesStyles.weight700]}
           >
-            You have earned:
+            Congratulations!
           </Text>
         </View>
-        <View
-          style={{
-            width: "78%",
-            height: "8%",
-            marginHorizontal: "11%",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Text style={{ fontSize: 30, color: "white" }}>{points} pkt</Text>
-        </View>
-        <View
-          style={{
-            width: "80%",
-            height: "8%",
-            marginHorizontal: "10%",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Text style={{ fontSize: 20, color: "white" }}>
-            {hasWon
-              ? "Yay! You learned set:"
-              : "Unfortunately, you don't know all words from set:"}
+        <View style={containerGamesStyles.textWithMargin}>
+          <Text style={textGamesStyles.information}>
+            <Text>Your earned </Text>
+            <Text style={{ fontWeight: "600", color: pink, fontSize: 20 }}>
+              {points}
+            </Text>
+            <Text> points</Text>
           </Text>
         </View>
-        <View
-          style={{
-            width: "80%",
-            height: "8%",
-            marginHorizontal: "10%",
-            marginBottom: "12%",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
+        <TouchableOpacity
+          style={[
+            buttonGamesStyles.basic,
+            { backgroundColor: pink, marginTop: "10%" },
+          ]}
+          onPress={playAgainHandler}
         >
-          <Text style={{ fontSize: 30, color: "white" }}>{setName}</Text>
-        </View>
-        <View style={{ flexDirection: "column", width: "50%" }}>
-          <TouchableOpacity onPress={exitGameHandler}>
-            <View
-              style={{
-                alignItems: "center",
-                width: "100%",
-                backgroundColor: buttonLightPink,
-                borderRadius: 30,
-                margin: "1%",
-                marginBottom: "8%",
-              }}
-            >
-              <Text style={buttonGamesStyles.buttonText}>Exit game</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{
-              alignItems: "center",
-              width: "100%",
-              backgroundColor: buttonLightPink,
-              borderRadius: 30,
-              margin: "1%",
-            }}
-            onPress={playAgainHandler}
-          >
-            <Text style={buttonGamesStyles.buttonText}>Play again</Text>
-          </TouchableOpacity>
-        </View>
+          <Text style={[textGamesStyles.button, { color: "white" }]}>
+            Play again
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[buttonGamesStyles.basic, { backgroundColor: lightGrey }]}
+          onPress={exitGameHandler}
+        >
+          <Text style={[textGamesStyles.button, { color: grey }]}>
+            Exit game
+          </Text>
+        </TouchableOpacity>
       </View>
-      <FrontLlamaCenter />
+      <Llama />
     </View>
   );
 };

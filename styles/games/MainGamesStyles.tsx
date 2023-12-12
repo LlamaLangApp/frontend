@@ -30,12 +30,11 @@ const mainGamesStyles = StyleSheet.create({
     alignItems: "stretch",
   },
   memoryCard: {
-    width: "31.3%",
+    width: "31.333%",
     height: "23%",
     margin: "1%",
     backgroundColor: lightGrey,
     borderRadius: 15,
-    borderWidth: 1,
     borderColor: buttonLightPink,
     // shadowColor: "#2d2d2e",
     // shadowOffset: { width: 0.5, height: 1 },

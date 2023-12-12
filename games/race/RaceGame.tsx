@@ -38,20 +38,12 @@ function RaceGameScreen({ route }: Props) {
           ]}
         >
           <View style={containerGamesStyles.differentSizeTexts}>
-            <Text style={{ fontWeight: "600", fontSize: 14, color: grey }}>
-              ROUND
-            </Text>
-            <Text style={{ fontWeight: "600", fontSize: 20, color: grey }}>
-              {round}
-            </Text>
+            <Text style={textGamesStyles.basicWeight600}>ROUND</Text>
+            <Text style={textGamesStyles.biggerBasicWeight600}>{round}</Text>
           </View>
           <View style={containerGamesStyles.differentSizeTexts}>
-            <Text style={{ fontWeight: "600", fontSize: 20, color: grey }}>
-              {points}
-            </Text>
-            <Text style={{ fontWeight: "600", fontSize: 14, color: grey }}>
-              POINTS
-            </Text>
+            <Text style={textGamesStyles.biggerBasicWeight600}>{points}</Text>
+            <Text style={textGamesStyles.basicWeight600}>POINTS</Text>
           </View>
         </View>
         <View
