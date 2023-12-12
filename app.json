@@ -8,8 +8,7 @@
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/llama_without_background.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#e5b3bb"
+      "resizeMode": "contain"
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
@@ -18,8 +17,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/llama_without_background.png",
-        "backgroundColor": "#e5b3bb"
+        "foregroundImage": "./assets/llama_without_background.png"
       },
       "softwareKeyboardLayoutMode": "pan",
       "package": "com.llamalang.llamalang"
