@@ -11,7 +11,6 @@ function RaceStartScreen() {
   console.log(fromInvite);
 
   async function findOtherPlayersHandler() {
-    console.log("Finding players for game ", setName);
     ws.send(
       JSON.stringify({
         type: "waitroom_request",
@@ -22,7 +21,6 @@ function RaceStartScreen() {
   }
 
   async function joinRoomHandler() {
-    console.log("Joining Steve...", setName);
     ws.send(
       JSON.stringify({
         type: "waitroom_request",

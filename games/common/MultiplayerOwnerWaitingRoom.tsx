@@ -13,6 +13,8 @@ import InviteFriendsModal from "../../components/games/InviteFriendsModal";
 import Llama from "../../components/games/Llama";
 import Toast from "react-native-toast-message";
 import BlockedButton from "./components/BlockedButton";
+import PlayersInWaitRoomList from "./components/PlayerListInWaitRoom";
+import FinePrints from "./components/FinePrints";
 
 type MultiPlayerWaitingRoomProps = {
   gameName: string;
@@ -140,38 +142,9 @@ function MultiPlayerOwnerWaitingRoomScreen(props: MultiPlayerWaitingRoomProps) {
               Already in the room:
             </Text>
           </View>
-          <FlatList
-            style={{
-              width: "70%",
-              borderRadius: 10,
-              height: "30%",
-              marginBottom: "5%",
-            }}
-            data={usersInWaitRoom}
-            showsVerticalScrollIndicator={false}
-            ItemSeparatorComponent={() => {
-              return <View style={{ height: 1, backgroundColor: "#bababa" }} />;
-            }}
-            renderItem={({ item }) => (
-              <View
-                style={{
-                  paddingVertical: 5,
-                  margin: 2,
-                  borderRadius: 7,
-                  alignItems: "center",
-                  justifyContent: "center",
-                  flexDirection: "row",
-                  gap: 5,
-                }}
-              >
-                <Text style={[textGamesStyles.button, { color: grey }]}>
-                  {item}
-                </Text>
-                {item === "aplaka" && (
-                  <FontAwesome5 name={"crown"} size={16} color={pink} />
-                )}
-              </View>
-            )}
+          <PlayersInWaitRoomList
+            players={usersInWaitRoom}
+            hostName={"alpaka"}
           />
         </View>
         <TouchableOpacity
@@ -187,15 +160,13 @@ function MultiPlayerOwnerWaitingRoomScreen(props: MultiPlayerWaitingRoomProps) {
           condition={otherPlayersInRoom()}
           onPress={startGameHandler}
         />
-        <Text style={textGamesStyles.finePrint}>
-          You need some friends to join to start the game
-        </Text>
-        <Text style={textGamesStyles.finePrint}>
-          If you do not want to wait
-        </Text>
-        <Text style={textGamesStyles.finePrint}>
-          Maybe try solo games or playing with random people?
-        </Text>
+        <FinePrints
+          prints={[
+            "You need some friends to join to start the game",
+            "If you do not want to wait",
+            "Maybe try solo games or playing with random people?,",
+          ]}
+        />
         <TouchableOpacity style={{ marginVertical: "2%" }} onPress={leaveGame}>
           <Text style={{ color: "#543685", fontSize: 14 }}>Close room</Text>
         </TouchableOpacity>

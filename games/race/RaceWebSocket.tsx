@@ -89,6 +89,7 @@ const RaceWebSocketProvider = ({
   const [withFriends, setWithFriends] = useState<boolean>(false);
   const [usersInWaitRoom, setUsersInWaitRoom] = useState<string[]>([]);
   const [waitRoomNumber, setWaitRoomNumber] = useState(0);
+  const [wordSetName, setWordSetName] = useState<string>("0");
   const parentNavigation = useNavigation<GamesStack>();
 
   const [ws] = useState<WebSocket>(

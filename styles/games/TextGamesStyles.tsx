@@ -7,6 +7,11 @@ const textGamesStyles = StyleSheet.create({
     color: grey,
     fontWeight: "800",
   },
+  gameNameHorizontally: {
+    fontSize: 20,
+    color: grey,
+    fontWeight: "800",
+  },
   information: {
     fontSize: 18,
     color: grey,

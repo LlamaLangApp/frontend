@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { lightGrey } from "../../Consts";
+import { grey, lightGrey } from "../../Consts";
 
 const containerGamesStyles = StyleSheet.create({
   screen: {
@@ -32,6 +32,18 @@ const containerGamesStyles = StyleSheet.create({
     height: "10%",
     marginBottom: "8%",
     alignItems: "center",
+  },
+  fakeDropDown: {
+    width: "100%",
+    height: "87%",
+    backgroundColor: lightGrey,
+    borderWidth: 1,
+    borderColor: grey,
+    borderRadius: 15,
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 10,
+    flexDirection: "row",
   },
   raceCard: {
     width: "48%",

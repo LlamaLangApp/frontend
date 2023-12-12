@@ -8,6 +8,7 @@ import * as ScreenOrientation from "expo-screen-orientation";
 import FallingWordsCard, { Card } from "./FallingWordsCard";
 import Bucket from "./FallingWordsBucket";
 import textGamesStyles from "../../styles/games/TextGamesStyles";
+import containerGamesStyles from "../../styles/games/ContainerGamesStyles";
 
 type Props = NativeStackScreenProps<FallingWordsStackParamList, "Game">;
 
@@ -140,7 +141,7 @@ function FallingWordsGame({ route, navigation }: Props) {
   }
 
   return (
-    <View style={mainStyles.container}>
+    <View style={mainStyles.whiteBackgroundContainer}>
       <View
         style={{
           top: 30,
@@ -148,13 +149,19 @@ function FallingWordsGame({ route, navigation }: Props) {
           position: "absolute",
         }}
       >
-        <Text style={textGamesStyles.basicText}>
-          Drag the bucket left and right to find the correct translation of the
-          word
-        </Text>
+        <View style={containerGamesStyles.textWithMargin}>
+          <Text style={textGamesStyles.gameNameHorizontally}>
+            {"FALLING WORDS".toUpperCase()}
+          </Text>
+          <Text style={textGamesStyles.information}>
+            Drag the bucket left and right to find the correct translation of
+            the word
+          </Text>
+        </View>
+
         <TouchableOpacity onPress={endGameHandler}>
-          <Text style={textGamesStyles.headingText}>
-            {rounds[round].mainWordCard.word}
+          <Text style={textGamesStyles.important}>
+            {rounds[round].mainWordCard.word.toUpperCase()}
           </Text>
         </TouchableOpacity>
       </View>

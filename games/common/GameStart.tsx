@@ -1,15 +1,14 @@
-import { Text, TouchableOpacity, View } from "react-native";
+import { Text, View } from "react-native";
 import mainStyles from "../../styles/MainStyles";
 import CustomDropdown from "../../components/CustomDropdown";
 import React, { useState, useEffect, Dispatch, SetStateAction } from "react";
 import { callWordSets } from "../../backend/WordSetsBackend";
 import { useAppStore } from "../../state";
 import { WordSet } from "../GamesTypes";
-import buttonGamesStyles from "../../styles/games/ButtonGamesStyles";
 import textGamesStyles from "../../styles/games/TextGamesStyles";
-import { pink } from "../../Consts";
 import containerGamesStyles from "../../styles/games/ContainerGamesStyles";
 import Llama from "../../components/games/Llama";
+import BlockedButton from "./components/BlockedButton";
 
 type StartScreenProps = {
   gameName: string;
@@ -22,6 +21,7 @@ type StartScreenProps = {
 const GameStartScreen = (props: StartScreenProps) => {
   const { gameName, setWordSetName, setWordSetId, onPressHandler } = props;
   const [wordSets, setWordSets] = useState<WordSet[]>([]);
+  const [wordSetNameChosen, setWordSetNameChosen] = useState(false);
   const token = useAppStore.getState().token;
 
   useEffect(() => {
@@ -58,15 +58,15 @@ const GameStartScreen = (props: StartScreenProps) => {
                 wordSets.find((wordSet) => wordSet.polish === selectedItem)
                   ?.id ?? -1
               );
+              setWordSetNameChosen(true);
             }}
           />
         </View>
-        <TouchableOpacity
-          style={[buttonGamesStyles.basic, { backgroundColor: pink }]}
+        <BlockedButton
+          buttonText={"Play"}
+          condition={wordSetNameChosen}
           onPress={onPressHandler}
-        >
-          <Text style={buttonGamesStyles.buttonText}>Play</Text>
-        </TouchableOpacity>
+        />
       </View>
       <Llama />
     </View>

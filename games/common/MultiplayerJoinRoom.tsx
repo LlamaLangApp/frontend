@@ -37,20 +37,7 @@ const MultiplayerJoinRoomScreen = (props: StartScreenProps) => {
           </Text>
         </View>
         <View style={[containerGamesStyles.dropDown]}>
-          <View
-            style={{
-              width: "100%",
-              height: "87%",
-              backgroundColor: lightGrey,
-              borderWidth: 1,
-              borderColor: grey,
-              borderRadius: 15,
-              alignItems: "center",
-              justifyContent: "center",
-              gap: 10,
-              flexDirection: "row",
-            }}
-          >
+          <View style={containerGamesStyles.fakeDropDown}>
             <Text
               style={{
                 color: grey,

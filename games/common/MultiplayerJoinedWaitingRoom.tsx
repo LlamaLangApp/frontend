@@ -8,6 +8,8 @@ import containerGamesStyles from "../../styles/games/ContainerGamesStyles";
 import textGamesStyles from "../../styles/games/TextGamesStyles";
 import Llama from "../../components/games/Llama";
 import Toast from "react-native-toast-message";
+import PlayersInWaitRoomList from "./components/PlayerListInWaitRoom";
+import FinePrints from "./components/FinePrints";
 
 type MultiPlayerWaitingRoomProps = {
   gameName: string;
@@ -52,46 +54,17 @@ function MultiPlayerJoinedWaitingRoomScreen(
               Already in the room:
             </Text>
           </View>
-          <FlatList
-            style={{
-              width: "70%",
-              borderRadius: 10,
-              height: "30%",
-              marginBottom: "5%",
-            }}
-            data={usersInWaitRoom}
-            showsVerticalScrollIndicator={false}
-            ItemSeparatorComponent={() => {
-              return <View style={{ height: 1, backgroundColor: "#bababa" }} />;
-            }}
-            renderItem={({ item }) => (
-              <View
-                style={{
-                  paddingVertical: 5,
-                  margin: 2,
-                  borderRadius: 7,
-                  alignItems: "center",
-                  justifyContent: "center",
-                  flexDirection: "row",
-                  gap: 5,
-                }}
-              >
-                <Text style={[textGamesStyles.button, { color: grey }]}>
-                  {item}
-                </Text>
-                {item === hostName && (
-                  <FontAwesome5 name={"crown"} size={16} color={pink} />
-                )}
-              </View>
-            )}
+          <PlayersInWaitRoomList
+            players={usersInWaitRoom}
+            hostName={"alpaka"}
           />
         </View>
-        <Text style={textGamesStyles.finePrint}>
-          Do not want to wait for {hostName} to start the game?
-        </Text>
-        <Text style={textGamesStyles.finePrint}>
-          You can leave this waiting room
-        </Text>
+        <FinePrints
+          prints={[
+            `Do not want to wait for ${hostName} to start the game?`,
+            `You can leave this waiting room`,
+          ]}
+        />
         <TouchableOpacity style={{ marginVertical: "2%" }} onPress={leaveGame}>
           <Text style={{ color: "#543685", fontSize: 14 }}>Close room</Text>
         </TouchableOpacity>

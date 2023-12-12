@@ -14,10 +14,13 @@ import { grey, pink } from "../../Consts";
 import Llama from "../../components/games/Llama";
 import { useAppStore } from "../../state";
 import Toast from "react-native-toast-message";
+import PlayersInWaitRoomList from "./components/PlayerListInWaitRoom";
+import FinePrints from "./components/FinePrints";
 
 type MultiPlayerWaitingRoomProps = {
   gameName: string;
 };
+
 function MultiPlayerWaitingRoomScreen(props: MultiPlayerWaitingRoomProps) {
   const { gameName } = props;
   const username = useAppStore.getState().username;
@@ -52,51 +55,15 @@ function MultiPlayerWaitingRoomScreen(props: MultiPlayerWaitingRoomProps) {
               Already in the room:
             </Text>
           </View>
-          <FlatList
-            style={{
-              width: "70%",
-              borderRadius: 10,
-              height: "30%",
-              marginBottom: "5%",
-            }}
-            data={usersInWaitRoom}
-            showsVerticalScrollIndicator={false}
-            ItemSeparatorComponent={() => {
-              return <View style={{ height: 1, backgroundColor: "#bababa" }} />;
-            }}
-            renderItem={({ item }) => (
-              <View
-                style={{
-                  paddingVertical: 5,
-                  margin: 2,
-                  borderRadius: 7,
-                  alignItems: "center",
-                  justifyContent: "center",
-                  flexDirection: "row",
-                  gap: 5,
-                }}
-              >
-                <Text style={[textGamesStyles.button, { color: grey }]}>
-                  {item}
-                </Text>
-                {item === username && (
-                  <Text
-                    style={{ fontWeight: "600", fontSize: 13, color: grey }}
-                  >
-                    (YOU)
-                  </Text>
-                )}
-              </View>
-            )}
-          />
+          <PlayersInWaitRoomList players={usersInWaitRoom} hostName={""} />
         </View>
-        <Text style={textGamesStyles.finePrint}>
-          When wait room will be full the game will start
-        </Text>
-        <Text style={textGamesStyles.finePrint}>Do not want to wait?</Text>
-        <Text style={textGamesStyles.finePrint}>
-          You can leave this waiting room
-        </Text>
+        <FinePrints
+          prints={[
+            "When wait room will be full the game will start",
+            "Do not want to wait?",
+            "You can leave this waiting room",
+          ]}
+        />
         <TouchableOpacity style={{ marginVertical: "2%" }} onPress={leaveGame}>
           <Text style={{ color: "#543685", fontSize: 14 }}>Close room</Text>
         </TouchableOpacity>

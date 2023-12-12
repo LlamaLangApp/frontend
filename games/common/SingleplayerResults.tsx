@@ -1,11 +1,11 @@
-import { Text, TouchableOpacity, View } from "react-native";
+import { Text, View } from "react-native";
 import mainStyles from "../../styles/MainStyles";
-import buttonGamesStyles from "../../styles/games/ButtonGamesStyles";
-import { grey, lightGrey, pink } from "../../Consts";
+import { pink } from "../../Consts";
 import containerGamesStyles from "../../styles/games/ContainerGamesStyles";
 import textGamesStyles from "../../styles/games/TextGamesStyles";
 import Llama from "../../components/games/Llama";
 import React from "react";
+import { LightGreyButton, PinkButton } from "./components/BasicButton";
 
 type SinglePlayerResultsProps = {
   gameName: string;
@@ -78,25 +78,8 @@ const SinglePlayerResultsScreen = (props: SinglePlayerResultsProps) => {
             <Text> points</Text>
           </Text>
         </View>
-        <TouchableOpacity
-          style={[
-            buttonGamesStyles.basic,
-            { backgroundColor: pink, marginTop: "10%" },
-          ]}
-          onPress={playAgainHandler}
-        >
-          <Text style={[textGamesStyles.button, { color: "white" }]}>
-            Play again
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[buttonGamesStyles.basic, { backgroundColor: lightGrey }]}
-          onPress={exitGameHandler}
-        >
-          <Text style={[textGamesStyles.button, { color: grey }]}>
-            Exit game
-          </Text>
-        </TouchableOpacity>
+        <PinkButton buttonText={"Play again"} onPress={playAgainHandler} />
+        <LightGreyButton buttonText={"Exit game"} onPress={exitGameHandler} />
       </View>
       <Llama />
     </View>

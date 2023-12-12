@@ -41,7 +41,7 @@ const Bucket: React.FC<FallingWordsCardProps> = ({
         style={[styles.bucket, bucketPosition]}
         {...panResponder.panHandlers}
       >
-        <Image source={require("../../assets/llama_with_bucket.png")} />
+        <Image source={require("../../assets/llama_bucket_shadow.png")} />
       </View>
     </View>
   );
