@@ -1,7 +1,7 @@
-import mainGamesStyles from "../../styles/games/MainGamesStyles";
 import { Text, TouchableOpacity, View } from "react-native";
 import React from "react";
-import textGamesStyles from "../../styles/games/TextGamesStyles";
+import containerGamesStyles from "../../styles/games/ContainerGamesStyles";
+import { grey, lightGrey, pink } from "../../Consts";
 
 type RaceCardProps = {
   translation: string;
@@ -19,14 +19,17 @@ const RaceCard: React.FC<RaceCardProps> = ({
 }) => {
   return (
     <TouchableOpacity
-      style={
-        !isChosen ? mainGamesStyles.raceCard : mainGamesStyles.raceCardChosen
-      }
+      style={[
+        containerGamesStyles.raceCard,
+        { backgroundColor: isChosen ? pink : lightGrey },
+      ]}
       onPress={() => !isDisabled && onClick(translation, index)}
       disabled={isDisabled}
     >
-      <View style={textGamesStyles.textContainer}>
-        <Text style={{ fontSize: 20 }}>{translation}</Text>
+      <View style={containerGamesStyles.basic}>
+        <Text style={{ fontSize: 20, color: isChosen ? lightGrey : grey }}>
+          {translation}
+        </Text>
       </View>
     </TouchableOpacity>
   );

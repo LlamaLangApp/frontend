@@ -88,7 +88,7 @@ const MultiplayerGameStartScreen = (props: StartScreenProps) => {
             }}
           >
             <Switch
-              trackColor={{ false: grey, true: lightGrey }}
+              trackColor={{ false: lightGrey, true: pink }}
               thumbColor={buttonLightPink}
               ios_backgroundColor="#3e3e3e"
               onValueChange={() => {

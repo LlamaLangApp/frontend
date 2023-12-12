@@ -7,41 +7,68 @@ import React, { useContext } from "react";
 import RaceCard from "./RaceCard";
 import { RaceWebSocketContext } from "./RaceWebSocket";
 import textGamesStyles from "../../styles/games/TextGamesStyles";
+import Toast from "react-native-toast-message";
+import { grey } from "../../Consts";
+import containerGamesStyles from "../../styles/games/ContainerGamesStyles";
 
 type Props = NativeStackScreenProps<RaceStackParamList, "Game">;
 
 function RaceGameScreen({ route }: Props) {
   const { question, answers } = route.params;
+  const gameName = "Race";
   const { ws, setLastAnswer, points, round, chosenCard, setChosenCard } =
     useContext(RaceWebSocketContext);
 
   const handlePress = (answer: string, index: number) => {
     setChosenCard(index);
     setLastAnswer(answer);
-    ws.send(JSON.stringify({ type: "response", answer }));
+    ws.send(JSON.stringify({ type: "response", answer: answer, round: round }));
   };
 
   return (
-    <View style={mainStyles.container}>
-      <View style={mainGamesStyles.contentContainer}>
-        <View style={{ flex: 1.5, marginTop: 80 }}>
-          <View style={textGamesStyles.textWithMarginContainer}>
-            <Text style={textGamesStyles.headingText}>Race</Text>
-          </View>
-          <View style={textGamesStyles.headingAndPointsContainer}>
-            <Text style={textGamesStyles.secondaryText}>Round: {round}</Text>
-            <Text style={textGamesStyles.secondaryText}>{points} pkt</Text>
-          </View>
-          <View style={textGamesStyles.headingContainer}>
-            <Text style={textGamesStyles.basicText}>
-              Choose the correct translations of word:
+    <View style={mainStyles.whiteBackgroundContainer}>
+      <View style={containerGamesStyles.screen}>
+        <View style={containerGamesStyles.textWithMargin}>
+          <Text style={textGamesStyles.gameName}>{gameName.toUpperCase()}</Text>
+        </View>
+        <View
+          style={[
+            containerGamesStyles.textWithMargin,
+            { flexDirection: "row", justifyContent: "space-between" },
+          ]}
+        >
+          <View style={containerGamesStyles.differentSizeTexts}>
+            <Text style={{ fontWeight: "600", fontSize: 14, color: grey }}>
+              ROUND
+            </Text>
+            <Text style={{ fontWeight: "600", fontSize: 20, color: grey }}>
+              {round}
             </Text>
           </View>
-          <View style={textGamesStyles.textWithMarginContainer}>
-            <Text style={textGamesStyles.headingText}>{question}</Text>
+          <View style={containerGamesStyles.differentSizeTexts}>
+            <Text style={{ fontWeight: "600", fontSize: 20, color: grey }}>
+              {points}
+            </Text>
+            <Text style={{ fontWeight: "600", fontSize: 14, color: grey }}>
+              POINTS
+            </Text>
           </View>
         </View>
-        <View style={{ flex: 3.5 }}>
+        <View
+          style={[containerGamesStyles.textWithMargin, { marginTop: "6%" }]}
+        >
+          <Text style={textGamesStyles.information}>
+            Choose the correct translation of word
+          </Text>
+        </View>
+        <View
+          style={[containerGamesStyles.textWithMargin, { marginBottom: "10%" }]}
+        >
+          <Text style={textGamesStyles.important}>
+            {question.toUpperCase()}
+          </Text>
+        </View>
+        <View style={{ width: "100%", height: "60%", marginBottom: "10%" }}>
           <View style={mainGamesStyles.cardsContainer}>
             {answers.map((translation, index) => {
               return (
@@ -58,6 +85,7 @@ function RaceGameScreen({ route }: Props) {
           </View>
         </View>
       </View>
+      <Toast position="top" topOffset={30} />
     </View>
   );
 }

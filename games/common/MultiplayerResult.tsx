@@ -1,31 +1,26 @@
-import { Text, TouchableOpacity, FlatList, View } from "react-native";
+import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import mainStyles from "../../styles/MainStyles";
-import mainGamesStyles from "../../styles/games/MainGamesStyles";
-import React, { useEffect, useState } from "react";
-import FrontLlamaCenter from "../../components/FrontLlamaCenter";
-import { NavigationProp, useNavigation } from "@react-navigation/native";
+import React, { useContext, useEffect, useState } from "react";
 import buttonGamesStyles from "../../styles/games/ButtonGamesStyles";
 import PlayerListItem, { PlaceItem } from "../../components/PlayerListItem";
-import { buttonLightPink } from "../../Consts";
-import { GamesStackParamList } from "../../navgation/GamesStack";
+import { buttonDarkPink, pink } from "../../Consts";
+import containerGamesStyles from "../../styles/games/ContainerGamesStyles";
+import textGamesStyles from "../../styles/games/TextGamesStyles";
+import Llama from "../../components/games/Llama";
+import { useAppStore } from "../../state";
+import { RaceWebSocketContext } from "../race/RaceWebSocket";
 
 type MultiplayerResultProps = {
   gameName: string;
   scoreboard: { username: string; points: number }[];
 };
-type GamesStack = NavigationProp<GamesStackParamList, "Home">;
 
 function MultiplayerResult(props: MultiplayerResultProps) {
   const { gameName, scoreboard } = props;
-  const parentNavigation = useNavigation<GamesStack>();
+  const user = useAppStore.getState().username;
   const [final, setFinal] = useState<PlaceItem[]>();
-
-  // const [yourPlace, setYourPlace] = useState<number>();
-  // fix when user will be added
-
-  function exitGameHandler() {
-    parentNavigation.navigate("Home");
-  }
+  const [place, setPlace] = useState<number>(0);
+  const { leaveGame } = useContext(RaceWebSocketContext);
 
   function handleData(): PlaceItem[] {
     const final = [];
@@ -37,7 +32,9 @@ function MultiplayerResult(props: MultiplayerResultProps) {
         currentPlace += 1;
         currentPoints = points;
       }
-      // if (username == ) fix when user will be added
+      if (username === user) {
+        setPlace(currentPlace);
+      }
       final.push({ username, stat: points, place: currentPlace });
     }
 
@@ -49,48 +46,49 @@ function MultiplayerResult(props: MultiplayerResultProps) {
   }, []);
 
   return (
-    <View style={mainStyles.container}>
-      <View style={mainGamesStyles.multiplayerContentContainer}>
-        <View
-          style={{
-            flex: 1.5,
-            alignItems: "center",
-            justifyContent: "flex-end",
-            marginBottom: "10%",
-          }}
-        >
-          <View
-            style={{
-              width: "100%",
-              marginBottom: "3%",
-              alignItems: "center",
-              justifyContent: "flex-end",
-            }}
+    <View style={mainStyles.whiteBackgroundContainer}>
+      <View style={containerGamesStyles.screen}>
+        <View style={containerGamesStyles.textWithMargin}>
+          <Text style={textGamesStyles.gameName}>{gameName.toUpperCase()}</Text>
+        </View>
+        <View style={containerGamesStyles.textWithMargin}>
+          <Text
+            style={[
+              textGamesStyles.information,
+              { color: pink, fontWeight: "600" },
+            ]}
           >
-            <Text
-              style={{
-                fontSize: 45,
-                color: "white",
-                textShadowColor: "#2d2d2e",
-                textShadowOffset: { width: 2, height: 2 },
-                textShadowRadius: 4,
-              }}
-            >
-              {gameName}
-            </Text>
-          </View>
+            FINAL RESULTS
+          </Text>
+        </View>
+        <View style={containerGamesStyles.textWithMargin}>
+          <Text style={textGamesStyles.information}>
+            <Text>Your place:</Text>
+            <Text style={{ color: buttonDarkPink }}> {place}</Text>
+          </Text>
+          <Text style={textGamesStyles.information}>
+            <Text>Congratulations!</Text>
+          </Text>
         </View>
         <View
           style={{
-            alignItems: "center",
-            flex: 2.5,
+            height: "40%",
             width: "100%",
+            alignItems: "center",
             justifyContent: "center",
           }}
         >
           <FlatList
-            style={{ width: "90%", flex: 2.5, marginHorizontal: "5%" }}
+            style={{
+              width: "80%",
+              borderRadius: 10,
+              height: "100%",
+            }}
             data={final}
+            showsVerticalScrollIndicator={false}
+            ItemSeparatorComponent={() => {
+              return <View style={{ height: 1, backgroundColor: "#bababa" }} />;
+            }}
             renderItem={({ item }) => (
               <PlayerListItem
                 username={item.username}
@@ -100,23 +98,16 @@ function MultiplayerResult(props: MultiplayerResultProps) {
             )}
           />
         </View>
-
-        <View style={{ alignItems: "center", flex: 0.5 }}>
-          <TouchableOpacity
-            style={{
-              alignItems: "center",
-              width: "50%",
-              backgroundColor: buttonLightPink,
-              borderRadius: 30,
-              margin: "1%",
-            }}
-            onPress={exitGameHandler}
-          >
-            <Text style={buttonGamesStyles.buttonText}>Exit game</Text>
-          </TouchableOpacity>
-        </View>
+        <TouchableOpacity
+          style={[buttonGamesStyles.basic, { backgroundColor: pink }]}
+          onPress={leaveGame}
+        >
+          <Text style={[textGamesStyles.button, { color: "white" }]}>
+            Exit game
+          </Text>
+        </TouchableOpacity>
       </View>
-      <FrontLlamaCenter />
+      <Llama />
     </View>
   );
 }

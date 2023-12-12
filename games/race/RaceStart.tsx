@@ -1,11 +1,9 @@
 import React, { useState, useContext } from "react";
 import { RaceWebSocketContext } from "./RaceWebSocket";
 import MultiplayerGameStartScreen from "../common/MultiplayerGameStart";
-import MultiplayerPlayersListScreen from "../common/MultiplayerPlayersList";
 
 function RaceStartScreen() {
-  const { ws, setWithFriends, usersInWaitRoom, withFriends } =
-    useContext(RaceWebSocketContext);
+  const { ws, setWithFriends, withFriends } = useContext(RaceWebSocketContext);
   const [setName, setSetName] = useState<string>("");
   const [setId, setSetId] = useState<number>(1);
 
@@ -20,17 +18,7 @@ function RaceStartScreen() {
     );
   }
 
-  return ws ? (
-    <MultiplayerPlayersListScreen
-      gameName={"Race"}
-      hostName={"Steve"}
-      players={usersInWaitRoom}
-    />
-  ) : (
-    // <MultiplayerJoinRoomScreen
-    //   gameName={"Race"}
-    //   onPressHandler={findOtherPlayersHandler}
-    // />
+  return (
     <MultiplayerGameStartScreen
       gameName={"Race"}
       setWordSetName={setSetName}

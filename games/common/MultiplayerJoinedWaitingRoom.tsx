@@ -7,6 +7,7 @@ import { RaceWebSocketContext } from "../race/RaceWebSocket";
 import containerGamesStyles from "../../styles/games/ContainerGamesStyles";
 import textGamesStyles from "../../styles/games/TextGamesStyles";
 import Llama from "../../components/games/Llama";
+import Toast from "react-native-toast-message";
 
 type MultiPlayerWaitingRoomProps = {
   gameName: string;
@@ -15,7 +16,7 @@ type MultiPlayerWaitingRoomProps = {
 function MultiPlayerJoinedWaitingRoomScreen(
   props: MultiPlayerWaitingRoomProps
 ) {
-  const { ws, usersInWaitRoom } = useContext(RaceWebSocketContext);
+  const { usersInWaitRoom, leaveGame } = useContext(RaceWebSocketContext);
   const hostName = "Steve";
 
   const { gameName } = props;
@@ -91,11 +92,12 @@ function MultiPlayerJoinedWaitingRoomScreen(
         <Text style={textGamesStyles.finePrint}>
           You can leave this waiting room
         </Text>
-        <TouchableOpacity style={{ marginVertical: "2%" }}>
+        <TouchableOpacity style={{ marginVertical: "2%" }} onPress={leaveGame}>
           <Text style={{ color: "#543685", fontSize: 14 }}>Close room</Text>
         </TouchableOpacity>
       </View>
       <Llama />
+      <Toast position="top" topOffset={30} />
     </View>
   );
 }

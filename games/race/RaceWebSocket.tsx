@@ -9,7 +9,9 @@ import React, {
 import { useAppStore } from "../../state";
 import { serverURL } from "../../backend/CommonBackend";
 import { RaceStackParamList } from "./RaceStack";
-import { NavigationProp } from "@react-navigation/native";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { GamesStackParamList } from "../../navgation/GamesStack";
+import Toast from "react-native-toast-message";
 
 export const SocketGameStates = {
   justConnected: 0,
@@ -31,6 +33,7 @@ interface RaceWebSocketContextType {
   withFriends: boolean;
   setWithFriends: Dispatch<SetStateAction<boolean>>;
   usersInWaitRoom: string[];
+  leaveGame: () => void;
 }
 
 export function shuffleCards<Card>(list: Card[]): Card[] {
@@ -53,12 +56,14 @@ const RaceWebSocketContext = createContext<RaceWebSocketContextType>({
     return;
   },
   usersInWaitRoom: [],
+  leaveGame: () => console.log("1"),
 });
 
 type RaceWebSocketProviderProps = {
   children: ReactNode;
   navigation: NavigationProp<RaceStackParamList>;
 };
+type GamesStack = NavigationProp<GamesStackParamList, "Home">;
 
 const RaceWebSocketProvider = ({
   children,
@@ -77,17 +82,29 @@ const RaceWebSocketProvider = ({
   const [chosenCard, setChosenCard] = useState(-1);
   const [withFriends, setWithFriends] = useState<boolean>(false);
   const [usersInWaitRoom, setUsersInWaitRoom] = useState([
-    "Steve",
+    // "Steve",
     "alpaka",
-    "Nikita",
-    "Marti",
+    // "Nikita",
+    // "Marti",
   ]);
+  const parentNavigation = useNavigation<GamesStack>();
 
   const [ws] = useState<WebSocket>(
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     new WebSocket(`ws://${serverURL}/race/`, null, { headers })
   );
+
+  function leaveGame() {
+    ws.close();
+    parentNavigation.navigate("Home");
+  }
+
+  useEffect(() => {
+    return () => {
+      ws.close();
+    };
+  }, [ws]);
 
   useEffect(() => {
     ws.onmessage = (event) => {
@@ -145,7 +162,18 @@ const RaceWebSocketProvider = ({
         navigation.navigate("EndGame", {
           scoreboard: message.scoreboard,
         });
-        ws.close();
+      } else if (message.type === "player_joined") {
+        Toast.show({
+          type: "info",
+          text1: `${message.username} join game`,
+        });
+      } else if (message.type === "player_left") {
+        Toast.show({
+          type: "error",
+          text1: `${message.username} left game`,
+        });
+      } else if (message.type === "waitroom_canceled") {
+        console.log("WYWAL LUDZI");
       } else {
         console.error("Error: " + socketGameState + " " + event.data);
       }
@@ -164,6 +192,7 @@ const RaceWebSocketProvider = ({
         withFriends,
         setWithFriends,
         usersInWaitRoom,
+        leaveGame,
       }}
     >
       {children}

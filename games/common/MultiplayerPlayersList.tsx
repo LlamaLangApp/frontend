@@ -7,6 +7,7 @@ import Llama from "../../components/games/Llama";
 import containerGamesStyles from "../../styles/games/ContainerGamesStyles";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { useAppStore } from "../../state";
+import Toast from "react-native-toast-message";
 
 type MultiplayerPlayersListProps = {
   gameName: string;
@@ -64,13 +65,15 @@ function MultiplayerPlayersListScreen(props: MultiplayerPlayersListProps) {
                 <Text style={[textGamesStyles.button, { color: grey }]}>
                   {item}
                 </Text>
+                {item === username && (
+                  <Text
+                    style={{ fontWeight: "600", fontSize: 13, color: grey }}
+                  >
+                    (YOU)
+                  </Text>
+                )}
                 {item === hostName && (
                   <FontAwesome5 name={"crown"} size={16} color={pink} />
-                )}
-                {item === username && (
-                  <Text style={[textGamesStyles.button, { color: grey }]}>
-                    (You)
-                  </Text>
                 )}
               </View>
             )}
@@ -78,6 +81,7 @@ function MultiplayerPlayersListScreen(props: MultiplayerPlayersListProps) {
         </View>
       </View>
       <Llama />
+      <Toast position="top" topOffset={30} />
     </View>
   );
 }

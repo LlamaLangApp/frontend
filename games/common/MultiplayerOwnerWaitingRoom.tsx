@@ -11,6 +11,7 @@ import textGamesStyles from "../../styles/games/TextGamesStyles";
 import buttonGamesStyles from "../../styles/games/ButtonGamesStyles";
 import InviteFriendsModal from "../../components/games/InviteFriendsModal";
 import Llama from "../../components/games/Llama";
+import Toast from "react-native-toast-message";
 
 type MultiPlayerWaitingRoomProps = {
   gameName: string;
@@ -31,7 +32,7 @@ function MultiPlayerOwnerWaitingRoomScreen(props: MultiPlayerWaitingRoomProps) {
   const { token } = useAppStore((store) => ({
     token: store.token,
   }));
-  const { ws } = useContext(RaceWebSocketContext);
+  const { ws, leaveGame } = useContext(RaceWebSocketContext);
 
   const { gameName } = props;
 
@@ -166,11 +167,12 @@ function MultiPlayerOwnerWaitingRoomScreen(props: MultiPlayerWaitingRoomProps) {
         <Text style={textGamesStyles.finePrint}>
           Maybe try solo games or playing with random people?
         </Text>
-        <TouchableOpacity style={{ marginVertical: "2%" }}>
+        <TouchableOpacity style={{ marginVertical: "2%" }} onPress={leaveGame}>
           <Text style={{ color: "#543685", fontSize: 14 }}>Close room</Text>
         </TouchableOpacity>
       </View>
       <Llama />
+      <Toast position="top" topOffset={30} />
     </View>
   );
 }
