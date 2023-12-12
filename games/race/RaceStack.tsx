@@ -30,9 +30,15 @@ export type RaceStackParamList = {
 };
 const Stack = createNativeStackNavigator<RaceStackParamList>();
 
-const RaceStack = () => {
+interface RaceStackProps {
+  route: { params: { fromInvite: boolean } };
+}
+
+const RaceStack = ({ route }: RaceStackProps) => {
+  const fromInvite = route.params?.fromInvite ?? false;
+
   return (
-    <RaceWebSocketProvider navigation={useNavigation()}>
+    <RaceWebSocketProvider navigation={useNavigation()} fromInvite={fromInvite}>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name={"Start"} component={RaceStartScreen} />
         <Stack.Screen name={"WaitingRoom"} component={RaceWaitingRoomScreen} />

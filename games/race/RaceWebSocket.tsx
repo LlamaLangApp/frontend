@@ -34,6 +34,8 @@ interface RaceWebSocketContextType {
   setWithFriends: Dispatch<SetStateAction<boolean>>;
   usersInWaitRoom: string[];
   leaveGame: () => void;
+  fromInvite: boolean;
+  startGameAsOwner: () => void;
 }
 
 export function shuffleCards<Card>(list: Card[]): Card[] {
@@ -57,17 +59,21 @@ const RaceWebSocketContext = createContext<RaceWebSocketContextType>({
   },
   usersInWaitRoom: [],
   leaveGame: () => console.log("1"),
+  fromInvite: false,
+  startGameAsOwner: () => console.log("1"),
 });
 
 type RaceWebSocketProviderProps = {
   children: ReactNode;
   navigation: NavigationProp<RaceStackParamList>;
+  fromInvite: boolean;
 };
 type GamesStack = NavigationProp<GamesStackParamList, "Home">;
 
 const RaceWebSocketProvider = ({
   children,
   navigation,
+  fromInvite,
 }: RaceWebSocketProviderProps) => {
   const token = useAppStore.getState().token;
   const headers = { Authorization: "Token " + token };
@@ -81,12 +87,8 @@ const RaceWebSocketProvider = ({
   const [round, setRound] = useState(0);
   const [chosenCard, setChosenCard] = useState(-1);
   const [withFriends, setWithFriends] = useState<boolean>(false);
-  const [usersInWaitRoom, setUsersInWaitRoom] = useState([
-    // "Steve",
-    "alpaka",
-    // "Nikita",
-    // "Marti",
-  ]);
+  const [usersInWaitRoom, setUsersInWaitRoom] = useState<string[]>([]);
+  const [waitRoomNumber, setWaitRoomNumber] = useState(0);
   const parentNavigation = useNavigation<GamesStack>();
 
   const [ws] = useState<WebSocket>(
@@ -94,6 +96,11 @@ const RaceWebSocketProvider = ({
     // @ts-ignore
     new WebSocket(`ws://${serverURL}/race/`, null, { headers })
   );
+
+  function startGameAsOwner() {
+    setSocketGameState(SocketGameStates.beforeRound);
+    navigation.navigate("PlayersList", { players: usersInWaitRoom });
+  }
 
   function leaveGame() {
     ws.close();
@@ -116,6 +123,8 @@ const RaceWebSocketProvider = ({
         !withFriends
       ) {
         setSocketGameState(SocketGameStates.inWaitRoomRandom);
+        setUsersInWaitRoom(message.usernames);
+        setWaitRoomNumber(message.waitroom);
         navigation.navigate("WaitingRoom");
       } else if (
         socketGameState === SocketGameStates.justConnected &&
@@ -123,9 +132,12 @@ const RaceWebSocketProvider = ({
         withFriends
       ) {
         setSocketGameState(SocketGameStates.inWaitRoomAsOwner);
+        setUsersInWaitRoom(message.usernames);
+        setWaitRoomNumber(message.waitroom);
         navigation.navigate("WaitingRoom");
       } else if (
-        socketGameState === SocketGameStates.inWaitRoomRandom &&
+        (socketGameState === SocketGameStates.inWaitRoomRandom ||
+          socketGameState === SocketGameStates.inWaitRoomAsOwner) &&
         message.type === "game_starting"
       ) {
         setSocketGameState(SocketGameStates.beforeRound);
@@ -165,13 +177,17 @@ const RaceWebSocketProvider = ({
       } else if (message.type === "player_joined") {
         Toast.show({
           type: "info",
-          text1: `${message.username} join game`,
+          text1: `${message.username} joined game`,
         });
+        setUsersInWaitRoom((prev) => [...prev, message.username]);
       } else if (message.type === "player_left") {
         Toast.show({
           type: "error",
           text1: `${message.username} left game`,
         });
+        setUsersInWaitRoom((prev) =>
+          prev.filter((username) => username !== message.username)
+        );
       } else if (message.type === "waitroom_canceled") {
         console.log("WYWAL LUDZI");
       } else {
@@ -193,6 +209,8 @@ const RaceWebSocketProvider = ({
         setWithFriends,
         usersInWaitRoom,
         leaveGame,
+        fromInvite,
+        startGameAsOwner,
       }}
     >
       {children}

@@ -38,7 +38,9 @@ function StatisticsScreen() {
     <View>
       <Text>Statistics</Text>
       {toGame && (
-        <TouchableOpacity onPress={() => gamesNavigation.navigate("Race")}>
+        <TouchableOpacity
+          onPress={() => gamesNavigation.navigate("Race", { fromInvite: true })}
+        >
           <Text>{toGame}</Text>
         </TouchableOpacity>
       )}

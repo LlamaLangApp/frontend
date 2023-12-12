@@ -1,8 +1,14 @@
-import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
+import {
+  ActivityIndicator,
+  FlatList,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import mainStyles from "../../styles/MainStyles";
 import React, { useContext, useEffect, useState } from "react";
 import { grey, lightGrey, pink } from "../../Consts";
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 import { getFriendsData } from "../../backend/FriendsBackend";
 import { useAppStore } from "../../state";
 import { RaceWebSocketContext } from "../race/RaceWebSocket";
@@ -32,13 +38,22 @@ function MultiPlayerOwnerWaitingRoomScreen(props: MultiPlayerWaitingRoomProps) {
   const { token } = useAppStore((store) => ({
     token: store.token,
   }));
-  const { ws, leaveGame } = useContext(RaceWebSocketContext);
+  const { ws, leaveGame, usersInWaitRoom, startGameAsOwner } =
+    useContext(RaceWebSocketContext);
 
   const { gameName } = props;
 
   const [modalVisible, setModalVisible] = useState(false);
   // const [otherPlayersInRoom, setOtherPlayersInRoom] = useState(false);
-  const [otherPlayersInRoom] = useState(false);
+  const otherPlayersInRoom = () => {
+    return usersInWaitRoom.length >= 2;
+  };
+
+  async function startGameHandler() {
+    // console.log("Joining Steve...", setName);
+    ws.send(JSON.stringify({ type: "start_game" }));
+    // startGameAsOwner();
+  }
 
   const openModal = () => {
     setModalVisible(true);
@@ -118,19 +133,53 @@ function MultiPlayerOwnerWaitingRoomScreen(props: MultiPlayerWaitingRoomProps) {
             Decide with who you want to play
           </Text>
         </View>
-        {!otherPlayersInRoom && (
-          <View style={{ height: "30%" }}>
-            {/*<Text style={textGamesStyles.finePrint}>*/}
-            {/*  Waiting for players to join*/}
-            {/*</Text>*/}
-            <ActivityIndicator
-              size={"large"}
-              color={pink}
-              style={{ marginTop: "10%" }}
-            />
+        <View
+          style={{
+            height: "30%",
+            width: "100%",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <View style={{ width: "100%", alignItems: "center", marginTop: 10 }}>
+            <Text style={{ fontSize: 15, color: grey }}>
+              Already in the room:
+            </Text>
           </View>
-        )}
-
+          <FlatList
+            style={{
+              width: "70%",
+              borderRadius: 10,
+              height: "30%",
+              marginBottom: "5%",
+            }}
+            data={usersInWaitRoom}
+            showsVerticalScrollIndicator={false}
+            ItemSeparatorComponent={() => {
+              return <View style={{ height: 1, backgroundColor: "#bababa" }} />;
+            }}
+            renderItem={({ item }) => (
+              <View
+                style={{
+                  paddingVertical: 5,
+                  margin: 2,
+                  borderRadius: 7,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  flexDirection: "row",
+                  gap: 5,
+                }}
+              >
+                <Text style={[textGamesStyles.button, { color: grey }]}>
+                  {item}
+                </Text>
+                {item === "aplaka" && (
+                  <FontAwesome5 name={"crown"} size={16} color={pink} />
+                )}
+              </View>
+            )}
+          />
+        </View>
         <TouchableOpacity
           style={[buttonGamesStyles.basic, { backgroundColor: lightGrey }]}
           onPress={openModal}
@@ -142,19 +191,20 @@ function MultiPlayerOwnerWaitingRoomScreen(props: MultiPlayerWaitingRoomProps) {
         <TouchableOpacity
           style={[
             buttonGamesStyles.basic,
-            { backgroundColor: otherPlayersInRoom ? pink : grey },
+            { backgroundColor: otherPlayersInRoom() ? pink : grey },
           ]}
-          activeOpacity={otherPlayersInRoom ? 0.2 : 1}
+          activeOpacity={otherPlayersInRoom() ? 0.2 : 1}
+          onPress={startGameHandler}
         >
           <Text
             style={[
               textGamesStyles.button,
-              { color: otherPlayersInRoom ? "white" : lightGrey },
+              { color: otherPlayersInRoom() ? "white" : lightGrey },
             ]}
           >
             Start game
           </Text>
-          {!otherPlayersInRoom && (
+          {!otherPlayersInRoom() && (
             <FontAwesome name={"lock"} size={19} color={lightGrey} />
           )}
         </TouchableOpacity>

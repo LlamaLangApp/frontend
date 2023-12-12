@@ -64,7 +64,13 @@ function HomeScreen() {
                 id={itemData.item.id}
                 disableHighlight={true}
                 onPressItem={() => {
-                  navigation.navigate(itemData.item.screenName);
+                  if (itemData.item.screenName === "Race") {
+                    navigation.navigate(itemData.item.screenName, {
+                      fromInvite: false,
+                    });
+                  } else {
+                    navigation.navigate(itemData.item.screenName);
+                  }
                 }}
               />
             );

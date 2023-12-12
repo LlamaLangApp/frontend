@@ -9,7 +9,9 @@ import { gestureHandlerRootHOC } from "react-native-gesture-handler";
 export type GamesStackParamList = {
   Home: undefined;
   Memory: undefined;
-  Race: undefined;
+  Race: {
+    fromInvite: boolean;
+  };
   FallingWords: undefined;
   FindingWords: undefined;
 };
