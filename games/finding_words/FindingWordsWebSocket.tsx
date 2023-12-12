@@ -10,40 +10,20 @@ import { useAppStore } from "../../state";
 import { serverURL } from "../../backend/CommonBackend";
 import { FindingWordsStackParamList } from "./FindingWordsStack";
 import { NavigationProp } from "@react-navigation/native";
+import {
+  commonWebSocketDefaultValues,
+  CommonWebSocketProps,
+  SocketGameStates,
+} from "../common/WebSocket";
 
-export const SocketGameStates = {
-  justConnected: 0,
-  inWaitRoomRandom: 1,
-  inWaitRoomAsOwner: 2,
-  inWaitRoomJoinedFriend: 3,
-  beforeRound: 4,
-  roundStarted: 5,
-  gameEnded: 6,
-};
-
-interface FindingWordsWebSocketContextType {
-  ws: WebSocket | undefined;
+interface FindingWordsWebSocketContextType extends CommonWebSocketProps {
   setLastAnswer: Dispatch<SetStateAction<string>>;
-  points: number;
-  round: number;
-  withFriends: boolean;
-  setWithFriends: Dispatch<SetStateAction<boolean>>;
 }
-
-// export function shuffleCards<Card>(list: Card[]): Card[] {
-//   return list.sort(() => Math.random() - 0.5);
-// }
 
 const FindingWordsWebSocketContext =
   createContext<FindingWordsWebSocketContextType>({
-    ws: undefined,
+    ...commonWebSocketDefaultValues,
     setLastAnswer: () => {
-      return;
-    },
-    points: 0,
-    round: 1,
-    withFriends: false,
-    setWithFriends: () => {
       return;
     },
   });
@@ -51,21 +31,25 @@ const FindingWordsWebSocketContext =
 type FindingWordsWebSocketProviderProps = {
   children: ReactNode;
   navigation: NavigationProp<FindingWordsStackParamList>;
+  fromInvite: boolean;
 };
 
 const FindingWordsWebSocketProvider = ({
   children,
   navigation,
+  fromInvite,
 }: FindingWordsWebSocketProviderProps) => {
   const token = useAppStore.getState().token;
   const headers = { Authorization: "Token " + token };
   const [socketGameState, setSocketGameState] = useState(
     SocketGameStates.justConnected
   );
+  const [wordSetName, setWordSetName] = useState<string>("0");
   const [lastAnswer, setLastAnswer] = useState("");
   const [points, setPoints] = useState(0);
   const [round, setRound] = useState(0);
   const [withFriends, setWithFriends] = useState<boolean>(false);
+  const [usersInWaitRoom, setUsersInWaitRoom] = useState<string[]>([]);
 
   const [ws] = useState<WebSocket>(
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -140,7 +124,11 @@ const FindingWordsWebSocketProvider = ({
         points,
         round,
         withFriends,
+        usersInWaitRoom,
         setWithFriends,
+        wordSetName,
+        setWordSetName,
+        fromInvite,
       }}
     >
       {children}

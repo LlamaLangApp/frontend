@@ -16,13 +16,14 @@ type Props = NativeStackScreenProps<RaceStackParamList, "Game">;
 function RaceGameScreen({ route }: Props) {
   const { question, answers } = route.params;
   const gameName = "Race";
-  const { ws, setLastAnswer, points, round, chosenCard, setChosenCard } =
+  const { ws, points, round, chosenCard, setChosenCard } =
     useContext(RaceWebSocketContext);
 
   const handlePress = (answer: string, index: number) => {
     setChosenCard(index);
-    setLastAnswer(answer);
-    ws.send(JSON.stringify({ type: "response", answer: answer, round: round }));
+    ws?.send(
+      JSON.stringify({ type: "response", answer: answer, round: round })
+    );
   };
 
   return (

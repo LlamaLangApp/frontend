@@ -1,6 +1,6 @@
 import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import mainStyles from "../../styles/MainStyles";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import buttonGamesStyles from "../../styles/games/ButtonGamesStyles";
 import PlayerListItem, { PlaceItem } from "../../components/PlayerListItem";
 import { buttonDarkPink, pink } from "../../Consts";
@@ -8,19 +8,22 @@ import containerGamesStyles from "../../styles/games/ContainerGamesStyles";
 import textGamesStyles from "../../styles/games/TextGamesStyles";
 import Llama from "../../components/games/Llama";
 import { useAppStore } from "../../state";
-import { RaceWebSocketContext } from "../race/RaceWebSocket";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { GamesStackParamList } from "../../navgation/GamesStack";
 
 type MultiplayerResultProps = {
   gameName: string;
   scoreboard: { username: string; points: number }[];
 };
 
+type GamesStack = NavigationProp<GamesStackParamList, "Home">;
+
 function MultiplayerResult(props: MultiplayerResultProps) {
   const { gameName, scoreboard } = props;
   const user = useAppStore.getState().username;
   const [final, setFinal] = useState<PlaceItem[]>();
   const [place, setPlace] = useState<number>(0);
-  const { leaveGame } = useContext(RaceWebSocketContext);
+  const parentNavigation = useNavigation<GamesStack>();
 
   function handleData(): PlaceItem[] {
     const final = [];
@@ -100,7 +103,7 @@ function MultiplayerResult(props: MultiplayerResultProps) {
         </View>
         <TouchableOpacity
           style={[buttonGamesStyles.basic, { backgroundColor: pink }]}
-          onPress={leaveGame}
+          onPress={() => parentNavigation.navigate("Home")}
         >
           <Text style={[textGamesStyles.button, { color: "white" }]}>
             Exit game

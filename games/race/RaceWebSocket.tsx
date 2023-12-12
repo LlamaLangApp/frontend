@@ -9,66 +9,36 @@ import React, {
 import { useAppStore } from "../../state";
 import { serverURL } from "../../backend/CommonBackend";
 import { RaceStackParamList } from "./RaceStack";
-import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { GamesStackParamList } from "../../navgation/GamesStack";
+import { NavigationProp } from "@react-navigation/native";
 import Toast from "react-native-toast-message";
+import {
+  commonWebSocketDefaultValues,
+  CommonWebSocketProps,
+  SocketGameStates,
+} from "../common/WebSocket";
 
-export const SocketGameStates = {
-  justConnected: 0,
-  inWaitRoomRandom: 1,
-  inWaitRoomAsOwner: 2,
-  inWaitRoomJoinedFriend: 3,
-  beforeRound: 4,
-  roundStarted: 5,
-  gameEnded: 6,
-};
-
-interface RaceWebSocketContextType {
-  ws: WebSocket;
-  setLastAnswer: Dispatch<SetStateAction<string>>;
-  points: number;
-  round: number;
+interface RaceWebSocketContextType extends CommonWebSocketProps {
   chosenCard: number;
   setChosenCard: Dispatch<SetStateAction<number>>;
-  withFriends: boolean;
-  setWithFriends: Dispatch<SetStateAction<boolean>>;
-  usersInWaitRoom: string[];
-  leaveGame: () => void;
-  fromInvite: boolean;
-  startGameAsOwner: () => void;
 }
+
+const RaceWebSocketContext = createContext<RaceWebSocketContextType>({
+  ...commonWebSocketDefaultValues,
+  chosenCard: -1,
+  setChosenCard: () => {
+    return -1;
+  },
+});
 
 export function shuffleCards<Card>(list: Card[]): Card[] {
   return list.sort(() => Math.random() - 0.5);
 }
-
-const RaceWebSocketContext = createContext<RaceWebSocketContextType>({
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  ws: undefined,
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  setLastAnswer: () => {},
-  points: 0,
-  round: 1,
-  chosenCard: -1,
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  setChosenCard: () => {},
-  withFriends: false,
-  setWithFriends: () => {
-    return;
-  },
-  usersInWaitRoom: [],
-  leaveGame: () => console.log("1"),
-  fromInvite: false,
-  startGameAsOwner: () => console.log("1"),
-});
 
 type RaceWebSocketProviderProps = {
   children: ReactNode;
   navigation: NavigationProp<RaceStackParamList>;
   fromInvite: boolean;
 };
-type GamesStack = NavigationProp<GamesStackParamList, "Home">;
 
 const RaceWebSocketProvider = ({
   children,
@@ -90,23 +60,12 @@ const RaceWebSocketProvider = ({
   const [usersInWaitRoom, setUsersInWaitRoom] = useState<string[]>([]);
   const [waitRoomNumber, setWaitRoomNumber] = useState(0);
   const [wordSetName, setWordSetName] = useState<string>("0");
-  const parentNavigation = useNavigation<GamesStack>();
 
   const [ws] = useState<WebSocket>(
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     new WebSocket(`ws://${serverURL}/race/`, null, { headers })
   );
-
-  function startGameAsOwner() {
-    setSocketGameState(SocketGameStates.beforeRound);
-    navigation.navigate("PlayersList", { players: usersInWaitRoom });
-  }
-
-  function leaveGame() {
-    ws.close();
-    parentNavigation.navigate("Home");
-  }
 
   useEffect(() => {
     return () => {
@@ -201,17 +160,16 @@ const RaceWebSocketProvider = ({
     <RaceWebSocketContext.Provider
       value={{
         ws,
-        setLastAnswer,
         points,
         round,
         chosenCard,
+        wordSetName,
+        setWordSetName,
         setChosenCard,
         withFriends,
         setWithFriends,
         usersInWaitRoom,
-        leaveGame,
         fromInvite,
-        startGameAsOwner,
       }}
     >
       {children}
