@@ -1,8 +1,7 @@
-import { FlatList, Text, TouchableOpacity, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import mainStyles from "../../styles/MainStyles";
 import React, { useContext } from "react";
 import { grey, pink } from "../../Consts";
-import { FontAwesome5 } from "@expo/vector-icons";
 import { RaceWebSocketContext } from "../race/RaceWebSocket";
 import containerGamesStyles from "../../styles/games/ContainerGamesStyles";
 import textGamesStyles from "../../styles/games/TextGamesStyles";

@@ -4,14 +4,12 @@ import MultiplayerGameStartScreen from "../common/MultiplayerGameStart";
 import MultiplayerJoinRoom from "../common/MultiplayerJoinRoom";
 
 function RaceStartScreen() {
-  const { ws, setWithFriends, fromInvite, withFriends } =
+  const { ws, setWithFriends, fromInvite, withFriends, setWordSetName } =
     useContext(RaceWebSocketContext);
-  const [setName, setSetName] = useState<string>("");
   const [setId, setSetId] = useState<number>(1);
-  console.log(fromInvite);
 
   async function findOtherPlayersHandler() {
-    ws.send(
+    ws?.send(
       JSON.stringify({
         type: "waitroom_request",
         wordset_id: setId,
@@ -21,7 +19,7 @@ function RaceStartScreen() {
   }
 
   async function joinRoomHandler() {
-    ws.send(
+    ws?.send(
       JSON.stringify({
         type: "waitroom_request",
         owned_room: "39",
@@ -34,7 +32,7 @@ function RaceStartScreen() {
   ) : (
     <MultiplayerGameStartScreen
       gameName={"Race"}
-      setWordSetName={setSetName}
+      setWordSetName={setWordSetName}
       setWordSetId={setSetId}
       onPressHandler={findOtherPlayersHandler}
       playWithFriends={setWithFriends}

@@ -1,11 +1,9 @@
-import { FlatList, Text, TouchableOpacity, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import mainStyles from "../../styles/MainStyles";
-import React, { useContext, useEffect, useState } from "react";
-import { grey, lightGrey, pink } from "../../Consts";
-import { FontAwesome5 } from "@expo/vector-icons";
+import React, { useEffect, useState } from "react";
+import { grey, lightGrey } from "../../Consts";
 import { getFriendsData } from "../../backend/FriendsBackend";
 import { useAppStore } from "../../state";
-import { RaceWebSocketContext } from "../race/RaceWebSocket";
 import containerGamesStyles from "../../styles/games/ContainerGamesStyles";
 import textGamesStyles from "../../styles/games/TextGamesStyles";
 import buttonGamesStyles from "../../styles/games/ButtonGamesStyles";
@@ -18,6 +16,9 @@ import FinePrints from "./components/FinePrints";
 
 type MultiPlayerWaitingRoomProps = {
   gameName: string;
+  ws: WebSocket | undefined;
+  leaveGame: () => void;
+  usersInWaitRoom: string[];
 };
 
 export type Friends = {
@@ -35,20 +36,16 @@ function MultiPlayerOwnerWaitingRoomScreen(props: MultiPlayerWaitingRoomProps) {
   const { token } = useAppStore((store) => ({
     token: store.token,
   }));
-  const { ws, leaveGame, usersInWaitRoom } = useContext(RaceWebSocketContext);
 
-  const { gameName } = props;
+  const { gameName, ws, leaveGame, usersInWaitRoom } = props;
 
   const [modalVisible, setModalVisible] = useState(false);
-  // const [otherPlayersInRoom, setOtherPlayersInRoom] = useState(false);
   const otherPlayersInRoom = () => {
     return usersInWaitRoom.length >= 2;
   };
 
   async function startGameHandler() {
-    // console.log("Joining Steve...", setName);
-    ws.send(JSON.stringify({ type: "start_game" }));
-    // startGameAsOwner();
+    ws?.send(JSON.stringify({ type: "start_game" }));
   }
 
   const openModal = () => {
@@ -73,7 +70,7 @@ function MultiPlayerOwnerWaitingRoomScreen(props: MultiPlayerWaitingRoomProps) {
     Object.keys(updatedFriends).forEach((friendId) => {
       const id = parseInt(friendId);
       if (!updatedFriends[id].invited && updatedFriends[id].sendInvite) {
-        ws.send(
+        ws?.send(
           JSON.stringify({
             type: "player_invitation",
             user_id: id,

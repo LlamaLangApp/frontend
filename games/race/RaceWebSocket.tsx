@@ -9,21 +9,24 @@ import React, {
 import { useAppStore } from "../../state";
 import { serverURL } from "../../backend/CommonBackend";
 import { RaceStackParamList } from "./RaceStack";
-import { NavigationProp } from "@react-navigation/native";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 import Toast from "react-native-toast-message";
 import {
   commonWebSocketDefaultValues,
   CommonWebSocketProps,
   SocketGameStates,
 } from "../common/WebSocket";
+import { GamesStackParamList } from "../../navgation/GamesStack";
 
 interface RaceWebSocketContextType extends CommonWebSocketProps {
+  leaveGame: () => void;
   chosenCard: number;
   setChosenCard: Dispatch<SetStateAction<number>>;
 }
 
 const RaceWebSocketContext = createContext<RaceWebSocketContextType>({
   ...commonWebSocketDefaultValues,
+  leaveGame: () => console.log("!"),
   chosenCard: -1,
   setChosenCard: () => {
     return -1;
@@ -39,6 +42,7 @@ type RaceWebSocketProviderProps = {
   navigation: NavigationProp<RaceStackParamList>;
   fromInvite: boolean;
 };
+type GamesStack = NavigationProp<GamesStackParamList, "Home">;
 
 const RaceWebSocketProvider = ({
   children,
@@ -60,12 +64,18 @@ const RaceWebSocketProvider = ({
   const [usersInWaitRoom, setUsersInWaitRoom] = useState<string[]>([]);
   const [waitRoomNumber, setWaitRoomNumber] = useState(0);
   const [wordSetName, setWordSetName] = useState<string>("0");
+  const parentNavigation = useNavigation<GamesStack>();
 
   const [ws] = useState<WebSocket>(
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     new WebSocket(`ws://${serverURL}/race/`, null, { headers })
   );
+
+  function leaveGame() {
+    parentNavigation.navigate("Home");
+    ws.close();
+  }
 
   useEffect(() => {
     return () => {
@@ -170,6 +180,7 @@ const RaceWebSocketProvider = ({
         setWithFriends,
         usersInWaitRoom,
         fromInvite,
+        leaveGame,
       }}
     >
       {children}

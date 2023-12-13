@@ -1,20 +1,28 @@
 import React, { useContext } from "react";
-// import MultiPlayerOwnerWaitingRoomScreen from "../common/MultiplayerOwnerWaitingRoom";
-// import MultiPlayerJoinedWaitingRoomScreen from "../common/MultiplayerJoinedWaitingRoom";
-import MultiPlayerWaitingRoomScreen from "../common/MultiplayerWaitingRoom";
 import { RaceWebSocketContext } from "./RaceWebSocket";
+import MultiPlayerWaitingRoomScreen from "../common/MultiplayerWaitingRoom";
 import MultiPlayerOwnerWaitingRoomScreen from "../common/MultiplayerOwnerWaitingRoom";
 import MultiPlayerJoinedWaitingRoomScreen from "../common/MultiplayerJoinedWaitingRoom";
 
 function RaceWaitingRoomScreen() {
-  const { withFriends, fromInvite } = useContext(RaceWebSocketContext);
+  const { withFriends, fromInvite, ws, leaveGame, usersInWaitRoom } =
+    useContext(RaceWebSocketContext);
 
   return fromInvite ? (
     <MultiPlayerJoinedWaitingRoomScreen gameName={"Race"} />
   ) : withFriends ? (
-    <MultiPlayerOwnerWaitingRoomScreen gameName={"Race"} />
+    <MultiPlayerOwnerWaitingRoomScreen
+      gameName={"Race"}
+      ws={ws}
+      leaveGame={leaveGame}
+      usersInWaitRoom={usersInWaitRoom}
+    />
   ) : (
-    <MultiPlayerWaitingRoomScreen gameName={"Race"} />
+    <MultiPlayerWaitingRoomScreen
+      gameName={"Race"}
+      leaveGame={leaveGame}
+      usersInWaitRoom={usersInWaitRoom}
+    />
   );
 }
 

@@ -8,7 +8,6 @@ import RaceCard from "./RaceCard";
 import { RaceWebSocketContext } from "./RaceWebSocket";
 import textGamesStyles from "../../styles/games/TextGamesStyles";
 import Toast from "react-native-toast-message";
-import { grey } from "../../Consts";
 import containerGamesStyles from "../../styles/games/ContainerGamesStyles";
 
 type Props = NativeStackScreenProps<RaceStackParamList, "Game">;

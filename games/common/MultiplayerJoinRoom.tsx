@@ -3,7 +3,7 @@ import mainStyles from "../../styles/MainStyles";
 import React from "react";
 import buttonGamesStyles from "../../styles/games/ButtonGamesStyles";
 import textGamesStyles from "../../styles/games/TextGamesStyles";
-import { grey, lightGrey, pink } from "../../Consts";
+import { grey, pink } from "../../Consts";
 import containerGamesStyles from "../../styles/games/ContainerGamesStyles";
 import Llama from "../../components/games/Llama";
 import { FontAwesome } from "@expo/vector-icons";

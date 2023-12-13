@@ -1,30 +1,22 @@
-import {
-  ActivityIndicator,
-  FlatList,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
 import mainStyles from "../../styles/MainStyles";
-import React, { useContext } from "react";
+import React from "react";
 import textGamesStyles from "../../styles/games/TextGamesStyles";
-import { RaceWebSocketContext } from "../race/RaceWebSocket";
 import containerGamesStyles from "../../styles/games/ContainerGamesStyles";
 import { grey, pink } from "../../Consts";
 import Llama from "../../components/games/Llama";
-import { useAppStore } from "../../state";
 import Toast from "react-native-toast-message";
 import PlayersInWaitRoomList from "./components/PlayerListInWaitRoom";
 import FinePrints from "./components/FinePrints";
 
 type MultiPlayerWaitingRoomProps = {
   gameName: string;
+  leaveGame: () => void;
+  usersInWaitRoom: string[];
 };
 
 function MultiPlayerWaitingRoomScreen(props: MultiPlayerWaitingRoomProps) {
-  const { gameName } = props;
-  const username = useAppStore.getState().username;
-  const { usersInWaitRoom, leaveGame } = useContext(RaceWebSocketContext);
+  const { gameName, usersInWaitRoom, leaveGame } = props;
 
   return (
     <View style={mainStyles.whiteBackgroundContainer}>
