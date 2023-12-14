@@ -16,9 +16,7 @@ import {
   getCalendar,
   getCurrentStreak,
   getGamePoints,
-  getLongestStreak,
   getTotalDays,
-  LongestStreakData,
   TotalDaysData,
 } from "../backend/StatisticsBackend";
 import { CalendarList } from "react-native-calendars/src";
