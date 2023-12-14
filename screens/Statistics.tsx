@@ -97,28 +97,28 @@ export default () => {
     Promise.all([
       getCalendar(token, allGames, month, year),
       getCurrentStreak(token, allGames),
-      getLongestStreak(token, allGames),
+      // getLongestStreak(token, allGames),
       getTotalDays(token),
     ]).then(
       ([
         calendarAllGamesResponse,
         currentStreakResponse,
-        longestStreakResponse,
+        // longestStreakResponse,
         totalDaysResponse,
       ]) => {
         if (
           calendarAllGamesResponse.type === "success" &&
           currentStreakResponse.type === "success" &&
-          longestStreakResponse.type === "success" &&
+          // longestStreakResponse.type === "success" &&
           totalDaysResponse.type === "success"
         ) {
           setCalendarAllGames(calendarAllGamesResponse.result);
-          setLongestStreak(longestStreakResponse.result);
+          // setLongestStreak(longestStreakResponse.result);
           setCurrentStreak(currentStreakResponse.result);
           setTotalDays(totalDaysResponse.result);
         } else {
           setCalendarAllGames(null);
-          setLongestStreak(null);
+          // setLongestStreak(null);
           setCurrentStreak(null);
           setTotalDays(null);
         }
