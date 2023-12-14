@@ -9,8 +9,7 @@ import { GamesStackParamList } from "../../navgation/GamesStack";
 type GamesStack = NavigationProp<GamesStackParamList, "FindingWords">;
 
 function StatisticsScreen() {
-  const { id, username } = useAppStore((store) => ({
-    id: store.id,
+  const { username } = useAppStore((store) => ({
     username: store.username,
   }));
   const gamesNavigation = useNavigation<GamesStack>();

@@ -9,7 +9,7 @@ import {
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { FriendsStackParamList } from "../../navgation/FriendsStack";
 import { grey } from "../../Consts";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import friendsStyles from "../../styles/FriendsStyles";
 import UserListItem from "../../components/friends/UserListItem";
 import { FriendsContext, User } from "./Friends";

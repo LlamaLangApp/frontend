@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo } from "react";
 import { Text, StyleSheet } from "react-native";
-import { buttonDarkPink, lightGrey, pink } from "../../Consts";
+import { lightGrey, pink } from "../../Consts";
 import Animated, {
   interpolateColor,
   useAnimatedStyle,
