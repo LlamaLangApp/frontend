@@ -7,17 +7,19 @@
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/llama_without_background.png",
+      "image": "./assets/llama.png",
       "resizeMode": "contain"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "requireFullScreen": true
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/llama_without_background.png"
+        "foregroundImage": "./assets/llama.png"
       },
       "softwareKeyboardLayoutMode": "pan",
       "package": "com.llamalang.llamalang"

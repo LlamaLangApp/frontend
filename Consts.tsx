@@ -7,6 +7,8 @@ export const white = "#ffffff";
 export const lightGrey = "#efefef";
 export const grey = "#696368";
 
+export type Games = "memory" | "race" | "falling words" | "finding words";
+
 export const defaultUserData = {
   token: null,
   username: null,

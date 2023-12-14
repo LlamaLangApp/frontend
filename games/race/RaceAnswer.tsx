@@ -7,7 +7,7 @@ import { RaceWebSocketContext } from "./RaceWebSocket";
 import textGamesStyles from "../../styles/games/TextGamesStyles";
 import Toast from "react-native-toast-message";
 import containerGamesStyles from "../../styles/games/ContainerGamesStyles";
-import Llama from "../../components/games/Llama";
+import Llama from "../../components/llama/Llama";
 import { buttonDarkPink, grey } from "../../Consts";
 import { FontAwesome } from "@expo/vector-icons";
 

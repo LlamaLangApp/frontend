@@ -29,6 +29,8 @@ const GamesStack = () => {
       <Stack.Screen name={"FallingWords"} component={FallingWordsStack} />
       <Stack.Screen
         name={"FindingWords"}
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         component={gestureHandlerRootHOC(FindingWordsStack)}
       />
     </Stack.Navigator>

@@ -12,9 +12,9 @@ import { loginHandler } from "../../backend/AuthBackend";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import Toast from "react-native-toast-message";
 import { AuthStackParamList } from "../../navgation/AuthStack";
-import FrontLlamaCenter from "../../components/FrontLlamaCenter";
 import { useAppStore } from "../../state";
 import { useInput } from "../../hooks/useInput";
+import Llama from "../../components/llama/Llama";
 
 type Props = NativeStackScreenProps<AuthStackParamList, "Login">;
 
@@ -80,7 +80,7 @@ function LogScreen({ navigation }: Props) {
           </View>
         </View>
       </View>
-      <FrontLlamaCenter />
+      <Llama />
       <Toast position="top" bottomOffset={20} />
     </View>
   );

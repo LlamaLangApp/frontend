@@ -11,7 +11,7 @@ import ScrabbleBlock, {
 import mainStyles from "../../styles/MainStyles";
 import textGamesStyles from "../../styles/games/TextGamesStyles";
 import * as ScreenOrientation from "expo-screen-orientation";
-import FrontLlamaRight from "../../components/FrontLlamaRight";
+import FrontLlamaRight from "../../components/llama/FrontLlamaRight";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import containerGamesStyles from "../../styles/games/ContainerGamesStyles";
 
@@ -206,12 +206,6 @@ function FindingWordsGame({ route }: Props) {
           style={[containerGamesStyles.textWithMargin, { marginBottom: "1%" }]}
         >
           <Text style={textGamesStyles.important}>FOOD</Text>
-        </View>
-        <View
-          style={[textGamesStyles.headingAndPointsContainer, { width: "60%" }]}
-        >
-          <Text style={textGamesStyles.secondaryText}>Round: {round}</Text>
-          <Text style={textGamesStyles.secondaryText}>{points} pkt</Text>
         </View>
       </View>
       <GestureHandlerRootView style={{ flex: 5 }}>

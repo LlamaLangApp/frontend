@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { FindingWordsStackParamList } from "./FindingWordsStack";
-import { StyleSheet, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import mainStyles from "../../styles/MainStyles";
 import React, { useContext } from "react";
 import { FindingWordsWebSocketContext } from "./FindingWordsWebSocket";
@@ -9,7 +9,7 @@ import containerGamesStyles from "../../styles/games/ContainerGamesStyles";
 import { buttonDarkPink, grey } from "../../Consts";
 import { FontAwesome } from "@expo/vector-icons";
 import Toast from "react-native-toast-message";
-import FrontLlamaRight from "../../components/FrontLlamaRight";
+import FrontLlamaRight from "../../components/llama/FrontLlamaRight";
 
 type Props = NativeStackScreenProps<FindingWordsStackParamList, "Answer">;
 
@@ -87,22 +87,4 @@ function FindingWordsAnswerScreen({ route }: Props) {
   );
 }
 
-const styles = StyleSheet.create({
-  headingText: {
-    fontSize: 40,
-    color: "white",
-    textShadowColor: "#2d2d2e",
-    textShadowOffset: { width: 2, height: 2 },
-    textShadowRadius: 4,
-  },
-  secondaryText: {
-    fontSize: 30,
-    color: "white",
-  },
-  basicText: {
-    fontSize: 20,
-    color: "white",
-    fontWeight: "bold",
-  },
-});
 export default FindingWordsAnswerScreen;

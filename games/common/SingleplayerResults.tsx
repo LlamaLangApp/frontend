@@ -3,7 +3,7 @@ import mainStyles from "../../styles/MainStyles";
 import { pink } from "../../Consts";
 import containerGamesStyles from "../../styles/games/ContainerGamesStyles";
 import textGamesStyles from "../../styles/games/TextGamesStyles";
-import Llama from "../../components/games/Llama";
+import Llama from "../../components/llama/Llama";
 import React from "react";
 import { LightGreyButton, PinkButton } from "./components/BasicButton";
 

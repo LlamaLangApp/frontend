@@ -1,12 +1,13 @@
 import { FlatList, View } from "react-native";
 import mainStyles from "../styles/MainStyles";
 import React, { useState } from "react";
-import GameListItem from "../components/GameListItem";
-import FrontLlamaRight from "../components/FrontLlamaRight";
+import FrontLlamaRight from "../components/llama/FrontLlamaRight";
 import { GamesStackParamList } from "../navgation/GamesStack";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import ButtonRow from "../components/ButtonRow";
 import Toast from "react-native-toast-message";
+import GameCover from "../components/GameCover";
+import { Games } from "../Consts";
 
 type GamesStack = NavigationProp<GamesStackParamList, "Home">;
 
@@ -17,7 +18,7 @@ function HomeScreen() {
 
   type GameItem = {
     id: string;
-    name: string;
+    name: Games;
     type: GameType;
     screenName: keyof GamesStackParamList;
   };
@@ -37,9 +38,6 @@ function HomeScreen() {
       type: "MultiPlayer",
       screenName: "FindingWords",
     },
-    // { id: "5", name: "memory", type: "SinglePlayer", screenName: "Memory" },
-    // { id: "6", name: "memory", type: "SinglePlayer", screenName: "Memory" },
-    // { id: "7", name: "memory", type: "SinglePlayer", screenName: "Memory" },
   ];
 
   return (
@@ -59,12 +57,13 @@ function HomeScreen() {
           data={games.filter((game) => game.type == gameType)}
           renderItem={(itemData) => {
             return (
-              <GameListItem
-                text={itemData.item.name}
-                id={itemData.item.id}
-                disableHighlight={true}
+              <GameCover
+                gameName={itemData.item.name}
                 onPressItem={() => {
-                  if (itemData.item.screenName === "Race") {
+                  if (
+                    itemData.item.screenName === "Race" ||
+                    itemData.item.screenName === "FindingWords"
+                  ) {
                     navigation.navigate(itemData.item.screenName, {
                       fromInvite: false,
                     });

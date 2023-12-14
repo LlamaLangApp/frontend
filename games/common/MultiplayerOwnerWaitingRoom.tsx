@@ -8,7 +8,7 @@ import containerGamesStyles from "../../styles/games/ContainerGamesStyles";
 import textGamesStyles from "../../styles/games/TextGamesStyles";
 import buttonGamesStyles from "../../styles/games/ButtonGamesStyles";
 import InviteFriendsModal from "../../components/games/InviteFriendsModal";
-import Llama from "../../components/games/Llama";
+import Llama from "../../components/llama/Llama";
 import Toast from "react-native-toast-message";
 import BlockedButton from "./components/BlockedButton";
 import PlayersInWaitRoomList from "./components/PlayerListInWaitRoom";

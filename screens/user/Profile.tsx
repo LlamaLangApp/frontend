@@ -125,7 +125,7 @@ function ProfileScreen({ navigation }: Props) {
           </View>
           <View style={userStyles.llama}>
             <Image
-              source={require("../../assets/llama.png")}
+              source={require("../../assets/llama/llama.png")}
               style={userStyles.llamaImage}
             />
           </View>

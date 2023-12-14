@@ -5,7 +5,7 @@ import buttonGamesStyles from "../../styles/games/ButtonGamesStyles";
 import textGamesStyles from "../../styles/games/TextGamesStyles";
 import { grey, pink } from "../../Consts";
 import containerGamesStyles from "../../styles/games/ContainerGamesStyles";
-import Llama from "../../components/games/Llama";
+import Llama from "../../components/llama/Llama";
 import { FontAwesome } from "@expo/vector-icons";
 
 type StartScreenProps = {
@@ -63,7 +63,15 @@ const MultiplayerJoinRoomScreen = (props: StartScreenProps) => {
           style={[buttonGamesStyles.basic, { backgroundColor: pink }]}
           onPress={onPressHandler}
         >
-          <Text style={buttonGamesStyles.buttonText}>Join game</Text>
+          <Text
+            style={{
+              padding: 10,
+              fontSize: 20,
+              color: "white",
+            }}
+          >
+            Join game
+          </Text>
         </TouchableOpacity>
       </View>
       <Llama />

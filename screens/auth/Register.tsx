@@ -13,8 +13,8 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { AuthStackParamList } from "../../navgation/AuthStack";
 import Toast from "react-native-toast-message";
 import { useAppStore } from "../../state";
-import FrontLlamaCenter from "../../components/FrontLlamaCenter";
 import { useInput } from "../../hooks/useInput";
+import Llama from "../../components/llama/Llama";
 
 type Props = NativeStackScreenProps<AuthStackParamList, "Register">;
 
@@ -114,7 +114,7 @@ function RegisterScreen({ navigation }: Props) {
           </Pressable>
         </View>
       </View>
-      <FrontLlamaCenter />
+      <Llama />
       <Toast position="top" bottomOffset={20} />
     </View>
   );

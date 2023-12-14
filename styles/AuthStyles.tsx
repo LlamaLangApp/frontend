@@ -14,7 +14,7 @@ const authStyles = StyleSheet.create({
     marginHorizontal: "10%",
     justifyContent: "flex-end",
     alignItems: "center",
-    margin: "10%",
+    // margin: "10%",
     // alignContent: "center",
   },
   llamaContainer: {

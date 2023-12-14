@@ -45,12 +45,19 @@ const MemoryCard: React.FC<MemoryCardProps> = ({
       {!isFlipped && !isDisabled ? (
         <View style={mainGamesStyles.llamaContainer}>
           <Image
-            source={require("../../assets/llama.png")}
+            source={require("../../assets/llama/llama.png")}
             style={{ width: "90%", height: "90%" }}
           />
         </View>
       ) : (
-        <View style={textGamesStyles.textContainer}>
+        <View
+          style={{
+            width: "100%",
+            height: "100%",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           <Text>{card.word}</Text>
         </View>
       )}

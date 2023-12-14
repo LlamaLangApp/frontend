@@ -5,7 +5,7 @@ import { grey, pink } from "../../Consts";
 import { RaceWebSocketContext } from "../race/RaceWebSocket";
 import containerGamesStyles from "../../styles/games/ContainerGamesStyles";
 import textGamesStyles from "../../styles/games/TextGamesStyles";
-import Llama from "../../components/games/Llama";
+import Llama from "../../components/llama/Llama";
 import Toast from "react-native-toast-message";
 import PlayersInWaitRoomList from "./components/PlayerListInWaitRoom";
 import FinePrints from "./components/FinePrints";

@@ -13,21 +13,21 @@ export default ({ username, place, stat }: PlaceItem) => {
     if (place == 1) {
       return (
         <Image
-          source={require("../assets/medal-1.png")}
+          source={require("../assets/scoreboard/medal-1.png")}
           style={{ width: "70%", height: "70%" }}
         />
       );
     } else if (place == 2) {
       return (
         <Image
-          source={require("../assets/medal-2.png")}
+          source={require("../assets/scoreboard/medal-2.png")}
           style={{ width: "70%", height: "70%" }}
         />
       );
     } else if (place == 3) {
       return (
         <Image
-          source={require("../assets/medal-3.png")}
+          source={require("../assets/scoreboard/medal-3.png")}
           style={{ width: "70%", height: "70%" }}
         />
       );

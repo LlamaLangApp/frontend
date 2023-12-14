@@ -7,7 +7,7 @@ import { useAppStore } from "../../state";
 import { WordSet } from "../GamesTypes";
 import textGamesStyles from "../../styles/games/TextGamesStyles";
 import containerGamesStyles from "../../styles/games/ContainerGamesStyles";
-import Llama from "../../components/games/Llama";
+import Llama from "../../components/llama/Llama";
 import BlockedButton from "./components/BlockedButton";
 
 type StartScreenProps = {
