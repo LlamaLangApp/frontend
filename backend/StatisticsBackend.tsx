@@ -21,6 +21,10 @@ export type GamePointsData = {
   total_points: number;
 };
 
+export type TotalDaysData = {
+  total_days: number;
+};
+
 export async function getCalendar(
   token: string | null,
   game: Games,
@@ -68,4 +72,10 @@ export async function getGamePoints(
     token,
     { game: game }
   );
+}
+
+export async function getTotalDays(
+  token: string | null
+): Promise<ApiResponse<TotalDaysData>> {
+  return makeApiRequest<TotalDaysData>(`statistics/total-days/`, "GET", token);
 }
