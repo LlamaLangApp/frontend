@@ -11,6 +11,7 @@ function FindingWordsPlayersListScreen({ route }: Props) {
   return (
     <MultiplayerPlayersListScreen
       gameName={"Finding Words"}
+      hostName={""}
       players={players}
     />
   );

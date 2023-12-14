@@ -12,20 +12,26 @@ import { grey } from "../../Consts";
 import React, { useContext, useEffect, useState } from "react";
 import friendsStyles from "../../styles/FriendsStyles";
 import UserListItem from "../../components/friends/UserListItem";
-import { FriendsContext } from "./Friends";
+import { FriendsContext, User } from "./Friends";
 import UserDisplayModal from "../../components/friends/UserDisplayModal";
 import { FontAwesome } from "@expo/vector-icons";
 import mainStyles from "../../styles/MainStyles";
+import useFilteredItems, { FilterFunction } from "../../hooks/useFilteredItems";
 
 type Props = NativeStackScreenProps<FriendsStackParamList, "Search">;
 
 function SearchUsersScreen({ navigation }: Props) {
-  const { allUsers, filteredUsers, setFilteredUsers, fetchAllFriendsData } =
-    useContext(FriendsContext);
-  const [searchText, setSearchText] = useState("");
+  const { allUsers, fetchAllFriendsData } = useContext(FriendsContext);
   const [modalVisible, setModalVisible] = useState(false);
   const [chosenUserId, setChosenUserId] = useState<number>(0);
 
+  const filterUsers: FilterFunction<User> = (user: User, searchText: string) =>
+    user.username.toLowerCase().includes(searchText.toLowerCase());
+
+  const filteredUsersHook = useFilteredItems<User>({
+    allItems: allUsers,
+    filterFunction: filterUsers,
+  });
   const openModal = (id: number) => {
     setChosenUserId(id);
     setModalVisible(true);
@@ -39,18 +45,8 @@ function SearchUsersScreen({ navigation }: Props) {
   const onRefresh = () => {
     setIsRefreshing(true);
     fetchAllFriendsData();
-    changeFilteredUsers(searchText);
     setIsRefreshing(false);
   };
-
-  const changeFilteredUsers = (searchText: string) => {
-    const filtered = Object.values(allUsers).filter((user) =>
-      user.username.toLowerCase().includes(searchText.toLowerCase())
-    );
-    setFilteredUsers(filtered);
-  };
-
-  useEffect(() => changeFilteredUsers(searchText), [searchText]);
 
   return (
     <View style={mainStyles.whiteBackgroundContainer}>
@@ -76,7 +72,8 @@ function SearchUsersScreen({ navigation }: Props) {
             <TextInput
               placeholder="search users..."
               style={friendsStyles.textInputUsers}
-              onChangeText={setSearchText}
+              value={filteredUsersHook.searchText}
+              onChangeText={filteredUsersHook.changeFilteredItems}
             />
           </View>
           <Text style={{ fontSize: 20, marginLeft: 5, color: grey }}>
@@ -87,15 +84,15 @@ function SearchUsersScreen({ navigation }: Props) {
             refreshing={isRefreshing}
             onRefresh={onRefresh}
             showsVerticalScrollIndicator={false}
-            data={filteredUsers}
+            data={filteredUsersHook.filteredItems}
             ItemSeparatorComponent={() => {
               return <View style={{ height: 1, backgroundColor: "#bababa" }} />;
             }}
             ListEmptyComponent={() => {
-              return searchText ? (
+              return filteredUsersHook.searchText ? (
                 <View style={friendsStyles.emptyListContainer}>
                   <Text style={{ color: "#bababa" }}>
-                    No matching friends for "{searchText}"
+                    No matching friends for "{filteredUsersHook.searchText}"
                   </Text>
                 </View>
               ) : (

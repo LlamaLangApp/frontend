@@ -3,11 +3,9 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-  NativeSyntheticEvent,
-  TextInputChangeEventData,
   Pressable,
 } from "react-native";
-import React, { useState } from "react";
+import React from "react";
 import authStyles from "../../styles/AuthStyles";
 import mainStyles from "../../styles/MainStyles";
 import { loginHandler } from "../../backend/AuthBackend";
@@ -16,30 +14,19 @@ import Toast from "react-native-toast-message";
 import { AuthStackParamList } from "../../navgation/AuthStack";
 import FrontLlamaCenter from "../../components/FrontLlamaCenter";
 import { useAppStore } from "../../state";
+import { useInput } from "../../hooks/useInput";
 
 type Props = NativeStackScreenProps<AuthStackParamList, "Login">;
 
 function LogScreen({ navigation }: Props) {
-  const [enteredUsername, setEnteredUsername] = useState("");
-  const [enteredPassword, setEnteredPassword] = useState("");
-
   const setUserData = useAppStore((store) => store.setUserData);
 
-  function usernameInputHandler(
-    enteredText: NativeSyntheticEvent<TextInputChangeEventData>
-  ) {
-    setEnteredUsername(enteredText.nativeEvent.text);
-  }
-
-  function passwordInputHandler(
-    enteredText: NativeSyntheticEvent<TextInputChangeEventData>
-  ) {
-    setEnteredPassword(enteredText.nativeEvent.text);
-  }
+  const usernameProps = useInput("");
+  const passwordProps = useInput("");
 
   const pressLoginButton = React.useCallback(() => {
-    loginHandler(enteredUsername, enteredPassword, setUserData);
-  }, [setUserData, enteredUsername, enteredPassword]);
+    loginHandler(usernameProps.value, passwordProps.value, setUserData);
+  }, [setUserData, usernameProps.value, passwordProps.value]);
 
   return (
     <View style={mainStyles.container}>
@@ -52,8 +39,8 @@ function LogScreen({ navigation }: Props) {
           <View style={authStyles.inputContainer}>
             <TextInput
               style={authStyles.textInput}
-              value={enteredUsername}
-              onChange={usernameInputHandler}
+              value={usernameProps.value}
+              onChange={usernameProps.onChange}
             />
           </View>
           <View
@@ -71,8 +58,8 @@ function LogScreen({ navigation }: Props) {
             <TextInput
               secureTextEntry={true}
               style={authStyles.textInput}
-              value={enteredPassword}
-              onChange={passwordInputHandler}
+              value={passwordProps.value}
+              onChange={passwordProps.onChange}
             />
           </View>
           <View>

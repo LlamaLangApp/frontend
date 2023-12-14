@@ -95,7 +95,8 @@ function FindingWordsGame({ route }: Props) {
         .map(({ char: letter }) => letter)
         .join("");
       setLastAnswer(answer);
-      ws?.send(JSON.stringify({ type: "response", answer }));
+      console.log("Flrek " + answer);
+      ws?.send(JSON.stringify({ type: "response", round: round, answer }));
     }
   }, [letters]);
 

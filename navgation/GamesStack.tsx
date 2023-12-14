@@ -13,7 +13,9 @@ export type GamesStackParamList = {
     fromInvite: boolean;
   };
   FallingWords: undefined;
-  FindingWords: undefined;
+  FindingWords: {
+    fromInvite: boolean;
+  };
 };
 
 const Stack = createNativeStackNavigator<GamesStackParamList>();

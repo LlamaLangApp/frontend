@@ -10,13 +10,13 @@ import { useAppStore } from "../../state";
 import { serverURL } from "../../backend/CommonBackend";
 import { RaceStackParamList } from "./RaceStack";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { GamesStackParamList } from "../../navgation/GamesStack";
 import Toast from "react-native-toast-message";
 import {
   commonWebSocketDefaultValues,
   CommonWebSocketProps,
   SocketGameStates,
 } from "../common/WebSocket";
-import { GamesStackParamList } from "../../navgation/GamesStack";
 
 interface RaceWebSocketContextType extends CommonWebSocketProps {
   leaveGame: () => void;
@@ -111,7 +111,7 @@ const RaceWebSocketProvider = ({
         message.type === "game_starting"
       ) {
         setSocketGameState(SocketGameStates.beforeRound);
-        navigation.navigate("PlayersList", { players: message.players });
+        navigation.navigate("PlayersList", { players: usersInWaitRoom });
       } else if (
         socketGameState === SocketGameStates.beforeRound &&
         message.type === "new_question"

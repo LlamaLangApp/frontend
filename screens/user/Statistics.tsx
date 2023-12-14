@@ -6,7 +6,7 @@ import { useAppStore } from "../../state";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { GamesStackParamList } from "../../navgation/GamesStack";
 
-type GamesStack = NavigationProp<GamesStackParamList, "Race">;
+type GamesStack = NavigationProp<GamesStackParamList, "FindingWords">;
 
 function StatisticsScreen() {
   const { id, username } = useAppStore((store) => ({
@@ -39,7 +39,9 @@ function StatisticsScreen() {
       <Text>Statistics</Text>
       {toGame && (
         <TouchableOpacity
-          onPress={() => gamesNavigation.navigate("Race", { fromInvite: true })}
+          onPress={() =>
+            gamesNavigation.navigate("FindingWords", { fromInvite: true })
+          }
         >
           <Text>{toGame}</Text>
         </TouchableOpacity>

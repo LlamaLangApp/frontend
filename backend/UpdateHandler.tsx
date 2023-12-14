@@ -69,9 +69,13 @@ function UpdateHandlerProvider({ children }: { children: ReactNode }) {
             listener();
           }
         } else if (payload.type === "waitroom_invitation") {
-          console.log("Hi steve");
+          console.log(payload.type, payload.game, payload.waitroom);
+          console.log(JSON.stringify(payload));
           for (const listener of waitRoomInvitationListeners.current) {
-            listener(payload.game, payload.waitroom);
+            listener(
+              payload.invitations[0].game,
+              payload.invitations[0].waitroom
+            );
           }
         } else {
           console.error("Unknown update: ", payload);
