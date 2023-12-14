@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import mainStyles from "../styles/MainStyles";
 import React, { useEffect, useState } from "react";
-import { buttonDarkPink, Games, grey, lightGrey, pink } from "../Consts";
+import { buttonLightPink, Games, grey, lightGrey, pink } from "../Consts";
 import { useAppStore } from "../state";
 import {
   CalendarData,
@@ -16,7 +16,9 @@ import {
   getCalendar,
   getCurrentStreak,
   getGamePoints,
+  getLongestStreak,
   getTotalDays,
+  LongestStreakData,
   TotalDaysData,
 } from "../backend/StatisticsBackend";
 import { CalendarList } from "react-native-calendars/src";
@@ -50,9 +52,9 @@ export default () => {
   const [calendarAllGames, setCalendarAllGames] = useState<CalendarData | null>(
     null
   );
-  // const [longestStreak, setLongestStreak] = useState<LongestStreakData | null>(
-  //   null
-  // );
+  const [longestStreak, setLongestStreak] = useState<LongestStreakData | null>(
+    null
+  );
   const [currentStreak, setCurrentStreak] = useState<CurrentStreakData | null>(
     null
   );
@@ -95,28 +97,29 @@ export default () => {
     Promise.all([
       getCalendar(token, allGames, month, year),
       getCurrentStreak(token, allGames),
-      // getLongestStreak(token, allGames),
+      getLongestStreak(token, allGames),
       getTotalDays(token),
     ]).then(
       ([
         calendarAllGamesResponse,
         currentStreakResponse,
-        // longestStreakResponse,
+        longestStreakResponse,
         totalDaysResponse,
       ]) => {
         if (
           calendarAllGamesResponse.type === "success" &&
           currentStreakResponse.type === "success" &&
-          // longestStreakResponse.type === "success" &&
+          longestStreakResponse.type === "success" &&
           totalDaysResponse.type === "success"
         ) {
           setCalendarAllGames(calendarAllGamesResponse.result);
-          // setLongestStreak(longestStreakResponse.result);
+          setLongestStreak(longestStreakResponse.result);
           setCurrentStreak(currentStreakResponse.result);
+          // setCurrentStreak({ current_streak: 4 });
           setTotalDays(totalDaysResponse.result);
         } else {
           setCalendarAllGames(null);
-          // setLongestStreak(null);
+          setLongestStreak(null);
           setCurrentStreak(null);
           setTotalDays(null);
         }
@@ -215,7 +218,7 @@ export default () => {
   return (
     <View style={mainStyles.whiteBackgroundContainer}>
       <View style={styles.mainContainer}>
-        <View style={styles.placeholder2} />
+        <View style={styles.placeholder1} />
         <View style={styles.points}>
           <View style={styles.placeholder1} />
           <View
@@ -244,9 +247,13 @@ export default () => {
                   key={id}
                   style={styles.gameChoice}
                 >
-                  <Text style={{ color: grey }}>{game}</Text>
+                  <Text style={{ color: grey, fontWeight: "bold" }}>
+                    {game}
+                  </Text>
                   <View>
-                    <Text style={{ color: buttonDarkPink }}>
+                    <Text
+                      style={{ color: buttonLightPink, fontWeight: "bold" }}
+                    >
                       {gamePoints[gamesMapping[game]]?.total_points}
                     </Text>
                   </View>
@@ -290,17 +297,24 @@ export default () => {
         </View>
         <View style={styles.statsInfo}>
           <StatsInfo
-            iconName={"calendar-check"}
+            iconName={"check-square"}
             statsText={" Current streak"}
             statsNumber={currentStreak?.current_streak}
             backgroundColor={pink}
             textColor={"white"}
           />
           <StatsInfo
+            iconName={"calendar-check"}
+            statsText={" Longest streak"}
+            statsNumber={longestStreak?.longest_streak}
+            backgroundColor={"#fffcff"}
+            textColor={grey}
+          />
+          <StatsInfo
             iconName={"calendar-week"}
             statsText={" Total days learned"}
             statsNumber={totalDays?.total_days}
-            backgroundColor={lightGrey}
+            backgroundColor={"#fffcff"}
             textColor={grey}
           />
         </View>
@@ -336,9 +350,9 @@ const styles = StyleSheet.create({
   },
   gameChoice: {
     backgroundColor: lightGrey,
-    margin: 10,
-    height: 50,
-    width: 100,
+    margin: 5,
+    height: 60,
+    width: 110,
     borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
