@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo } from "react";
 import { Text, StyleSheet } from "react-native";
-import { buttonDarkPink } from "../../Consts";
+import { buttonDarkPink, lightGrey, pink } from "../../Consts";
 import Animated, {
   interpolateColor,
   useAnimatedStyle,
@@ -94,8 +94,8 @@ const DraggableScrabbleBlock = ({
   const animatedStyle = useAnimatedStyle(() => ({
     ...styles.block,
     backgroundColor: interpolateColor(animatedPosition.value.top, heightRange, [
-      buttonDarkPink,
-      "#f5f5dc",
+      pink,
+      lightGrey,
     ]),
     position: "absolute",
     transform: [

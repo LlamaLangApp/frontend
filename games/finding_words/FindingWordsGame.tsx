@@ -13,6 +13,7 @@ import textGamesStyles from "../../styles/games/TextGamesStyles";
 import * as ScreenOrientation from "expo-screen-orientation";
 import FrontLlamaRight from "../../components/FrontLlamaRight";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import containerGamesStyles from "../../styles/games/ContainerGamesStyles";
 
 type Props = NativeStackScreenProps<FindingWordsStackParamList, "Game">;
 
@@ -95,7 +96,6 @@ function FindingWordsGame({ route }: Props) {
         .map(({ char: letter }) => letter)
         .join("");
       setLastAnswer(answer);
-      console.log("Flrek " + answer);
       ws?.send(JSON.stringify({ type: "response", round: round, answer }));
     }
   }, [letters]);
@@ -164,19 +164,48 @@ function FindingWordsGame({ route }: Props) {
   );
 
   return (
-    <View style={mainStyles.container}>
+    <View style={mainStyles.whiteBackgroundContainer}>
       <View
         style={{
           flex: 1.2,
-          marginTop: 5,
-          width: screenWidth * 0.8,
+          marginTop: 30,
+          width: "80%",
           alignItems: "center",
         }}
       >
-        <View style={textGamesStyles.instructionContainer}>
-          <Text style={textGamesStyles.instructionText}>
-            Find the word from mixed letter
+        <View
+          style={[containerGamesStyles.textWithMargin, { marginBottom: "1%" }]}
+        >
+          <View
+            style={{
+              width: "100%",
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
+            <View style={containerGamesStyles.differentSizeTexts}>
+              <Text style={textGamesStyles.basicWeight600}>ROUND</Text>
+              <Text style={textGamesStyles.biggerBasicWeight600}>{round}</Text>
+            </View>
+            <Text style={textGamesStyles.gameNameHorizontally}>
+              FINDING WORDS
+            </Text>
+            <View style={containerGamesStyles.differentSizeTexts}>
+              <Text style={textGamesStyles.biggerBasicWeight600}>{points}</Text>
+              <Text style={textGamesStyles.basicWeight600}>POINTS</Text>
+            </View>
+          </View>
+          <Text style={textGamesStyles.information}>
+            Find the word from mixed letters
           </Text>
+          <Text style={textGamesStyles.biggerBasicWeight600}>
+            Word from word set:
+          </Text>
+        </View>
+        <View
+          style={[containerGamesStyles.textWithMargin, { marginBottom: "1%" }]}
+        >
+          <Text style={textGamesStyles.important}>FOOD</Text>
         </View>
         <View
           style={[textGamesStyles.headingAndPointsContainer, { width: "60%" }]}
