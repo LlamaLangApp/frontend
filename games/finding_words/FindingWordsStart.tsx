@@ -4,8 +4,14 @@ import MultiplayerGameStartScreen from "../common/MultiplayerGameStart";
 import MultiplayerJoinRoom from "../common/MultiplayerJoinRoom";
 
 function FindingWordsStartScreen() {
-  const { ws, withFriends, setWithFriends, fromInvite, setWordSetName } =
-    useContext(FindingWordsWebSocketContext);
+  const {
+    ws,
+    withFriends,
+    setWithFriends,
+    fromInvite,
+    invite,
+    setWordSetName,
+  } = useContext(FindingWordsWebSocketContext);
   const [setId, setSetId] = useState<number>(0);
   console.log(withFriends);
 
@@ -23,7 +29,7 @@ function FindingWordsStartScreen() {
     ws?.send(
       JSON.stringify({
         type: "waitroom_request",
-        owned_room: "75",
+        owned_room: invite?.waitRoom,
       })
     );
   }

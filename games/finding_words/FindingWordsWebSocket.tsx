@@ -36,6 +36,12 @@ type FindingWordsWebSocketProviderProps = {
   children: ReactNode;
   navigation: NavigationProp<FindingWordsStackParamList>;
   fromInvite: boolean;
+  invite: null | {
+    username: string;
+    wordSetId: number;
+    game: string;
+    waitRoom: number;
+  };
 };
 type GamesStack = NavigationProp<GamesStackParamList, "Home">;
 
@@ -43,6 +49,7 @@ const FindingWordsWebSocketProvider = ({
   children,
   navigation,
   fromInvite,
+  invite,
 }: FindingWordsWebSocketProviderProps) => {
   const token = useAppStore.getState().token;
   const headers = { Authorization: "Token " + token };
@@ -55,7 +62,6 @@ const FindingWordsWebSocketProvider = ({
   const [points, setPoints] = useState(0);
   const [round, setRound] = useState(0);
   const [withFriends, setWithFriends] = useState<boolean>(false);
-  const [waitRoomNumber, setWaitRoomNumber] = useState(0);
   const [usersInWaitRoom, setUsersInWaitRoom] = useState<string[]>([]);
   const parentNavigation = useNavigation<GamesStack>();
 
@@ -87,7 +93,6 @@ const FindingWordsWebSocketProvider = ({
       ) {
         setSocketGameState(SocketGameStates.inWaitRoomRandom);
         setUsersInWaitRoom(message.usernames);
-        setWaitRoomNumber(message.waitroom);
         navigation.navigate("WaitingRoom");
       } else if (
         socketGameState === SocketGameStates.justConnected &&
@@ -96,7 +101,6 @@ const FindingWordsWebSocketProvider = ({
       ) {
         setSocketGameState(SocketGameStates.inWaitRoomAsOwner);
         setUsersInWaitRoom(message.usernames);
-        setWaitRoomNumber(message.waitroom);
         navigation.navigate("WaitingRoom");
       } else if (
         (socketGameState === SocketGameStates.inWaitRoomRandom ||
@@ -170,6 +174,7 @@ const FindingWordsWebSocketProvider = ({
         wordSetName,
         setWordSetName,
         fromInvite,
+        invite,
         leaveGame,
       }}
     >

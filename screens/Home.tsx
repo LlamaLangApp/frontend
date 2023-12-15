@@ -66,6 +66,7 @@ function HomeScreen() {
                   ) {
                     navigation.navigate(itemData.item.screenName, {
                       fromInvite: false,
+                      invite: null,
                     });
                   } else {
                     navigation.navigate(itemData.item.screenName);

@@ -41,6 +41,12 @@ type RaceWebSocketProviderProps = {
   children: ReactNode;
   navigation: NavigationProp<RaceStackParamList>;
   fromInvite: boolean;
+  invite: null | {
+    username: string;
+    wordSetId: number;
+    game: string;
+    waitRoom: number;
+  };
 };
 type GamesStack = NavigationProp<GamesStackParamList, "Home">;
 
@@ -48,6 +54,7 @@ const RaceWebSocketProvider = ({
   children,
   navigation,
   fromInvite,
+  invite,
 }: RaceWebSocketProviderProps) => {
   const token = useAppStore.getState().token;
   const headers = { Authorization: "Token " + token };
@@ -62,7 +69,6 @@ const RaceWebSocketProvider = ({
   const [chosenCard, setChosenCard] = useState(-1);
   const [withFriends, setWithFriends] = useState<boolean>(false);
   const [usersInWaitRoom, setUsersInWaitRoom] = useState<string[]>([]);
-  const [waitRoomNumber, setWaitRoomNumber] = useState(0);
   const [wordSetName, setWordSetName] = useState<string>("0");
   const parentNavigation = useNavigation<GamesStack>();
 
@@ -94,7 +100,6 @@ const RaceWebSocketProvider = ({
       ) {
         setSocketGameState(SocketGameStates.inWaitRoomRandom);
         setUsersInWaitRoom(message.usernames);
-        setWaitRoomNumber(message.waitroom);
         navigation.navigate("WaitingRoom");
       } else if (
         socketGameState === SocketGameStates.justConnected &&
@@ -103,7 +108,6 @@ const RaceWebSocketProvider = ({
       ) {
         setSocketGameState(SocketGameStates.inWaitRoomAsOwner);
         setUsersInWaitRoom(message.usernames);
-        setWaitRoomNumber(message.waitroom);
         navigation.navigate("WaitingRoom");
       } else if (
         (socketGameState === SocketGameStates.inWaitRoomRandom ||
@@ -180,6 +184,7 @@ const RaceWebSocketProvider = ({
         setWithFriends,
         usersInWaitRoom,
         fromInvite,
+        invite,
         leaveGame,
       }}
     >

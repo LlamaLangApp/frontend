@@ -35,11 +35,13 @@ type FindingWordsStackProps = {
 
 const FindingWordsStack = ({ route }: FindingWordsStackProps) => {
   const fromInvite = route.params?.fromInvite ?? false;
+  const invite = route.params?.invite ?? null;
 
   return (
     <FindingWordsWebSocketProvider
       navigation={useNavigation()}
       fromInvite={fromInvite}
+      invite={invite}
     >
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name={"Start"} component={FindingWordsStartScreen} />

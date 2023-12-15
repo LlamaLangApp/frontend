@@ -11,10 +11,22 @@ export type GamesStackParamList = {
   Memory: undefined;
   Race: {
     fromInvite: boolean;
+    invite: null | {
+      username: string;
+      wordSetId: number;
+      game: string;
+      waitRoom: number;
+    };
   };
   FallingWords: undefined;
   FindingWords: {
     fromInvite: boolean;
+    invite: null | {
+      username: string;
+      wordSetId: number;
+      game: string;
+      waitRoom: number;
+    };
   };
 };
 

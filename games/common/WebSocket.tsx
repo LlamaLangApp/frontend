@@ -18,6 +18,12 @@ export interface CommonWebSocketProps {
   round: number;
   usersInWaitRoom: string[];
   fromInvite: boolean;
+  invite: null | {
+    username: string;
+    wordSetId: number;
+    game: string;
+    waitRoom: number;
+  };
   withFriends: boolean;
   setWithFriends: Dispatch<SetStateAction<boolean>>;
 }
@@ -28,6 +34,7 @@ export const commonWebSocketDefaultValues = {
   round: 1,
   usersInWaitRoom: [],
   fromInvite: false,
+  invite: null,
   withFriends: false,
   setWithFriends: () => {
     return;

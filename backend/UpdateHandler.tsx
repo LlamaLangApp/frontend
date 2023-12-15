@@ -15,7 +15,12 @@ const dummyCleanupFunction: CallbackCleanupFunction = () => {
 };
 
 type FriendStatusListener = () => void;
-type WaitRoomInvitationListener = (game: string, waitRoom: string) => void;
+type WaitRoomInvitationListener = (
+  game: string,
+  waitRoom: number,
+  username: string,
+  wordSetId: number
+) => void;
 
 type UpdateHandlerContextType = {
   onFriendsStatusUpdate: (
@@ -74,7 +79,9 @@ function UpdateHandlerProvider({ children }: { children: ReactNode }) {
           for (const listener of waitRoomInvitationListeners.current) {
             listener(
               payload.invitations[0].game,
-              payload.invitations[0].waitroom
+              payload.invitations[0].waitroom,
+              payload.invitations[0].username,
+              payload.invitations[0].wordset_id
             );
           }
         } else {
