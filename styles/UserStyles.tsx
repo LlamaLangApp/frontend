@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { grey, lightGrey, pink } from "../Consts";
+import { lightGrey, pink } from "../Consts";
 
 const userStyles = StyleSheet.create({
   appContainer: {
@@ -9,7 +9,7 @@ const userStyles = StyleSheet.create({
     flex: 5,
     width: "100%",
     height: "100%",
-    justifyContent: "flex-end",
+    // justifyContent: "flex-end",
   },
   userDataContainer: {
     flex: 2.7,
@@ -21,13 +21,15 @@ const userStyles = StyleSheet.create({
     borderRadius: 15,
     // borderWidth: 3,
     // borderColor: pink,
-    backgroundColor: lightGrey,
+    // backgroundColor: lightGrey,
     justifyContent: "flex-end",
   },
   avatarContainer: {
-    flex: 1.7,
-    width: "100%",
-    height: "100%",
+    flex: 1.5,
+    // width: "100%",
+    // height: "100%",
+    alignItems: "center",
+    paddingTop: "8%",
   },
   dataContainer: {
     flex: 1,
@@ -40,19 +42,24 @@ const userStyles = StyleSheet.create({
     alignItems: "center",
   },
   barContainer: {
+    paddingTop: "2%",
+    alignItems: "center",
+  },
+  infoContainer: {
+    flex: 1.9,
     alignItems: "center",
   },
   usernameContainer: {
-    marginBottom: "2%",
+    // marginBottom: "2%",
+    alignItems: "center",
   },
   levelContainer: {
     justifyContent: "center",
     alignItems: "center",
   },
   profileLlamaContainer: {
-    flex: 1.3,
     width: "90%",
-    height: "100%",
+    // height: "100%",
     borderRadius: 15,
     // borderWidth: 3,
     // borderColor: pink,
@@ -60,6 +67,8 @@ const userStyles = StyleSheet.create({
     marginHorizontal: "5%",
     flexDirection: "row",
     justifyContent: "space-between",
+    aspectRatio: 5 / 2.5,
+    marginTop: "1%",
   },
   llamaContainer: {
     flex: 2.5,
@@ -144,28 +153,6 @@ const userStyles = StyleSheet.create({
   llamaImage: {
     width: "100%",
     height: "100%",
-  },
-  avatar: {
-    margin: "5%",
-    width: "60%",
-    height: "90%",
-    borderRadius: 50,
-    // borderColor: buttonDarkPink,
-    // borderWidth: 4,
-    overflow: "hidden",
-  },
-  avatarImage: {
-    width: "100%",
-    height: "100%",
-  },
-  settingsIcon: {
-    position: "absolute",
-    zIndex: 2,
-    top: 40,
-    right: 35,
-  },
-  colorText: {
-    color: grey,
   },
 });
 
