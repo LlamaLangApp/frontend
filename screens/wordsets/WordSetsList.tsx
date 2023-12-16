@@ -6,7 +6,7 @@ import mainStyles from "../../styles/MainStyles";
 import { WordSetContext } from "./WordSets";
 import ButtonRow from "../../components/ButtonRow";
 import friendsStyles from "../../styles/FriendsStyles";
-import { grey } from "../../Consts";
+import { grey, pink } from "../../Consts";
 import { FontAwesome5 } from "@expo/vector-icons";
 import wordSetsStyles from "../../styles/WordSetsStyles";
 
@@ -44,16 +44,33 @@ function WordSetsListScreen({}: Props) {
           );
         }}
         renderItem={(itemData) => {
-          return (
-            <TouchableOpacity
-              onPress={() =>
-                handleChosenSet(itemData.item.name, itemData.item.id)
-              }
-            >
-              <View style={wordSetsStyles.flatListItem}>
+          return itemData.item.locked ? (
+            <View style={wordSetsStyles.flatListItem}>
+              <View style={{ flexDirection: "column" }}>
                 <Text style={{ fontSize: 20, color: grey }}>
                   {itemData.item.name}
                 </Text>
+                <Text style={{ fontSize: 12, color: grey }}>
+                  Category: {itemData.item.category}
+                </Text>
+                <Text style={{ fontSize: 13, color: pink }}>
+                  To unlock learn more from set:{" "}
+                  {itemData.item.depends_on[0].name}
+                </Text>
+              </View>
+              <FontAwesome5 name="lock" size={20} color={grey} />
+            </View>
+          ) : (
+            <TouchableOpacity onPress={() => handleChosenSet(itemData.item)}>
+              <View style={wordSetsStyles.flatListItem}>
+                <View style={{ flexDirection: "column" }}>
+                  <Text style={{ fontSize: 20, color: grey }}>
+                    {itemData.item.name}
+                  </Text>
+                  <Text style={{ fontSize: 12, color: grey }}>
+                    Category: {itemData.item.category}
+                  </Text>
+                </View>
                 <FontAwesome5 name="arrow-right" size={20} color={grey} />
               </View>
             </TouchableOpacity>

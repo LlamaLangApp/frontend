@@ -9,8 +9,12 @@ import React, {
 import { useAppStore } from "../../state";
 import { NavigationProp } from "@react-navigation/native";
 import { WordSetStackParamList } from "../../navgation/WordSetStack";
-import { Translation, WordSet } from "../../games/GamesTypes";
-import { callTranslations, callWordSets } from "../../backend/WordSetsBackend";
+import {
+  callTranslations,
+  callWordSets,
+  Translation,
+  WordSet,
+} from "../../backend/WordSetsBackend";
 
 export type FlashCards = {
   english: string;
@@ -20,6 +24,7 @@ export type FlashCards = {
 interface WordSetContextType {
   chosenSetName: string;
   chosenPolish: boolean;
+  chosenWordSet: WordSetItem;
   startFlashCards: boolean;
   setFlashCards: Dispatch<SetStateAction<FlashCards[]>>;
   setStartFlashCards: Dispatch<SetStateAction<boolean>>;
@@ -28,12 +33,20 @@ interface WordSetContextType {
   chosenSet: Translation[];
   flashCards: FlashCards[];
   handleFlashCardsButton: () => void;
-  handleChosenSet: (name: string, id: number | undefined) => void;
+  handleChosenSet: (wordSet: WordSetItem) => void;
 }
 
 const WordSetContext = createContext<WordSetContextType>({
   chosenSetName: "",
   chosenPolish: true,
+  chosenWordSet: {
+    id: 0,
+    name: "",
+    type: "Default",
+    category: "",
+    locked: false,
+    depends_on: [],
+  },
   startFlashCards: true,
   setFlashCards: () => {
     return [];
@@ -62,10 +75,21 @@ type WordSetItem = {
   id: number | undefined;
   name: string;
   type: WordSetType;
+  category: string;
+  locked: boolean;
+  depends_on: { name: string }[];
 };
 
 const WordSetProvider = ({ children, navigation }: WordSetProviderProps) => {
   const token = useAppStore.getState().token;
+  const [chosenWordSet, setChosenWordSet] = useState<WordSetItem>({
+    id: 0,
+    name: "",
+    type: "Default",
+    category: "",
+    locked: false,
+    depends_on: [{ name: "" }],
+  });
   const [chosenSetName, setChosenSetName] = useState<string>("");
   const [chosenSetId, setChosenSetId] = useState<number | undefined>(undefined);
   const [flashCards, setFlashCards] = useState<FlashCards[]>([]);
@@ -88,9 +112,10 @@ const WordSetProvider = ({ children, navigation }: WordSetProviderProps) => {
     navigation.navigate("FlashCards");
   }
 
-  function handleChosenSet(name: string, id: number | undefined) {
-    setChosenSetName(name);
-    setChosenSetId(id);
+  function handleChosenSet(wordSet: WordSetItem) {
+    setChosenWordSet(wordSet);
+    setChosenSetName(wordSet.name);
+    setChosenSetId(wordSet.id);
     navigation.navigate("Display");
   }
 
@@ -98,15 +123,22 @@ const WordSetProvider = ({ children, navigation }: WordSetProviderProps) => {
     callWordSets(token).then((response) => {
       if (response.type === "success") {
         const wordSets: WordSet[] = response.result;
+        console.log(response.result);
         const newWordSetItem: WordSetItem[] = wordSets.map((wordSet) => ({
           id: wordSet.id,
           name: wordSet.english,
           type: "Default",
+          category: wordSet.category,
+          locked: wordSet.locked,
+          depends_on: wordSet.depends_on.map((item) => ({
+            name: item.english,
+          })),
         }));
         setWordSetsList(newWordSetItem);
       }
     });
   }, []);
+  console.log(wordSetsList);
 
   useEffect(() => {
     if (chosenSetName != "") {
@@ -124,6 +156,7 @@ const WordSetProvider = ({ children, navigation }: WordSetProviderProps) => {
       value={{
         chosenSetName,
         chosenPolish,
+        chosenWordSet,
         startFlashCards,
         setFlashCards,
         setStartFlashCards,

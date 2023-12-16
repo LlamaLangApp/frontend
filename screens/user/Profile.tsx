@@ -4,8 +4,8 @@ import { UserStackParamList } from "../../navgation/UserStack";
 import mainStyles from "../../styles/MainStyles";
 import { useAppStore } from "../../state";
 import { Bar as ProgressBar } from "react-native-progress";
-import { FontAwesome5 } from "@expo/vector-icons";
-import { buttonLightPink, grey, lightGrey, pink } from "../../Consts";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { grey, lightGrey, pink } from "../../Consts";
 import React from "react";
 import userStyles from "../../styles/UserStyles";
 import * as ImagePicker from "expo-image-picker";
@@ -60,98 +60,156 @@ function ProfileScreen({ navigation }: Props) {
 
   return (
     <View style={mainStyles.whiteBackgroundContainer}>
-      <TouchableOpacity style={userStyles.settingsIcon} onPress={pickImage}>
-        <FontAwesome5 name="edit" size={30} color={"#696368"} />
-      </TouchableOpacity>
       <View style={userStyles.mainContainer}>
-        <View style={userStyles.userDataContainer}>
-          <View style={userStyles.avatarContainer}>
-            <View style={userStyles.avatar}>
-              {avatar && (
-                <Image
-                  source={{ uri: avatar }}
-                  style={userStyles.avatarImage}
-                />
-              )}
-            </View>
-          </View>
-          <View style={userStyles.dataContainer}>
-            <View style={userStyles.aboveBarContainer}>
-              <View>
-                <View style={userStyles.usernameContainer}>
-                  <Text style={{ color: grey, fontSize: 35 }}>{username}</Text>
-                </View>
-                <View>
-                  <Text style={{ color: grey, fontSize: 23 }}>
-                    {score} points
-                  </Text>
-                </View>
-              </View>
-              <View style={userStyles.levelContainer}>
-                <Text style={{ color: grey, fontSize: 60 }}>{level}</Text>
-                <Text style={{ color: grey, fontSize: 15, marginTop: -14 }}>
-                  Level
-                </Text>
-              </View>
-            </View>
-            <View style={userStyles.barContainer}>
-              <ProgressBar
-                progress={score / (points_to_next_level + score)}
-                width={screenWidth * 0.8}
-                height={40}
-                color={buttonLightPink}
-                unfilledColor={"#ffffff"}
-                borderWidth={2}
-                borderRadius={15}
-                borderColor={grey}
-                animationType="timing"
-              />
-            </View>
+        <View style={userStyles.avatarContainer}>
+          {avatar && (
             <View>
-              <Text style={{ color: "#8c878c", fontSize: 9 }}>
-                {points_to_next_level} points to next level
+              <Image
+                style={{
+                  borderRadius: 75,
+                  width: 150,
+                  height: 150,
+                  borderColor: lightGrey,
+                  borderWidth: 5,
+                }}
+                source={{ uri: avatar }}
+              />
+              <TouchableOpacity
+                onPress={pickImage}
+                style={{
+                  backgroundColor: lightGrey,
+                  borderRadius: 24,
+                  padding: 8,
+                  position: "absolute",
+                  right: 5,
+                  bottom: 5,
+                }}
+              >
+                <MaterialCommunityIcons
+                  name={"camera-outline"}
+                  size={25}
+                  color={grey}
+                />
+              </TouchableOpacity>
+            </View>
+          )}
+        </View>
+        <View style={userStyles.infoContainer}>
+          <Text style={{ color: grey, fontSize: 35, fontWeight: "bold" }}>
+            {username}
+          </Text>
+          <Text style={{ color: grey, fontSize: 23 }}>{score} points</Text>
+          <View
+            style={{
+              width: "90%",
+              paddingTop: "5%",
+            }}
+          >
+            <Text style={{ color: grey, fontSize: 20, fontWeight: "bold" }}>
+              LEVEL {level}
+            </Text>
+          </View>
+          <View
+            style={{
+              borderBottomWidth: 1,
+              borderColor: pink,
+              width: "90%",
+            }}
+          />
+          <ProgressBar
+            progress={score / (points_to_next_level + score)}
+            width={screenWidth * 0.9}
+            height={20}
+            color={pink}
+            unfilledColor={"#fffcff"}
+            borderWidth={0}
+            borderColor={pink}
+            borderRadius={2}
+            animationType="timing"
+          />
+          <View
+            style={{
+              borderBottomWidth: 1,
+              borderColor: pink,
+              width: "90%",
+            }}
+          />
+          {/*<View style={userStyles.barContainer}>*/}
+          {/*  <ProgressBar*/}
+          {/*    progress={score / (points_to_next_level + score)}*/}
+          {/*    width={screenWidth * 0.9}*/}
+          {/*    height={20}*/}
+          {/*    color={pink}*/}
+          {/*    unfilledColor={"#fffcff"}*/}
+          {/*    borderWidth={1}*/}
+          {/*    borderColor={pink}*/}
+          {/*    borderRadius={10}*/}
+          {/*    animationType="timing"*/}
+          {/*  />*/}
+          {/*</View>*/}
+
+          <Text
+            style={{
+              paddingTop: "2%",
+              color: grey,
+              fontSize: 15,
+              width: "90%",
+            }}
+          >
+            {points_to_next_level} points to next level
+          </Text>
+        </View>
+        <View style={{ flex: 3.1, alignItems: "center" }}>
+          <TouchableOpacity
+            style={userStyles.profileLlamaContainer}
+            onPress={() => navigation.navigate("Llama")}
+          >
+            <View style={userStyles.llamaTextContainer}>
+              <Text
+                style={{
+                  marginLeft: "20%",
+                  fontSize: 35,
+                  color: grey,
+                  fontWeight: "bold",
+                }}
+              >
+                Your Llama
               </Text>
             </View>
-          </View>
-        </View>
-        <TouchableOpacity
-          style={userStyles.profileLlamaContainer}
-          onPress={() => navigation.navigate("Llama")}
-        >
-          <View style={userStyles.llamaTextContainer}>
-            <Text style={{ marginLeft: "20%", fontSize: 35, color: grey }}>
-              Your Llama
-            </Text>
-          </View>
-          <View style={userStyles.llama}>
-            <Image
-              source={require("../../assets/llama/llama.png")}
-              style={userStyles.llamaImage}
-            />
-          </View>
-        </TouchableOpacity>
-        <View style={userStyles.buttonsContainer}>
-          <TouchableOpacity
-            style={[
-              userStyles.button,
-              { borderColor: pink, backgroundColor: lightGrey },
-            ]}
-            onPress={() => navigation.navigate("Statistics")}
-          >
-            <Text style={{ padding: 10, fontSize: 19, color: grey }}>
-              Statistics
-            </Text>
+            <View style={userStyles.llama}>
+              <Image
+                source={require("../../assets/llama/llama.png")}
+                style={userStyles.llamaImage}
+              />
+            </View>
           </TouchableOpacity>
-          <TouchableOpacity
-            style={[
-              userStyles.button,
-              { borderColor: lightGrey, backgroundColor: pink },
-            ]}
+          <View
+            style={{
+              marginTop: "3%",
+              width: "90%",
+              borderRadius: 10,
+              paddingVertical: 10,
+              paddingHorizontal: 20,
+              margin: 5,
+              alignItems: "center",
+              backgroundColor: lightGrey,
+            }}
           >
-            <Text style={{ padding: 10, fontSize: 19, color: "white" }}>
-              Settings
-            </Text>
-          </TouchableOpacity>
+            <Text style={{ fontSize: 18, color: grey }}>Settings</Text>
+          </View>
+          <View
+            style={{
+              width: "90%",
+              borderRadius: 10,
+              paddingVertical: 10,
+              paddingHorizontal: 20,
+              margin: 5,
+              alignItems: "center",
+              backgroundColor: lightGrey,
+            }}
+          >
+            <Text style={{ fontSize: 18, color: grey }}>Games history</Text>
+          </View>
         </View>
       </View>
     </View>

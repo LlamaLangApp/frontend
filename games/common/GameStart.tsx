@@ -1,10 +1,9 @@
 import { Text, View } from "react-native";
 import mainStyles from "../../styles/MainStyles";
 import CustomDropdown from "../../components/CustomDropdown";
+import { WordSet, callWordSets } from "../../backend/WordSetsBackend";
 import React, { useState, useEffect, Dispatch, SetStateAction } from "react";
-import { callWordSets } from "../../backend/WordSetsBackend";
 import { useAppStore } from "../../state";
-import { WordSet } from "../GamesTypes";
 import textGamesStyles from "../../styles/games/TextGamesStyles";
 import containerGamesStyles from "../../styles/games/ContainerGamesStyles";
 import Llama from "../../components/llama/Llama";

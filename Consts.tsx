@@ -21,6 +21,13 @@ export const defaultUserData = {
   current_week_points: null,
 };
 
+export type GamesStatistics =
+  | "all_games"
+  | "memory"
+  | "falling_words"
+  | "race"
+  | "finding_words";
+
 export const friendsActions = [
   {
     text: "Search for more users",
