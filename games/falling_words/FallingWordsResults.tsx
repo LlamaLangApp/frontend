@@ -34,8 +34,7 @@ function FallingWordsResultsScreen({ route, navigation }: Props) {
     }
     saveSinglePlayerGame(
       token,
-      // "falling-words",
-      "memory-game",
+      "falling-words",
       points,
       accuracy,
       duration,

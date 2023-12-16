@@ -49,6 +49,7 @@ function WordSetDisplayScreen() {
             polish={item.polish}
             english={item.english}
             chosenPolish={chosenPolish}
+            star={item.star}
           />
         )}
       />

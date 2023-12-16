@@ -9,6 +9,7 @@ import UserStack from "./UserStack";
 import FriendsStack from "./FriendsStack";
 import HomeScreen from "../screens/Home";
 import { UpdateHandlerProvider } from "../backend/UpdateHandler";
+import StatisticsScreen from "../screens/Statistics";
 
 export type HomeDrawerParamList = {
   Games: undefined;
@@ -17,6 +18,7 @@ export type HomeDrawerParamList = {
   Wordsets: undefined;
   Friends: undefined;
   Scoreboard: undefined;
+  Statistics: undefined;
 };
 
 const Drawer = createDrawerNavigator<HomeDrawerParamList>();
@@ -59,6 +61,15 @@ const HomeDrawer = () => {
           options={{
             drawerIcon: ({ color }) => (
               <FontAwesome name="book" size={22} color={color} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="Statistics"
+          component={StatisticsScreen}
+          options={{
+            drawerIcon: ({ color }) => (
+              <FontAwesome5 name="chart-area" size={24} color={color} />
             ),
           }}
         />
