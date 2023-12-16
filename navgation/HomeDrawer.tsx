@@ -28,6 +28,7 @@ const HomeDrawer = () => {
         drawerContent={(props) => <CustomDrawer {...props} />}
         initialRouteName={"Games"}
         screenOptions={{
+          headerTitle: "",
           headerTintColor: "#000",
           drawerActiveBackgroundColor: pink,
           drawerInactiveTintColor: "#333",

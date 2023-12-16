@@ -6,6 +6,12 @@ import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { GamesStackParamList } from "../../navgation/GamesStack";
 
 type GamesStack = NavigationProp<GamesStackParamList, "FindingWords">;
+export type GameInvite = {
+  username: string;
+  wordSetId: number;
+  game: string;
+  waitRoom: number;
+};
 
 function StatisticsScreen() {
   const gamesNavigation = useNavigation<GamesStack>();

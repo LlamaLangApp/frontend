@@ -17,6 +17,7 @@ import {
   CommonWebSocketProps,
   SocketGameStates,
 } from "../common/WebSocket";
+import { GameInvite } from "../../screens/user/Statistics";
 
 interface RaceWebSocketContextType extends CommonWebSocketProps {
   leaveGame: () => void;
@@ -41,12 +42,7 @@ type RaceWebSocketProviderProps = {
   children: ReactNode;
   navigation: NavigationProp<RaceStackParamList>;
   fromInvite: boolean;
-  invite: null | {
-    username: string;
-    wordSetId: number;
-    game: string;
-    waitRoom: number;
-  };
+  invite: GameInvite | null;
 };
 type GamesStack = NavigationProp<GamesStackParamList, "Home">;
 

@@ -17,6 +17,7 @@ import {
   CommonWebSocketProps,
   SocketGameStates,
 } from "../common/WebSocket";
+import { GameInvite } from "../../screens/user/Statistics";
 
 interface FindingWordsWebSocketContextType extends CommonWebSocketProps {
   setLastAnswer: Dispatch<SetStateAction<string>>;
@@ -36,12 +37,7 @@ type FindingWordsWebSocketProviderProps = {
   children: ReactNode;
   navigation: NavigationProp<FindingWordsStackParamList>;
   fromInvite: boolean;
-  invite: null | {
-    username: string;
-    wordSetId: number;
-    game: string;
-    waitRoom: number;
-  };
+  invite: GameInvite | null;
 };
 type GamesStack = NavigationProp<GamesStackParamList, "Home">;
 
