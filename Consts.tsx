@@ -10,6 +10,7 @@ export const grey = "#696368";
 export type Games = "memory" | "race" | "falling words" | "finding words";
 
 export const defaultUserData = {
+  id: 0,
   token: null,
   username: null,
   email: null,
@@ -17,8 +18,8 @@ export const defaultUserData = {
   level: 0,
   score: 0,
   llama: 0,
-  points_to_next_level: 0,
   current_week_points: null,
+  points_to_next_level: 0,
 };
 
 export type GamesStatistics =

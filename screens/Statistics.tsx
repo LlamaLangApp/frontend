@@ -7,7 +7,13 @@ import {
 } from "react-native";
 import mainStyles from "../styles/MainStyles";
 import React, { useEffect, useState } from "react";
-import { buttonLightPink, Games, grey, lightGrey, pink } from "../Consts";
+import {
+  buttonLightPink,
+  GamesStatistics,
+  grey,
+  lightGrey,
+  pink,
+} from "../Consts";
 import { useAppStore } from "../state";
 import {
   CalendarData,
@@ -36,7 +42,7 @@ const games = {
   findingWords: "Finding Words",
 };
 
-const gamesMapping: Record<string, Games> = {
+const gamesMapping: Record<string, GamesStatistics> = {
   [games.allGames]: "all_games",
   [games.memory]: "memory",
   [games.race]: "race",
@@ -93,7 +99,7 @@ export default () => {
       console.warn("No token for fetching statistics");
       return;
     }
-    const allGames: Games = gamesMapping[games.allGames];
+    const allGames: GamesStatistics = gamesMapping[games.allGames];
     Promise.all([
       getCalendar(token, allGames, month, year),
       getCurrentStreak(token, allGames),
@@ -135,7 +141,7 @@ export default () => {
     if (!chosenGame) {
       return;
     }
-    const game: Games = gamesMapping[chosenGame];
+    const game: GamesStatistics = gamesMapping[chosenGame];
     getCalendar(token, game, month, year).then((calendarResponse) => {
       if (calendarResponse.type === "success") {
         setCalendar(calendarResponse.result);
@@ -261,7 +267,6 @@ export default () => {
               );
             })}
           </ScrollView>
-          {/*<Text>Select game to see which days you played it </Text>*/}
         </View>
         <View style={styles.calendar}>
           <CalendarList
