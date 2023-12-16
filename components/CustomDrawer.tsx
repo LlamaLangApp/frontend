@@ -76,6 +76,7 @@ const CustomDrawer = (props: DrawerContentComponentProps) => {
               <Text
                 style={{
                   fontSize: 26,
+                  fontWeight: "bold",
                 }}
               >
                 {username}
