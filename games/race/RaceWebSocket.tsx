@@ -17,7 +17,7 @@ import {
   CommonWebSocketProps,
   SocketGameStates,
 } from "../common/WebSocket";
-import { GameInvite } from "../../screens/user/Statistics";
+import { GameInvite } from "../../components/GameInvitationIcon";
 
 interface RaceWebSocketContextType extends CommonWebSocketProps {
   leaveGame: () => void;

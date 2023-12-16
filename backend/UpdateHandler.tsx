@@ -8,6 +8,10 @@ import React, {
 } from "react";
 import { serverURL } from "./CommonBackend";
 import { useAppStore } from "../state";
+import { View } from "react-native";
+import { FontAwesome } from "@expo/vector-icons";
+import { parseForESLint } from "@typescript-eslint/parser";
+import { GameInvite } from "../components/GameInvitationIcon";
 
 type CallbackCleanupFunction = () => void;
 const dummyCleanupFunction: CallbackCleanupFunction = () => {
@@ -15,12 +19,7 @@ const dummyCleanupFunction: CallbackCleanupFunction = () => {
 };
 
 type FriendStatusListener = () => void;
-type WaitRoomInvitationListener = (
-  game: string,
-  waitRoom: number,
-  username: string,
-  wordSetId: number
-) => void;
+type WaitRoomInvitationListener = (invites: GameInvite[]) => void;
 
 type UpdateHandlerContextType = {
   onFriendsStatusUpdate: (
@@ -74,15 +73,27 @@ function UpdateHandlerProvider({ children }: { children: ReactNode }) {
             listener();
           }
         } else if (payload.type === "waitroom_invitation") {
-          console.log(payload.type, payload.game, payload.waitroom);
           console.log(JSON.stringify(payload));
-          for (const listener of waitRoomInvitationListeners.current) {
-            listener(
-              payload.invitations[0].game,
-              payload.invitations[0].waitroom,
-              payload.invitations[0].username,
-              payload.invitations[0].wordset_id
-            );
+          if (payload.invitations[0]) {
+            for (const listener of waitRoomInvitationListeners.current) {
+              listener(
+                payload.invitations.map(
+                  (invite: {
+                    username: string;
+                    game: string;
+                    waitroom: number;
+                    wordset_id: number;
+                  }) => {
+                    return {
+                      username: invite.username,
+                      game: invite.game,
+                      waitRoom: invite.waitroom,
+                      wordSetId: invite.wordset_id,
+                    };
+                  }
+                )
+              );
+            }
           }
         } else {
           console.error("Unknown update: ", payload);

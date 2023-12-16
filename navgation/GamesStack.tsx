@@ -5,19 +5,14 @@ import FallingWordsStack from "../games/falling_words/FallingWordsStack";
 import HomeDrawer from "./HomeDrawer";
 import FindingWordsStack from "../games/finding_words/FindingWordsStack";
 import { gestureHandlerRootHOC } from "react-native-gesture-handler";
-import { GameInvite } from "../screens/user/Statistics";
+import { GameInvite } from "../components/GameInvitationIcon";
 
 export type GamesStackParamList = {
   Home: undefined;
   Memory: undefined;
   Race: {
     fromInvite: boolean;
-    invite: null | {
-      username: string;
-      wordSetId: number;
-      game: string;
-      waitRoom: number;
-    };
+    invite: GameInvite | null;
   };
   FallingWords: undefined;
   FindingWords: {
