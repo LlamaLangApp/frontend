@@ -15,7 +15,7 @@ type Props = NativeStackScreenProps<FindingWordsStackParamList, "Answer">;
 
 function FindingWordsAnswerScreen({ route }: Props) {
   const { points, round } = useContext(FindingWordsWebSocketContext);
-  const { answer, correctAnswer } = route.params;
+  const { answer, correctAnswer, earnedPoints } = route.params;
 
   return (
     <View style={mainStyles.whiteBackgroundContainer}>
@@ -56,17 +56,28 @@ function FindingWordsAnswerScreen({ route }: Props) {
             {correctAnswer.toUpperCase()}
           </Text>
         </View>
-        <View
-          style={[
-            containerGamesStyles.differentSizeTexts,
-            { marginBottom: "4%" },
-          ]}
-        >
-          <Text style={textGamesStyles.information}>Your answer: </Text>
-          <Text style={[textGamesStyles.information, { fontWeight: "600" }]}>
-            {answer.toUpperCase()}
-          </Text>
-        </View>
+        {answer ? (
+          <View
+            style={[
+              containerGamesStyles.differentSizeTexts,
+              { marginBottom: "4%" },
+            ]}
+          >
+            <Text style={textGamesStyles.information}>Your answer: </Text>
+            <Text style={[textGamesStyles.information, { fontWeight: "600" }]}>
+              {answer.toUpperCase()}
+            </Text>
+          </View>
+        ) : (
+          <View
+            style={[
+              containerGamesStyles.differentSizeTexts,
+              { marginBottom: "4%" },
+            ]}
+          >
+            <Text style={textGamesStyles.information}>You did not answer</Text>
+          </View>
+        )}
         <View style={[containerGamesStyles.differentSizeTexts]}>
           <FontAwesome
             name={answer === correctAnswer ? "check" : "times"}
@@ -74,7 +85,7 @@ function FindingWordsAnswerScreen({ route }: Props) {
             color={answer === correctAnswer ? "#6aa162" : buttonDarkPink}
           />
           <Text style={{ fontWeight: "600", fontSize: 20, color: grey }}>
-            +{answer === correctAnswer ? points : 0}
+            +{earnedPoints}
           </Text>
           <Text style={{ fontWeight: "600", fontSize: 14, color: grey }}>
             POINTS

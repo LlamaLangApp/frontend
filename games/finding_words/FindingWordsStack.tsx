@@ -20,8 +20,9 @@ export type FindingWordsStackParamList = {
     letters: string[];
   };
   Answer: {
-    answer: string;
+    answer: string | null;
     correctAnswer: string;
+    earnedPoints: number;
   };
   EndGame: {
     scoreboard: { username: string; points: number }[];

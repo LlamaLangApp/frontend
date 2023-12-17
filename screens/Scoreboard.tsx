@@ -97,7 +97,7 @@ export default () => {
             <PlayerListItem
               username={item.username}
               place={item.place}
-              stat={item.points}
+              score={item.points}
             />
           )}
         />
@@ -111,7 +111,7 @@ export default () => {
           <PlayerListItem
             username={data.user.username}
             place={data.user.place}
-            stat={data.user.points}
+            score={data.user.points}
           />
         ) : (
           <View />

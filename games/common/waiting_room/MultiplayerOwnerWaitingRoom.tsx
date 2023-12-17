@@ -1,18 +1,18 @@
 import { Text, TouchableOpacity, View } from "react-native";
-import mainStyles from "../../styles/MainStyles";
+import mainStyles from "../../../styles/MainStyles";
 import React, { useEffect, useState } from "react";
-import { grey, lightGrey } from "../../Consts";
-import { getFriendsData } from "../../backend/FriendsBackend";
-import { useAppStore } from "../../state";
-import containerGamesStyles from "../../styles/games/ContainerGamesStyles";
-import textGamesStyles from "../../styles/games/TextGamesStyles";
-import buttonGamesStyles from "../../styles/games/ButtonGamesStyles";
-import InviteFriendsModal from "../../components/games/InviteFriendsModal";
-import Llama from "../../components/llama/Llama";
+import { grey, lightGrey } from "../../../Consts";
+import { getFriendsData } from "../../../backend/FriendsBackend";
+import { useAppStore } from "../../../state";
+import containerGamesStyles from "../../../styles/games/ContainerGamesStyles";
+import textGamesStyles from "../../../styles/games/TextGamesStyles";
+import buttonGamesStyles from "../../../styles/games/ButtonGamesStyles";
+import InviteFriendsModal from "../../../components/games/InviteFriendsModal";
+import Llama from "../../../components/llama/Llama";
 import Toast from "react-native-toast-message";
-import BlockedButton from "../../components/buttons/BlockedButton";
-import PlayersInWaitRoomList from "./components/PlayerListInWaitRoom";
-import FinePrints from "./components/FinePrints";
+import BlockedButton from "../../../components/buttons/BlockedButton";
+import PlayersInWaitRoomList from "../components/PlayerListInWaitRoom";
+import FinePrints from "../components/FinePrints";
 
 type MultiPlayerWaitingRoomProps = {
   gameName: string;

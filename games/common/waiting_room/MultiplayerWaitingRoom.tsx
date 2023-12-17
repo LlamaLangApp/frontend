@@ -1,13 +1,13 @@
 import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
-import mainStyles from "../../styles/MainStyles";
+import mainStyles from "../../../styles/MainStyles";
 import React from "react";
-import textGamesStyles from "../../styles/games/TextGamesStyles";
-import containerGamesStyles from "../../styles/games/ContainerGamesStyles";
-import { grey, pink } from "../../Consts";
-import Llama from "../../components/llama/Llama";
+import textGamesStyles from "../../../styles/games/TextGamesStyles";
+import containerGamesStyles from "../../../styles/games/ContainerGamesStyles";
+import { grey, pink } from "../../../Consts";
+import Llama from "../../../components/llama/Llama";
 import Toast from "react-native-toast-message";
-import PlayersInWaitRoomList from "./components/PlayerListInWaitRoom";
-import FinePrints from "./components/FinePrints";
+import PlayersInWaitRoomList from "../components/PlayerListInWaitRoom";
+import FinePrints from "../components/FinePrints";
 
 type MultiPlayerWaitingRoomProps = {
   gameName: string;

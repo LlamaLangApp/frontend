@@ -65,9 +65,7 @@ function FindingWordsGame({ route }: Props) {
     ).remove;
   }, []);
 
-  const { ws, setLastAnswer, points, round } = useContext(
-    FindingWordsWebSocketContext
-  );
+  const { ws, points, round } = useContext(FindingWordsWebSocketContext);
 
   const [letters, setLetters] = useState<Letter[]>([]);
 
@@ -95,8 +93,7 @@ function FindingWordsGame({ route }: Props) {
         .filter(({ selected }) => selected)
         .map(({ char: letter }) => letter)
         .join("");
-      setLastAnswer(answer);
-      ws?.send(JSON.stringify({ type: "response", round: round, answer }));
+      ws?.send(JSON.stringify({ type: "response", round: round - 1, answer }));
     }
   }, [letters]);
 

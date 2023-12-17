@@ -24,9 +24,10 @@ export type RaceStackParamList = {
     question: string;
     answer: string;
     correctAnswer: string;
+    earnedPoints: number;
   };
   EndGame: {
-    scoreboard: { username: string; points: number }[];
+    scoreboard: { username: string; score: number; place: number }[];
   };
 };
 const Stack = createNativeStackNavigator<RaceStackParamList>();

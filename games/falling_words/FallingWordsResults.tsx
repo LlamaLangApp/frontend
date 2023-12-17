@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { FallingWordsStackParamList } from "./FallingWordsStack";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import SinglePlayerResultsScreen from "../common/SingleplayerResults";
+import SinglePlayerResultScreen from "../common/SingleplayerResult";
 import { saveSinglePlayerGame } from "../../backend/GamesBackend";
 import { useAppStore } from "../../state";
 import * as ScreenOrientation from "expo-screen-orientation";
@@ -43,10 +43,10 @@ function FallingWordsResultsScreen({ route, navigation }: Props) {
   });
 
   return changedOrientation ? (
-    <SinglePlayerResultsScreen
+    <SinglePlayerResultScreen
       gameName={"FallingWords"}
       points={points}
-      hasWon={accuracy === 1}
+      rounds={2}
       setName={setName}
       exitGameHandler={() => {
         parentNavigation.navigate("Home");

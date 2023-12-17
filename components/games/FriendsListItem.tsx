@@ -3,7 +3,7 @@ import { Image, Text, TouchableOpacity, View } from "react-native";
 import friendsStyles from "../../styles/FriendsStyles";
 import { grey, pink } from "../../Consts";
 import { FontAwesome } from "@expo/vector-icons";
-import { Friends } from "../../games/common/MultiplayerOwnerWaitingRoom";
+import { Friends } from "../../games/common/waiting_room/MultiplayerOwnerWaitingRoom";
 
 type UserItem = {
   id: number;

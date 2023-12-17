@@ -1,8 +1,8 @@
 import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import mainStyles from "../../styles/MainStyles";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import buttonGamesStyles from "../../styles/games/ButtonGamesStyles";
-import PlayerListItem, { PlaceItem } from "../../components/PlayerListItem";
+import PlayerListItem from "../../components/PlayerListItem";
 import { buttonDarkPink, pink } from "../../Consts";
 import containerGamesStyles from "../../styles/games/ContainerGamesStyles";
 import textGamesStyles from "../../styles/games/TextGamesStyles";
@@ -11,38 +11,14 @@ import { useAppStore } from "../../state";
 
 type MultiplayerResultProps = {
   gameName: string;
-  scoreboard: { username: string; points: number }[];
+  scoreboard: { username: string; score: number; place: number }[];
   leaveGame: () => void;
 };
 
 function MultiplayerResult(props: MultiplayerResultProps) {
   const { gameName, scoreboard, leaveGame } = props;
   const user = useAppStore.getState().username;
-  const [final, setFinal] = useState<PlaceItem[]>();
-  const [place, setPlace] = useState<number>(0);
-
-  function handleData(): PlaceItem[] {
-    const final = [];
-
-    let currentPlace = 0;
-    let currentPoints = 0;
-    for (const { username, points } of scoreboard) {
-      if (currentPoints !== points) {
-        currentPlace += 1;
-        currentPoints = points;
-      }
-      if (username === user) {
-        setPlace(currentPlace);
-      }
-      final.push({ username, stat: points, place: currentPlace });
-    }
-
-    return final;
-  }
-
-  useEffect(() => {
-    setFinal(() => handleData());
-  }, []);
+  const place = scoreboard.filter((item) => item.username === user)[0].place;
 
   return (
     <View style={mainStyles.whiteBackgroundContainer}>
@@ -83,7 +59,7 @@ function MultiplayerResult(props: MultiplayerResultProps) {
               borderRadius: 10,
               height: "100%",
             }}
-            data={final}
+            data={scoreboard}
             showsVerticalScrollIndicator={false}
             ItemSeparatorComponent={() => {
               return <View style={{ height: 1, backgroundColor: "#bababa" }} />;
@@ -92,7 +68,7 @@ function MultiplayerResult(props: MultiplayerResultProps) {
               <PlayerListItem
                 username={item.username}
                 place={item.place}
-                stat={item.stat}
+                score={item.score}
               />
             )}
           />

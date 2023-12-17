@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { RaceWebSocketContext } from "./RaceWebSocket";
-import MultiplayerGameStartScreen from "../common/MultiplayerGameStart";
-import MultiplayerJoinRoom from "../common/MultiplayerJoinRoom";
+import MultiplayerJoinRoom from "../common/start/MultiplayerJoinRoom";
+import GameStartScreen from "../common/start/GameStart";
 
 function RaceStartScreen() {
   const {
@@ -10,9 +10,10 @@ function RaceStartScreen() {
     fromInvite,
     invite,
     withFriends,
+    wordSetName,
     setWordSetName,
   } = useContext(RaceWebSocketContext);
-  const [setId, setSetId] = useState<number>(1);
+  const [setId, setSetId] = useState<number>(0);
 
   async function findOtherPlayersHandler() {
     ws?.send(
@@ -33,10 +34,17 @@ function RaceStartScreen() {
     );
   }
 
-  return fromInvite ? (
-    <MultiplayerJoinRoom gameName={"Race"} onPressHandler={joinRoomHandler} />
+  return fromInvite && invite ? (
+    <MultiplayerJoinRoom
+      gameName={"Race"}
+      hostName={invite.username}
+      wordSetName={wordSetName}
+      setWordSetName={setWordSetName}
+      wordSetId={invite.wordSetId}
+      onPressHandler={joinRoomHandler}
+    />
   ) : (
-    <MultiplayerGameStartScreen
+    <GameStartScreen
       gameName={"Race"}
       setWordSetName={setWordSetName}
       setWordSetId={setSetId}

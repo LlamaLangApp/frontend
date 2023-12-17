@@ -5,7 +5,7 @@ import { useAppStore } from "../../state";
 import { callTranslations } from "../../backend/WordSetsBackend";
 import { Card, choseMainWord, makeCards } from "./FallingWordsCard";
 import { Dimensions } from "react-native";
-import GameStartScreen from "../common/GameStart";
+import GameStartScreen from "../common/start/GameStart";
 
 type Props = NativeStackScreenProps<FallingWordsStackParamList, "Start">;
 

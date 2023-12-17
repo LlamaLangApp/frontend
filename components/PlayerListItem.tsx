@@ -4,11 +4,11 @@ import { grey } from "../Consts";
 
 export type PlaceItem = {
   username: string;
-  stat: number;
+  score: number;
   place: number;
 };
 
-export default ({ username, place, stat }: PlaceItem) => {
+export default ({ username, place, score }: PlaceItem) => {
   const placeElem = useMemo(() => {
     if (place == 1) {
       return (
@@ -86,7 +86,7 @@ export default ({ username, place, stat }: PlaceItem) => {
             color: grey,
           }}
         >
-          {stat}
+          {score}
         </Text>
       </View>
     </View>

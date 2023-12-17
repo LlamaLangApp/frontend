@@ -57,7 +57,6 @@ const RaceWebSocketProvider = ({
   const [socketGameState, setSocketGameState] = useState(
     SocketGameStates.justConnected
   );
-  const [lastAnswer] = useState("");
   const [lastQuestion, setLastQuestion] = useState("");
 
   const [points, setPoints] = useState(0);
@@ -130,11 +129,12 @@ const RaceWebSocketProvider = ({
         message.type === "result"
       ) {
         setSocketGameState(SocketGameStates.beforeRound);
-        setPoints(message.points);
+        setPoints((prev) => prev + message.points);
         navigation.navigate("Answer", {
-          answer: lastAnswer,
+          answer: message.user_answer,
           question: lastQuestion,
           correctAnswer: message.correct,
+          earnedPoints: message.points,
         });
         setChosenCard(-1);
       } else if (
