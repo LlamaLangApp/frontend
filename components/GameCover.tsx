@@ -4,10 +4,10 @@ import homeStyles from "../styles/HomeStyles";
 import { useMemo } from "react";
 
 const gameCoverImages: Record<Games, ImageSourcePropType> = {
-  memory: require("../assets/games_covers/Memory.png"),
-  race: require("../assets/games_covers/Race.png"),
-  "falling words": require("../assets/games_covers/FallingWords.png"),
-  "finding words": require("../assets/games_covers/FindingWords.png"),
+  memory: require("../assets/games/Memory.png"),
+  race: require("../assets/games/Race.png"),
+  "falling words": require("../assets/games/FallingWords.png"),
+  "finding words": require("../assets/games/FindingWords.png"),
 };
 
 type GameCoverProps = {

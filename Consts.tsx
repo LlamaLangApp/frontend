@@ -32,7 +32,7 @@ export type GamesStatistics =
 export const friendsActions = [
   {
     text: "Search for more users",
-    icon: require("./assets/mag.png"),
+    icon: require("./assets/icons/mag.png"),
     name: "Search",
     position: 1,
     buttonSize: 50,
@@ -42,7 +42,7 @@ export const friendsActions = [
   },
   {
     text: "Check your invitations",
-    icon: require("./assets/envelope.png"),
+    icon: require("./assets/icons/envelope.png"),
     name: "Invitations",
     position: 2,
     buttonSize: 50,

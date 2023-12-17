@@ -8,9 +8,6 @@ import React, {
 } from "react";
 import { serverURL } from "./CommonBackend";
 import { useAppStore } from "../state";
-import { View } from "react-native";
-import { FontAwesome } from "@expo/vector-icons";
-import { parseForESLint } from "@typescript-eslint/parser";
 import { GameInvite } from "../components/GameInvitationIcon";
 
 type CallbackCleanupFunction = () => void;
@@ -73,7 +70,6 @@ function UpdateHandlerProvider({ children }: { children: ReactNode }) {
             listener();
           }
         } else if (payload.type === "waitroom_invitation") {
-          console.log(JSON.stringify(payload));
           if (payload.invitations[0]) {
             for (const listener of waitRoomInvitationListeners.current) {
               listener(

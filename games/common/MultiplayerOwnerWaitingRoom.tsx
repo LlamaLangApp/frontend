@@ -10,7 +10,7 @@ import buttonGamesStyles from "../../styles/games/ButtonGamesStyles";
 import InviteFriendsModal from "../../components/games/InviteFriendsModal";
 import Llama from "../../components/llama/Llama";
 import Toast from "react-native-toast-message";
-import BlockedButton from "./components/BlockedButton";
+import BlockedButton from "../../components/buttons/BlockedButton";
 import PlayersInWaitRoomList from "./components/PlayerListInWaitRoom";
 import FinePrints from "./components/FinePrints";
 

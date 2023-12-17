@@ -57,7 +57,7 @@ const RaceWebSocketProvider = ({
   const [socketGameState, setSocketGameState] = useState(
     SocketGameStates.justConnected
   );
-  const [lastAnswer, setLastAnswer] = useState("");
+  const [lastAnswer] = useState("");
   const [lastQuestion, setLastQuestion] = useState("");
 
   const [points, setPoints] = useState(0);

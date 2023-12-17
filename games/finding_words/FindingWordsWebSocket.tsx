@@ -53,6 +53,7 @@ const FindingWordsWebSocketProvider = ({
     SocketGameStates.justConnected
   );
   const [lastQuestion, setLastQuestion] = useState("");
+  console.log(lastQuestion);
   const [wordSetName, setWordSetName] = useState<string>("0");
   const [lastAnswer, setLastAnswer] = useState("");
   const [points, setPoints] = useState(0);

@@ -7,7 +7,7 @@ import { useAppStore } from "../../state";
 import textGamesStyles from "../../styles/games/TextGamesStyles";
 import containerGamesStyles from "../../styles/games/ContainerGamesStyles";
 import Llama from "../../components/llama/Llama";
-import BlockedButton from "./components/BlockedButton";
+import BlockedButton from "../../components/buttons/BlockedButton";
 
 type StartScreenProps = {
   gameName: string;

@@ -1,8 +1,8 @@
-import buttonGamesStyles from "../../../styles/games/ButtonGamesStyles";
-import textGamesStyles from "../../../styles/games/TextGamesStyles";
+import buttonGamesStyles from "../../styles/games/ButtonGamesStyles";
+import textGamesStyles from "../../styles/games/TextGamesStyles";
 import { Text, TouchableOpacity } from "react-native";
 import React, { useMemo } from "react";
-import { grey, lightGrey, pink, white } from "../../../Consts";
+import { grey, lightGrey, pink, white } from "../../Consts";
 
 const BasicButton = ({
   buttonText,

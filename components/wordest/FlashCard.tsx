@@ -44,9 +44,7 @@ const FlashCard = ({
 
   const animatedCard = useAnimatedStyle(() => ({
     transform: [
-      {
-        translateX: translationX.value,
-      },
+      { translateX: translationX.value },
       {
         rotateZ: `${interpolate(
           translationX.value,

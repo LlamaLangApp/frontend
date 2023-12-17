@@ -54,12 +54,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   bucket: {
-    // width: bucketWidth,
-    // height: 50,
-    // backgroundColor: buttonLightPink,
     position: "absolute",
-    // borderBottomLeftRadius: 25,
-    // borderBottomRightRadius: 25,
   },
 });
 

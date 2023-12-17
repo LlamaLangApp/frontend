@@ -26,13 +26,13 @@ function LlamaScreen() {
             </TouchableOpacity>
             <View style={userStyles.lockContainer}>
               <Image
-                source={require("../../assets/lock.png")}
+                source={require("../../assets/icons/lock.png")}
                 style={{ width: "50%", height: "50%" }}
               />
             </View>
             <View style={userStyles.lockContainer}>
               <Image
-                source={require("../../assets/lock.png")}
+                source={require("../../assets/icons/lock.png")}
                 style={{ width: "50%", height: "50%" }}
               />
             </View>

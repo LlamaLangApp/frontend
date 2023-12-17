@@ -16,14 +16,7 @@ export default ({
   backgroundColor: string;
 }) => {
   return (
-    <View
-      style={[
-        styles.statsInfo,
-        {
-          backgroundColor: backgroundColor,
-        },
-      ]}
-    >
+    <View style={[styles.statsInfo, { backgroundColor: backgroundColor }]}>
       <Text>
         <FontAwesome5 name={iconName} color={textColor} size={18} />
         <Text style={{ fontSize: 18, color: textColor }}>{statsText}</Text>

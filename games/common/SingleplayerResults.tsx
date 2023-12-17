@@ -5,7 +5,10 @@ import containerGamesStyles from "../../styles/games/ContainerGamesStyles";
 import textGamesStyles from "../../styles/games/TextGamesStyles";
 import Llama from "../../components/llama/Llama";
 import React from "react";
-import { LightGreyButton, PinkButton } from "./components/BasicButton";
+import {
+  LightGreyButton,
+  PinkButton,
+} from "../../components/buttons/BasicButton";
 
 type SinglePlayerResultsProps = {
   gameName: string;

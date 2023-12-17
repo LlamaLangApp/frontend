@@ -1,26 +1,14 @@
-import {
-  Modal,
-  TouchableOpacity,
-  View,
-  Text,
-  FlatList,
-  Image,
-} from "react-native";
+import { Modal, TouchableOpacity, View, Text, FlatList } from "react-native";
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 import React, { useContext, useEffect, useState } from "react";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { UpdateHandlerContext } from "../backend/UpdateHandler";
 import { GamesStackParamList } from "../navgation/GamesStack";
 import Toast from "react-native-toast-message";
-import friendsStyles from "../styles/FriendsStyles";
-import UserListItem from "./friends/UserListItem";
 import { grey, pink } from "../Consts";
 import containerStyles from "../styles/ContainerStyles";
 import textStyles from "../styles/TextStyles";
-import {
-  LightGreyButton,
-  PinkButton,
-} from "../games/common/components/BasicButton";
+import { LightGreyButton } from "./buttons/BasicButton";
 
 type GamesStack = NavigationProp<GamesStackParamList, "FindingWords">;
 export type GameInvite = {
@@ -40,7 +28,8 @@ const GameInvitationIcon = () => {
 
   const handleWaitRoomInvitation = (invites: GameInvite[]) => {
     setInvites(invites);
-    invites.forEach(({ username, wordSetId, game, waitRoom }) => {
+    // invites.forEach(({ username, wordSetId, game, waitRoom }) => {
+    invites.forEach(({ username, game, waitRoom }) => {
       console.log(
         `${username} I am further Steve... game: ${game}, waitRoom: ${waitRoom}`
       );
@@ -158,10 +147,7 @@ const GameInvitationIcon = () => {
                           "findingwords" === item.game
                             ? "FindingWords"
                             : "Race",
-                          {
-                            fromInvite: true,
-                            invite: item,
-                          }
+                          { fromInvite: true, invite: item }
                         );
                         closeModal();
                       }}
