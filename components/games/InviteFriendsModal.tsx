@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { FlatList, Modal, Text, TouchableOpacity, View } from "react-native";
 import friendsStyles from "../../styles/FriendsStyles";
 import { grey } from "../../Consts";
-import { Friends } from "../../games/common/MultiplayerOwnerWaitingRoom";
+import { Friends } from "../../games/common/waiting_room/MultiplayerOwnerWaitingRoom";
 import FriendsListItem from "./FriendsListItem";
 import { serverURL } from "../../backend/CommonBackend";
 
