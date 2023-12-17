@@ -67,6 +67,12 @@ const homeStyles = StyleSheet.create({
     fontSize: 20,
     color: "white",
   },
+  coverImageContainer: {
+    borderRadius: 15,
+    marginHorizontal: "7%",
+    overflow: "hidden",
+    marginVertical: "4%",
+  },
 });
 
 export default homeStyles;

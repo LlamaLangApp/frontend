@@ -29,7 +29,14 @@ const FriendsButtonRow = ({
           }}
           key={choice}
         >
-          <Text style={{ padding: 10, fontSize: 16, color: "white" }}>
+          <Text
+            style={{
+              padding: 10,
+              fontSize: 16,
+              color: "white",
+              fontWeight: "700",
+            }}
+          >
             {choice}
           </Text>
         </TouchableOpacity>

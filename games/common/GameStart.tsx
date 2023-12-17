@@ -1,65 +1,53 @@
-import { Text, TouchableOpacity, View } from "react-native";
+import { Text, View } from "react-native";
 import mainStyles from "../../styles/MainStyles";
-import mainGamesStyles from "../../styles/games/MainGamesStyles";
 import CustomDropdown from "../../components/CustomDropdown";
-import FrontLlamaCenter from "../../components/FrontLlamaCenter";
-import React, { useState, useEffect } from "react";
 import { WordSet, callWordSets } from "../../backend/WordSetsBackend";
+import React, { useState, useEffect, Dispatch, SetStateAction } from "react";
 import { useAppStore } from "../../state";
-import buttonGamesStyles from "../../styles/games/ButtonGamesStyles";
 import textGamesStyles from "../../styles/games/TextGamesStyles";
+import containerGamesStyles from "../../styles/games/ContainerGamesStyles";
+import Llama from "../../components/llama/Llama";
+import BlockedButton from "../../components/buttons/BlockedButton";
 
 type StartScreenProps = {
   gameName: string;
   setWordSetName: (selectedItem: string) => void;
   setWordSetId: (selectedItem: number) => void;
   onPressHandler: () => void;
+  playWithFriends?: Dispatch<SetStateAction<boolean>>;
 };
 
 const GameStartScreen = (props: StartScreenProps) => {
   const { gameName, setWordSetName, setWordSetId, onPressHandler } = props;
-  const [wordSetType, setWordSetType] = useState<string>("");
   const [wordSets, setWordSets] = useState<WordSet[]>([]);
+  const [wordSetNameChosen, setWordSetNameChosen] = useState(false);
   const token = useAppStore.getState().token;
 
   useEffect(() => {
-    if (wordSetType === "Default sets") {
-      callWordSets(token).then((response) => {
-        if (response.type === "success") {
-          setWordSets(response.result);
-        } else {
-          setWordSets([]);
-        }
-      });
-    } else {
-      setWordSets([]);
-      setWordSetId(-1);
-    }
-  }, [wordSetType]);
+    callWordSets(token).then((response) => {
+      if (response.type === "success") {
+        setWordSets(response.result);
+      } else {
+        setWordSets([]);
+      }
+    });
+  }, []);
 
   return (
-    <View style={mainStyles.container}>
-      <View style={mainGamesStyles.mainContentContainer}>
-        <View style={textGamesStyles.textWithMarginContainer}>
-          <Text style={textGamesStyles.headingText}>{gameName}</Text>
+    <View style={mainStyles.whiteBackgroundContainer}>
+      <View style={containerGamesStyles.screen}>
+        <View style={containerGamesStyles.textWithMargin}>
+          <Text style={textGamesStyles.gameName}>{gameName.toUpperCase()}</Text>
         </View>
-        <View style={textGamesStyles.textWithMarginContainer}>
-          <Text style={textGamesStyles.secondaryText}>Pick set of words:</Text>
+        <View
+          style={[containerGamesStyles.textWithMargin, { marginBottom: "10%" }]}
+        >
+          <Text style={textGamesStyles.information}>To play a game</Text>
+          <Text style={textGamesStyles.information}>
+            pick one of the default word sets
+          </Text>
         </View>
-        <View style={textGamesStyles.textWithMarginContainer}>
-          <Text style={textGamesStyles.secondaryText}>Type of set:</Text>
-        </View>
-        <View style={textGamesStyles.textWithMarginContainer}>
-          <CustomDropdown
-            defaultSelectText={"type"}
-            selectData={["Default sets", "Custom sets (coming soon...)"]}
-            onSelectFunc={setWordSetType}
-          />
-        </View>
-        <View style={textGamesStyles.textWithMarginContainer}>
-          <Text style={textGamesStyles.secondaryText}>Set:</Text>
-        </View>
-        <View style={textGamesStyles.textWithMarginContainer}>
+        <View style={[containerGamesStyles.dropDown]}>
           <CustomDropdown
             defaultSelectText={"set"}
             selectData={wordSets.map((wordSet) => wordSet.polish)}
@@ -69,19 +57,17 @@ const GameStartScreen = (props: StartScreenProps) => {
                 wordSets.find((wordSet) => wordSet.polish === selectedItem)
                   ?.id ?? -1
               );
+              setWordSetNameChosen(true);
             }}
           />
         </View>
-        <View style={{ flexDirection: "row" }}>
-          <TouchableOpacity
-            style={buttonGamesStyles.startButton}
-            onPress={onPressHandler}
-          >
-            <Text style={buttonGamesStyles.buttonText}>Play</Text>
-          </TouchableOpacity>
-        </View>
+        <BlockedButton
+          buttonText={"Play"}
+          condition={wordSetNameChosen}
+          onPress={onPressHandler}
+        />
       </View>
-      <FrontLlamaCenter />
+      <Llama />
     </View>
   );
 };

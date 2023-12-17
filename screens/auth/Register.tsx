@@ -3,11 +3,9 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-  NativeSyntheticEvent,
-  TextInputChangeEventData,
   Pressable,
 } from "react-native";
-import React, { useState } from "react";
+import React from "react";
 import authStyles from "../../styles/AuthStyles";
 import mainStyles from "../../styles/MainStyles";
 import { callRegister, loginHandler } from "../../backend/AuthBackend";
@@ -15,56 +13,36 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { AuthStackParamList } from "../../navgation/AuthStack";
 import Toast from "react-native-toast-message";
 import { useAppStore } from "../../state";
-import FrontLlamaCenter from "../../components/FrontLlamaCenter";
+import { useInput } from "../../hooks/useInput";
+import Llama from "../../components/llama/Llama";
 
 type Props = NativeStackScreenProps<AuthStackParamList, "Register">;
 
 function RegisterScreen({ navigation }: Props) {
-  const [enteredUsername, setEnteredUsername] = useState("");
-  const [enteredEmail, setEnteredEmail] = useState("");
-  const [enteredPassword, setEnteredPassword] = useState("");
-  const [enteredConfirmPassword, setEnteredConfirmPassword] = useState("");
-
   const setUserData = useAppStore((store) => store.setUserData);
 
-  function usernameInputHandler(
-    enteredText: NativeSyntheticEvent<TextInputChangeEventData>
-  ) {
-    setEnteredUsername(enteredText.nativeEvent.text);
-  }
-
-  function emailInputHandler(
-    enteredText: NativeSyntheticEvent<TextInputChangeEventData>
-  ) {
-    setEnteredEmail(enteredText.nativeEvent.text);
-  }
-
-  function passwordInputHandler(
-    enteredText: NativeSyntheticEvent<TextInputChangeEventData>
-  ) {
-    setEnteredPassword(enteredText.nativeEvent.text);
-  }
-
-  function confirmPasswordInputHandler(
-    enteredText: NativeSyntheticEvent<TextInputChangeEventData>
-  ) {
-    setEnteredConfirmPassword(enteredText.nativeEvent.text);
-  }
+  const usernameProps = useInput("");
+  const emailProps = useInput("");
+  const passwordProps = useInput("");
+  const confirmPasswordProps = useInput("");
 
   const pressRegisterButton = React.useCallback(async () => {
-    if (enteredPassword === enteredConfirmPassword) {
-      callRegister(enteredUsername, enteredPassword, enteredEmail).then(
-        (response) => {
-          if (response.type === "success") {
-            loginHandler(enteredUsername, enteredPassword, setUserData);
-          } else {
-            Toast.show({
-              type: "error",
-              text1: response.message,
-            });
-          }
+    if (passwordProps.value === confirmPasswordProps.value) {
+      console.log("Registring");
+      callRegister(
+        usernameProps.value,
+        passwordProps.value,
+        emailProps.value
+      ).then((response) => {
+        if (response.type === "success") {
+          loginHandler(usernameProps.value, passwordProps.value, setUserData);
+        } else {
+          Toast.show({
+            type: "error",
+            text1: response.message,
+          });
         }
-      );
+      });
     } else {
       Toast.show({
         type: "error",
@@ -73,10 +51,10 @@ function RegisterScreen({ navigation }: Props) {
     }
   }, [
     setUserData,
-    enteredUsername,
-    enteredPassword,
-    enteredConfirmPassword,
-    enteredEmail,
+    usernameProps.value,
+    passwordProps.value,
+    confirmPasswordProps.value,
+    emailProps.value,
   ]);
 
   return (
@@ -90,16 +68,16 @@ function RegisterScreen({ navigation }: Props) {
           <View style={authStyles.inputContainer}>
             <TextInput
               style={authStyles.textInput}
-              value={enteredUsername}
-              onChange={usernameInputHandler}
+              value={usernameProps.value}
+              onChange={usernameProps.onChange}
             />
           </View>
           <Text style={authStyles.plainText}>Email address</Text>
           <View style={authStyles.inputContainer}>
             <TextInput
               style={authStyles.textInput}
-              value={enteredEmail}
-              onChange={emailInputHandler}
+              value={emailProps.value}
+              onChange={emailProps.onChange}
             />
           </View>
           <Text style={authStyles.plainText}>Password</Text>
@@ -107,8 +85,8 @@ function RegisterScreen({ navigation }: Props) {
             <TextInput
               secureTextEntry={true}
               style={authStyles.textInput}
-              value={enteredPassword}
-              onChange={passwordInputHandler}
+              value={passwordProps.value}
+              onChange={passwordProps.onChange}
             />
           </View>
           <Text style={authStyles.plainText}>Confirm password</Text>
@@ -116,8 +94,8 @@ function RegisterScreen({ navigation }: Props) {
             <TextInput
               secureTextEntry={true}
               style={authStyles.textInput}
-              value={enteredConfirmPassword}
-              onChange={confirmPasswordInputHandler}
+              value={confirmPasswordProps.value}
+              onChange={confirmPasswordProps.onChange}
             />
           </View>
           <View>
@@ -136,7 +114,7 @@ function RegisterScreen({ navigation }: Props) {
           </Pressable>
         </View>
       </View>
-      <FrontLlamaCenter />
+      <Llama />
       <Toast position="top" bottomOffset={20} />
     </View>
   );

@@ -3,10 +3,14 @@ export const buttonDarkPink = "#b85971";
 export const buttonLightPink = "#c77d90";
 export const pink = "#e09cab";
 export const purple = "#6C0BA9";
+export const white = "#ffffff";
 export const lightGrey = "#efefef";
 export const grey = "#696368";
 
+export type Games = "memory" | "race" | "falling words" | "finding words";
+
 export const defaultUserData = {
+  id: 0,
   token: null,
   username: null,
   email: null,
@@ -14,60 +18,21 @@ export const defaultUserData = {
   level: 0,
   score: 0,
   llama: 0,
-  points_to_next_level: 0,
   current_week_points: null,
+  points_to_next_level: 0,
 };
 
-export type Games =
+export type GamesStatistics =
   | "all_games"
   | "memory"
   | "falling_words"
   | "race"
   | "finding_words";
 
-export type GameType = {
-  // Name for users
-  name: string;
-  backend_name: string;
-  statistics: {
-    name: string;
-    // SQL aggregate type
-    aggregate: "sum" | "avg" | "min" | "count";
-    // Column name in backed table
-    statistic: string;
-    // How to sort
-    order: "asc" | "desc";
-    // How to display nicely, default is just convert to str
-    display?: (stat: number) => string;
-  }[];
-};
-export const games: GameType[] = [
-  {
-    name: "Memory",
-    backend_name: "memory",
-    statistics: [
-      {
-        name: "Games played",
-        aggregate: "count",
-        statistic: "_",
-        order: "desc",
-      },
-      {
-        name: "Accuracy",
-        aggregate: "avg",
-        statistic: "accuracy",
-        order: "desc",
-        display: (stat: number) => `${Math.round(stat * 100)}%`,
-      },
-    ],
-  },
-  { name: "Race", backend_name: "race", statistics: [] },
-];
-
 export const friendsActions = [
   {
     text: "Search for more users",
-    icon: require("./assets/mag.png"),
+    icon: require("./assets/icons/mag.png"),
     name: "Search",
     position: 1,
     buttonSize: 50,
@@ -77,7 +42,7 @@ export const friendsActions = [
   },
   {
     text: "Check your invitations",
-    icon: require("./assets/envelope.png"),
+    icon: require("./assets/icons/envelope.png"),
     name: "Invitations",
     position: 2,
     buttonSize: 50,

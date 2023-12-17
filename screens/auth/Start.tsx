@@ -33,7 +33,7 @@ function StartScreen({ navigation }: Props) {
         <View style={authStyles.logoContainer}>
           <TouchableOpacity onPress={() => setShouldShowDebugURL((b) => !b)}>
             <Image
-              source={require("../../assets/logo_without_background.png")}
+              source={require("../../assets/logo.png")}
               style={{
                 width: 325,
                 height: 220,

@@ -134,20 +134,6 @@ function ProfileScreen({ navigation }: Props) {
               width: "90%",
             }}
           />
-          {/*<View style={userStyles.barContainer}>*/}
-          {/*  <ProgressBar*/}
-          {/*    progress={score / (points_to_next_level + score)}*/}
-          {/*    width={screenWidth * 0.9}*/}
-          {/*    height={20}*/}
-          {/*    color={pink}*/}
-          {/*    unfilledColor={"#fffcff"}*/}
-          {/*    borderWidth={1}*/}
-          {/*    borderColor={pink}*/}
-          {/*    borderRadius={10}*/}
-          {/*    animationType="timing"*/}
-          {/*  />*/}
-          {/*</View>*/}
-
           <Text
             style={{
               paddingTop: "2%",
@@ -178,7 +164,7 @@ function ProfileScreen({ navigation }: Props) {
             </View>
             <View style={userStyles.llama}>
               <Image
-                source={require("../../assets/llama.png")}
+                source={require("../../assets/llama/llama.png")}
                 style={userStyles.llamaImage}
               />
             </View>

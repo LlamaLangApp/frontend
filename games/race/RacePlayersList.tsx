@@ -8,7 +8,13 @@ type Props = NativeStackScreenProps<RaceStackParamList, "PlayersList">;
 function RacePlayersListScreen({ route }: Props) {
   const { players } = route.params;
 
-  return <MultiplayerPlayersListScreen gameName={"Race"} players={players} />;
+  return (
+    <MultiplayerPlayersListScreen
+      gameName={"Race"}
+      hostName={""}
+      players={players}
+    />
+  );
 }
 
 export default RacePlayersListScreen;

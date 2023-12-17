@@ -41,7 +41,7 @@ const Bucket: React.FC<FallingWordsCardProps> = ({
         style={[styles.bucket, bucketPosition]}
         {...panResponder.panHandlers}
       >
-        <Image source={require("../../assets/llama_with_bucket.png")} />
+        <Image source={require("../../assets/llama/llama_bucket.png")} />
       </View>
     </View>
   );
@@ -54,12 +54,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   bucket: {
-    // width: bucketWidth,
-    // height: 50,
-    // backgroundColor: buttonLightPink,
     position: "absolute",
-    // borderBottomLeftRadius: 25,
-    // borderBottomRightRadius: 25,
   },
 });
 

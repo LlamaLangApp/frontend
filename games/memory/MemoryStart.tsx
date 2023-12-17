@@ -13,9 +13,6 @@ function MemoryStartScreen({ navigation }: Props) {
   const [setId, setSetId] = useState<number>(-1);
   const token = useAppStore.getState().token;
 
-  // const [isSetTypeDisabled, setIsSetTypeDisabled] = useState<string>("");
-  // const [isPlayButtonDisabled, setIsPlayButtonDisabled] = useState<string>("");
-
   function startGameHandler() {
     callTranslations(token, setId, 6).then((response) => {
       if (response.type === "success") {

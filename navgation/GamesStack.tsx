@@ -5,13 +5,20 @@ import FallingWordsStack from "../games/falling_words/FallingWordsStack";
 import HomeDrawer from "./HomeDrawer";
 import FindingWordsStack from "../games/finding_words/FindingWordsStack";
 import { gestureHandlerRootHOC } from "react-native-gesture-handler";
+import { GameInvite } from "../components/GameInvitationIcon";
 
 export type GamesStackParamList = {
   Home: undefined;
   Memory: undefined;
-  Race: undefined;
+  Race: {
+    fromInvite: boolean;
+    invite: GameInvite | null;
+  };
   FallingWords: undefined;
-  FindingWords: undefined;
+  FindingWords: {
+    fromInvite: boolean;
+    invite: GameInvite | null;
+  };
 };
 
 const Stack = createNativeStackNavigator<GamesStackParamList>();
@@ -25,6 +32,8 @@ const GamesStack = () => {
       <Stack.Screen name={"FallingWords"} component={FallingWordsStack} />
       <Stack.Screen
         name={"FindingWords"}
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         component={gestureHandlerRootHOC(FindingWordsStack)}
       />
     </Stack.Navigator>

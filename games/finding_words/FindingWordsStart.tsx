@@ -1,29 +1,51 @@
 import React, { useState, useContext } from "react";
 import { FindingWordsWebSocketContext } from "./FindingWordsWebSocket";
-import GameStartScreen from "../common/GameStart";
+import MultiplayerGameStartScreen from "../common/MultiplayerGameStart";
+import MultiplayerJoinRoom from "../common/MultiplayerJoinRoom";
 
 function FindingWordsStartScreen() {
-  const { ws } = useContext(FindingWordsWebSocketContext);
-  const [setName, setSetName] = useState<string>("");
+  const {
+    ws,
+    withFriends,
+    setWithFriends,
+    fromInvite,
+    invite,
+    setWordSetName,
+  } = useContext(FindingWordsWebSocketContext);
   const [setId, setSetId] = useState<number>(0);
+  console.log(withFriends);
 
   async function findOtherPlayersHandler() {
-    console.log("Finding players for game ", setName);
     ws?.send(
       JSON.stringify({
         type: "waitroom_request",
-        game: "finding_words",
         wordset_id: setId,
+        ...(withFriends && { as_owner: true }),
       })
     );
   }
 
-  return (
-    <GameStartScreen
+  async function joinRoomHandler() {
+    ws?.send(
+      JSON.stringify({
+        type: "waitroom_request",
+        owned_room: invite?.waitRoom,
+      })
+    );
+  }
+
+  return fromInvite ? (
+    <MultiplayerJoinRoom
       gameName={"Finding words"}
-      setWordSetName={setSetName}
+      onPressHandler={joinRoomHandler}
+    />
+  ) : (
+    <MultiplayerGameStartScreen
+      gameName={"Finding words"}
+      setWordSetName={setWordSetName}
       setWordSetId={setSetId}
       onPressHandler={findOtherPlayersHandler}
+      playWithFriends={setWithFriends}
     />
   );
 }

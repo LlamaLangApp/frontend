@@ -9,6 +9,7 @@ import UserStack from "./UserStack";
 import FriendsStack from "./FriendsStack";
 import HomeScreen from "../screens/Home";
 import { UpdateHandlerProvider } from "../backend/UpdateHandler";
+import GameInvitationIcon from "../components/GameInvitationIcon";
 import StatisticsScreen from "../screens/Statistics";
 
 export type HomeDrawerParamList = {
@@ -30,11 +31,13 @@ const HomeDrawer = () => {
         drawerContent={(props) => <CustomDrawer {...props} />}
         initialRouteName={"Games"}
         screenOptions={{
+          headerTitle: "",
           headerTintColor: "#000",
           drawerActiveBackgroundColor: pink,
           drawerInactiveTintColor: "#333",
           drawerActiveTintColor: "#fff",
           drawerLabelStyle: { marginLeft: -25, fontSize: 15 },
+          headerRight: () => <GameInvitationIcon />,
         }}
       >
         <Drawer.Screen

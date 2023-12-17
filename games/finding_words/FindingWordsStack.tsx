@@ -5,9 +5,10 @@ import FindingWordsGameScreen from "./FindingWordsGame";
 import FindingWordsWaitingRoomScreen from "./FindingWordsWaitingRoom";
 import FindingWordsPlayersListScreen from "./FindingWordsPlayersList";
 import { FindingWordsWebSocketProvider } from "./FindingWordsWebSocket";
-import { useNavigation } from "@react-navigation/native";
+import { RouteProp, useNavigation } from "@react-navigation/native";
 import FindingWordsEndGameScreen from "./FindingWordsEndGame";
 import FindingWordsAnswerScreen from "./FindingWordsAnswer";
+import { GamesStackParamList } from "../../navgation/GamesStack";
 
 export type FindingWordsStackParamList = {
   Start: undefined;
@@ -28,9 +29,20 @@ export type FindingWordsStackParamList = {
 };
 const Stack = createNativeStackNavigator<FindingWordsStackParamList>();
 
-const FindingWordsStack = () => {
+type FindingWordsStackProps = {
+  route: RouteProp<GamesStackParamList, "FindingWords">;
+};
+
+const FindingWordsStack = ({ route }: FindingWordsStackProps) => {
+  const fromInvite = route.params?.fromInvite ?? false;
+  const invite = route.params?.invite ?? null;
+
   return (
-    <FindingWordsWebSocketProvider navigation={useNavigation()}>
+    <FindingWordsWebSocketProvider
+      navigation={useNavigation()}
+      fromInvite={fromInvite}
+      invite={invite}
+    >
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name={"Start"} component={FindingWordsStartScreen} />
         <Stack.Screen

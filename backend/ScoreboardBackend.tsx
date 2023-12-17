@@ -10,7 +10,6 @@ export async function getScoreboard(
   period: "all_time" | "this_week",
   scoreboard_type: string
 ): Promise<ApiResponse<ScoreboardData>> {
-  // console.log(period, scoreboard_type);
   return makeApiRequest<ScoreboardData>("scoreboard/", "POST", token, {
     period: period,
     scoreboard_type: scoreboard_type,

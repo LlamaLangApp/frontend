@@ -29,10 +29,6 @@ import { UpdateHandlerContext } from "../../backend/UpdateHandler";
 interface FriendsContextType {
   allUsers: Users;
   setAllUsers: Dispatch<SetStateAction<Users>>;
-  filteredUsers: User[];
-  setFilteredUsers: Dispatch<SetStateAction<User[]>>;
-  filteredFriends: User[];
-  setFilteredFriends: Dispatch<SetStateAction<User[]>>;
   handleInvite: (userId: number) => void;
   handleAcceptInvite: (userId: number) => void;
   handleRejectInvite: (userId: number) => void;
@@ -44,14 +40,6 @@ interface FriendsContextType {
 const FriendsContext = createContext<FriendsContextType>({
   allUsers: [],
   setAllUsers: () => {
-    return [];
-  },
-  filteredUsers: [],
-  setFilteredUsers: () => {
-    return [];
-  },
-  filteredFriends: [],
-  setFilteredFriends: () => {
     return [];
   },
   handleInvite: () => null,
@@ -89,8 +77,6 @@ const FriendsProvider = ({ children }: FriendsProviderProps) => {
     username: store.username,
   }));
   const [allUsers, setAllUsers] = useState<Users>([]);
-  const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
-  const [filteredFriends, setFilteredFriends] = useState<User[]>([]);
 
   function createModifiedUser(
     item: FriendData,
@@ -167,11 +153,6 @@ const FriendsProvider = ({ children }: FriendsProviderProps) => {
               })
           );
           setAllUsers({ ...friendList, ...otherUsers });
-          setFilteredUsers([
-            ...Object.values(friendList),
-            ...Object.values(otherUsers),
-          ]);
-          setFilteredFriends([...Object.values(friendList)]);
         }
       }
     );
@@ -184,8 +165,7 @@ const FriendsProvider = ({ children }: FriendsProviderProps) => {
   const { onFriendsStatusUpdate } = useContext(UpdateHandlerContext);
 
   useEffect(() => {
-    const cleanupFunction = onFriendsStatusUpdate(fetchAllFriendsData);
-    return cleanupFunction;
+    return onFriendsStatusUpdate(fetchAllFriendsData);
   }, [fetchAllFriendsData]);
 
   const handleInvite = (userId: number) => {
@@ -253,10 +233,6 @@ const FriendsProvider = ({ children }: FriendsProviderProps) => {
       value={{
         allUsers,
         setAllUsers,
-        filteredUsers,
-        setFilteredUsers,
-        filteredFriends,
-        setFilteredFriends,
         handleInvite,
         handleAcceptInvite,
         handleRejectInvite,

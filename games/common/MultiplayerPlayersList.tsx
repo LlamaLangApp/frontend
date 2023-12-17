@@ -1,63 +1,87 @@
 import { FlatList, Text, View } from "react-native";
 import mainStyles from "../../styles/MainStyles";
 import React from "react";
-import { buttonLightPink } from "../../Consts";
-import FrontLlamaCenter from "../../components/FrontLlamaCenter";
+import { grey, pink } from "../../Consts";
 import textGamesStyles from "../../styles/games/TextGamesStyles";
+import Llama from "../../components/llama/Llama";
+import containerGamesStyles from "../../styles/games/ContainerGamesStyles";
+import { FontAwesome5 } from "@expo/vector-icons";
+import { useAppStore } from "../../state";
+import Toast from "react-native-toast-message";
 
 type MultiplayerPlayersListProps = {
   gameName: string;
+  hostName: string;
   players: string[];
 };
 
 function MultiplayerPlayersListScreen(props: MultiplayerPlayersListProps) {
-  const { gameName, players } = props;
+  const username = useAppStore.getState().username;
+  const { gameName, hostName, players } = props;
 
   return (
-    <View style={mainStyles.container}>
-      <View style={{ marginTop: 100, width: "80%" }}>
-        <Text style={textGamesStyles.basicText}></Text>
+    <View style={mainStyles.whiteBackgroundContainer}>
+      <View style={containerGamesStyles.screen}>
+        <View style={containerGamesStyles.textWithMargin}>
+          <Text style={textGamesStyles.gameName}>{gameName.toUpperCase()}</Text>
+        </View>
+        <View style={[containerGamesStyles.textWithMargin, { gap: 10 }]}>
+          <Text style={[textGamesStyles.information, { color: pink }]}>
+            The game is starting now!
+          </Text>
+          <Text style={textGamesStyles.information}>Meet the players:</Text>
+        </View>
         <View
           style={{
-            justifyContent: "flex-start",
-            alignItems: "flex-start",
+            height: "40%",
+            width: "100%",
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
-          <Text
-            style={[textGamesStyles.headingText, { alignSelf: "flex-start" }]}
-          >
-            {gameName}
-          </Text>
-        </View>
-        <View style={[textGamesStyles.textWithMarginContainer]}>
-          <Text style={[textGamesStyles.secondaryText, { margin: 5 }]}>
-            List of players:
-          </Text>
-        </View>
-        <View style={{ justifyContent: "center", marginTop: 20 }}>
           <FlatList
-            showsVerticalScrollIndicator={false}
-            data={players}
-            renderItem={(itemData) => {
-              return (
-                <View
-                  style={{
-                    paddingVertical: 5,
-                    margin: 8,
-                    borderRadius: 7,
-                    backgroundColor: buttonLightPink,
-                    alignItems: "center",
-                  }}
-                >
-                  <Text style={textGamesStyles.basicText}>{itemData.item}</Text>
-                </View>
-              );
+            style={{
+              width: "70%",
+              borderRadius: 10,
+              height: "100%",
             }}
+            data={players}
+            showsVerticalScrollIndicator={false}
+            ItemSeparatorComponent={() => {
+              return <View style={{ height: 1, backgroundColor: "#bababa" }} />;
+            }}
+            renderItem={({ item }) => (
+              <View
+                style={{
+                  paddingVertical: 5,
+                  margin: 2,
+                  borderRadius: 7,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  flexDirection: "row",
+                  gap: 5,
+                }}
+              >
+                <Text style={[textGamesStyles.button, { color: grey }]}>
+                  {item}
+                </Text>
+                {item === username && (
+                  <Text
+                    style={{ fontWeight: "600", fontSize: 13, color: grey }}
+                  >
+                    (YOU)
+                  </Text>
+                )}
+                {item === hostName && (
+                  <FontAwesome5 name={"crown"} size={16} color={pink} />
+                )}
+              </View>
+            )}
           />
         </View>
-        <View style={{ flex: 4 }} />
       </View>
-      <FrontLlamaCenter />
+      <Llama />
+      <Toast position="top" topOffset={30} />
     </View>
   );
 }

@@ -12,7 +12,7 @@ function LlamaScreen() {
         </View>
         <View style={userStyles.llamaContainer}>
           <Image
-            source={require("../../assets/llama.png")}
+            source={require("../../assets/llama/llama.png")}
             style={userStyles.llamaImage}
           />
         </View>
@@ -20,19 +20,19 @@ function LlamaScreen() {
           <View style={userStyles.skinsContainer}>
             <TouchableOpacity style={userStyles.llamaSkinContainer}>
               <Image
-                source={require("../../assets/llama.png")}
+                source={require("../../assets/llama/llama.png")}
                 style={{ width: "100%", height: "100%" }}
               />
             </TouchableOpacity>
             <View style={userStyles.lockContainer}>
               <Image
-                source={require("../../assets/lock.png")}
+                source={require("../../assets/icons/lock.png")}
                 style={{ width: "50%", height: "50%" }}
               />
             </View>
             <View style={userStyles.lockContainer}>
               <Image
-                source={require("../../assets/lock.png")}
+                source={require("../../assets/icons/lock.png")}
                 style={{ width: "50%", height: "50%" }}
               />
             </View>

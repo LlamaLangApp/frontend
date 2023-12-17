@@ -1,5 +1,5 @@
 import { ApiResponse, makeApiRequest } from "./CommonBackend";
-import { Games } from "../Consts";
+import { GamesStatistics } from "../Consts";
 
 export type CalendarData = {
   calendar: Record<string, number>;
@@ -27,7 +27,7 @@ export type TotalDaysData = {
 
 export async function getCalendar(
   token: string | null,
-  game: Games,
+  game: GamesStatistics,
   month: number,
   year: number
 ): Promise<ApiResponse<CalendarData>> {
@@ -40,7 +40,7 @@ export async function getCalendar(
 
 export async function getLongestStreak(
   token: string | null,
-  game: Games
+  game: GamesStatistics
 ): Promise<ApiResponse<LongestStreakData>> {
   return makeApiRequest<LongestStreakData>(
     `statistics/longest-streak/`,
@@ -52,7 +52,7 @@ export async function getLongestStreak(
 
 export async function getCurrentStreak(
   token: string | null,
-  game: Games
+  game: GamesStatistics
 ): Promise<ApiResponse<CurrentStreakData>> {
   return makeApiRequest<CurrentStreakData>(
     `statistics/current-streak/`,
@@ -64,7 +64,7 @@ export async function getCurrentStreak(
 
 export async function getGamePoints(
   token: string | null,
-  game: Games
+  game: GamesStatistics
 ): Promise<ApiResponse<GamePointsData>> {
   return makeApiRequest<GamePointsData>(
     `statistics/game-points/`,

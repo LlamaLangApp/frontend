@@ -1,6 +1,6 @@
-import {
-  ReactNode,
+import React, {
   createContext,
+  ReactNode,
   useCallback,
   useEffect,
   useRef,
@@ -8,6 +8,7 @@ import {
 } from "react";
 import { serverURL } from "./CommonBackend";
 import { useAppStore } from "../state";
+import { GameInvite } from "../components/GameInvitationIcon";
 
 type CallbackCleanupFunction = () => void;
 const dummyCleanupFunction: CallbackCleanupFunction = () => {
@@ -15,15 +16,22 @@ const dummyCleanupFunction: CallbackCleanupFunction = () => {
 };
 
 type FriendStatusListener = () => void;
+type WaitRoomInvitationListener = (invites: GameInvite[]) => void;
 
 type UpdateHandlerContextType = {
   onFriendsStatusUpdate: (
     listener: FriendStatusListener
   ) => CallbackCleanupFunction;
+  onWaitRoomInvitation: (
+    listener: WaitRoomInvitationListener
+  ) => CallbackCleanupFunction;
 };
 
 const UpdateHandlerContext = createContext<UpdateHandlerContextType>({
   onFriendsStatusUpdate: () => {
+    return dummyCleanupFunction;
+  },
+  onWaitRoomInvitation: () => {
     return dummyCleanupFunction;
   },
 });
@@ -32,6 +40,7 @@ function UpdateHandlerProvider({ children }: { children: ReactNode }) {
   const token = useAppStore((store) => store.token);
 
   const friendStatusListeners = useRef<FriendStatusListener[]>([]);
+  const waitRoomInvitationListeners = useRef<WaitRoomInvitationListener[]>([]);
 
   const [ws, setWs] = useState<null | WebSocket>(null);
 
@@ -59,6 +68,28 @@ function UpdateHandlerProvider({ children }: { children: ReactNode }) {
         if (payload.type === "friend_status_update") {
           for (const listener of friendStatusListeners.current) {
             listener();
+          }
+        } else if (payload.type === "waitroom_invitation") {
+          if (payload.invitations[0]) {
+            for (const listener of waitRoomInvitationListeners.current) {
+              listener(
+                payload.invitations.map(
+                  (invite: {
+                    username: string;
+                    game: string;
+                    waitroom: number;
+                    wordset_id: number;
+                  }) => {
+                    return {
+                      username: invite.username,
+                      game: invite.game,
+                      waitRoom: invite.waitroom,
+                      wordSetId: invite.wordset_id,
+                    };
+                  }
+                )
+              );
+            }
           }
         } else {
           console.error("Unknown update: ", payload);
@@ -93,9 +124,23 @@ function UpdateHandlerProvider({ children }: { children: ReactNode }) {
     },
     []
   );
+  const onWaitRoomInvitation = useCallback(
+    (listener: WaitRoomInvitationListener) => {
+      waitRoomInvitationListeners.current.push(listener);
+
+      // Return cleanup function
+      return () => {
+        waitRoomInvitationListeners.current =
+          waitRoomInvitationListeners.current.filter((l) => l === listener);
+      };
+    },
+    []
+  );
 
   return (
-    <UpdateHandlerContext.Provider value={{ onFriendsStatusUpdate }}>
+    <UpdateHandlerContext.Provider
+      value={{ onFriendsStatusUpdate, onWaitRoomInvitation }}
+    >
       {children}
     </UpdateHandlerContext.Provider>
   );

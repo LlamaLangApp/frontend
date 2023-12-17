@@ -8,50 +8,28 @@ import {
 } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { FriendsStackParamList } from "../../navgation/FriendsStack";
-import React, { useContext, useEffect, useState, useCallback } from "react";
-import { FriendsContext } from "./Friends";
+import React, { useContext, useState } from "react";
+import { FriendsContext, User } from "./Friends";
 import friendsStyles from "../../styles/FriendsStyles";
 import { buttonLightPink, friendsActions, grey, purple } from "../../Consts";
 import UserListItem from "../../components/friends/UserListItem";
 import { FloatingAction } from "react-native-floating-action";
 import UserDisplayModal from "../../components/friends/UserDisplayModal";
 import mainStyles from "../../styles/MainStyles";
-import { useFocusEffect } from "@react-navigation/native";
+import useFilteredItems, { FilterFunction } from "../../hooks/useFilteredItems";
 
 type Props = NativeStackScreenProps<FriendsStackParamList, "List">;
 
 function FriendsListScreen({ navigation }: Props) {
-  const { allUsers, setFilteredFriends, fetchAllFriendsData, filteredFriends } =
-    useContext(FriendsContext);
-  const [searchText, setSearchText] = useState("");
+  const { allUsers, fetchAllFriendsData } = useContext(FriendsContext);
 
-  useFocusEffect(
-    useCallback(() => {
-      const filtered = Object.values(allUsers).filter(
-        (user) =>
-          user.isFriend &&
-          user.username.toLowerCase().includes(searchText.toLowerCase())
-      );
-      setFilteredFriends(filtered);
-      return () => setSearchText("");
-    }, [allUsers])
-  );
+  const filterFriends: FilterFunction<User> = (user: User, text: string) =>
+    !!user.isFriend && user.username.toLowerCase().includes(text.toLowerCase());
 
-  useEffect(
-    () =>
-      setFilteredFriends(
-        Object.values(allUsers).filter((user) => user.isFriend)
-      ),
-    []
-  );
-  useEffect(() => {
-    const filtered = Object.values(allUsers).filter(
-      (user) =>
-        user.isFriend &&
-        user.username.toLowerCase().includes(searchText.toLowerCase())
-    );
-    setFilteredFriends(filtered);
-  }, [searchText]);
+  const filteredFriendsHook = useFilteredItems<User>({
+    allItems: allUsers,
+    filterFunction: filterFriends,
+  });
 
   const handlePress = (name: string | undefined) => {
     if (name === "Invitations" || name === "Search") {
@@ -92,7 +70,7 @@ function FriendsListScreen({ navigation }: Props) {
           <TextInput
             placeholder="search friends..."
             style={friendsStyles.textInputFriends}
-            onChangeText={setSearchText}
+            onChangeText={filteredFriendsHook.changeFilteredItems}
           />
           <Text style={{ fontSize: 20, marginLeft: 5, color: grey }}>
             Your friends:
@@ -103,17 +81,17 @@ function FriendsListScreen({ navigation }: Props) {
               refreshing={isRefreshing}
               onRefresh={onRefresh}
               showsVerticalScrollIndicator={false}
-              data={filteredFriends}
+              data={filteredFriendsHook.filteredItems}
               ItemSeparatorComponent={() => {
                 return (
                   <View style={{ height: 1, backgroundColor: "#bababa" }} />
                 );
               }}
               ListEmptyComponent={() => {
-                return searchText ? (
+                return filteredFriendsHook.searchText ? (
                   <View style={friendsStyles.emptyListContainer}>
                     <Text style={{ color: "#bababa" }}>
-                      No matching friends for "{searchText}"
+                      No matching friends for "{filteredFriendsHook.searchText}"
                     </Text>
                   </View>
                 ) : (
