@@ -8,7 +8,7 @@ export type CalendarData = {
 };
 
 export type LongestStreakData = {
-  longest_streak: number;
+  streak_length: number;
   start_date: string;
   end_date: string;
 };

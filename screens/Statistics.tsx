@@ -121,7 +121,6 @@ export default () => {
           setCalendarAllGames(calendarAllGamesResponse.result);
           setLongestStreak(longestStreakResponse.result);
           setCurrentStreak(currentStreakResponse.result);
-          // setCurrentStreak({ current_streak: 4 });
           setTotalDays(totalDaysResponse.result);
         } else {
           setCalendarAllGames(null);
@@ -311,7 +310,7 @@ export default () => {
           <StatsInfo
             iconName={"calendar-check"}
             statsText={" Longest streak"}
-            statsNumber={longestStreak?.longest_streak}
+            statsNumber={longestStreak?.streak_length}
             backgroundColor={"#fffcff"}
             textColor={grey}
           />
