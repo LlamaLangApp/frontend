@@ -1,14 +1,16 @@
 import { FlatList, Text, TouchableOpacity, View } from "react-native";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { FriendsStackParamList } from "../../navgation/FriendsStack";
-import { grey } from "../../Consts";
 import React, { useContext, useState } from "react";
-import friendsStyles from "../../styles/FriendsStyles";
-import { FriendsContext } from "./Friends";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { FontAwesome } from "@expo/vector-icons";
+import { FriendsStackParamList } from "../../navgation/FriendsStack";
+import { FriendsContext } from "./Friends";
 import FriendsButtonRow from "../../components/friends/FriendsButtonRow";
 import InviteListItem from "../../components/friends/InviteListItem";
+import { grey } from "../../Consts";
 import mainStyles from "../../styles/MainStyles";
+import friendsStyles from "../../styles/FriendsStyles";
+import containerStyles from "../../styles/ContainerStyles";
+import textStyles from "../../styles/TextStyles";
 
 type Props = NativeStackScreenProps<FriendsStackParamList, "Invitations">;
 
@@ -63,23 +65,23 @@ function InvitationsScreen({ navigation }: Props) {
             }}
             ListEmptyComponent={() => {
               return invitationType === "Received" ? (
-                <View style={friendsStyles.emptyListContainer}>
-                  <Text style={{ color: "#bababa" }}>
+                <View style={containerStyles.emptyList}>
+                  <Text style={textStyles.emptyList}>
                     No friend requests to accept?
                   </Text>
-                  <Text style={{ color: "#bababa" }}>
+                  <Text style={textStyles.emptyList}>
                     Be the first to reach out and connect!
                   </Text>
                 </View>
               ) : (
-                <View style={friendsStyles.emptyListContainer}>
-                  <Text style={{ color: "#bababa" }}>
+                <View style={containerStyles.emptyList}>
+                  <Text style={textStyles.emptyList}>
                     No pending friend requests?
                   </Text>
-                  <Text style={{ color: "#bababa" }}>
+                  <Text style={textStyles.emptyList}>
                     Send out some invitations and start connecting!
                   </Text>
-                  <Text style={{ color: "#bababa" }}>
+                  <Text style={textStyles.emptyList}>
                     Your new friends are just a message away.
                   </Text>
                 </View>

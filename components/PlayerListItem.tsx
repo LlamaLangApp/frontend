@@ -1,6 +1,8 @@
-import { useMemo } from "react";
 import { View, Text, Image, ImageSourcePropType } from "react-native";
-import { grey } from "../Consts";
+import { useMemo } from "react";
+import scoreboardStyles from "../styles/ScoreboardStyles";
+import textStyles from "../styles/TextStyles";
+import containerStyles from "../styles/ContainerStyles";
 
 const playerPlaceImages: Record<1 | 2 | 3, ImageSourcePropType> = {
   1: require("../assets/scoreboard/medal-1.png"),
@@ -14,73 +16,31 @@ export type PlaceItem = {
   place: number;
 };
 
-export default ({ username, place, score }: PlaceItem) => {
+const PlayerListItem = ({ username, place, score }: PlaceItem) => {
   const placeElement = useMemo(() => {
     if (place === 1 || place === 2 || place === 3) {
       return (
         <Image
           source={playerPlaceImages[place]}
-          style={{ width: "70%", height: "70%" }}
+          style={scoreboardStyles.podiumImage}
         />
       );
     } else {
-      return <Text style={{ fontSize: 25, color: grey }}>{place}</Text>;
+      return <Text style={scoreboardStyles.placeText}>{place}</Text>;
     }
   }, [place]);
 
   return (
-    <View
-      style={{
-        justifyContent: "space-between",
-        flexDirection: "row",
-        alignItems: "center",
-      }}
-    >
-      <View
-        style={{
-          height: 70,
-          width: 50 + 15 + 15,
-          flexDirection: "row",
-          marginVertical: "1.5%",
-          marginRight: 10,
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-      >
-        <View
-          style={{
-            width: 60,
-            height: 60,
-            borderRadius: 30,
-            overflow: "hidden",
-            margin: 3,
-            marginRight: 10,
-            alignItems: "center",
-            justifyContent: "center",
-            backgroundColor: "#ede4e8",
-          }}
-        >
-          {placeElement}
-        </View>
-        <Text style={{ fontSize: 20, color: grey }}>{username}</Text>
+    <View style={containerStyles.spaceBetweenInRow}>
+      <View style={scoreboardStyles.placeAndUsernameContainer}>
+        <View style={scoreboardStyles.placeContainer}>{placeElement}</View>
+        <Text style={textStyles.biggerBasicWeight600}>{username}</Text>
       </View>
-      <View
-        style={{
-          justifyContent: "center",
-          alignItems: "center",
-          marginRight: 10,
-        }}
-      >
-        <Text
-          style={{
-            fontSize: 25,
-            borderRadius: 15,
-            color: grey,
-          }}
-        >
-          {score}
-        </Text>
+      <View style={scoreboardStyles.scoreContainer}>
+        <Text style={textStyles.grey25Weight600}>{score}</Text>
       </View>
     </View>
   );
 };
+
+export default PlayerListItem;

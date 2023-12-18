@@ -66,6 +66,20 @@ const textStyles = StyleSheet.create({
     color: grey,
     fontWeight: "700",
   },
+  emptyList: {
+    color: "#bababa",
+  },
+  pink: {
+    color: pink,
+  },
+  weight800: {
+    fontWeight: "800",
+  },
+  grey25Weight600: {
+    fontWeight: "600",
+    fontSize: 25,
+    color: grey,
+  },
 });
 
 export default textStyles;

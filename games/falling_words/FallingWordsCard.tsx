@@ -86,7 +86,7 @@ const FallingWordsCard: React.FC<FallingWordsCardProps> = ({ card, cards }) => {
         },
       ]}
     >
-      <Text style={textGamesStyles.basicWeight600}>{card.translation}</Text>
+      <Text style={textGamesStyles.whiteWeight600}>{card.translation}</Text>
     </Animated.View>
   );
 };

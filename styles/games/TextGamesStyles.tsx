@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { grey, pink } from "../../Consts";
+import { grey, pink, white } from "../../Consts";
 
 const textGamesStyles = StyleSheet.create({
   gameName: {
@@ -20,6 +20,11 @@ const textGamesStyles = StyleSheet.create({
     fontWeight: "600",
     fontSize: 14,
     color: grey,
+  },
+  whiteWeight600: {
+    fontWeight: "600",
+    fontSize: 14,
+    color: white,
   },
   biggerBasicWeight600: {
     fontWeight: "600",

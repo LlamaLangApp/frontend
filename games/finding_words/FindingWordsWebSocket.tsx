@@ -10,7 +10,7 @@ import {
   CommonWebSocketProps,
   SocketGameStates,
 } from "../common/WebSocket";
-import { GameInvite } from "../../components/GameInvitationIcon";
+import { GameInvite } from "../../components/GameInvitations";
 
 interface FindingWordsWebSocketContextType extends CommonWebSocketProps {
   leaveGame: () => void;

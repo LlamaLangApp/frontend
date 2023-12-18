@@ -1,7 +1,7 @@
-import { Games } from "../Consts";
 import { Image, ImageSourcePropType, TouchableOpacity } from "react-native";
-import homeStyles from "../styles/HomeStyles";
 import { useMemo } from "react";
+import { Games } from "../Consts";
+import homeStyles from "../styles/HomeStyles";
 
 const gameCoverImages: Record<Games, ImageSourcePropType> = {
   memory: require("../assets/games/Memory.png"),
@@ -24,10 +24,7 @@ function GameCover({ gameName, onPressItem }: GameCoverProps) {
         style={homeStyles.coverImageContainer}
       >
         {gameCoverPath && (
-          <Image
-            source={gameCoverPath}
-            style={{ width: "100%", height: 180 }}
-          />
+          <Image source={gameCoverPath} style={homeStyles.coverImage} />
         )}
       </TouchableOpacity>
     );

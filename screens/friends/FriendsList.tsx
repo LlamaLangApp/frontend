@@ -6,17 +6,19 @@ import {
   TextInput,
   View,
 } from "react-native";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { FriendsStackParamList } from "../../navgation/FriendsStack";
 import React, { useContext, useState } from "react";
-import { FriendsContext, User } from "./Friends";
-import friendsStyles from "../../styles/FriendsStyles";
-import { buttonLightPink, friendsActions, grey, purple } from "../../Consts";
-import UserListItem from "../../components/friends/UserListItem";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { FloatingAction } from "react-native-floating-action";
-import UserDisplayModal from "../../components/friends/UserDisplayModal";
-import mainStyles from "../../styles/MainStyles";
+import { FriendsStackParamList } from "../../navgation/FriendsStack";
 import useFilteredItems, { FilterFunction } from "../../hooks/useFilteredItems";
+import { FriendsContext, User } from "./Friends";
+import UserListItem from "../../components/friends/UserListItem";
+import UserDisplayModal from "../../components/friends/UserDisplayModal";
+import { buttonLightPink, friendsActions, grey, purple } from "../../Consts";
+import mainStyles from "../../styles/MainStyles";
+import friendsStyles from "../../styles/FriendsStyles";
+import containerStyles from "../../styles/ContainerStyles";
+import textStyles from "../../styles/TextStyles";
 
 type Props = NativeStackScreenProps<FriendsStackParamList, "List">;
 
@@ -89,17 +91,17 @@ function FriendsListScreen({ navigation }: Props) {
               }}
               ListEmptyComponent={() => {
                 return filteredFriendsHook.searchText ? (
-                  <View style={friendsStyles.emptyListContainer}>
-                    <Text style={{ color: "#bababa" }}>
+                  <View style={containerStyles.emptyList}>
+                    <Text style={textStyles.emptyList}>
                       No matching friends for "{filteredFriendsHook.searchText}"
                     </Text>
                   </View>
                 ) : (
-                  <View style={friendsStyles.emptyListContainer}>
-                    <Text style={{ color: "#bababa" }}>
+                  <View style={containerStyles.emptyList}>
+                    <Text style={textStyles.emptyList}>
                       Your friend list is waiting to be filled!
                     </Text>
-                    <Text style={{ color: "#bababa" }}>
+                    <Text style={textStyles.emptyList}>
                       Start connecting now.
                     </Text>
                   </View>

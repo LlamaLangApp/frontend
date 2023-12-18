@@ -6,17 +6,19 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { FriendsStackParamList } from "../../navgation/FriendsStack";
-import { grey } from "../../Consts";
 import React, { useContext, useState } from "react";
-import friendsStyles from "../../styles/FriendsStyles";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { FontAwesome } from "@expo/vector-icons";
+import { FriendsStackParamList } from "../../navgation/FriendsStack";
+import useFilteredItems, { FilterFunction } from "../../hooks/useFilteredItems";
 import UserListItem from "../../components/friends/UserListItem";
 import { FriendsContext, User } from "./Friends";
 import UserDisplayModal from "../../components/friends/UserDisplayModal";
-import { FontAwesome } from "@expo/vector-icons";
+import { grey } from "../../Consts";
 import mainStyles from "../../styles/MainStyles";
-import useFilteredItems, { FilterFunction } from "../../hooks/useFilteredItems";
+import friendsStyles from "../../styles/FriendsStyles";
+import containerStyles from "../../styles/ContainerStyles";
+import textStyles from "../../styles/TextStyles";
 
 type Props = NativeStackScreenProps<FriendsStackParamList, "Search">;
 
@@ -90,14 +92,14 @@ function SearchUsersScreen({ navigation }: Props) {
             }}
             ListEmptyComponent={() => {
               return filteredUsersHook.searchText ? (
-                <View style={friendsStyles.emptyListContainer}>
-                  <Text style={{ color: "#bababa" }}>
+                <View style={containerStyles.emptyList}>
+                  <Text style={textStyles.emptyList}>
                     No matching friends for "{filteredUsersHook.searchText}"
                   </Text>
                 </View>
               ) : (
-                <View style={friendsStyles.emptyListContainer}>
-                  <Text style={{ color: "#bababa" }}>
+                <View style={containerStyles.emptyList}>
+                  <Text style={textStyles.emptyList}>
                     Your are the first user on our server!
                   </Text>
                 </View>

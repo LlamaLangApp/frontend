@@ -13,7 +13,7 @@ function FindingWordsEndGame({ route }: Props) {
 
   return (
     <MultiplayerResult
-      gameName={"Falling Words"}
+      gameName={"Finding Words"}
       scoreboard={scoreboard}
       leaveGame={leaveGame}
     />

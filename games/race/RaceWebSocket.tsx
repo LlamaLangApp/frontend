@@ -6,18 +6,18 @@ import React, {
   useEffect,
   useState,
 } from "react";
+import Toast from "react-native-toast-message";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { useAppStore } from "../../state";
 import { serverURL } from "../../backend/CommonBackend";
 import { RaceStackParamList } from "./RaceStack";
-import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { GamesStackParamList } from "../../navgation/GamesStack";
-import Toast from "react-native-toast-message";
 import {
   commonWebSocketDefaultValues,
   CommonWebSocketProps,
   SocketGameStates,
 } from "../common/WebSocket";
-import { GameInvite } from "../../components/GameInvitationIcon";
+import { GameInvite } from "../../components/GameInvitations";
 
 interface RaceWebSocketContextType extends CommonWebSocketProps {
   leaveGame: () => void;

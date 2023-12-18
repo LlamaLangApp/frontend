@@ -80,12 +80,6 @@ const userStyles = StyleSheet.create({
     margin: 3,
     marginRight: 10,
   },
-  modal: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-  },
   userModalImage: {
     width: 150,
     height: 150,
@@ -182,11 +176,6 @@ const userStyles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "row",
-  },
-  emptyListContainer: {
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: "10%",
   },
 });
 
