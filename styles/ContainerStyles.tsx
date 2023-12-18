@@ -6,6 +6,10 @@ const containerStyles = StyleSheet.create({
     marginBottom: "3%",
     alignItems: "center",
   },
+  text: {
+    width: "98%",
+    margin: "1%",
+  },
 });
 
 export default containerStyles;

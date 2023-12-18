@@ -1,4 +1,5 @@
-export const defaultBackgroundColor = "#e5b3bb";
+export const defaultBackgroundColor = "#fffcff";
+export const authBackgroundColor = "#e5b3bb";
 export const buttonDarkPink = "#b85971";
 export const buttonLightPink = "#c77d90";
 export const pink = "#e09cab";

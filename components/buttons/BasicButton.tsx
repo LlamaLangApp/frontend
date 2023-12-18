@@ -1,6 +1,6 @@
 import buttonGamesStyles from "../../styles/games/ButtonGamesStyles";
 import textGamesStyles from "../../styles/games/TextGamesStyles";
-import { Text, TouchableOpacity } from "react-native";
+import { DimensionValue, Text, TouchableOpacity } from "react-native";
 import React, { useMemo } from "react";
 import { grey, lightGrey, pink, white } from "../../Consts";
 
@@ -9,16 +9,27 @@ const BasicButton = ({
   buttonColor,
   textColor,
   onPress,
+  height,
+  width,
 }: {
   buttonText: string;
   buttonColor: string;
   textColor: string;
   onPress: () => void;
+  height?: DimensionValue;
+  width?: DimensionValue;
 }) => {
   return useMemo(() => {
     return (
       <TouchableOpacity
-        style={[buttonGamesStyles.basic, { backgroundColor: buttonColor }]}
+        style={[
+          buttonGamesStyles.basic,
+          {
+            backgroundColor: buttonColor,
+            height: height ? height : "9%",
+            width: width ? width : "70%",
+          },
+        ]}
         onPress={onPress}
       >
         <Text style={[textGamesStyles.button, { color: textColor }]}>
@@ -32,9 +43,13 @@ const BasicButton = ({
 export const PinkButton = ({
   buttonText,
   onPress,
+  height,
+  width,
 }: {
   buttonText: string;
   onPress: () => void;
+  height?: DimensionValue;
+  width?: DimensionValue;
 }) => {
   return (
     <BasicButton
@@ -42,6 +57,8 @@ export const PinkButton = ({
       buttonColor={pink}
       textColor={white}
       onPress={onPress}
+      height={height}
+      width={width}
     />
   );
 };
@@ -49,9 +66,13 @@ export const PinkButton = ({
 export const LightGreyButton = ({
   buttonText,
   onPress,
+  height,
+  width,
 }: {
   buttonText: string;
   onPress: () => void;
+  height?: DimensionValue;
+  width?: DimensionValue;
 }) => {
   return (
     <BasicButton
@@ -59,6 +80,8 @@ export const LightGreyButton = ({
       buttonColor={lightGrey}
       textColor={grey}
       onPress={onPress}
+      height={height}
+      width={width}
     />
   );
 };

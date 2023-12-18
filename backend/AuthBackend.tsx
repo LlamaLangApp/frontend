@@ -84,6 +84,32 @@ export async function callRegister(
   );
 }
 
+export const registerHandler = (
+  username: string,
+  email: string,
+  password: string,
+  confirmPassword: string,
+  setUserData: (data: UserDataToSet) => void
+) => {
+  if (password === confirmPassword) {
+    callRegister(username, password, email).then((response) => {
+      if (response.type === "success") {
+        loginHandler(username, password, setUserData);
+      } else {
+        Toast.show({
+          type: "error",
+          text1: response.message,
+        });
+      }
+    });
+  } else {
+    Toast.show({
+      type: "error",
+      text1: "Provided passwords are not the same",
+    });
+  }
+};
+
 export const loginHandler = (
   enteredUsername: string,
   enteredPassword: string,

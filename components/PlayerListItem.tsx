@@ -1,6 +1,12 @@
 import { useMemo } from "react";
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, ImageSourcePropType } from "react-native";
 import { grey } from "../Consts";
+
+const playerPlaceImages: Record<1 | 2 | 3, ImageSourcePropType> = {
+  1: require("../assets/scoreboard/medal-1.png"),
+  2: require("../assets/scoreboard/medal-2.png"),
+  3: require("../assets/scoreboard/medal-3.png"),
+};
 
 export type PlaceItem = {
   username: string;
@@ -9,25 +15,11 @@ export type PlaceItem = {
 };
 
 export default ({ username, place, score }: PlaceItem) => {
-  const placeElem = useMemo(() => {
-    if (place == 1) {
+  const placeElement = useMemo(() => {
+    if (place === 1 || place === 2 || place === 3) {
       return (
         <Image
-          source={require("../assets/scoreboard/medal-1.png")}
-          style={{ width: "70%", height: "70%" }}
-        />
-      );
-    } else if (place == 2) {
-      return (
-        <Image
-          source={require("../assets/scoreboard/medal-2.png")}
-          style={{ width: "70%", height: "70%" }}
-        />
-      );
-    } else if (place == 3) {
-      return (
-        <Image
-          source={require("../assets/scoreboard/medal-3.png")}
+          source={playerPlaceImages[place]}
           style={{ width: "70%", height: "70%" }}
         />
       );
@@ -68,7 +60,7 @@ export default ({ username, place, score }: PlaceItem) => {
             backgroundColor: "#ede4e8",
           }}
         >
-          {placeElem}
+          {placeElement}
         </View>
         <Text style={{ fontSize: 20, color: grey }}>{username}</Text>
       </View>

@@ -1,15 +1,15 @@
 import { StyleSheet } from "react-native";
-import { defaultBackgroundColor } from "../Consts";
+import { defaultBackgroundColor, authBackgroundColor } from "../Consts";
 
 const mainStyles = StyleSheet.create({
-  container: {
+  whiteBackgroundContainer: {
     flex: 1,
     backgroundColor: defaultBackgroundColor,
     alignItems: "center",
   },
-  whiteBackgroundContainer: {
+  pinkBackgroundContainer: {
     flex: 1,
-    backgroundColor: "#fffcff",
+    backgroundColor: authBackgroundColor,
     alignItems: "center",
   },
 });

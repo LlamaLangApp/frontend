@@ -1,13 +1,13 @@
-import { FlatList, Text, TouchableOpacity, View } from "react-native";
+import { FlatList, Text, View } from "react-native";
 import mainStyles from "../../styles/MainStyles";
 import React from "react";
-import buttonGamesStyles from "../../styles/games/ButtonGamesStyles";
 import PlayerListItem from "../../components/PlayerListItem";
 import { buttonDarkPink, pink } from "../../Consts";
 import containerGamesStyles from "../../styles/games/ContainerGamesStyles";
 import textGamesStyles from "../../styles/games/TextGamesStyles";
 import Llama from "../../components/llama/Llama";
 import { useAppStore } from "../../state";
+import { PinkButton } from "../../components/buttons/BasicButton";
 
 type MultiplayerResultProps = {
   gameName: string;
@@ -73,14 +73,7 @@ function MultiplayerResult(props: MultiplayerResultProps) {
             )}
           />
         </View>
-        <TouchableOpacity
-          style={[buttonGamesStyles.basic, { backgroundColor: pink }]}
-          onPress={leaveGame}
-        >
-          <Text style={[textGamesStyles.button, { color: "white" }]}>
-            Exit game
-          </Text>
-        </TouchableOpacity>
+        <PinkButton buttonText={"Exit game"} onPress={leaveGame} />
       </View>
       <Llama />
     </View>

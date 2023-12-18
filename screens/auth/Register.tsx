@@ -1,20 +1,18 @@
-import {
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-  Pressable,
-} from "react-native";
+import { Text, View, TouchableOpacity } from "react-native";
 import React from "react";
-import authStyles from "../../styles/AuthStyles";
-import mainStyles from "../../styles/MainStyles";
-import { callRegister, loginHandler } from "../../backend/AuthBackend";
+import Toast from "react-native-toast-message";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { AuthStackParamList } from "../../navgation/AuthStack";
-import Toast from "react-native-toast-message";
+import { registerHandler } from "../../backend/AuthBackend";
 import { useAppStore } from "../../state";
 import { useInput } from "../../hooks/useInput";
 import Llama from "../../components/llama/Llama";
+import CustomTextInput from "../../components/auth/CustomTextInput";
+import { PinkButton } from "../../components/buttons/BasicButton";
+import mainStyles from "../../styles/MainStyles";
+import authStyles from "../../styles/AuthStyles";
+import textStyles from "../../styles/TextStyles";
+import containerStyles from "../../styles/ContainerStyles";
 
 type Props = NativeStackScreenProps<AuthStackParamList, "Register">;
 
@@ -27,28 +25,13 @@ function RegisterScreen({ navigation }: Props) {
   const confirmPasswordProps = useInput("");
 
   const pressRegisterButton = React.useCallback(async () => {
-    if (passwordProps.value === confirmPasswordProps.value) {
-      console.log("Registring");
-      callRegister(
-        usernameProps.value,
-        passwordProps.value,
-        emailProps.value
-      ).then((response) => {
-        if (response.type === "success") {
-          loginHandler(usernameProps.value, passwordProps.value, setUserData);
-        } else {
-          Toast.show({
-            type: "error",
-            text1: response.message,
-          });
-        }
-      });
-    } else {
-      Toast.show({
-        type: "error",
-        text1: "Provided passwords are not the same",
-      });
-    }
+    registerHandler(
+      usernameProps.value,
+      emailProps.value,
+      passwordProps.value,
+      confirmPasswordProps.value,
+      setUserData
+    );
   }, [
     setUserData,
     usernameProps.value,
@@ -58,60 +41,50 @@ function RegisterScreen({ navigation }: Props) {
   ]);
 
   return (
-    <View style={mainStyles.container}>
+    <View style={mainStyles.whiteBackgroundContainer}>
       <View style={authStyles.contentContainer}>
-        <View style={authStyles.headingContainer}>
-          <Text style={authStyles.headingText}>Sign up to LlamaLang</Text>
+        <View style={containerStyles.textWithMargin}>
+          <Text style={textStyles.importantInformation}>
+            Sign up to LlamaLang
+          </Text>
         </View>
-        <View style={authStyles.loginContainer}>
-          <Text style={authStyles.plainText}>Username</Text>
-          <View style={authStyles.inputContainer}>
-            <TextInput
-              style={authStyles.textInput}
-              value={usernameProps.value}
-              onChange={usernameProps.onChange}
+        <View style={authStyles.registerContainer}>
+          <View style={authStyles.inputsContainer}>
+            <CustomTextInput
+              inputProps={usernameProps}
+              textAbove={"Username"}
             />
-          </View>
-          <Text style={authStyles.plainText}>Email address</Text>
-          <View style={authStyles.inputContainer}>
-            <TextInput
-              style={authStyles.textInput}
-              value={emailProps.value}
-              onChange={emailProps.onChange}
+            <CustomTextInput
+              inputProps={emailProps}
+              textAbove={"Email address"}
             />
-          </View>
-          <Text style={authStyles.plainText}>Password</Text>
-          <View style={authStyles.inputContainer}>
-            <TextInput
+            <CustomTextInput
+              inputProps={passwordProps}
+              textAbove={"Password"}
               secureTextEntry={true}
-              style={authStyles.textInput}
-              value={passwordProps.value}
-              onChange={passwordProps.onChange}
             />
-          </View>
-          <Text style={authStyles.plainText}>Confirm password</Text>
-          <View style={authStyles.inputContainer}>
-            <TextInput
+            <CustomTextInput
+              inputProps={confirmPasswordProps}
+              textAbove={"Confirm password"}
               secureTextEntry={true}
-              style={authStyles.textInput}
-              value={confirmPasswordProps.value}
-              onChange={confirmPasswordProps.onChange}
             />
-          </View>
-          <View>
-            <TouchableOpacity
-              style={authStyles.loginButton}
-              onPress={pressRegisterButton}
-            >
-              <Text style={authStyles.buttonText}>Sign up</Text>
-            </TouchableOpacity>
+            <View style={authStyles.registerButtonContainer}>
+              <PinkButton
+                buttonText={"Sign up"}
+                onPress={pressRegisterButton}
+                height={"100%"}
+                width={"100%"}
+              />
+            </View>
           </View>
         </View>
-        <View style={{ flexDirection: "row", alignItems: "flex-end" }}>
-          <Text style={authStyles.plainText}>Already have an account? </Text>
-          <Pressable onPress={() => navigation.navigate("Login")}>
-            <Text style={authStyles.linkedText}>Sign in</Text>
-          </Pressable>
+        <View style={authStyles.registerNoteContainer}>
+          <Text style={textStyles.basicWeight600}>
+            Already have an account?
+          </Text>
+          <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+            <Text style={textStyles.linkedText}>Sign in</Text>
+          </TouchableOpacity>
         </View>
       </View>
       <Llama />
