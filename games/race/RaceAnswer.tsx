@@ -15,9 +15,8 @@ type Props = NativeStackScreenProps<RaceStackParamList, "Answer">;
 
 function RaceAnswerScreen({ route }: Props) {
   const { points, round } = useContext(RaceWebSocketContext);
-  const { answer, question, correctAnswer } = route.params;
+  const { answer, question, correctAnswer, earnedPoints } = route.params;
   const gameName = "Race";
-  const receivedPoints = 15;
 
   return (
     <View style={mainStyles.whiteBackgroundContainer}>
@@ -91,7 +90,7 @@ function RaceAnswerScreen({ route }: Props) {
             color={answer === correctAnswer ? "#6aa162" : buttonDarkPink}
           />
           <Text style={{ fontWeight: "600", fontSize: 20, color: grey }}>
-            +{answer === correctAnswer ? receivedPoints : 0}
+            +{earnedPoints}
           </Text>
           <Text style={{ fontWeight: "600", fontSize: 14, color: grey }}>
             POINTS

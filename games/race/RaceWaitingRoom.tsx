@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { RaceWebSocketContext } from "./RaceWebSocket";
-import MultiPlayerWaitingRoomScreen from "../common/MultiplayerWaitingRoom";
-import MultiPlayerOwnerWaitingRoomScreen from "../common/MultiplayerOwnerWaitingRoom";
-import MultiPlayerJoinedWaitingRoomScreen from "../common/MultiplayerJoinedWaitingRoom";
+import MultiPlayerWaitingRoomScreen from "../common/waiting_room/MultiplayerWaitingRoom";
+import MultiPlayerOwnerWaitingRoomScreen from "../common/waiting_room/MultiplayerOwnerWaitingRoom";
+import MultiPlayerJoinedWaitingRoomScreen from "../common/waiting_room/MultiplayerJoinedWaitingRoom";
 
 function RaceWaitingRoomScreen() {
   const { withFriends, fromInvite, ws, leaveGame, usersInWaitRoom } =

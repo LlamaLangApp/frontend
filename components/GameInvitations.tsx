@@ -1,14 +1,15 @@
 import { Modal, TouchableOpacity, View, Text, FlatList } from "react-native";
-import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 import React, { useContext, useEffect, useState } from "react";
-import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { UpdateHandlerContext } from "../backend/UpdateHandler";
-import { GamesStackParamList } from "../navgation/GamesStack";
 import Toast from "react-native-toast-message";
-import { grey, pink } from "../Consts";
+import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { GamesStackParamList } from "../navgation/GamesStack";
+import { UpdateHandlerContext } from "../backend/UpdateHandler";
+import { LightGreyButton } from "./buttons/BasicButton";
+import { grey } from "../Consts";
+import gameInvitationsStyles from "../styles/GameInvitationsStyles";
 import containerStyles from "../styles/ContainerStyles";
 import textStyles from "../styles/TextStyles";
-import { LightGreyButton } from "./buttons/BasicButton";
 
 type GamesStack = NavigationProp<GamesStackParamList, "FindingWords">;
 export type GameInvite = {
@@ -18,21 +19,16 @@ export type GameInvite = {
   waitRoom: number;
 };
 
-const GameInvitationIcon = () => {
+const GameInvitations = () => {
   const gamesNavigation = useNavigation<GamesStack>();
   const { onWaitRoomInvitation } = useContext(UpdateHandlerContext);
 
   const [invites, setInvites] = useState<GameInvite[] | null>(null);
-
   const [modalVisible, setModalVisible] = React.useState(false);
 
   const handleWaitRoomInvitation = (invites: GameInvite[]) => {
     setInvites(invites);
-    // invites.forEach(({ username, wordSetId, game, waitRoom }) => {
-    invites.forEach(({ username, game, waitRoom }) => {
-      console.log(
-        `${username} I am further Steve... game: ${game}, waitRoom: ${waitRoom}`
-      );
+    invites.forEach(({ username, game }) => {
       Toast.show({
         type: "error",
         text1: `${username} invites you to play in ${game}`,
@@ -56,77 +52,31 @@ const GameInvitationIcon = () => {
 
   return (
     <>
-      <View
-        style={{
-          position: "absolute",
-          top: 10,
-          right: 15,
-          zIndex: 3,
-        }}
-      >
+      <View style={gameInvitationsStyles.invitationsIconContainer}>
         <TouchableOpacity onPress={openModal}>
           <FontAwesome5 name="envelope" size={22} color="black" />
         </TouchableOpacity>
       </View>
-
       <Modal visible={modalVisible} animationType="slide" transparent>
-        <View
-          style={{
-            flex: 1,
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: "rgba(0, 0, 0, 0.5)",
-          }}
-        >
-          <View
-            style={{
-              marginTop: "9%",
-              marginBottom: "33%",
-              width: "90%",
-              height: "58%",
-              backgroundColor: "white",
-              padding: 30,
-              borderRadius: 10,
-              alignItems: "center",
-            }}
-          >
+        <View style={containerStyles.modal}>
+          <View style={gameInvitationsStyles.modalDisplay}>
             <View style={containerStyles.textWithMargin}>
               <Text style={textStyles.biggerBasicWeight600}>
                 INVITATIONS TO PLAY
               </Text>
             </View>
-            <View
-              style={{
-                backgroundColor: "white",
-                paddingVertical: 16,
-                borderRadius: 8,
-                width: "100%",
-              }}
-            >
+            <View style={gameInvitationsStyles.invitesListContainer}>
               <FlatList
-                style={{
-                  width: "100%",
-                  height: "80%",
-                  marginBottom: "2%",
-                  borderRadius: 10,
-                }}
+                style={gameInvitationsStyles.invitesList}
                 showsVerticalScrollIndicator={false}
-                data={invites ? [...invites, ...invites] : invites}
+                data={invites}
                 ItemSeparatorComponent={() => {
-                  return (
-                    <View style={{ height: 1, backgroundColor: "#bababa" }} />
-                  );
+                  return <View style={containerStyles.thinLine} />;
                 }}
                 ListEmptyComponent={() => {
                   return (
-                    <View
-                      style={{
-                        justifyContent: "center",
-                        alignItems: "center",
-                        marginTop: "10%",
-                      }}
-                    >
-                      <Text style={{ color: "#bababa" }}>
+                    <View style={containerStyles.emptyList}>
+                      <Text style={textStyles.emptyList}>
                         You have no invites
                       </Text>
                     </View>
@@ -135,13 +85,7 @@ const GameInvitationIcon = () => {
                 renderItem={({ item }) => {
                   return (
                     <TouchableOpacity
-                      style={{
-                        justifyContent: "space-between",
-                        flexDirection: "row",
-                        alignItems: "center",
-                        margin: "5%",
-                        gap: 10,
-                      }}
+                      style={gameInvitationsStyles.inviteContainer}
                       onPress={() => {
                         gamesNavigation.navigate(
                           "findingwords" === item.game
@@ -153,9 +97,9 @@ const GameInvitationIcon = () => {
                       }}
                     >
                       <Text style={textStyles.basicWeight600}>
-                        <Text style={{ color: pink }}>{item.username}</Text>
+                        <Text style={textStyles.pink}>{item.username}</Text>
                         <Text> wants to play with you in </Text>
-                        <Text style={{ fontWeight: "800" }}>
+                        <Text style={textStyles.weight800}>
                           {item.game.toUpperCase()}
                         </Text>
                       </Text>
@@ -177,4 +121,4 @@ const GameInvitationIcon = () => {
   );
 };
 
-export default GameInvitationIcon;
+export default GameInvitations;

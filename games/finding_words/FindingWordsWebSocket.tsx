@@ -1,11 +1,4 @@
-import React, {
-  createContext,
-  Dispatch,
-  ReactNode,
-  SetStateAction,
-  useEffect,
-  useState,
-} from "react";
+import React, { createContext, ReactNode, useEffect, useState } from "react";
 import { useAppStore } from "../../state";
 import { serverURL } from "../../backend/CommonBackend";
 import { FindingWordsStackParamList } from "./FindingWordsStack";
@@ -17,10 +10,9 @@ import {
   CommonWebSocketProps,
   SocketGameStates,
 } from "../common/WebSocket";
-import { GameInvite } from "../../components/GameInvitationIcon";
+import { GameInvite } from "../../components/GameInvitations";
 
 interface FindingWordsWebSocketContextType extends CommonWebSocketProps {
-  setLastAnswer: Dispatch<SetStateAction<string>>;
   leaveGame: () => void;
 }
 
@@ -28,9 +20,6 @@ const FindingWordsWebSocketContext =
   createContext<FindingWordsWebSocketContextType>({
     ...commonWebSocketDefaultValues,
     leaveGame: () => console.log("!"),
-    setLastAnswer: () => {
-      return;
-    },
   });
 
 type FindingWordsWebSocketProviderProps = {
@@ -52,10 +41,7 @@ const FindingWordsWebSocketProvider = ({
   const [socketGameState, setSocketGameState] = useState(
     SocketGameStates.justConnected
   );
-  const [lastQuestion, setLastQuestion] = useState("");
-  console.log(lastQuestion);
   const [wordSetName, setWordSetName] = useState<string>("0");
-  const [lastAnswer, setLastAnswer] = useState("");
   const [points, setPoints] = useState(0);
   const [round, setRound] = useState(0);
   const [withFriends, setWithFriends] = useState<boolean>(false);
@@ -111,7 +97,6 @@ const FindingWordsWebSocketProvider = ({
         message.type === "new_question"
       ) {
         setSocketGameState(SocketGameStates.roundStarted);
-        setLastQuestion(message.question);
         setTimeout(() => {
           setRound((prevRound) => prevRound + 1);
           navigation.navigate("Game", {
@@ -126,7 +111,8 @@ const FindingWordsWebSocketProvider = ({
         setPoints(message.points);
         navigation.navigate("Answer", {
           correctAnswer: message.word,
-          answer: lastAnswer,
+          answer: message.user_answer,
+          earnedPoints: message.points,
         });
       } else if (
         socketGameState === SocketGameStates.beforeRound &&
@@ -162,7 +148,6 @@ const FindingWordsWebSocketProvider = ({
     <FindingWordsWebSocketContext.Provider
       value={{
         ws,
-        setLastAnswer,
         points,
         round,
         withFriends,

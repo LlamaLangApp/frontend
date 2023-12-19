@@ -1,31 +1,30 @@
 import { ActivityIndicator, Text, View } from "react-native";
-import mainStyles from "../styles/MainStyles";
-import ButtonRow from "../components/ButtonRow";
 import React, { useEffect, useState } from "react";
-import CustomDropdown from "../components/CustomDropdown";
-import { grey, pink } from "../Consts";
-import ScoreboardStyles from "../styles/ScoreboardStyles";
 import { FlatList } from "react-native-gesture-handler";
-import PlayerListItem from "../components/PlayerListItem";
+import { useIsFocused } from "@react-navigation/native";
 import { getScoreboard, ScoreboardData } from "../backend/ScoreboardBackend";
 import { useAppStore } from "../state";
-import { useIsFocused } from "@react-navigation/native";
-import friendsStyles from "../styles/FriendsStyles";
+import ButtonRow from "../components/ButtonRow";
+import CustomDropdown from "../components/CustomDropdown";
+import PlayerListItem from "../components/PlayerListItem";
+import { pink } from "../Consts";
+import mainStyles from "../styles/MainStyles";
+import scoreboardStyles from "../styles/ScoreboardStyles";
+import textStyles from "../styles/TextStyles";
+import containerStyles from "../styles/ContainerStyles";
 
 const ranges = {
   allTime: "All Time",
   thisWeek: "This Week",
 };
-
 const defaultValue = ranges.thisWeek;
 
-export default () => {
+const ScoreboardScreen = () => {
   const isFocused = useIsFocused();
   const token = useAppStore((store) => store.token);
 
   const [timePeriod, setTimePeriod] = useState<string>(ranges.allTime);
   const [scoreboardType, setScoreboardType] = useState<string>("Global");
-
   const [data, setData] = useState<ScoreboardData | null>(null);
 
   useEffect(() => {
@@ -57,7 +56,7 @@ export default () => {
 
   return (
     <View style={mainStyles.whiteBackgroundContainer}>
-      <View style={{ marginTop: 30, width: "100%" }}>
+      <View style={containerStyles.buttonRow}>
         <ButtonRow
           choices={[
             { choice: "Global", icon: "globe-americas" },
@@ -66,28 +65,26 @@ export default () => {
           onSelect={setScoreboardType}
         />
       </View>
-      <View style={ScoreboardStyles.optionsContainer}>
+      <View style={scoreboardStyles.optionsContainer}>
         <CustomDropdown
           defaultSelectText={"Game"}
           selectData={[ranges.allTime, ranges.thisWeek]}
-          onSelectFunc={(item) => {
-            setTimePeriod(item);
-          }}
+          onSelectFunc={(item) => setTimePeriod(item)}
           defaultValue={defaultValue}
         />
       </View>
       {data ? (
         <FlatList
-          style={{ width: "86%", borderRadius: 10, marginBottom: "3%" }}
+          style={scoreboardStyles.playerPlaceList}
           data={data?.top_100}
           showsVerticalScrollIndicator={false}
           ItemSeparatorComponent={() => {
-            return <View style={{ height: 1, backgroundColor: "#bababa" }} />;
+            return <View style={containerStyles.thinLine} />;
           }}
           ListEmptyComponent={() => {
             return (
-              <View style={friendsStyles.emptyListContainer}>
-                <Text style={{ color: "#bababa" }}>
+              <View style={containerStyles.emptyList}>
+                <Text style={textStyles.emptyList}>
                   There is nothing to show
                 </Text>
               </View>
@@ -97,26 +94,26 @@ export default () => {
             <PlayerListItem
               username={item.username}
               place={item.place}
-              stat={item.points}
+              score={item.points}
             />
           )}
         />
       ) : (
         <ActivityIndicator size={"large"} color={pink} />
       )}
-      <View style={{ width: "86%", height: "12%", marginBottom: "5%" }}>
-        <Text style={{ color: grey, marginBottom: "0.9%" }}>Your place:</Text>
-        <View style={{ height: 1, backgroundColor: grey }} />
-        {data ? (
+      <View style={scoreboardStyles.userPlaceContainer}>
+        <Text style={scoreboardStyles.userPlaceText}>Your place:</Text>
+        <View style={containerStyles.darkerThinLine} />
+        {data && (
           <PlayerListItem
             username={data.user.username}
             place={data.user.place}
-            stat={data.user.points}
+            score={data.user.points}
           />
-        ) : (
-          <View />
         )}
       </View>
     </View>
   );
 };
+
+export default ScoreboardScreen;

@@ -10,20 +10,20 @@ import {
   PinkButton,
 } from "../../components/buttons/BasicButton";
 
-type SinglePlayerResultsProps = {
+type SinglePlayerResultProps = {
   gameName: string;
   points: number;
-  hasWon: boolean;
+  rounds: number;
   setName: string;
   exitGameHandler: () => void;
   playAgainHandler: () => void;
 };
 
-const SinglePlayerResultsScreen = (props: SinglePlayerResultsProps) => {
+const SinglePlayerResultScreen = (props: SinglePlayerResultProps) => {
   const {
     gameName,
     points,
-    // hasWon,
+    rounds,
     setName,
     exitGameHandler,
     playAgainHandler,
@@ -60,7 +60,7 @@ const SinglePlayerResultsScreen = (props: SinglePlayerResultsProps) => {
           <Text style={textGamesStyles.information}>
             <Text>You answered </Text>
             <Text style={{ fontWeight: "600", color: pink, fontSize: 20 }}>
-              {points / 10}/6
+              {points / 10}/{rounds}
             </Text>
             <Text> of them correctly</Text>
           </Text>
@@ -89,4 +89,4 @@ const SinglePlayerResultsScreen = (props: SinglePlayerResultsProps) => {
   );
 };
 
-export default SinglePlayerResultsScreen;
+export default SinglePlayerResultScreen;

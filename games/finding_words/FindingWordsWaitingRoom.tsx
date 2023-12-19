@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-import MultiPlayerWaitingRoomScreen from "../common/MultiplayerWaitingRoom";
+import MultiPlayerWaitingRoomScreen from "../common/waiting_room/MultiplayerWaitingRoom";
 import { FindingWordsWebSocketContext } from "./FindingWordsWebSocket";
-import MultiPlayerJoinedWaitingRoomScreen from "../common/MultiplayerJoinedWaitingRoom";
-import MultiPlayerOwnerWaitingRoomScreen from "../common/MultiplayerOwnerWaitingRoom";
+import MultiPlayerJoinedWaitingRoomScreen from "../common/waiting_room/MultiplayerJoinedWaitingRoom";
+import MultiPlayerOwnerWaitingRoomScreen from "../common/waiting_room/MultiplayerOwnerWaitingRoom";
 
 function FindingWordsWaitingRoomScreen() {
   const { withFriends, fromInvite, ws, leaveGame, usersInWaitRoom } =

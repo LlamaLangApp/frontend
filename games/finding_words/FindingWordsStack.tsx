@@ -20,11 +20,12 @@ export type FindingWordsStackParamList = {
     letters: string[];
   };
   Answer: {
-    answer: string;
+    answer: string | null;
     correctAnswer: string;
+    earnedPoints: number;
   };
   EndGame: {
-    scoreboard: { username: string; points: number }[];
+    scoreboard: { username: string; score: number; place: number }[];
   };
 };
 const Stack = createNativeStackNavigator<FindingWordsStackParamList>();

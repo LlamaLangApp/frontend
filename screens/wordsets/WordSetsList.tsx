@@ -1,14 +1,15 @@
 import { FlatList, Text, TouchableOpacity, View } from "react-native";
+import React, { useContext, useState } from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { WordSetStackParamList } from "../../navgation/WordSetStack";
-import React, { useContext, useState } from "react";
-import mainStyles from "../../styles/MainStyles";
 import { WordSetContext } from "./WordSets";
 import ButtonRow from "../../components/ButtonRow";
-import friendsStyles from "../../styles/FriendsStyles";
-import { grey, pink } from "../../Consts";
 import { FontAwesome5 } from "@expo/vector-icons";
+import { grey, pink } from "../../Consts";
+import mainStyles from "../../styles/MainStyles";
 import wordSetsStyles from "../../styles/WordSetsStyles";
+import containerStyles from "../../styles/ContainerStyles";
+import textStyles from "../../styles/TextStyles";
 
 type Props = NativeStackScreenProps<WordSetStackParamList, "List">;
 
@@ -18,7 +19,7 @@ function WordSetsListScreen({}: Props) {
 
   return (
     <View style={mainStyles.whiteBackgroundContainer}>
-      <View style={{ marginTop: 30, width: "100%" }}>
+      <View style={containerStyles.buttonRow}>
         <ButtonRow
           choices={[
             { choice: "Default", icon: "book" },
@@ -28,7 +29,7 @@ function WordSetsListScreen({}: Props) {
         />
       </View>
       <FlatList
-        style={{ width: "86%", borderRadius: 10, marginVertical: "5%" }}
+        style={{ width: "86%", borderRadius: 10 }}
         data={wordSetsList.filter((wordSet) => wordSet.type == wordSetType)}
         showsVerticalScrollIndicator={false}
         ItemSeparatorComponent={() => {
@@ -36,8 +37,8 @@ function WordSetsListScreen({}: Props) {
         }}
         ListEmptyComponent={() => {
           return (
-            <View style={friendsStyles.emptyListContainer}>
-              <Text style={{ color: "#bababa" }}>
+            <View style={containerStyles.emptyList}>
+              <Text style={textStyles.emptyList}>
                 There are no word sets available
               </Text>
             </View>

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { MemoryStackParamList } from "./MemoryStack";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import SinglePlayerResultsScreen from "../common/SingleplayerResults";
+import SinglePlayerResultScreen from "../common/SingleplayerResult";
 import { saveSinglePlayerGame } from "../../backend/GamesBackend";
 import { useAppStore } from "../../state";
 import { GamesStackParamList } from "../../navgation/GamesStack";
@@ -31,10 +31,10 @@ function MemoryResultsScreen({ route, navigation }: Props) {
   });
 
   return (
-    <SinglePlayerResultsScreen
+    <SinglePlayerResultScreen
       gameName={"Memory"}
       points={points}
-      hasWon={points >= 60}
+      rounds={6}
       setName={setName}
       exitGameHandler={() => {
         parentNavigation.navigate("Home");

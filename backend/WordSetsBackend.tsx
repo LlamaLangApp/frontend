@@ -30,6 +30,14 @@ export async function callWordSets(
   return makeApiRequest<WordSet[]>("wordset/", "GET", token);
 }
 
+export async function getSpecificWordSet(
+  token: string | null,
+  id: number
+): Promise<ApiResponse<WordSet>> {
+  console.log(id);
+  return makeApiRequest<WordSet>(`wordset/${id}/`, "GET", token);
+}
+
 export async function callTranslations(
   token: string | null,
   setId: number | undefined,

@@ -4,7 +4,7 @@ import { MemoryStackParamList } from "./MemoryStack";
 import { useAppStore } from "../../state";
 import { makeCards } from "./MemoryCard";
 import { callTranslations } from "../../backend/WordSetsBackend";
-import GameStartScreen from "../common/GameStart";
+import GameStartScreen from "../common/start/GameStart";
 
 type Props = NativeStackScreenProps<MemoryStackParamList, "Start">;
 

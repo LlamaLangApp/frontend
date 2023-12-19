@@ -1,7 +1,7 @@
 import { Image, Text, TouchableOpacity, View } from "react-native";
+import { grey } from "../../Consts";
 import mainStyles from "../../styles/MainStyles";
 import userStyles from "../../styles/UserStyles";
-import { grey } from "../../Consts";
 
 function LlamaScreen() {
   return (
@@ -24,18 +24,18 @@ function LlamaScreen() {
                 style={{ width: "100%", height: "100%" }}
               />
             </TouchableOpacity>
-            <View style={userStyles.lockContainer}>
+            <TouchableOpacity style={userStyles.llamaSkinContainer}>
+              <Image
+                source={require("../../assets/llama/llama_nerd.png")}
+                style={{ width: "100%", height: "100%" }}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity style={userStyles.llamaSkinContainer}>
               <Image
                 source={require("../../assets/icons/lock.png")}
                 style={{ width: "50%", height: "50%" }}
               />
-            </View>
-            <View style={userStyles.lockContainer}>
-              <Image
-                source={require("../../assets/icons/lock.png")}
-                style={{ width: "50%", height: "50%" }}
-              />
-            </View>
+            </TouchableOpacity>
           </View>
           <View style={userStyles.storeTextContainer}>
             <Text style={{ fontSize: 18, color: "white" }}>

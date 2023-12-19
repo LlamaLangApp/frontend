@@ -1,10 +1,12 @@
-import React, { useMemo } from "react";
 import { FlatList, Modal, Text, TouchableOpacity, View } from "react-native";
-import friendsStyles from "../../styles/FriendsStyles";
-import { grey } from "../../Consts";
-import { Friends } from "../../games/common/MultiplayerOwnerWaitingRoom";
-import FriendsListItem from "./FriendsListItem";
+import React, { useMemo } from "react";
 import { serverURL } from "../../backend/CommonBackend";
+import { Friends } from "../../games/common/waiting_room/MultiplayerOwnerWaitingRoom";
+import FriendsListItem from "./FriendsListItem";
+import { grey } from "../../Consts";
+import friendsStyles from "../../styles/FriendsStyles";
+import containerStyles from "../../styles/ContainerStyles";
+import textStyles from "../../styles/TextStyles";
 
 const InviteFriendsModal = ({
   modalVisible,
@@ -62,11 +64,11 @@ const InviteFriendsModal = ({
               }}
               ListEmptyComponent={() => {
                 return (
-                  <View style={friendsStyles.emptyListContainer}>
-                    <Text style={{ color: "#bababa" }}>
+                  <View style={containerStyles.emptyList}>
+                    <Text style={textStyles.emptyList}>
                       Unfortunately, you have no friends.
                     </Text>
-                    <Text style={{ color: "#bababa" }}>
+                    <Text style={textStyles.emptyList}>
                       Maybe try solo games or playing with random people?
                     </Text>
                   </View>

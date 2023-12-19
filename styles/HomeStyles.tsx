@@ -6,6 +6,15 @@ const homeStyles = StyleSheet.create({
     flex: 1,
     // margin: 5,
   },
+  buttonRowContainer: {
+    marginTop: 30,
+    marginBottom: 15,
+    width: "100%",
+  },
+  gamesListContainer: {
+    width: "100%",
+    flex: 1,
+  },
   contentContainer: {
     flex: 5,
     marginHorizontal: "10%",
@@ -72,6 +81,10 @@ const homeStyles = StyleSheet.create({
     marginHorizontal: "7%",
     overflow: "hidden",
     marginVertical: "4%",
+  },
+  coverImage: {
+    width: "100%",
+    height: 180,
   },
 });
 

@@ -1,94 +1,97 @@
 import { StyleSheet } from "react-native";
-import { buttonLightPink, lightGrey, pink, purple } from "../Consts";
+import { grey, lightGrey, white } from "../Consts";
 
 const authStyles = StyleSheet.create({
-  appContainer: {
-    flex: 1,
-  },
   startContainer: {
-    flex: 1,
     alignItems: "center",
+    justifyContent: "center",
+    marginVertical: "10%",
+    marginTop: "20%",
+    width: "80%",
+    height: "80%",
   },
   contentContainer: {
-    flex: 5,
-    marginHorizontal: "10%",
-    justifyContent: "flex-end",
+    flex: 3,
     alignItems: "center",
-    // margin: "10%",
-    // alignContent: "center",
-  },
-  llamaContainer: {
-    flex: 2,
     justifyContent: "flex-end",
+    marginVertical: "10%",
+    marginHorizontal: "10%",
+    width: "80%",
+    height: "100%",
   },
   logoContainer: {
-    paddingTop: 250,
-    flex: 0.6,
-  },
-  headingContainer: {
-    // flex: 0.5,
-  },
-  headingText: {
-    fontSize: 27,
-    color: "white",
-    // fontFamily: "Roboto",
+    width: "100%",
+    height: "32%",
   },
   loginContainer: {
-    borderRadius: 15,
-    // borderWidth: 3,
-    borderColor: "white",
-    paddingVertical: "7%",
-    paddingHorizontal: "7%",
+    borderRadius: 10,
+    width: "100%",
     backgroundColor: lightGrey,
-    margin: 10,
-    // alignItems: "center",
+    alignItems: "flex-start",
+    height: "42%",
   },
-  inputContainer: {
+  registerContainer: {
+    borderRadius: 10,
+    width: "100%",
+    backgroundColor: lightGrey,
+    alignItems: "flex-start",
+    height: "68%",
+  },
+  noteContainer: {
+    borderRadius: 10,
+    width: "100%",
+    backgroundColor: lightGrey,
+    alignItems: "center",
+    justifyContent: "center",
+    height: "7%",
+    marginTop: 20,
+    flexDirection: "row",
+  },
+  registerNoteContainer: {
+    flexDirection: "row",
+    alignItems: "flex-end",
+    gap: 5,
+    height: "4%",
+    marginTop: "3%",
+  },
+  inputsContainer: {
+    margin: "5%",
+    width: "90%",
+    height: "100%",
+  },
+  textInputContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingTop: 4,
-    paddingBottom: 18,
+    width: "100%",
+    marginBottom: "3%",
   },
   textInput: {
-    // borderWidth: 2,
-    borderColor: "white",
-    borderRadius: 15,
+    borderRadius: 10,
     width: "100%",
-    paddingVertical: 8,
-    paddingHorizontal: 5,
-    backgroundColor: pink,
-    color: "white",
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    backgroundColor: white,
+    fontWeight: "500",
+    color: grey,
   },
-  plainText: {
-    // color: "white",
-  },
-  linkedText: {
-    color: purple,
-    // color: "#b95f75",
-  },
-  errorText: {
-    color: "red",
-  },
-  loginButton: {
+  loginButtonContainer: {
     alignItems: "center",
     width: "100%",
-    color: "#cccccc",
-    backgroundColor: buttonLightPink,
-    borderRadius: 15,
+    height: "20%",
   },
-  startButton: {
+  registerButtonContainer: {
     alignItems: "center",
     width: "100%",
-    color: "#cccccc",
-    backgroundColor: buttonLightPink,
-    borderRadius: 15,
-    margin: "1%",
+    height: "12%",
   },
-  buttonText: {
-    padding: 10,
-    fontSize: 20,
-    color: "white",
+  urlInput: {
+    height: 30,
+    width: "90%",
+    backgroundColor: lightGrey,
+    borderRadius: 10,
+    padding: 5,
+    marginBottom: "5%",
   },
 });
 
