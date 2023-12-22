@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
-import friendsStyles from "../../styles/FriendsStyles";
+import friendsStyles from "@styles/FriendsStyles";
 import { buttonDarkPink, grey } from "../../Consts";
 import { FontAwesome } from "@expo/vector-icons";
 

@@ -2,16 +2,16 @@ import { ActivityIndicator, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import { FlatList } from "react-native-gesture-handler";
 import { useIsFocused } from "@react-navigation/native";
-import { getScoreboard, ScoreboardData } from "../backend/ScoreboardBackend";
+import { getScoreboard, ScoreboardData } from "@backend/ScoreboardBackend";
 import { useAppStore } from "../state";
-import ButtonRow from "../components/ButtonRow";
-import CustomDropdown from "../components/CustomDropdown";
-import PlayerListItem from "../components/PlayerListItem";
+import ButtonRow from "@components/ButtonRow";
+import CustomDropdown from "@components/CustomDropdown";
+import PlayerListItem from "@components/PlayerListItem";
 import { pink } from "../Consts";
-import mainStyles from "../styles/MainStyles";
-import scoreboardStyles from "../styles/ScoreboardStyles";
-import textStyles from "../styles/TextStyles";
-import containerStyles from "../styles/ContainerStyles";
+import mainStyles from "@styles/MainStyles";
+import scoreboardStyles from "@styles/ScoreboardStyles";
+import textStyles from "@styles/TextStyles";
+import containerStyles from "@styles/ContainerStyles";
 
 const ranges = {
   allTime: "All Time",

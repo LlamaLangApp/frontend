@@ -1,12 +1,12 @@
-import React, { useEffect, useMemo } from "react";
 import { Text, StyleSheet } from "react-native";
-import { lightGrey, pink } from "../../Consts";
+import React, { useEffect, useMemo } from "react";
 import Animated, {
   interpolateColor,
   useAnimatedStyle,
   useSharedValue,
   withSpring,
 } from "react-native-reanimated";
+import { lightGrey, pink } from "../../Consts";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 
 export type Letter = {

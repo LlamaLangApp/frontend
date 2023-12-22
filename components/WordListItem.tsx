@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { View, Text } from "react-native";
-import wordSetsStyles from "../styles/WordSetsStyles";
+import wordSetsStyles from "@styles/WordSetsStyles";
 import { grey, pink } from "../Consts";
 import { FontAwesome } from "@expo/vector-icons";
 

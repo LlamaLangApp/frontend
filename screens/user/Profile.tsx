@@ -1,16 +1,16 @@
 import { Dimensions, Image, Text, TouchableOpacity, View } from "react-native";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { UserStackParamList } from "../../navgation/UserStack";
-import mainStyles from "../../styles/MainStyles";
-import { useAppStore } from "../../state";
-import { Bar as ProgressBar } from "react-native-progress";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { grey, lightGrey, pink } from "../../Consts";
 import React from "react";
-import userStyles from "../../styles/UserStyles";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import * as ImagePicker from "expo-image-picker";
-import { makeApiRequest } from "../../backend/CommonBackend";
-import { getUserData, UserData } from "../../backend/UserBackend";
+import { Bar as ProgressBar } from "react-native-progress";
+import { UserStackParamList } from "@navigation/UserStack";
+import { makeApiRequest } from "@backend/CommonBackend";
+import { getUserData, UserData } from "@backend/UserBackend";
+import { useAppStore } from "../../state";
+import { grey, lightGrey, pink } from "../../Consts";
+import mainStyles from "@styles/MainStyles";
+import userStyles from "@styles/UserStyles";
 
 type Props = NativeStackScreenProps<UserStackParamList, "User">;
 

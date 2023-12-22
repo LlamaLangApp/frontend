@@ -9,7 +9,6 @@ const userStyles = StyleSheet.create({
     flex: 5,
     width: "100%",
     height: "100%",
-    // justifyContent: "flex-end",
   },
   userDataContainer: {
     flex: 2.7,
@@ -19,15 +18,10 @@ const userStyles = StyleSheet.create({
     marginTop: "5%",
     marginBottom: "3%",
     borderRadius: 15,
-    // borderWidth: 3,
-    // borderColor: pink,
-    // backgroundColor: lightGrey,
     justifyContent: "flex-end",
   },
   avatarContainer: {
     flex: 1.5,
-    // width: "100%",
-    // height: "100%",
     alignItems: "center",
     paddingTop: "8%",
   },
@@ -50,7 +44,6 @@ const userStyles = StyleSheet.create({
     alignItems: "center",
   },
   usernameContainer: {
-    // marginBottom: "2%",
     alignItems: "center",
   },
   levelContainer: {
@@ -59,10 +52,7 @@ const userStyles = StyleSheet.create({
   },
   profileLlamaContainer: {
     width: "90%",
-    // height: "100%",
     borderRadius: 15,
-    // borderWidth: 3,
-    // borderColor: pink,
     backgroundColor: lightGrey,
     marginHorizontal: "5%",
     flexDirection: "row",
@@ -96,8 +86,6 @@ const userStyles = StyleSheet.create({
     width: "26%",
     height: "91%",
     borderRadius: 15,
-    // borderWidth: 3,
-    // borderColor: grey,
     backgroundColor: lightGrey,
     alignItems: "center",
     justifyContent: "center",
@@ -117,8 +105,6 @@ const userStyles = StyleSheet.create({
   storeContainer: {
     flex: 2,
     backgroundColor: pink,
-    // borderColor: buttonDarkPink,
-    // borderTopWidth: 3,
   },
   skinsContainer: {
     width: "100%",
@@ -133,8 +119,6 @@ const userStyles = StyleSheet.create({
     height: "91%",
     borderRadius: 15,
     backgroundColor: lightGrey,
-    // borderWidth: 3,
-    // borderColor: "green",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -143,7 +127,6 @@ const userStyles = StyleSheet.create({
     justifyContent: "center",
     width: "90%",
     height: "40%",
-    // borderWidth: 3,
     borderRadius: 15,
   },
   llama: {

@@ -1,14 +1,14 @@
 import { Switch, Text, View } from "react-native";
-import mainStyles from "../../../styles/MainStyles";
-import CustomDropdown from "../../../components/CustomDropdown";
-import { WordSet, callWordSets } from "../../../backend/WordSetsBackend";
 import React, { useState, useEffect, Dispatch, SetStateAction } from "react";
+import { WordSet, callWordSets } from "@backend/WordSetsBackend";
 import { useAppStore } from "../../../state";
-import textGamesStyles from "../../../styles/games/TextGamesStyles";
-import containerGamesStyles from "../../../styles/games/ContainerGamesStyles";
-import Llama from "../../../components/llama/Llama";
-import BlockedButton from "../../../components/buttons/BlockedButton";
+import CustomDropdown from "@components/CustomDropdown";
+import Llama from "@components/llama/Llama";
+import BlockedButton from "@components/buttons/BlockedButton";
 import { buttonLightPink, grey, lightGrey, pink } from "../../../Consts";
+import mainStyles from "@styles/MainStyles";
+import containerGamesStyles from "@styles/games/ContainerGamesStyles";
+import textStyles from "@styles/TextStyles";
 
 type StartScreenProps = {
   gameName: string;
@@ -44,13 +44,15 @@ const GameStartScreen = ({
     <View style={mainStyles.whiteBackgroundContainer}>
       <View style={containerGamesStyles.screen}>
         <View style={containerGamesStyles.textWithMargin}>
-          <Text style={textGamesStyles.gameName}>{gameName.toUpperCase()}</Text>
+          <Text style={textStyles.grey27Weight800}>
+            {gameName.toUpperCase()}
+          </Text>
         </View>
         <View
           style={[containerGamesStyles.textWithMargin, { marginBottom: "10%" }]}
         >
-          <Text style={textGamesStyles.information}>To play a game</Text>
-          <Text style={textGamesStyles.information}>
+          <Text style={textStyles.grey18}>To play a game</Text>
+          <Text style={textStyles.grey18}>
             pick one of the default word sets
           </Text>
         </View>
@@ -71,13 +73,13 @@ const GameStartScreen = ({
         {playWithFriends && (
           <View>
             <View style={containerGamesStyles.textWithMargin}>
-              <Text style={textGamesStyles.finePrint}>
+              <Text style={textStyles.finePrint}>
                 You also have a decision to make
               </Text>
-              <Text style={textGamesStyles.finePrint}>
+              <Text style={textStyles.finePrint}>
                 Would you like to play with random people?
               </Text>
-              <Text style={textGamesStyles.finePrint}>
+              <Text style={textStyles.finePrint}>
                 Or create your own room and invite your friends?
               </Text>
             </View>

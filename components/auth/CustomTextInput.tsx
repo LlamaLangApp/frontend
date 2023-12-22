@@ -1,9 +1,9 @@
 import { Text, View, TextInput, TouchableOpacity } from "react-native";
 import React, { useMemo } from "react";
-import { InputProps } from "../../hooks/useInput";
-import authStyles from "../../styles/AuthStyles";
-import textStyles from "../../styles/TextStyles";
-import containerStyles from "../../styles/ContainerStyles";
+import { InputProps } from "@hooks/useInput";
+import authStyles from "@styles/AuthStyles";
+import textStyles from "@styles/TextStyles";
+import containerStyles from "@styles/ContainerStyles";
 
 const CustomTextInput = ({
   inputProps,
@@ -20,14 +20,9 @@ const CustomTextInput = ({
 }) => {
   return useMemo(() => {
     return (
-      <View style={{ width: "100%" }}>
-        <View
-          style={[
-            containerStyles.text,
-            { flexDirection: "row", justifyContent: "space-between" },
-          ]}
-        >
-          <Text style={textStyles.basicWeight600}>{textAbove}</Text>
+      <View style={containerStyles.width100}>
+        <View style={[containerStyles.text, containerStyles.spaceBetweenInRow]}>
+          <Text style={textStyles.grey14Weight600}>{textAbove}</Text>
           {rightReference && referenceOnPress && (
             <TouchableOpacity onPress={referenceOnPress}>
               <Text style={textStyles.linkedText}>{rightReference}</Text>

@@ -1,11 +1,11 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import MemoryStack from "../games/memory/MemoryStack";
-import RaceStack from "../games/race/RaceStack";
-import FallingWordsStack from "../games/falling_words/FallingWordsStack";
-import HomeDrawer from "./HomeDrawer";
-import FindingWordsStack from "../games/finding_words/FindingWordsStack";
 import { gestureHandlerRootHOC } from "react-native-gesture-handler";
-import { GameInvite } from "../components/GameInvitations";
+import MemoryStack from "@games/memory/MemoryStack";
+import RaceStack from "@games/race/RaceStack";
+import FallingWordsStack from "@games/falling_words/FallingWordsStack";
+import FindingWordsStack from "@games/finding_words/FindingWordsStack";
+import HomeDrawer from "./HomeDrawer";
+import { GameInvite } from "@components/GameInvitations";
 
 export type GamesStackParamList = {
   Home: undefined;

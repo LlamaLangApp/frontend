@@ -1,8 +1,8 @@
 import { View, Text, Image, ImageSourcePropType } from "react-native";
 import { useMemo } from "react";
-import scoreboardStyles from "../styles/ScoreboardStyles";
-import textStyles from "../styles/TextStyles";
-import containerStyles from "../styles/ContainerStyles";
+import scoreboardStyles from "@styles/ScoreboardStyles";
+import textStyles from "@styles/TextStyles";
+import containerStyles from "@styles/ContainerStyles";
 
 const playerPlaceImages: Record<1 | 2 | 3, ImageSourcePropType> = {
   1: require("../assets/scoreboard/medal-1.png"),
@@ -34,7 +34,7 @@ const PlayerListItem = ({ username, place, score }: PlaceItem) => {
     <View style={containerStyles.spaceBetweenInRow}>
       <View style={scoreboardStyles.placeAndUsernameContainer}>
         <View style={scoreboardStyles.placeContainer}>{placeElement}</View>
-        <Text style={textStyles.biggerBasicWeight600}>{username}</Text>
+        <Text style={textStyles.grey20Weight600}>{username}</Text>
       </View>
       <View style={scoreboardStyles.scoreContainer}>
         <Text style={textStyles.grey25Weight600}>{score}</Text>

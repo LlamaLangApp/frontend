@@ -1,8 +1,8 @@
-import buttonGamesStyles from "../../styles/games/ButtonGamesStyles";
-import textGamesStyles from "../../styles/games/TextGamesStyles";
 import { DimensionValue, Text, TouchableOpacity } from "react-native";
 import React, { useMemo } from "react";
 import { grey, lightGrey, pink, white } from "../../Consts";
+import buttonGamesStyles from "@styles/games/ButtonGamesStyles";
+import textStyles from "@styles/TextStyles";
 
 const BasicButton = ({
   buttonText,
@@ -32,7 +32,7 @@ const BasicButton = ({
         ]}
         onPress={onPress}
       >
-        <Text style={[textGamesStyles.button, { color: textColor }]}>
+        <Text style={[textStyles.button, { color: textColor }]}>
           {buttonText}
         </Text>
       </TouchableOpacity>

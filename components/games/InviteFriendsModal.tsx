@@ -1,12 +1,12 @@
 import { FlatList, Modal, Text, TouchableOpacity, View } from "react-native";
 import React, { useMemo } from "react";
-import { serverURL } from "../../backend/CommonBackend";
-import { Friends } from "../../games/common/waiting_room/MultiplayerOwnerWaitingRoom";
+import { serverURL } from "@backend/CommonBackend";
+import { Friends } from "@games/common/waiting_room/MultiplayerOwnerWaitingRoom";
 import FriendsListItem from "./FriendsListItem";
 import { grey } from "../../Consts";
-import friendsStyles from "../../styles/FriendsStyles";
-import containerStyles from "../../styles/ContainerStyles";
-import textStyles from "../../styles/TextStyles";
+import friendsStyles from "@styles/FriendsStyles";
+import containerStyles from "@styles/ContainerStyles";
+import textStyles from "@styles/TextStyles";
 
 const InviteFriendsModal = ({
   modalVisible,

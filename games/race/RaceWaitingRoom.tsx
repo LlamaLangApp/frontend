@@ -5,11 +5,16 @@ import MultiPlayerOwnerWaitingRoomScreen from "../common/waiting_room/Multiplaye
 import MultiPlayerJoinedWaitingRoomScreen from "../common/waiting_room/MultiplayerJoinedWaitingRoom";
 
 function RaceWaitingRoomScreen() {
-  const { withFriends, fromInvite, ws, leaveGame, usersInWaitRoom } =
+  const { withFriends, fromInvite, ws, leaveGame, usersInWaitRoom, invite } =
     useContext(RaceWebSocketContext);
 
-  return fromInvite ? (
-    <MultiPlayerJoinedWaitingRoomScreen gameName={"Race"} />
+  return fromInvite && invite ? (
+    <MultiPlayerJoinedWaitingRoomScreen
+      gameName={"Race"}
+      hostName={invite.username}
+      leaveGame={leaveGame}
+      usersInWaitRoom={usersInWaitRoom}
+    />
   ) : withFriends ? (
     <MultiPlayerOwnerWaitingRoomScreen
       gameName={"Race"}

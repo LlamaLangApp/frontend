@@ -9,16 +9,16 @@ import {
 import React, { useContext, useState } from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { FontAwesome } from "@expo/vector-icons";
-import { FriendsStackParamList } from "../../navgation/FriendsStack";
-import useFilteredItems, { FilterFunction } from "../../hooks/useFilteredItems";
-import UserListItem from "../../components/friends/UserListItem";
+import { FriendsStackParamList } from "@navigation/FriendsStack";
+import useFilteredItems, { FilterFunction } from "@hooks/useFilteredItems";
+import UserListItem from "@components/friends/UserListItem";
 import { FriendsContext, User } from "./Friends";
-import UserDisplayModal from "../../components/friends/UserDisplayModal";
+import UserDisplayModal from "@components/friends/UserDisplayModal";
 import { grey } from "../../Consts";
-import mainStyles from "../../styles/MainStyles";
-import friendsStyles from "../../styles/FriendsStyles";
-import containerStyles from "../../styles/ContainerStyles";
-import textStyles from "../../styles/TextStyles";
+import mainStyles from "@styles/MainStyles";
+import friendsStyles from "@styles/FriendsStyles";
+import containerStyles from "@styles/ContainerStyles";
+import textStyles from "@styles/TextStyles";
 
 type Props = NativeStackScreenProps<FriendsStackParamList, "Search">;
 

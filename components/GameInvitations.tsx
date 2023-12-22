@@ -3,13 +3,13 @@ import React, { useContext, useEffect, useState } from "react";
 import Toast from "react-native-toast-message";
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { GamesStackParamList } from "../navgation/GamesStack";
-import { UpdateHandlerContext } from "../backend/UpdateHandler";
+import { GamesStackParamList } from "@navigation/GamesStack";
+import { UpdateHandlerContext } from "@backend/UpdateHandler";
 import { LightGreyButton } from "./buttons/BasicButton";
 import { grey } from "../Consts";
-import gameInvitationsStyles from "../styles/GameInvitationsStyles";
-import containerStyles from "../styles/ContainerStyles";
-import textStyles from "../styles/TextStyles";
+import gameInvitationsStyles from "@styles/GameInvitationsStyles";
+import containerStyles from "@styles/ContainerStyles";
+import textStyles from "@styles/TextStyles";
 
 type GamesStack = NavigationProp<GamesStackParamList, "FindingWords">;
 export type GameInvite = {
@@ -61,7 +61,7 @@ const GameInvitations = () => {
         <View style={containerStyles.modal}>
           <View style={gameInvitationsStyles.modalDisplay}>
             <View style={containerStyles.textWithMargin}>
-              <Text style={textStyles.biggerBasicWeight600}>
+              <Text style={textStyles.grey20Weight600}>
                 INVITATIONS TO PLAY
               </Text>
             </View>
@@ -96,7 +96,7 @@ const GameInvitations = () => {
                         closeModal();
                       }}
                     >
-                      <Text style={textStyles.basicWeight600}>
+                      <Text style={textStyles.grey14Weight600}>
                         <Text style={textStyles.pink}>{item.username}</Text>
                         <Text> wants to play with you in </Text>
                         <Text style={textStyles.weight800}>

@@ -1,13 +1,13 @@
 import { FlatList, Text, View } from "react-native";
-import mainStyles from "../../styles/MainStyles";
 import React from "react";
-import PlayerListItem from "../../components/PlayerListItem";
-import { buttonDarkPink, pink } from "../../Consts";
-import containerGamesStyles from "../../styles/games/ContainerGamesStyles";
-import textGamesStyles from "../../styles/games/TextGamesStyles";
-import Llama from "../../components/llama/Llama";
 import { useAppStore } from "../../state";
-import { PinkButton } from "../../components/buttons/BasicButton";
+import PlayerListItem from "@components/PlayerListItem";
+import Llama from "@components/llama/Llama";
+import { PinkButton } from "@components/buttons/BasicButton";
+import { buttonDarkPink, pink } from "../../Consts";
+import mainStyles from "@styles/MainStyles";
+import containerGamesStyles from "@styles/games/ContainerGamesStyles";
+import textStyles from "@styles/TextStyles";
 
 type MultiplayerResultProps = {
   gameName: string;
@@ -24,24 +24,21 @@ function MultiplayerResult(props: MultiplayerResultProps) {
     <View style={mainStyles.whiteBackgroundContainer}>
       <View style={containerGamesStyles.screen}>
         <View style={containerGamesStyles.textWithMargin}>
-          <Text style={textGamesStyles.gameName}>{gameName.toUpperCase()}</Text>
+          <Text style={textStyles.grey27Weight800}>
+            {gameName.toUpperCase()}
+          </Text>
         </View>
         <View style={containerGamesStyles.textWithMargin}>
-          <Text
-            style={[
-              textGamesStyles.information,
-              { color: pink, fontWeight: "600" },
-            ]}
-          >
+          <Text style={[textStyles.grey18, { color: pink, fontWeight: "600" }]}>
             FINAL RESULTS
           </Text>
         </View>
         <View style={containerGamesStyles.textWithMargin}>
-          <Text style={textGamesStyles.information}>
+          <Text style={textStyles.grey18}>
             <Text>Your place:</Text>
             <Text style={{ color: buttonDarkPink }}> {place}</Text>
           </Text>
-          <Text style={textGamesStyles.information}>
+          <Text style={textStyles.grey18}>
             <Text>Congratulations!</Text>
           </Text>
         </View>

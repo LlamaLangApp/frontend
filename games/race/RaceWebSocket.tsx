@@ -9,15 +9,15 @@ import React, {
 import Toast from "react-native-toast-message";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { useAppStore } from "../../state";
-import { serverURL } from "../../backend/CommonBackend";
+import { serverURL } from "@backend/CommonBackend";
+import { GamesStackParamList } from "@navigation/GamesStack";
+import { GameInvite } from "@components/GameInvitations";
 import { RaceStackParamList } from "./RaceStack";
-import { GamesStackParamList } from "../../navgation/GamesStack";
 import {
   commonWebSocketDefaultValues,
   CommonWebSocketProps,
   SocketGameStates,
 } from "../common/WebSocket";
-import { GameInvite } from "../../components/GameInvitations";
 
 interface RaceWebSocketContextType extends CommonWebSocketProps {
   leaveGame: () => void;

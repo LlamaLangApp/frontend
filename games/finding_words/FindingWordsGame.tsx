@@ -1,19 +1,19 @@
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { FindingWordsStackParamList } from "./FindingWordsStack";
 import { Dimensions, Text, View } from "react-native";
 import React, { useContext, useEffect, useMemo, useState } from "react";
+import * as ScreenOrientation from "expo-screen-orientation";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { FindingWordsStackParamList } from "./FindingWordsStack";
 import { FindingWordsWebSocketContext } from "./FindingWordsWebSocket";
 import ScrabbleBlock, {
   Letter,
   scrabbleBlockGap,
   scrabbleBlockSize,
 } from "./FindingWordsScrabbleBlock";
-import mainStyles from "../../styles/MainStyles";
-import textGamesStyles from "../../styles/games/TextGamesStyles";
-import * as ScreenOrientation from "expo-screen-orientation";
-import FrontLlamaRight from "../../components/llama/FrontLlamaRight";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-import containerGamesStyles from "../../styles/games/ContainerGamesStyles";
+import FrontLlamaRight from "@components/llama/FrontLlamaRight";
+import mainStyles from "@styles/MainStyles";
+import containerGamesStyles from "@styles/games/ContainerGamesStyles";
+import textStyles from "@styles/TextStyles";
 
 type Props = NativeStackScreenProps<FindingWordsStackParamList, "Game">;
 
@@ -181,28 +181,24 @@ function FindingWordsGame({ route }: Props) {
             }}
           >
             <View style={containerGamesStyles.differentSizeTexts}>
-              <Text style={textGamesStyles.basicWeight600}>ROUND</Text>
-              <Text style={textGamesStyles.biggerBasicWeight600}>{round}</Text>
+              <Text style={textStyles.grey14Weight600}>ROUND</Text>
+              <Text style={textStyles.grey20Weight600}>{round}</Text>
             </View>
-            <Text style={textGamesStyles.gameNameHorizontally}>
-              FINDING WORDS
-            </Text>
+            <Text style={textStyles.grey20Weight800}>FINDING WORDS</Text>
             <View style={containerGamesStyles.differentSizeTexts}>
-              <Text style={textGamesStyles.biggerBasicWeight600}>{points}</Text>
-              <Text style={textGamesStyles.basicWeight600}>POINTS</Text>
+              <Text style={textStyles.grey20Weight600}>{points}</Text>
+              <Text style={textStyles.grey14Weight600}>POINTS</Text>
             </View>
           </View>
-          <Text style={textGamesStyles.information}>
+          <Text style={textStyles.grey18}>
             Find the word from mixed letters
           </Text>
-          <Text style={textGamesStyles.biggerBasicWeight600}>
-            Word from word set:
-          </Text>
+          <Text style={textStyles.grey20Weight600}>Word from word set:</Text>
         </View>
         <View
           style={[containerGamesStyles.textWithMargin, { marginBottom: "1%" }]}
         >
-          <Text style={textGamesStyles.important}>FOOD</Text>
+          <Text style={textStyles.pink30weight700}>FOOD</Text>
         </View>
       </View>
       <GestureHandlerRootView style={{ flex: 5 }}>

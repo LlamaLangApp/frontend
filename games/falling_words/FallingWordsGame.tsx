@@ -1,14 +1,14 @@
 import { Dimensions, Text, TouchableOpacity, View } from "react-native";
-import mainStyles from "../../styles/MainStyles";
 import React, { useEffect, useRef, useState } from "react";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { FallingWordsStackParamList } from "./FallingWordsStack";
 import Toast from "react-native-toast-message";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import * as ScreenOrientation from "expo-screen-orientation";
+import { FallingWordsStackParamList } from "./FallingWordsStack";
 import FallingWordsCard, { Card } from "./FallingWordsCard";
 import Bucket from "./FallingWordsBucket";
-import textGamesStyles from "../../styles/games/TextGamesStyles";
-import containerGamesStyles from "../../styles/games/ContainerGamesStyles";
+import mainStyles from "@styles/MainStyles";
+import containerGamesStyles from "@styles/games/ContainerGamesStyles";
+import textStyles from "@styles/TextStyles";
 
 type Props = NativeStackScreenProps<FallingWordsStackParamList, "Game">;
 
@@ -150,17 +150,17 @@ function FallingWordsGame({ route, navigation }: Props) {
         }}
       >
         <View style={containerGamesStyles.textWithMargin}>
-          <Text style={textGamesStyles.gameNameHorizontally}>
+          <Text style={textStyles.grey20Weight800}>
             {"FALLING WORDS".toUpperCase()}
           </Text>
-          <Text style={textGamesStyles.information}>
+          <Text style={textStyles.grey18}>
             Drag the bucket left and right to find the correct translation of
             the word
           </Text>
         </View>
 
         <TouchableOpacity onPress={endGameHandler}>
-          <Text style={textGamesStyles.important}>
+          <Text style={textStyles.pink30weight700}>
             {rounds[round].mainWordCard.word.toUpperCase()}
           </Text>
         </TouchableOpacity>

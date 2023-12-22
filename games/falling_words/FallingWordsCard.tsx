@@ -1,8 +1,8 @@
 import { Animated, Dimensions, Easing, Text } from "react-native";
 import React, { useEffect, useState } from "react";
-import mainGamesStyles from "../../styles/games/MainGamesStyles";
-import textGamesStyles from "../../styles/games/TextGamesStyles";
-import { Translation } from "../../backend/WordSetsBackend";
+import { Translation } from "@backend/WordSetsBackend";
+import mainGamesStyles from "@styles/games/MainGamesStyles";
+import textStyles from "@styles/TextStyles";
 
 const screenWidth = Math.min(
   Dimensions.get("window").width,
@@ -86,7 +86,7 @@ const FallingWordsCard: React.FC<FallingWordsCardProps> = ({ card, cards }) => {
         },
       ]}
     >
-      <Text style={textGamesStyles.whiteWeight600}>{card.translation}</Text>
+      <Text style={textStyles.white14Weight600}>{card.translation}</Text>
     </Animated.View>
   );
 };

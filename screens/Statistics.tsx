@@ -5,15 +5,11 @@ import {
   View,
   StyleSheet,
 } from "react-native";
-import mainStyles from "../styles/MainStyles";
 import React, { useEffect, useState } from "react";
-import {
-  buttonLightPink,
-  GamesStatistics,
-  grey,
-  lightGrey,
-  pink,
-} from "../Consts";
+import { CalendarList } from "react-native-calendars/src";
+import { MarkedDates } from "react-native-calendars/src/types";
+import { FontAwesome5 } from "@expo/vector-icons";
+import { MarkingProps } from "react-native-calendars/src/calendar/day/marking";
 import { useAppStore } from "../state";
 import {
   CalendarData,
@@ -26,13 +22,17 @@ import {
   getTotalDays,
   LongestStreakData,
   TotalDaysData,
-} from "../backend/StatisticsBackend";
-import { CalendarList } from "react-native-calendars/src";
-import { MarkedDates } from "react-native-calendars/src/types";
-import { FontAwesome5 } from "@expo/vector-icons";
-import { MarkingProps } from "react-native-calendars/src/calendar/day/marking";
-import StatsInfo from "../components/statistics/StatsInfo";
+} from "@backend/StatisticsBackend";
+import StatsInfo from "@components/statistics/StatsInfo";
 import moment from "moment";
+import {
+  buttonLightPink,
+  GamesStatistics,
+  grey,
+  lightGrey,
+  pink,
+} from "../Consts";
+import mainStyles from "@styles/MainStyles";
 
 const games = {
   allGames: "All games",

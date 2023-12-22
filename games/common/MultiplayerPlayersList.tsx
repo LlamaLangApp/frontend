@@ -1,13 +1,13 @@
 import { FlatList, Text, View } from "react-native";
-import mainStyles from "../../styles/MainStyles";
 import React from "react";
-import { grey, pink } from "../../Consts";
-import textGamesStyles from "../../styles/games/TextGamesStyles";
-import Llama from "../../components/llama/Llama";
-import containerGamesStyles from "../../styles/games/ContainerGamesStyles";
+import Toast from "react-native-toast-message";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { useAppStore } from "../../state";
-import Toast from "react-native-toast-message";
+import Llama from "@components/llama/Llama";
+import { grey, pink } from "../../Consts";
+import mainStyles from "@styles/MainStyles";
+import containerGamesStyles from "@styles/games/ContainerGamesStyles";
+import textStyles from "@styles/TextStyles";
 
 type MultiplayerPlayersListProps = {
   gameName: string;
@@ -23,13 +23,15 @@ function MultiplayerPlayersListScreen(props: MultiplayerPlayersListProps) {
     <View style={mainStyles.whiteBackgroundContainer}>
       <View style={containerGamesStyles.screen}>
         <View style={containerGamesStyles.textWithMargin}>
-          <Text style={textGamesStyles.gameName}>{gameName.toUpperCase()}</Text>
+          <Text style={textStyles.grey27Weight800}>
+            {gameName.toUpperCase()}
+          </Text>
         </View>
         <View style={[containerGamesStyles.textWithMargin, { gap: 10 }]}>
-          <Text style={[textGamesStyles.information, { color: pink }]}>
+          <Text style={[textStyles.grey18, { color: pink }]}>
             The game is starting now!
           </Text>
-          <Text style={textGamesStyles.information}>Meet the players:</Text>
+          <Text style={textStyles.grey18}>Meet the players:</Text>
         </View>
         <View
           style={{
@@ -62,9 +64,7 @@ function MultiplayerPlayersListScreen(props: MultiplayerPlayersListProps) {
                   gap: 5,
                 }}
               >
-                <Text style={[textGamesStyles.button, { color: grey }]}>
-                  {item}
-                </Text>
+                <Text style={[textStyles.button, { color: grey }]}>{item}</Text>
                 {item === username && (
                   <Text
                     style={{ fontWeight: "600", fontSize: 13, color: grey }}

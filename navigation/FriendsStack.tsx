@@ -1,9 +1,9 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import FriendsListScreen from "../screens/friends/FriendsList";
-import SearchUsersScreen from "../screens/friends/SearchUsers";
-import { FriendsProvider } from "../screens/friends/Friends";
 import { useNavigation } from "@react-navigation/native";
-import InvitationsScreen from "../screens/friends/Invitations";
+import { FriendsProvider } from "@screens/friends/Friends";
+import FriendsListScreen from "@screens/friends/FriendsList";
+import SearchUsersScreen from "@screens/friends/SearchUsers";
+import InvitationsScreen from "@screens/friends/Invitations";
 
 export type FriendsStackParamList = {
   List: undefined;

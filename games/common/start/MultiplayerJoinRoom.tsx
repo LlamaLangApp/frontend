@@ -1,15 +1,15 @@
 import { Text, View } from "react-native";
-import { FontAwesome } from "@expo/vector-icons";
 import React, { useEffect } from "react";
 import { useAppStore } from "../../../state";
-import { grey, pink } from "../../../Consts";
-import { getSpecificWordSet } from "../../../backend/WordSetsBackend";
-import { PinkButton } from "../../../components/buttons/BasicButton";
-import Llama from "../../../components/llama/Llama";
+import { getSpecificWordSet } from "@backend/WordSetsBackend";
+import { PinkButton } from "@components/buttons/BasicButton";
+import Llama from "@components/llama/Llama";
 import FinePrints from "../components/FinePrints";
-import mainStyles from "../../../styles/MainStyles";
-import textGamesStyles from "../../../styles/games/TextGamesStyles";
-import containerGamesStyles from "../../../styles/games/ContainerGamesStyles";
+import { FontAwesome } from "@expo/vector-icons";
+import { grey, pink } from "../../../Consts";
+import mainStyles from "@styles/MainStyles";
+import containerGamesStyles from "@styles/games/ContainerGamesStyles";
+import textStyles from "@styles/TextStyles";
 
 type JoinScreenProps = {
   gameName: string;
@@ -44,7 +44,9 @@ const MultiplayerJoinRoomScreen = ({
     <View style={mainStyles.whiteBackgroundContainer}>
       <View style={containerGamesStyles.screen}>
         <View style={containerGamesStyles.textWithMargin}>
-          <Text style={textGamesStyles.gameName}>{gameName.toUpperCase()}</Text>
+          <Text style={textStyles.grey27Weight800}>
+            {gameName.toUpperCase()}
+          </Text>
         </View>
         <View
           style={[
@@ -52,13 +54,11 @@ const MultiplayerJoinRoomScreen = ({
             { marginBottom: "6%", gap: 10 },
           ]}
         >
-          <Text style={[textGamesStyles.information, { textAlign: "center" }]}>
+          <Text style={[textStyles.grey18, { textAlign: "center" }]}>
             <Text style={{ color: pink, fontWeight: "700" }}>{hostName}</Text>
             <Text> has invited you to play together!</Text>
           </Text>
-          <Text style={textGamesStyles.information}>
-            Here is the chosen set:
-          </Text>
+          <Text style={textStyles.grey18}>Here is the chosen set:</Text>
         </View>
         <View style={[containerGamesStyles.dropDown]}>
           <View style={containerGamesStyles.fakeDropDown}>

@@ -1,16 +1,15 @@
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import CustomDrawer from "../components/CustomDrawer";
-import { FontAwesome } from "@expo/vector-icons";
-import { pink } from "../Consts";
 import WordSetStack from "./WordSetStack";
-import ScoreboardScreen from "../screens/Scoreboard";
-import { FontAwesome5 } from "@expo/vector-icons";
 import UserStack from "./UserStack";
 import FriendsStack from "./FriendsStack";
-import HomeScreen from "../screens/Home";
-import { UpdateHandlerProvider } from "../backend/UpdateHandler";
-import GameInvitations from "../components/GameInvitations";
-import StatisticsScreen from "../screens/Statistics";
+import HomeScreen from "@screens/Home";
+import ScoreboardScreen from "@screens/Scoreboard";
+import StatisticsScreen from "@screens/Statistics";
+import { UpdateHandlerProvider } from "@backend/UpdateHandler";
+import GameInvitations from "@components/GameInvitations";
+import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
+import { pink } from "../Consts";
 
 export type HomeDrawerParamList = {
   Games: undefined;

@@ -1,15 +1,15 @@
 import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import React, { useContext, useState } from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { WordSetStackParamList } from "../../navgation/WordSetStack";
-import { WordSetContext } from "./WordSets";
-import ButtonRow from "../../components/ButtonRow";
 import { FontAwesome5 } from "@expo/vector-icons";
+import { WordSetStackParamList } from "@navigation/WordSetStack";
+import { WordSetContext } from "./WordSets";
+import ButtonRow from "@components/ButtonRow";
 import { grey, pink } from "../../Consts";
-import mainStyles from "../../styles/MainStyles";
-import wordSetsStyles from "../../styles/WordSetsStyles";
-import containerStyles from "../../styles/ContainerStyles";
-import textStyles from "../../styles/TextStyles";
+import mainStyles from "@styles/MainStyles";
+import wordSetsStyles from "@styles/WordSetsStyles";
+import containerStyles from "@styles/ContainerStyles";
+import textStyles from "@styles/TextStyles";
 
 type Props = NativeStackScreenProps<WordSetStackParamList, "List">;
 

@@ -2,15 +2,15 @@ import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import React, { useContext, useState } from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { FontAwesome } from "@expo/vector-icons";
-import { FriendsStackParamList } from "../../navgation/FriendsStack";
+import { FriendsStackParamList } from "@navigation/FriendsStack";
 import { FriendsContext } from "./Friends";
-import FriendsButtonRow from "../../components/friends/FriendsButtonRow";
-import InviteListItem from "../../components/friends/InviteListItem";
+import FriendsButtonRow from "@components/friends/FriendsButtonRow";
+import InviteListItem from "@components/friends/InviteListItem";
 import { grey } from "../../Consts";
-import mainStyles from "../../styles/MainStyles";
-import friendsStyles from "../../styles/FriendsStyles";
-import containerStyles from "../../styles/ContainerStyles";
-import textStyles from "../../styles/TextStyles";
+import mainStyles from "@styles/MainStyles";
+import friendsStyles from "@styles/FriendsStyles";
+import containerStyles from "@styles/ContainerStyles";
+import textStyles from "@styles/TextStyles";
 
 type Props = NativeStackScreenProps<FriendsStackParamList, "Invitations">;
 

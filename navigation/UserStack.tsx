@@ -1,7 +1,7 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import ProfileScreen from "../screens/user/Profile";
-import StatisticsScreen from "../screens/Statistics";
-import LlamaScreen from "../screens/user/Llama";
+import ProfileScreen from "@screens/user/Profile";
+import StatisticsScreen from "@screens/Statistics";
+import LlamaScreen from "@screens/user/Llama";
 
 export type UserStackParamList = {
   User: undefined;

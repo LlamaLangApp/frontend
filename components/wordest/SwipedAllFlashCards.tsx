@@ -1,9 +1,9 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { Circle as ProgressCircle } from "react-native-progress";
-import { buttonDarkPink, buttonLightPink, grey, pink } from "../../Consts";
-import { FlashCards, WordSetContext } from "../../screens/wordsets/WordSets";
-import { SharedValue } from "react-native-reanimated";
 import { Dispatch, SetStateAction, useContext } from "react";
+import { SharedValue } from "react-native-reanimated";
+import { Circle as ProgressCircle } from "react-native-progress";
+import { FlashCards, WordSetContext } from "@screens/wordsets/WordSets";
+import { buttonDarkPink, buttonLightPink, grey, pink } from "../../Consts";
 import { Fontisto, MaterialCommunityIcons } from "@expo/vector-icons";
 
 export default ({

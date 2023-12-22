@@ -1,4 +1,4 @@
-import { GamesStackParamList } from "./navgation/GamesStack";
+import { GamesStackParamList } from "@navigation/GamesStack";
 
 export const defaultBackgroundColor = "#fffcff";
 export const authBackgroundColor = "#e5b3bb";
@@ -32,7 +32,7 @@ export type GamesStatistics =
   | "finding_words";
 
 export type GameType = "SinglePlayer" | "MultiPlayer";
-type GameItem = {
+export type GameItem = {
   id: string;
   name: Games;
   type: GameType;

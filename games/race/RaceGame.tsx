@@ -1,14 +1,14 @@
+import { Text, View } from "react-native";
+import React, { useContext } from "react";
+import Toast from "react-native-toast-message";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RaceStackParamList } from "./RaceStack";
-import { Text, View } from "react-native";
-import mainStyles from "../../styles/MainStyles";
-import mainGamesStyles from "../../styles/games/MainGamesStyles";
-import React, { useContext } from "react";
-import RaceCard from "./RaceCard";
 import { RaceWebSocketContext } from "./RaceWebSocket";
-import textGamesStyles from "../../styles/games/TextGamesStyles";
-import Toast from "react-native-toast-message";
-import containerGamesStyles from "../../styles/games/ContainerGamesStyles";
+import RaceCard from "./RaceCard";
+import mainStyles from "@styles/MainStyles";
+import mainGamesStyles from "@styles/games/MainGamesStyles";
+import containerGamesStyles from "@styles/games/ContainerGamesStyles";
+import textStyles from "@styles/TextStyles";
 
 type Props = NativeStackScreenProps<RaceStackParamList, "Game">;
 
@@ -29,7 +29,9 @@ function RaceGameScreen({ route }: Props) {
     <View style={mainStyles.whiteBackgroundContainer}>
       <View style={containerGamesStyles.screen}>
         <View style={containerGamesStyles.textWithMargin}>
-          <Text style={textGamesStyles.gameName}>{gameName.toUpperCase()}</Text>
+          <Text style={textStyles.grey27Weight800}>
+            {gameName.toUpperCase()}
+          </Text>
         </View>
         <View
           style={[
@@ -38,25 +40,25 @@ function RaceGameScreen({ route }: Props) {
           ]}
         >
           <View style={containerGamesStyles.differentSizeTexts}>
-            <Text style={textGamesStyles.basicWeight600}>ROUND</Text>
-            <Text style={textGamesStyles.biggerBasicWeight600}>{round}</Text>
+            <Text style={textStyles.grey14Weight600}>ROUND</Text>
+            <Text style={textStyles.grey20Weight600}>{round}</Text>
           </View>
           <View style={containerGamesStyles.differentSizeTexts}>
-            <Text style={textGamesStyles.biggerBasicWeight600}>{points}</Text>
-            <Text style={textGamesStyles.basicWeight600}>POINTS</Text>
+            <Text style={textStyles.grey20Weight600}>{points}</Text>
+            <Text style={textStyles.grey14Weight600}>POINTS</Text>
           </View>
         </View>
         <View
           style={[containerGamesStyles.textWithMargin, { marginTop: "6%" }]}
         >
-          <Text style={textGamesStyles.information}>
+          <Text style={textStyles.grey18}>
             Choose the correct translation of word
           </Text>
         </View>
         <View
           style={[containerGamesStyles.textWithMargin, { marginBottom: "10%" }]}
         >
-          <Text style={textGamesStyles.important}>
+          <Text style={textStyles.pink30weight700}>
             {question.toUpperCase()}
           </Text>
         </View>

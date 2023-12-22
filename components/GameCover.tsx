@@ -1,7 +1,7 @@
 import { Image, ImageSourcePropType, TouchableOpacity } from "react-native";
 import { useMemo } from "react";
 import { Games } from "../Consts";
-import homeStyles from "../styles/HomeStyles";
+import homeStyles from "@styles/HomeStyles";
 
 const gameCoverImages: Record<Games, ImageSourcePropType> = {
   memory: require("../assets/games/Memory.png"),

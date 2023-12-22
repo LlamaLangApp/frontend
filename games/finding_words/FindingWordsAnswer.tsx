@@ -1,15 +1,15 @@
+import { Text, View } from "react-native";
+import React, { useContext } from "react";
+import Toast from "react-native-toast-message";
+import { FontAwesome } from "@expo/vector-icons";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { FindingWordsStackParamList } from "./FindingWordsStack";
-import { Text, View } from "react-native";
-import mainStyles from "../../styles/MainStyles";
-import React, { useContext } from "react";
 import { FindingWordsWebSocketContext } from "./FindingWordsWebSocket";
-import textGamesStyles from "../../styles/games/TextGamesStyles";
-import containerGamesStyles from "../../styles/games/ContainerGamesStyles";
+import FrontLlamaRight from "@components/llama/FrontLlamaRight";
 import { buttonDarkPink, grey } from "../../Consts";
-import { FontAwesome } from "@expo/vector-icons";
-import Toast from "react-native-toast-message";
-import FrontLlamaRight from "../../components/llama/FrontLlamaRight";
+import mainStyles from "@styles/MainStyles";
+import containerGamesStyles from "@styles/games/ContainerGamesStyles";
+import textStyles from "@styles/TextStyles";
 
 type Props = NativeStackScreenProps<FindingWordsStackParamList, "Answer">;
 
@@ -36,23 +36,21 @@ function FindingWordsAnswerScreen({ route }: Props) {
             }}
           >
             <View style={containerGamesStyles.differentSizeTexts}>
-              <Text style={textGamesStyles.basicWeight600}>ROUND</Text>
-              <Text style={textGamesStyles.biggerBasicWeight600}>{round}</Text>
+              <Text style={textStyles.grey14Weight600}>ROUND</Text>
+              <Text style={textStyles.grey20Weight600}>{round}</Text>
             </View>
-            <Text style={textGamesStyles.gameNameHorizontally}>
-              FINDING WORDS
-            </Text>
+            <Text style={textStyles.grey20Weight800}>FINDING WORDS</Text>
             <View style={containerGamesStyles.differentSizeTexts}>
-              <Text style={textGamesStyles.biggerBasicWeight600}>{points}</Text>
-              <Text style={textGamesStyles.basicWeight600}>POINTS</Text>
+              <Text style={textStyles.grey20Weight600}>{points}</Text>
+              <Text style={textStyles.grey14Weight600}>POINTS</Text>
             </View>
           </View>
         </View>
         <View style={containerGamesStyles.textWithMargin}>
-          <Text style={textGamesStyles.information}>The correct answer is</Text>
+          <Text style={textStyles.grey18}>The correct answer is</Text>
         </View>
         <View style={containerGamesStyles.textWithMargin}>
-          <Text style={textGamesStyles.important}>
+          <Text style={textStyles.pink30weight700}>
             {correctAnswer.toUpperCase()}
           </Text>
         </View>
@@ -63,8 +61,8 @@ function FindingWordsAnswerScreen({ route }: Props) {
               { marginBottom: "4%" },
             ]}
           >
-            <Text style={textGamesStyles.information}>Your answer: </Text>
-            <Text style={[textGamesStyles.information, { fontWeight: "600" }]}>
+            <Text style={textStyles.grey18}>Your answer: </Text>
+            <Text style={[textStyles.grey18, { fontWeight: "600" }]}>
               {answer.toUpperCase()}
             </Text>
           </View>
@@ -75,7 +73,7 @@ function FindingWordsAnswerScreen({ route }: Props) {
               { marginBottom: "4%" },
             ]}
           >
-            <Text style={textGamesStyles.information}>You did not answer</Text>
+            <Text style={textStyles.grey18}>You did not answer</Text>
           </View>
         )}
         <View style={[containerGamesStyles.differentSizeTexts]}>
