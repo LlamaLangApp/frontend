@@ -61,7 +61,7 @@ const GameInvitations = () => {
         <View style={containerStyles.modal}>
           <View style={gameInvitationsStyles.modalDisplay}>
             <View style={containerStyles.textWithMargin}>
-              <Text style={textStyles.biggerBasicWeight600}>
+              <Text style={textStyles.grey20Weight600}>
                 INVITATIONS TO PLAY
               </Text>
             </View>
@@ -96,7 +96,7 @@ const GameInvitations = () => {
                         closeModal();
                       }}
                     >
-                      <Text style={textStyles.basicWeight600}>
+                      <Text style={textStyles.grey14Weight600}>
                         <Text style={textStyles.pink}>{item.username}</Text>
                         <Text> wants to play with you in </Text>
                         <Text style={textStyles.weight800}>

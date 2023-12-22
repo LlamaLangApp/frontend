@@ -34,7 +34,7 @@ const PlayerListItem = ({ username, place, score }: PlaceItem) => {
     <View style={containerStyles.spaceBetweenInRow}>
       <View style={scoreboardStyles.placeAndUsernameContainer}>
         <View style={scoreboardStyles.placeContainer}>{placeElement}</View>
-        <Text style={textStyles.biggerBasicWeight600}>{username}</Text>
+        <Text style={textStyles.grey20Weight600}>{username}</Text>
       </View>
       <View style={scoreboardStyles.scoreContainer}>
         <Text style={textStyles.grey25Weight600}>{score}</Text>

@@ -1,15 +1,15 @@
+import { Text, View } from "react-native";
+import React, { useContext } from "react";
+import { FontAwesome } from "@expo/vector-icons";
+import Toast from "react-native-toast-message";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RaceStackParamList } from "./RaceStack";
-import { Text, View } from "react-native";
-import mainStyles from "../../styles/MainStyles";
-import React, { useContext } from "react";
 import { RaceWebSocketContext } from "./RaceWebSocket";
-import textGamesStyles from "../../styles/games/TextGamesStyles";
-import Toast from "react-native-toast-message";
-import containerGamesStyles from "../../styles/games/ContainerGamesStyles";
 import Llama from "../../components/llama/Llama";
 import { buttonDarkPink, grey } from "../../Consts";
-import { FontAwesome } from "@expo/vector-icons";
+import mainStyles from "../../styles/MainStyles";
+import containerGamesStyles from "../../styles/games/ContainerGamesStyles";
+import textStyles from "../../styles/TextStyles";
 
 type Props = NativeStackScreenProps<RaceStackParamList, "Answer">;
 
@@ -22,7 +22,9 @@ function RaceAnswerScreen({ route }: Props) {
     <View style={mainStyles.whiteBackgroundContainer}>
       <View style={containerGamesStyles.screen}>
         <View style={containerGamesStyles.textWithMargin}>
-          <Text style={textGamesStyles.gameName}>{gameName.toUpperCase()}</Text>
+          <Text style={textStyles.grey27Weight800}>
+            {gameName.toUpperCase()}
+          </Text>
         </View>
         <View
           style={[
@@ -53,17 +55,17 @@ function RaceAnswerScreen({ route }: Props) {
           </View>
         </View>
         <View style={containerGamesStyles.textWithMargin}>
-          <Text style={textGamesStyles.importantGrey}>
+          <Text style={textStyles.grey30weight700}>
             {question.toUpperCase()}
           </Text>
         </View>
         <View style={containerGamesStyles.textWithMargin}>
-          <Text style={textGamesStyles.information}>The correct answer is</Text>
+          <Text style={textStyles.grey18}>The correct answer is</Text>
         </View>
         <View
           style={[containerGamesStyles.textWithMargin, { marginBottom: "10%" }]}
         >
-          <Text style={textGamesStyles.important}>
+          <Text style={textStyles.pink30weight700}>
             {correctAnswer.toUpperCase()}
           </Text>
         </View>
@@ -73,8 +75,8 @@ function RaceAnswerScreen({ route }: Props) {
             { marginBottom: "5%" },
           ]}
         >
-          <Text style={textGamesStyles.information}>Your answer: </Text>
-          <Text style={[textGamesStyles.information, { fontWeight: "600" }]}>
+          <Text style={textStyles.grey18}>Your answer: </Text>
+          <Text style={[textStyles.grey18, { fontWeight: "600" }]}>
             {answer.toUpperCase()}
           </Text>
         </View>

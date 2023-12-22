@@ -1,15 +1,15 @@
 import { Dimensions, Text, View } from "react-native";
-import mainStyles from "../../styles/MainStyles";
-import mainGamesStyles from "../../styles/games/MainGamesStyles";
 import React, { useEffect, useState, useRef } from "react";
+import Toast from "react-native-toast-message";
 import { Bar as ProgressBar } from "react-native-progress";
-import { grey, lightGrey, pink } from "../../Consts";
-import MemoryCard, { Card, shuffleCards } from "./MemoryCard";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { MemoryStackParamList } from "./MemoryStack";
-import textGamesStyles from "../../styles/games/TextGamesStyles";
-import Toast from "react-native-toast-message";
+import MemoryCard, { Card, shuffleCards } from "./MemoryCard";
+import { grey, lightGrey, pink } from "../../Consts";
+import mainStyles from "../../styles/MainStyles";
+import mainGamesStyles from "../../styles/games/MainGamesStyles";
 import containerGamesStyles from "../../styles/games/ContainerGamesStyles";
+import textStyles from "../../styles/TextStyles";
 
 type Props = NativeStackScreenProps<MemoryStackParamList, "Game">;
 
@@ -97,10 +97,10 @@ function MemoryGameScreen({ route, navigation }: Props) {
         <View
           style={[containerGamesStyles.textWithMargin, { marginBottom: "5%" }]}
         >
-          <Text style={textGamesStyles.gameName}>MEMORY</Text>
+          <Text style={textStyles.grey27Weight800}>MEMORY</Text>
         </View>
         <View style={containerGamesStyles.textWithMargin}>
-          <Text style={textGamesStyles.information}>
+          <Text style={textStyles.grey18}>
             Match the words with their translations
           </Text>
         </View>
@@ -110,15 +110,15 @@ function MemoryGameScreen({ route, navigation }: Props) {
             { marginBottom: "5%" },
           ]}
         >
-          <Text style={[textGamesStyles.biggerBasicWeight600, { color: pink }]}>
+          <Text style={[textStyles.grey20Weight600, { color: pink }]}>
             {points}
           </Text>
-          <Text style={[textGamesStyles.basicWeight600, { color: pink }]}>
+          <Text style={[textStyles.grey14Weight600, { color: pink }]}>
             POINTS
           </Text>
         </View>
         <View style={containerGamesStyles.differentSizeTexts}>
-          <Text style={[textGamesStyles.finePrint, { color: grey }]}>
+          <Text style={[textStyles.finePrint, { color: grey }]}>
             Attempts left: {attempt}/15
           </Text>
         </View>

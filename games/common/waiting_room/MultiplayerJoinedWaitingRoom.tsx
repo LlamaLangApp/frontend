@@ -7,8 +7,8 @@ import Llama from "../../../components/llama/Llama";
 import PlayersInWaitRoomList from "../components/PlayerListInWaitRoom";
 import FinePrints from "../components/FinePrints";
 import mainStyles from "../../../styles/MainStyles";
-import textGamesStyles from "../../../styles/games/TextGamesStyles";
 import containerGamesStyles from "../../../styles/games/ContainerGamesStyles";
+import textStyles from "../../../styles/TextStyles";
 
 type MultiPlayerWaitingRoomProps = {
   gameName: string;
@@ -26,19 +26,19 @@ function MultiPlayerJoinedWaitingRoomScreen(
     <View style={mainStyles.whiteBackgroundContainer}>
       <View style={containerGamesStyles.screen}>
         <View style={containerGamesStyles.textWithMargin}>
-          <Text style={textGamesStyles.gameName}>{gameName.toUpperCase()}</Text>
+          <Text style={textStyles.grey27Weight800}>
+            {gameName.toUpperCase()}
+          </Text>
         </View>
         <View style={containerGamesStyles.textWithMargin}>
-          <Text style={textGamesStyles.information}>
+          <Text style={textStyles.grey18}>
             <Text style={{ color: pink, fontWeight: "700" }}>{hostName}</Text>
             <Text> is the host of this room,</Text>
           </Text>
-          <Text style={textGamesStyles.information}>
+          <Text style={textStyles.grey18}>
             determining who will be joining you
           </Text>
-          <Text style={textGamesStyles.information}>
-            and when the game will begin
-          </Text>
+          <Text style={textStyles.grey18}>and when the game will begin</Text>
         </View>
         <View
           style={{

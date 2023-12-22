@@ -4,9 +4,9 @@ import Toast from "react-native-toast-message";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { GamesStackParamList } from "../navgation/GamesStack";
 import FrontLlamaRight from "../components/llama/FrontLlamaRight";
-import { games } from "../Consts";
 import ButtonRow from "../components/ButtonRow";
 import GameCover from "../components/GameCover";
+import { GameItem, games } from "../Consts";
 import mainStyles from "../styles/MainStyles";
 import homeStyles from "../styles/HomeStyles";
 import containerStyles from "../styles/ContainerStyles";
@@ -16,6 +16,17 @@ type GamesStack = NavigationProp<GamesStackParamList, "Home">;
 function HomeScreen() {
   const navigation = useNavigation<GamesStack>();
   const [gameType, setGameType] = useState("SinglePlayer");
+
+  const goToGame = (item: GameItem) => {
+    if (item.screenName === "Race" || item.screenName === "FindingWords") {
+      navigation.navigate(item.screenName, {
+        fromInvite: false,
+        invite: null,
+      });
+    } else {
+      navigation.navigate(item.screenName);
+    }
+  };
 
   return (
     <View style={mainStyles.whiteBackgroundContainer}>
@@ -32,23 +43,11 @@ function HomeScreen() {
         <FlatList
           showsVerticalScrollIndicator={false}
           data={games.filter((game) => game.type == gameType)}
-          renderItem={(itemData) => {
+          renderItem={({ item }) => {
             return (
               <GameCover
-                gameName={itemData.item.name}
-                onPressItem={() => {
-                  if (
-                    itemData.item.screenName === "Race" ||
-                    itemData.item.screenName === "FindingWords"
-                  ) {
-                    navigation.navigate(itemData.item.screenName, {
-                      fromInvite: false,
-                      invite: null,
-                    });
-                  } else {
-                    navigation.navigate(itemData.item.screenName);
-                  }
-                }}
+                gameName={item.name}
+                onPressItem={() => goToGame(item)}
               />
             );
           }}

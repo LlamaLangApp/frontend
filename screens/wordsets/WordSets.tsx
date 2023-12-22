@@ -6,9 +6,9 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { useAppStore } from "../../state";
 import { NavigationProp } from "@react-navigation/native";
 import { WordSetStackParamList } from "../../navgation/WordSetStack";
+import { useAppStore } from "../../state";
 import {
   callTranslations,
   callWordSets,
@@ -36,17 +36,30 @@ interface WordSetContextType {
   handleChosenSet: (wordSet: WordSetItem) => void;
 }
 
+type WordSetType = "Default" | "Custom";
+
+type WordSetItem = {
+  id: number | undefined;
+  name: string;
+  type: WordSetType;
+  category: string;
+  locked: boolean;
+  depends_on: { name: string }[];
+};
+
+export const defaultWordSetData: WordSetItem = {
+  id: 0,
+  name: "",
+  type: "Default",
+  category: "",
+  locked: false,
+  depends_on: [{ name: "" }],
+};
+
 const WordSetContext = createContext<WordSetContextType>({
   chosenSetName: "",
   chosenPolish: true,
-  chosenWordSet: {
-    id: 0,
-    name: "",
-    type: "Default",
-    category: "",
-    locked: false,
-    depends_on: [],
-  },
+  chosenWordSet: defaultWordSetData,
   startFlashCards: true,
   setFlashCards: () => {
     return [];
@@ -69,27 +82,10 @@ type WordSetProviderProps = {
   navigation: NavigationProp<WordSetStackParamList>;
 };
 
-type WordSetType = "Default" | "Custom";
-
-type WordSetItem = {
-  id: number | undefined;
-  name: string;
-  type: WordSetType;
-  category: string;
-  locked: boolean;
-  depends_on: { name: string }[];
-};
-
 const WordSetProvider = ({ children, navigation }: WordSetProviderProps) => {
   const token = useAppStore.getState().token;
-  const [chosenWordSet, setChosenWordSet] = useState<WordSetItem>({
-    id: 0,
-    name: "",
-    type: "Default",
-    category: "",
-    locked: false,
-    depends_on: [{ name: "" }],
-  });
+  const [chosenWordSet, setChosenWordSet] =
+    useState<WordSetItem>(defaultWordSetData);
   const [chosenSetName, setChosenSetName] = useState<string>("");
   const [chosenSetId, setChosenSetId] = useState<number | undefined>(undefined);
   const [flashCards, setFlashCards] = useState<FlashCards[]>([]);
@@ -138,7 +134,6 @@ const WordSetProvider = ({ children, navigation }: WordSetProviderProps) => {
       }
     });
   }, []);
-  console.log(wordSetsList);
 
   useEffect(() => {
     if (chosenSetName != "") {

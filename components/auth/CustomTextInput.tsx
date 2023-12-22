@@ -27,7 +27,7 @@ const CustomTextInput = ({
             { flexDirection: "row", justifyContent: "space-between" },
           ]}
         >
-          <Text style={textStyles.basicWeight600}>{textAbove}</Text>
+          <Text style={textStyles.grey14Weight600}>{textAbove}</Text>
           {rightReference && referenceOnPress && (
             <TouchableOpacity onPress={referenceOnPress}>
               <Text style={textStyles.linkedText}>{rightReference}</Text>

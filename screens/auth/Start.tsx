@@ -29,7 +29,7 @@ function StartScreen({ navigation }: Props) {
         </View>
         {shouldShowDebugURL ? (
           <>
-            <Text style={textStyles.basicWeight600}>
+            <Text style={textStyles.grey14Weight600}>
               Enter URL without https, but with port:
             </Text>
             <TextInput

@@ -44,9 +44,7 @@ function RegisterScreen({ navigation }: Props) {
     <View style={mainStyles.whiteBackgroundContainer}>
       <View style={authStyles.contentContainer}>
         <View style={containerStyles.textWithMargin}>
-          <Text style={textStyles.importantInformation}>
-            Sign up to LlamaLang
-          </Text>
+          <Text style={textStyles.grey18Weight700}>Sign up to LlamaLang</Text>
         </View>
         <View style={authStyles.registerContainer}>
           <View style={authStyles.inputsContainer}>
@@ -79,7 +77,7 @@ function RegisterScreen({ navigation }: Props) {
           </View>
         </View>
         <View style={authStyles.registerNoteContainer}>
-          <Text style={textStyles.basicWeight600}>
+          <Text style={textStyles.grey14Weight600}>
             Already have an account?
           </Text>
           <TouchableOpacity onPress={() => navigation.navigate("Login")}>

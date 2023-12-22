@@ -1,9 +1,9 @@
-import textGamesStyles from "../../../styles/games/TextGamesStyles";
-import { grey, pink } from "../../../Consts";
 import { FlatList, Text, View } from "react-native";
-import { FontAwesome5 } from "@expo/vector-icons";
 import React, { useMemo } from "react";
 import { useAppStore } from "../../../state";
+import { FontAwesome5 } from "@expo/vector-icons";
+import { grey, pink } from "../../../Consts";
+import textStyles from "../../../styles/TextStyles";
 
 const PlayerInWaitRoom = ({
   username,
@@ -26,14 +26,12 @@ const PlayerInWaitRoom = ({
           gap: 5,
         }}
       >
-        <Text style={[textGamesStyles.button, { color: grey }]}>
-          {username}
-        </Text>
+        <Text style={[textStyles.button, { color: grey }]}>{username}</Text>
         {username === hostName && (
           <FontAwesome5 name={"crown"} size={16} color={pink} />
         )}
         {user === username && (
-          <Text style={textGamesStyles.basicWeight600}>(YOU)</Text>
+          <Text style={textStyles.grey14Weight600}>(YOU)</Text>
         )}
       </View>
     );

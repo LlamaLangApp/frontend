@@ -5,7 +5,6 @@ import { grey, lightGrey } from "../../../Consts";
 import { getFriendsData } from "../../../backend/FriendsBackend";
 import { useAppStore } from "../../../state";
 import containerGamesStyles from "../../../styles/games/ContainerGamesStyles";
-import textGamesStyles from "../../../styles/games/TextGamesStyles";
 import buttonGamesStyles from "../../../styles/games/ButtonGamesStyles";
 import InviteFriendsModal from "../../../components/games/InviteFriendsModal";
 import Llama from "../../../components/llama/Llama";
@@ -13,6 +12,7 @@ import Toast from "react-native-toast-message";
 import BlockedButton from "../../../components/buttons/BlockedButton";
 import PlayersInWaitRoomList from "../components/PlayerListInWaitRoom";
 import FinePrints from "../components/FinePrints";
+import textStyles from "../../../styles/TextStyles";
 
 type MultiPlayerWaitingRoomProps = {
   gameName: string;
@@ -116,13 +116,13 @@ function MultiPlayerOwnerWaitingRoomScreen(props: MultiPlayerWaitingRoomProps) {
       />
       <View style={containerGamesStyles.screen}>
         <View style={containerGamesStyles.textWithMargin}>
-          <Text style={textGamesStyles.gameName}>{gameName.toUpperCase()}</Text>
+          <Text style={textStyles.grey27Weight800}>
+            {gameName.toUpperCase()}
+          </Text>
         </View>
         <View style={containerGamesStyles.textWithMargin}>
-          <Text style={textGamesStyles.information}>
-            You are the owner of this room
-          </Text>
-          <Text style={textGamesStyles.information}>
+          <Text style={textStyles.grey18}>You are the owner of this room</Text>
+          <Text style={textStyles.grey18}>
             Decide with who you want to play
           </Text>
         </View>
@@ -148,7 +148,7 @@ function MultiPlayerOwnerWaitingRoomScreen(props: MultiPlayerWaitingRoomProps) {
           style={[buttonGamesStyles.basic, { backgroundColor: lightGrey }]}
           onPress={openModal}
         >
-          <Text style={[textGamesStyles.button, { color: grey }]}>
+          <Text style={[textStyles.button, { color: grey }]}>
             Invite friends
           </Text>
         </TouchableOpacity>

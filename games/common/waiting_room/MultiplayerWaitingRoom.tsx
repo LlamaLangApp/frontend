@@ -1,13 +1,13 @@
 import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
 import mainStyles from "../../../styles/MainStyles";
 import React from "react";
-import textGamesStyles from "../../../styles/games/TextGamesStyles";
 import containerGamesStyles from "../../../styles/games/ContainerGamesStyles";
 import { grey, pink } from "../../../Consts";
 import Llama from "../../../components/llama/Llama";
 import Toast from "react-native-toast-message";
 import PlayersInWaitRoomList from "../components/PlayerListInWaitRoom";
 import FinePrints from "../components/FinePrints";
+import textStyles from "../../../styles/TextStyles";
 
 type MultiPlayerWaitingRoomProps = {
   gameName: string;
@@ -22,12 +22,12 @@ function MultiPlayerWaitingRoomScreen(props: MultiPlayerWaitingRoomProps) {
     <View style={mainStyles.whiteBackgroundContainer}>
       <View style={containerGamesStyles.screen}>
         <View style={containerGamesStyles.textWithMargin}>
-          <Text style={textGamesStyles.gameName}>{gameName.toUpperCase()}</Text>
+          <Text style={textStyles.grey27Weight800}>
+            {gameName.toUpperCase()}
+          </Text>
         </View>
         <View style={containerGamesStyles.textWithMargin}>
-          <Text style={textGamesStyles.information}>
-            Waiting for more players
-          </Text>
+          <Text style={textStyles.grey18}>Waiting for more players</Text>
         </View>
         <ActivityIndicator
           size={"large"}

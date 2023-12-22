@@ -30,9 +30,7 @@ function LogScreen({ navigation }: Props) {
     <View style={mainStyles.whiteBackgroundContainer}>
       <View style={authStyles.contentContainer}>
         <View style={containerStyles.textWithMargin}>
-          <Text style={textStyles.importantInformation}>
-            Sign in to LlamaLang
-          </Text>
+          <Text style={textStyles.grey18Weight700}>Sign in to LlamaLang</Text>
         </View>
         <View style={authStyles.loginContainer}>
           <View style={authStyles.inputsContainer}>
@@ -58,7 +56,7 @@ function LogScreen({ navigation }: Props) {
           </View>
         </View>
         <View style={authStyles.noteContainer}>
-          <Text style={textStyles.basicWeight600}>New to LlamaLang? </Text>
+          <Text style={textStyles.grey14Weight600}>New to LlamaLang? </Text>
           <TouchableOpacity onPress={() => navigation.navigate("Register")}>
             <Text style={textStyles.linkedText}>Create an account</Text>
           </TouchableOpacity>

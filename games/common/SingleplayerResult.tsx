@@ -1,14 +1,14 @@
 import { Text, View } from "react-native";
-import mainStyles from "../../styles/MainStyles";
-import { pink } from "../../Consts";
-import containerGamesStyles from "../../styles/games/ContainerGamesStyles";
-import textGamesStyles from "../../styles/games/TextGamesStyles";
-import Llama from "../../components/llama/Llama";
 import React from "react";
+import Llama from "../../components/llama/Llama";
 import {
   LightGreyButton,
   PinkButton,
 } from "../../components/buttons/BasicButton";
+import { pink } from "../../Consts";
+import mainStyles from "../../styles/MainStyles";
+import containerGamesStyles from "../../styles/games/ContainerGamesStyles";
+import textStyles from "../../styles/TextStyles";
 
 type SinglePlayerResultProps = {
   gameName: string;
@@ -32,32 +32,29 @@ const SinglePlayerResultScreen = (props: SinglePlayerResultProps) => {
     <View style={mainStyles.whiteBackgroundContainer}>
       <View style={containerGamesStyles.screen}>
         <View style={containerGamesStyles.textWithMargin}>
-          <Text style={textGamesStyles.gameName}>{gameName.toUpperCase()}</Text>
+          <Text style={textStyles.grey27Weight800}>
+            {gameName.toUpperCase()}
+          </Text>
         </View>
         <View
           style={[containerGamesStyles.textWithMargin, { marginBottom: "10%" }]}
         >
-          <Text
-            style={[
-              textGamesStyles.information,
-              { color: pink, fontWeight: "600" },
-            ]}
-          >
+          <Text style={[textStyles.grey18, { color: pink, fontWeight: "600" }]}>
             FINAL RESULTS
           </Text>
         </View>
         <View style={containerGamesStyles.textWithMargin}>
-          <Text style={textGamesStyles.information}>
+          <Text style={textStyles.grey18}>
             <Text>You were repeating words from set:</Text>
           </Text>
         </View>
         <View style={containerGamesStyles.textWithMargin}>
-          <Text style={textGamesStyles.important}>
+          <Text style={textStyles.pink30weight700}>
             <Text>{setName.toUpperCase()}</Text>
           </Text>
         </View>
         <View style={containerGamesStyles.textWithMargin}>
-          <Text style={textGamesStyles.information}>
+          <Text style={textStyles.grey18}>
             <Text>You answered </Text>
             <Text style={{ fontWeight: "600", color: pink, fontSize: 20 }}>
               {points / 10}/{rounds}
@@ -66,14 +63,12 @@ const SinglePlayerResultScreen = (props: SinglePlayerResultProps) => {
           </Text>
         </View>
         <View style={containerGamesStyles.textWithMargin}>
-          <Text
-            style={[textGamesStyles.information, textGamesStyles.weight700]}
-          >
+          <Text style={[textStyles.grey18, textStyles.weight700]}>
             Congratulations!
           </Text>
         </View>
         <View style={containerGamesStyles.textWithMargin}>
-          <Text style={textGamesStyles.information}>
+          <Text style={textStyles.grey18}>
             <Text>Your earned </Text>
             <Text style={{ fontWeight: "600", color: pink, fontSize: 20 }}>
               {points}
