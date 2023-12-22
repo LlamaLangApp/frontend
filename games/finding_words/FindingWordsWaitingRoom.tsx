@@ -5,11 +5,16 @@ import MultiPlayerJoinedWaitingRoomScreen from "../common/waiting_room/Multiplay
 import MultiPlayerOwnerWaitingRoomScreen from "../common/waiting_room/MultiplayerOwnerWaitingRoom";
 
 function FindingWordsWaitingRoomScreen() {
-  const { withFriends, fromInvite, ws, leaveGame, usersInWaitRoom } =
+  const { withFriends, fromInvite, ws, leaveGame, usersInWaitRoom, invite } =
     useContext(FindingWordsWebSocketContext);
 
-  return fromInvite ? (
-    <MultiPlayerJoinedWaitingRoomScreen gameName={"Finding words"} />
+  return fromInvite && invite ? (
+    <MultiPlayerJoinedWaitingRoomScreen
+      gameName={"Finding words"}
+      hostName={invite.username}
+      leaveGame={leaveGame}
+      usersInWaitRoom={usersInWaitRoom}
+    />
   ) : withFriends ? (
     <MultiPlayerOwnerWaitingRoomScreen
       gameName={"Finding words"}
