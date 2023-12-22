@@ -1,9 +1,9 @@
 import React, { useContext, useMemo } from "react";
 import { Button, Image, Text, TouchableOpacity, View } from "react-native";
-import { FriendsContext } from "../../screens/friends/Friends";
+import { FriendsContext } from "@screens/friends/Friends";
 import { grey } from "../../Consts";
-import friendsStyles from "../../styles/FriendsStyles";
-import containerStyles from "../../styles/ContainerStyles";
+import friendsStyles from "@styles/FriendsStyles";
+import containerStyles from "@styles/ContainerStyles";
 
 type UserModal = {
   userId: number;

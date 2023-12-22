@@ -6,10 +6,10 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { MemoryStackParamList } from "./MemoryStack";
 import MemoryCard, { Card, shuffleCards } from "./MemoryCard";
 import { grey, lightGrey, pink } from "../../Consts";
-import mainStyles from "../../styles/MainStyles";
-import mainGamesStyles from "../../styles/games/MainGamesStyles";
-import containerGamesStyles from "../../styles/games/ContainerGamesStyles";
-import textStyles from "../../styles/TextStyles";
+import mainStyles from "@styles/MainStyles";
+import mainGamesStyles from "@styles/games/MainGamesStyles";
+import containerGamesStyles from "@styles/games/ContainerGamesStyles";
+import textStyles from "@styles/TextStyles";
 
 type Props = NativeStackScreenProps<MemoryStackParamList, "Game">;
 

@@ -3,13 +3,13 @@ import React, { useContext, useEffect, useState } from "react";
 import Toast from "react-native-toast-message";
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { GamesStackParamList } from "../navgation/GamesStack";
-import { UpdateHandlerContext } from "../backend/UpdateHandler";
+import { GamesStackParamList } from "@navigation/GamesStack";
+import { UpdateHandlerContext } from "@backend/UpdateHandler";
 import { LightGreyButton } from "./buttons/BasicButton";
 import { grey } from "../Consts";
-import gameInvitationsStyles from "../styles/GameInvitationsStyles";
-import containerStyles from "../styles/ContainerStyles";
-import textStyles from "../styles/TextStyles";
+import gameInvitationsStyles from "@styles/GameInvitationsStyles";
+import containerStyles from "@styles/ContainerStyles";
+import textStyles from "@styles/TextStyles";
 
 type GamesStack = NavigationProp<GamesStackParamList, "FindingWords">;
 export type GameInvite = {

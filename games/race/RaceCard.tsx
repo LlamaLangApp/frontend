@@ -1,7 +1,7 @@
 import { Text, TouchableOpacity, View } from "react-native";
 import React from "react";
-import containerGamesStyles from "../../styles/games/ContainerGamesStyles";
 import { grey, lightGrey, pink } from "../../Consts";
+import containerGamesStyles from "@styles/games/ContainerGamesStyles";
 
 type RaceCardProps = {
   translation: string;

@@ -1,4 +1,4 @@
-import { GamesStackParamList } from "./navgation/GamesStack";
+import { GamesStackParamList } from "@navigation/GamesStack";
 
 export const defaultBackgroundColor = "#fffcff";
 export const authBackgroundColor = "#e5b3bb";

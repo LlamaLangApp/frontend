@@ -2,14 +2,14 @@ import { FlatList, View } from "react-native";
 import React, { useState } from "react";
 import Toast from "react-native-toast-message";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { GamesStackParamList } from "../navgation/GamesStack";
-import FrontLlamaRight from "../components/llama/FrontLlamaRight";
-import ButtonRow from "../components/ButtonRow";
-import GameCover from "../components/GameCover";
+import { GamesStackParamList } from "@navigation/GamesStack";
+import FrontLlamaRight from "@components/llama/FrontLlamaRight";
+import ButtonRow from "@components/ButtonRow";
+import GameCover from "@components/GameCover";
 import { GameItem, games } from "../Consts";
-import mainStyles from "../styles/MainStyles";
-import homeStyles from "../styles/HomeStyles";
-import containerStyles from "../styles/ContainerStyles";
+import mainStyles from "@styles/MainStyles";
+import homeStyles from "@styles/HomeStyles";
+import containerStyles from "@styles/ContainerStyles";
 
 type GamesStack = NavigationProp<GamesStackParamList, "Home">;
 

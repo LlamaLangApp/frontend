@@ -10,10 +10,10 @@ import ScrabbleBlock, {
   scrabbleBlockGap,
   scrabbleBlockSize,
 } from "./FindingWordsScrabbleBlock";
-import FrontLlamaRight from "../../components/llama/FrontLlamaRight";
-import mainStyles from "../../styles/MainStyles";
-import containerGamesStyles from "../../styles/games/ContainerGamesStyles";
-import textStyles from "../../styles/TextStyles";
+import FrontLlamaRight from "@components/llama/FrontLlamaRight";
+import mainStyles from "@styles/MainStyles";
+import containerGamesStyles from "@styles/games/ContainerGamesStyles";
+import textStyles from "@styles/TextStyles";
 
 type Props = NativeStackScreenProps<FindingWordsStackParamList, "Game">;
 

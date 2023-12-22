@@ -1,7 +1,7 @@
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { grey } from "../../Consts";
-import mainStyles from "../../styles/MainStyles";
-import userStyles from "../../styles/UserStyles";
+import mainStyles from "@styles/MainStyles";
+import userStyles from "@styles/UserStyles";
 
 function LlamaScreen() {
   return (

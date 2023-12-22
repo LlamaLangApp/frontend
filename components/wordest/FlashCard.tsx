@@ -4,8 +4,6 @@ import {
   Text,
   TouchableWithoutFeedback,
 } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
-import { FlashCards } from "../../screens/wordsets/WordSets";
 import Animated, {
   interpolate,
   SharedValue,
@@ -16,6 +14,8 @@ import Animated, {
 } from "react-native-reanimated";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import { Dispatch, SetStateAction, useState } from "react";
+import { LinearGradient } from "expo-linear-gradient";
+import { FlashCards } from "@screens/wordsets/WordSets";
 
 const screenWidth = Dimensions.get("screen").width;
 export const FlashCardWidth = screenWidth * 0.7;

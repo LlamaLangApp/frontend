@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import { FlashCards } from "../../screens/wordsets/WordSets";
+import { FlashCards } from "@screens/wordsets/WordSets";
 import { useMemo } from "react";
 
 export default ({

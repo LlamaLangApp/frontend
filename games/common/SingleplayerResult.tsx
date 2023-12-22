@@ -1,14 +1,11 @@
 import { Text, View } from "react-native";
 import React from "react";
-import Llama from "../../components/llama/Llama";
-import {
-  LightGreyButton,
-  PinkButton,
-} from "../../components/buttons/BasicButton";
+import Llama from "@components/llama/Llama";
+import { LightGreyButton, PinkButton } from "@components/buttons/BasicButton";
 import { pink } from "../../Consts";
-import mainStyles from "../../styles/MainStyles";
-import containerGamesStyles from "../../styles/games/ContainerGamesStyles";
-import textStyles from "../../styles/TextStyles";
+import mainStyles from "@styles/MainStyles";
+import containerGamesStyles from "@styles/games/ContainerGamesStyles";
+import textStyles from "@styles/TextStyles";
 
 type SinglePlayerResultProps = {
   gameName: string;

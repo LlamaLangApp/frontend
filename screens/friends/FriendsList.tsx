@@ -9,16 +9,16 @@ import {
 import React, { useContext, useState } from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { FloatingAction } from "react-native-floating-action";
-import { FriendsStackParamList } from "../../navgation/FriendsStack";
-import useFilteredItems, { FilterFunction } from "../../hooks/useFilteredItems";
+import { FriendsStackParamList } from "@navigation/FriendsStack";
+import useFilteredItems, { FilterFunction } from "@hooks/useFilteredItems";
 import { FriendsContext, User } from "./Friends";
-import UserListItem from "../../components/friends/UserListItem";
-import UserDisplayModal from "../../components/friends/UserDisplayModal";
+import UserListItem from "@components/friends/UserListItem";
+import UserDisplayModal from "@components/friends/UserDisplayModal";
 import { buttonLightPink, friendsActions, grey, purple } from "../../Consts";
-import mainStyles from "../../styles/MainStyles";
-import friendsStyles from "../../styles/FriendsStyles";
-import containerStyles from "../../styles/ContainerStyles";
-import textStyles from "../../styles/TextStyles";
+import mainStyles from "@styles/MainStyles";
+import friendsStyles from "@styles/FriendsStyles";
+import containerStyles from "@styles/ContainerStyles";
+import textStyles from "@styles/TextStyles";
 
 type Props = NativeStackScreenProps<FriendsStackParamList, "List">;
 

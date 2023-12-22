@@ -1,12 +1,12 @@
 import { Text, TouchableOpacity, View } from "react-native";
 import React, { useContext } from "react";
-import { WordSetContext } from "./WordSets";
-import mainStyles from "../../styles/MainStyles";
-import wordSetsStyles from "../../styles/WordSetsStyles";
 import { FlatList } from "react-native-gesture-handler";
-import WordListItem from "../../components/WordListItem";
 import { Fontisto } from "@expo/vector-icons";
+import { WordSetContext } from "./WordSets";
+import WordListItem from "@components/WordListItem";
 import { grey } from "../../Consts";
+import mainStyles from "@styles/MainStyles";
+import wordSetsStyles from "@styles/WordSetsStyles";
 
 function WordSetDisplayScreen() {
   const {

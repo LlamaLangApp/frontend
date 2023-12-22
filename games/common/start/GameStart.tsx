@@ -1,14 +1,14 @@
 import { Switch, Text, View } from "react-native";
 import React, { useState, useEffect, Dispatch, SetStateAction } from "react";
-import { WordSet, callWordSets } from "../../../backend/WordSetsBackend";
+import { WordSet, callWordSets } from "@backend/WordSetsBackend";
 import { useAppStore } from "../../../state";
-import CustomDropdown from "../../../components/CustomDropdown";
-import Llama from "../../../components/llama/Llama";
-import BlockedButton from "../../../components/buttons/BlockedButton";
+import CustomDropdown from "@components/CustomDropdown";
+import Llama from "@components/llama/Llama";
+import BlockedButton from "@components/buttons/BlockedButton";
 import { buttonLightPink, grey, lightGrey, pink } from "../../../Consts";
-import mainStyles from "../../../styles/MainStyles";
-import containerGamesStyles from "../../../styles/games/ContainerGamesStyles";
-import textStyles from "../../../styles/TextStyles";
+import mainStyles from "@styles/MainStyles";
+import containerGamesStyles from "@styles/games/ContainerGamesStyles";
+import textStyles from "@styles/TextStyles";
 
 type StartScreenProps = {
   gameName: string;

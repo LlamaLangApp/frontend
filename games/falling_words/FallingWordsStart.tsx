@@ -1,10 +1,10 @@
+import { Dimensions } from "react-native";
 import React, { useEffect, useState } from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { FallingWordsStackParamList } from "./FallingWordsStack";
 import { useAppStore } from "../../state";
-import { callTranslations } from "../../backend/WordSetsBackend";
+import { callTranslations } from "@backend/WordSetsBackend";
+import { FallingWordsStackParamList } from "./FallingWordsStack";
 import { Card, choseMainWord, makeCards } from "./FallingWordsCard";
-import { Dimensions } from "react-native";
 import GameStartScreen from "../common/start/GameStart";
 
 type Props = NativeStackScreenProps<FallingWordsStackParamList, "Start">;

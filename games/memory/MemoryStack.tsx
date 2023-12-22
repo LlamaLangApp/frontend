@@ -1,6 +1,6 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import MemoryStartScreen from "./MemoryStart";
 import * as React from "react";
+import MemoryStartScreen from "./MemoryStart";
 import MemoryGameScreen from "./MemoryGame";
 import MemoryResultsScreen from "./MemoryResults";
 import { Card } from "./MemoryCard";

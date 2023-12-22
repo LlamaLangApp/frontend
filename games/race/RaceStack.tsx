@@ -1,14 +1,14 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as React from "react";
+import { RouteProp, useNavigation } from "@react-navigation/native";
+import { RaceWebSocketProvider } from "./RaceWebSocket";
 import RaceStartScreen from "./RaceStart";
 import RaceGameScreen from "./RaceGame";
 import RaceWaitingRoomScreen from "./RaceWaitingRoom";
 import RacePlayersListScreen from "./RacePlayersList";
 import RaceAnswerScreen from "./RaceAnswer";
-import { RaceWebSocketProvider } from "./RaceWebSocket";
-import { RouteProp, useNavigation } from "@react-navigation/native";
 import RaceEndGameScreen from "./RaceEndGame";
-import { GamesStackParamList } from "../../navgation/GamesStack";
+import { GamesStackParamList } from "@navigation/GamesStack";
 
 export type RaceStackParamList = {
   Start: undefined;

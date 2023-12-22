@@ -2,8 +2,8 @@ import { Text, TouchableOpacity } from "react-native";
 import React, { useMemo } from "react";
 import { FontAwesome } from "@expo/vector-icons";
 import { grey, lightGrey, pink } from "../../Consts";
-import buttonGamesStyles from "../../styles/games/ButtonGamesStyles";
-import textStyles from "../../styles/TextStyles";
+import buttonGamesStyles from "@styles/games/ButtonGamesStyles";
+import textStyles from "@styles/TextStyles";
 
 const BlockedButton = ({
   buttonText,

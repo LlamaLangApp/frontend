@@ -1,17 +1,16 @@
 import { Dimensions, StyleSheet, Text, View } from "react-native";
-import FlashCard from "../../components/wordest/FlashCard";
 import { useContext, useState } from "react";
-import { FlashCards, WordSetContext } from "./WordSets";
 import { Bar as ProgressBar } from "react-native-progress";
-
 import {
   runOnJS,
   useAnimatedReaction,
   useSharedValue,
 } from "react-native-reanimated";
+import { FlashCards, WordSetContext } from "./WordSets";
+import FlashCard from "@components/wordest/FlashCard";
+import SwipedCardCounter from "@components/wordest/SwipedCardCounter";
+import AllFlashCards from "@components/wordest/SwipedAllFlashCards";
 import { buttonLightPink } from "../../Consts";
-import SwipedCardCounter from "../../components/wordest/SwipedCardCounter";
-import AllFlashCards from "../../components/wordest/SwipedAllFlashCards";
 
 const screenWidth = Dimensions.get("screen").width;
 

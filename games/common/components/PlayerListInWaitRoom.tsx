@@ -3,7 +3,7 @@ import React, { useMemo } from "react";
 import { useAppStore } from "../../../state";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { grey, pink } from "../../../Consts";
-import textStyles from "../../../styles/TextStyles";
+import textStyles from "@styles/TextStyles";
 
 const PlayerInWaitRoom = ({
   username,

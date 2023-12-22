@@ -8,9 +8,11 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { useAppStore } from "../../state";
 import { NavigationProp } from "@react-navigation/native";
-import { FriendsStackParamList } from "../../navgation/FriendsStack";
+import { useAppStore } from "../../state";
+import { FriendsStackParamList } from "@navigation/FriendsStack";
+import { serverURL } from "@backend/CommonBackend";
+import { UpdateHandlerContext } from "@backend/UpdateHandler";
 import {
   acceptFriendsInvite,
   cancelFriendsInvite,
@@ -22,9 +24,7 @@ import {
   getUsersData,
   rejectFriendsInvite,
   sendFriendsInvite,
-} from "../../backend/FriendsBackend";
-import { serverURL } from "../../backend/CommonBackend";
-import { UpdateHandlerContext } from "../../backend/UpdateHandler";
+} from "@backend/FriendsBackend";
 
 interface FriendsContextType {
   allUsers: Users;

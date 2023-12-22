@@ -1,15 +1,15 @@
 import { Text, View } from "react-native";
 import React, { useEffect } from "react";
 import { useAppStore } from "../../../state";
-import { getSpecificWordSet } from "../../../backend/WordSetsBackend";
-import { PinkButton } from "../../../components/buttons/BasicButton";
-import Llama from "../../../components/llama/Llama";
+import { getSpecificWordSet } from "@backend/WordSetsBackend";
+import { PinkButton } from "@components/buttons/BasicButton";
+import Llama from "@components/llama/Llama";
 import FinePrints from "../components/FinePrints";
 import { FontAwesome } from "@expo/vector-icons";
 import { grey, pink } from "../../../Consts";
-import mainStyles from "../../../styles/MainStyles";
-import containerGamesStyles from "../../../styles/games/ContainerGamesStyles";
-import textStyles from "../../../styles/TextStyles";
+import mainStyles from "@styles/MainStyles";
+import containerGamesStyles from "@styles/games/ContainerGamesStyles";
+import textStyles from "@styles/TextStyles";
 
 type JoinScreenProps = {
   gameName: string;

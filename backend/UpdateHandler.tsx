@@ -8,7 +8,7 @@ import React, {
 } from "react";
 import { serverURL } from "./CommonBackend";
 import { useAppStore } from "../state";
-import { GameInvite } from "../components/GameInvitations";
+import { GameInvite } from "@components/GameInvitations";
 
 type CallbackCleanupFunction = () => void;
 const dummyCleanupFunction: CallbackCleanupFunction = () => {

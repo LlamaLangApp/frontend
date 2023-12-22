@@ -5,8 +5,8 @@ import {
   ViewStyle,
   StyleSheet,
 } from "react-native";
-import { buttonLightPink, grey } from "../Consts";
 import React, { useMemo, useState } from "react";
+import { buttonLightPink, grey } from "../Consts";
 import { FontAwesome5 } from "@expo/vector-icons";
 
 export default ({

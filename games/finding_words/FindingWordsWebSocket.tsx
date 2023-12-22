@@ -1,16 +1,16 @@
 import React, { createContext, ReactNode, useEffect, useState } from "react";
-import { useAppStore } from "../../state";
-import { serverURL } from "../../backend/CommonBackend";
-import { FindingWordsStackParamList } from "./FindingWordsStack";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { GamesStackParamList } from "../../navgation/GamesStack";
 import Toast from "react-native-toast-message";
+import { useAppStore } from "../../state";
+import { serverURL } from "@backend/CommonBackend";
+import { GamesStackParamList } from "@navigation/GamesStack";
+import { FindingWordsStackParamList } from "./FindingWordsStack";
 import {
   commonWebSocketDefaultValues,
   CommonWebSocketProps,
   SocketGameStates,
 } from "../common/WebSocket";
-import { GameInvite } from "../../components/GameInvitations";
+import { GameInvite } from "@components/GameInvitations";
 
 interface FindingWordsWebSocketContextType extends CommonWebSocketProps {
   leaveGame: () => void;

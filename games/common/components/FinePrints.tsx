@@ -1,6 +1,6 @@
 import { Text, View } from "react-native";
 import React, { useMemo } from "react";
-import textStyles from "../../../styles/TextStyles";
+import textStyles from "@styles/TextStyles";
 
 const FinePrints = ({ prints }: { prints: string[] }) => {
   return useMemo(() => {

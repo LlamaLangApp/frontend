@@ -5,11 +5,11 @@ import Toast from "react-native-toast-message";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RaceStackParamList } from "./RaceStack";
 import { RaceWebSocketContext } from "./RaceWebSocket";
-import Llama from "../../components/llama/Llama";
+import Llama from "@components/llama/Llama";
 import { buttonDarkPink, grey } from "../../Consts";
-import mainStyles from "../../styles/MainStyles";
-import containerGamesStyles from "../../styles/games/ContainerGamesStyles";
-import textStyles from "../../styles/TextStyles";
+import mainStyles from "@styles/MainStyles";
+import containerGamesStyles from "@styles/games/ContainerGamesStyles";
+import textStyles from "@styles/TextStyles";
 
 type Props = NativeStackScreenProps<RaceStackParamList, "Answer">;
 

@@ -1,19 +1,19 @@
 import {
-  DrawerContentComponentProps,
-  DrawerContentScrollView,
-  DrawerItemList,
-} from "@react-navigation/drawer";
-import {
   Image,
   ImageBackground,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
+import {
+  DrawerContentComponentProps,
+  DrawerContentScrollView,
+  DrawerItemList,
+} from "@react-navigation/drawer";
+import React from "react";
 import { FontAwesome } from "@expo/vector-icons";
 import { useAppStore } from "../state";
-import { logoutHandler } from "../backend/AuthBackend";
-import React from "react";
+import { logoutHandler } from "@backend/AuthBackend";
 
 const CustomDrawer = (props: DrawerContentComponentProps) => {
   const { setUserData, username, avatar, level, token } = useAppStore(

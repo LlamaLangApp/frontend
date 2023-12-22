@@ -5,10 +5,10 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RaceStackParamList } from "./RaceStack";
 import { RaceWebSocketContext } from "./RaceWebSocket";
 import RaceCard from "./RaceCard";
-import mainStyles from "../../styles/MainStyles";
-import mainGamesStyles from "../../styles/games/MainGamesStyles";
-import containerGamesStyles from "../../styles/games/ContainerGamesStyles";
-import textStyles from "../../styles/TextStyles";
+import mainStyles from "@styles/MainStyles";
+import mainGamesStyles from "@styles/games/MainGamesStyles";
+import containerGamesStyles from "@styles/games/ContainerGamesStyles";
+import textStyles from "@styles/TextStyles";
 
 type Props = NativeStackScreenProps<RaceStackParamList, "Game">;
 

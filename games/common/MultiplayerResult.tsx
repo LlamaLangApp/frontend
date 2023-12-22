@@ -1,13 +1,13 @@
 import { FlatList, Text, View } from "react-native";
 import React from "react";
 import { useAppStore } from "../../state";
-import PlayerListItem from "../../components/PlayerListItem";
-import Llama from "../../components/llama/Llama";
-import { PinkButton } from "../../components/buttons/BasicButton";
+import PlayerListItem from "@components/PlayerListItem";
+import Llama from "@components/llama/Llama";
+import { PinkButton } from "@components/buttons/BasicButton";
 import { buttonDarkPink, pink } from "../../Consts";
-import mainStyles from "../../styles/MainStyles";
-import containerGamesStyles from "../../styles/games/ContainerGamesStyles";
-import textStyles from "../../styles/TextStyles";
+import mainStyles from "@styles/MainStyles";
+import containerGamesStyles from "@styles/games/ContainerGamesStyles";
+import textStyles from "@styles/TextStyles";
 
 type MultiplayerResultProps = {
   gameName: string;

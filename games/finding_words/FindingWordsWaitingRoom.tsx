@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import MultiPlayerWaitingRoomScreen from "../common/waiting_room/MultiplayerWaitingRoom";
 import { FindingWordsWebSocketContext } from "./FindingWordsWebSocket";
+import MultiPlayerWaitingRoomScreen from "../common/waiting_room/MultiplayerWaitingRoom";
 import MultiPlayerJoinedWaitingRoomScreen from "../common/waiting_room/MultiplayerJoinedWaitingRoom";
 import MultiPlayerOwnerWaitingRoomScreen from "../common/waiting_room/MultiplayerOwnerWaitingRoom";
 

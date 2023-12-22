@@ -1,6 +1,6 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import FallingWordsStartScreen, { Round } from "./FallingWordsStart";
 import * as React from "react";
+import FallingWordsStartScreen, { Round } from "./FallingWordsStart";
 import FallingWordsGameScreen from "./FallingWordsGame";
 import FallingWordsResultsScreen from "./FallingWordsResults";
 

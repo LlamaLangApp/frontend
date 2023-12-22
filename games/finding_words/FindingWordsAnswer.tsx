@@ -5,11 +5,11 @@ import { FontAwesome } from "@expo/vector-icons";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { FindingWordsStackParamList } from "./FindingWordsStack";
 import { FindingWordsWebSocketContext } from "./FindingWordsWebSocket";
-import FrontLlamaRight from "../../components/llama/FrontLlamaRight";
+import FrontLlamaRight from "@components/llama/FrontLlamaRight";
 import { buttonDarkPink, grey } from "../../Consts";
-import mainStyles from "../../styles/MainStyles";
-import containerGamesStyles from "../../styles/games/ContainerGamesStyles";
-import textStyles from "../../styles/TextStyles";
+import mainStyles from "@styles/MainStyles";
+import containerGamesStyles from "@styles/games/ContainerGamesStyles";
+import textStyles from "@styles/TextStyles";
 
 type Props = NativeStackScreenProps<FindingWordsStackParamList, "Answer">;
 

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { FallingWordsStackParamList } from "./FallingWordsStack";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import SinglePlayerResultScreen from "../common/SingleplayerResult";
-import { saveSinglePlayerGame } from "../../backend/GamesBackend";
-import { useAppStore } from "../../state";
 import * as ScreenOrientation from "expo-screen-orientation";
-import { GamesStackParamList } from "../../navgation/GamesStack";
+import { GamesStackParamList } from "@navigation/GamesStack";
+import { useAppStore } from "../../state";
+import { saveSinglePlayerGame } from "@backend/GamesBackend";
+import { FallingWordsStackParamList } from "./FallingWordsStack";
+import SinglePlayerResultScreen from "../common/SingleplayerResult";
 
 type Props = NativeStackScreenProps<FallingWordsStackParamList, "Results">;
 type GamesStack = NavigationProp<GamesStackParamList, "Home">;

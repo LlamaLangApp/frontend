@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { MemoryStackParamList } from "./MemoryStack";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import SinglePlayerResultScreen from "../common/SingleplayerResult";
-import { saveSinglePlayerGame } from "../../backend/GamesBackend";
 import { useAppStore } from "../../state";
-import { GamesStackParamList } from "../../navgation/GamesStack";
+import { saveSinglePlayerGame } from "@backend/GamesBackend";
+import { GamesStackParamList } from "@navigation/GamesStack";
+import { MemoryStackParamList } from "./MemoryStack";
+import SinglePlayerResultScreen from "../common/SingleplayerResult";
 
 type Props = NativeStackScreenProps<MemoryStackParamList, "Results">;
 type GamesStack = NavigationProp<GamesStackParamList, "Home">;

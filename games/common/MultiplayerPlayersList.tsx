@@ -3,11 +3,11 @@ import React from "react";
 import Toast from "react-native-toast-message";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { useAppStore } from "../../state";
-import Llama from "../../components/llama/Llama";
+import Llama from "@components/llama/Llama";
 import { grey, pink } from "../../Consts";
-import mainStyles from "../../styles/MainStyles";
-import containerGamesStyles from "../../styles/games/ContainerGamesStyles";
-import textStyles from "../../styles/TextStyles";
+import mainStyles from "@styles/MainStyles";
+import containerGamesStyles from "@styles/games/ContainerGamesStyles";
+import textStyles from "@styles/TextStyles";
 
 type MultiplayerPlayersListProps = {
   gameName: string;

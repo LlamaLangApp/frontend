@@ -1,8 +1,8 @@
 import { View, Text, Image, ImageSourcePropType } from "react-native";
 import { useMemo } from "react";
-import scoreboardStyles from "../styles/ScoreboardStyles";
-import textStyles from "../styles/TextStyles";
-import containerStyles from "../styles/ContainerStyles";
+import scoreboardStyles from "@styles/ScoreboardStyles";
+import textStyles from "@styles/TextStyles";
+import containerStyles from "@styles/ContainerStyles";
 
 const playerPlaceImages: Record<1 | 2 | 3, ImageSourcePropType> = {
   1: require("../assets/scoreboard/medal-1.png"),

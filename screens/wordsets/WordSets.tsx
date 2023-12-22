@@ -7,14 +7,14 @@ import React, {
   useState,
 } from "react";
 import { NavigationProp } from "@react-navigation/native";
-import { WordSetStackParamList } from "../../navgation/WordSetStack";
+import { WordSetStackParamList } from "@navigation/WordSetStack";
 import { useAppStore } from "../../state";
 import {
   callTranslations,
   callWordSets,
   Translation,
   WordSet,
-} from "../../backend/WordSetsBackend";
+} from "@backend/WordSetsBackend";
 
 export type FlashCards = {
   english: string;

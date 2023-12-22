@@ -6,9 +6,9 @@ import * as ScreenOrientation from "expo-screen-orientation";
 import { FallingWordsStackParamList } from "./FallingWordsStack";
 import FallingWordsCard, { Card } from "./FallingWordsCard";
 import Bucket from "./FallingWordsBucket";
-import mainStyles from "../../styles/MainStyles";
-import containerGamesStyles from "../../styles/games/ContainerGamesStyles";
-import textStyles from "../../styles/TextStyles";
+import mainStyles from "@styles/MainStyles";
+import containerGamesStyles from "@styles/games/ContainerGamesStyles";
+import textStyles from "@styles/TextStyles";
 
 type Props = NativeStackScreenProps<FallingWordsStackParamList, "Game">;
 

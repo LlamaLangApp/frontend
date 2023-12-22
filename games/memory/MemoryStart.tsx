@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { MemoryStackParamList } from "./MemoryStack";
 import { useAppStore } from "../../state";
+import { callTranslations } from "@backend/WordSetsBackend";
+import { MemoryStackParamList } from "./MemoryStack";
 import { makeCards } from "./MemoryCard";
-import { callTranslations } from "../../backend/WordSetsBackend";
 import GameStartScreen from "../common/start/GameStart";
 
 type Props = NativeStackScreenProps<MemoryStackParamList, "Start">;

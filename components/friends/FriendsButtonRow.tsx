@@ -1,7 +1,7 @@
 import { TouchableOpacity, View, Text } from "react-native";
 import { defaultBackgroundColor, pink } from "../../Consts";
 import { useMemo, useState } from "react";
-import friendsStyles from "../../styles/FriendsStyles";
+import friendsStyles from "@styles/FriendsStyles";
 
 const FriendsButtonRow = ({
   choices,

@@ -1,7 +1,7 @@
-import { FontAwesome } from "@expo/vector-icons";
-import SelectDropdown from "react-native-select-dropdown";
-import dropdownStyles from "../styles/DropdownStyles";
 import { useState } from "react";
+import SelectDropdown from "react-native-select-dropdown";
+import { FontAwesome } from "@expo/vector-icons";
+import dropdownStyles from "@styles/DropdownStyles";
 
 interface CustomDropdownProps {
   defaultSelectText: string;
