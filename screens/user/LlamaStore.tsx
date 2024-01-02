@@ -4,7 +4,7 @@ import userStyles from "@styles/UserStyles";
 import textStyles from "@styles/TextStyles";
 import containerStyles from "@styles/ContainerStyles";
 
-function LlamaScreen() {
+function LlamaStoreScreen() {
   return (
     <View style={mainStyles.whiteBackgroundContainer}>
       <View style={userStyles.mainContainer}>
@@ -14,7 +14,7 @@ function LlamaScreen() {
         <View style={userStyles.llamaContainer}>
           <Image
             source={require("@assets/llama/llama.png")}
-            style={userStyles.llamaImage}
+            style={containerStyles.width100height100}
           />
         </View>
         <View style={userStyles.storeContainer}>
@@ -49,4 +49,4 @@ function LlamaScreen() {
   );
 }
 
-export default LlamaScreen;
+export default LlamaStoreScreen;

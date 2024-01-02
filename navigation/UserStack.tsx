@@ -1,7 +1,7 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import ProfileScreen from "@screens/user/Profile";
 import StatisticsScreen from "@screens/Statistics";
-import LlamaScreen from "@screens/user/Llama";
+import LlamaStoreScreen from "@screens/user/LlamaStore";
 
 export type UserStackParamList = {
   User: undefined;
@@ -16,7 +16,7 @@ const UserStack = () => {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name={"User"} component={ProfileScreen} />
       <Stack.Screen name={"Statistics"} component={StatisticsScreen} />
-      <Stack.Screen name={"Llama"} component={LlamaScreen} />
+      <Stack.Screen name={"Llama"} component={LlamaStoreScreen} />
     </Stack.Navigator>
   );
 };

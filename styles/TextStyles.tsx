@@ -2,6 +2,7 @@ import { StyleSheet } from "react-native";
 import { grey, pink, purple, white } from "../Consts";
 
 const textStyles = StyleSheet.create({
+  grey: { color: grey },
   grey12: { fontSize: 12, color: grey },
   grey14Weight600: { fontWeight: "600", fontSize: 14, color: grey },
   grey18: { fontSize: 18, color: grey },
