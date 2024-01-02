@@ -16,7 +16,8 @@ const textStyles = StyleSheet.create({
 
   pink: { color: pink },
   pink14: { fontSize: 14, color: pink },
-  pink20Weight600: { fontWeight: "600", fontSize: 20, color: pink },
+  pink14Weight700: { fontSize: 14, color: pink, fontWeight: "700" },
+  pink20Weight600: { fontSize: 20, color: pink, fontWeight: "600" },
   pink30weight700: { fontSize: 30, color: pink, fontWeight: "700" },
 
   white14Weight600: { fontWeight: "600", fontSize: 14, color: white },

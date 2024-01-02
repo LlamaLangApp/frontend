@@ -1,10 +1,4 @@
-import {
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  View,
-  StyleSheet,
-} from "react-native";
+import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import { CalendarList } from "react-native-calendars/src";
 import { MarkedDates } from "react-native-calendars/src/types";
@@ -23,17 +17,19 @@ import {
   LongestStreakData,
   TotalDaysData,
 } from "@backend/StatisticsBackend";
-import StatsInfo from "@components/statistics/StatsInfo";
+import StatisticsInfo from "@components/statistics/StatisticsInfo";
 import moment from "moment";
 import {
-  buttonLightPink,
+  defaultBackgroundColor,
   GamesStatistics,
   grey,
   lightGrey,
   pink,
+  white,
 } from "../Consts";
 import mainStyles from "@styles/MainStyles";
 import textStyles from "@styles/TextStyles";
+import statisticsStyles from "@styles/StatisticsStyles";
 
 const games = {
   allGames: "All games",
@@ -224,17 +220,9 @@ export default () => {
 
   return (
     <View style={mainStyles.whiteBackgroundContainer}>
-      <View style={styles.mainContainer}>
-        <View style={styles.placeholder1} />
-        <View style={styles.points}>
-          <View style={styles.placeholder1} />
-          <View
-            style={{
-              width: "85%",
-              flex: 0.3,
-              justifyContent: "flex-start",
-            }}
-          >
+      <View style={statisticsStyles.mainContainer}>
+        <View style={statisticsStyles.points}>
+          <View style={{ width: "85%", justifyContent: "flex-start" }}>
             <Text style={textStyles.grey20Weight800}>
               <FontAwesome5 name={"gamepad"} color={grey} size={18} />
               <Text> Total points</Text>
@@ -243,24 +231,18 @@ export default () => {
           <ScrollView
             horizontal={true}
             showsHorizontalScrollIndicator={false}
-            style={{ flex: 1.5, width: "90%" }}
+            style={{ width: "90%" }}
           >
             {Object.values(games).map((game, id) => {
               return (
                 <TouchableOpacity
-                  onPress={() => {
-                    setChosenGame(game);
-                  }}
+                  onPress={() => setChosenGame(game)}
                   key={id}
-                  style={styles.gameChoice}
+                  style={statisticsStyles.gameChoice}
                 >
-                  <Text style={{ color: grey, fontWeight: "bold" }}>
-                    {game}
-                  </Text>
+                  <Text style={textStyles.grey14Weight600}>{game}</Text>
                   <View>
-                    <Text
-                      style={{ color: buttonLightPink, fontWeight: "bold" }}
-                    >
+                    <Text style={textStyles.pink14Weight700}>
                       {gamePoints[gamesMapping[game]]?.total_points}
                     </Text>
                   </View>
@@ -269,12 +251,12 @@ export default () => {
             })}
           </ScrollView>
         </View>
-        <View style={styles.calendar}>
+        <View style={statisticsStyles.calendar}>
           <CalendarList
             disabledByDefault={true}
             disableAllTouchEventsForDisabledDays={true}
             theme={{
-              calendarBackground: "#fffcff",
+              calendarBackground: defaultBackgroundColor,
               textDisabledColor: "#2d4150",
             }}
             onVisibleMonthsChange={(months) => {
@@ -291,7 +273,12 @@ export default () => {
                 "MMMM YYYY"
               );
               return (
-                <Text style={[textStyles.grey20Weight800, styles.customHeader]}>
+                <Text
+                  style={[
+                    textStyles.grey20Weight800,
+                    statisticsStyles.customHeader,
+                  ]}
+                >
                   {title}
                 </Text>
               );
@@ -301,64 +288,30 @@ export default () => {
             markedDates={markedDates}
           />
         </View>
-        <View style={styles.statsInfo}>
-          <StatsInfo
+        <View style={statisticsStyles.statsInfoContainer}>
+          <StatisticsInfo
             iconName={"check-square"}
             statsText={" Current streak"}
             statsNumber={currentStreak?.current_streak}
             backgroundColor={pink}
-            textColor={"white"}
+            textColor={white}
           />
-          <StatsInfo
+          <StatisticsInfo
             iconName={"calendar-check"}
             statsText={" Longest streak"}
             statsNumber={longestStreak?.longest_streak}
-            backgroundColor={"#fffcff"}
+            backgroundColor={defaultBackgroundColor}
             textColor={grey}
           />
-          <StatsInfo
+          <StatisticsInfo
             iconName={"calendar-week"}
             statsText={" Total days learned"}
             statsNumber={totalDays?.total_days}
-            backgroundColor={"#fffcff"}
+            backgroundColor={defaultBackgroundColor}
             textColor={grey}
           />
         </View>
-        <View style={styles.placeholder2} />
-        <View style={styles.placeholder2} />
       </View>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  mainContainer: {
-    width: "90%",
-    height: "95%",
-  },
-  calendar: { flex: 1.8 },
-  statsInfo: {
-    flex: 0.5,
-    width: "100%",
-    alignItems: "center",
-  },
-  points: {
-    flex: 0.7,
-    alignItems: "center",
-    width: "100%",
-  },
-  placeholder1: { flex: 0.1 },
-  placeholder2: { flex: 0.2 },
-  gameChoice: {
-    backgroundColor: lightGrey,
-    margin: 5,
-    height: 60,
-    width: 110,
-    borderRadius: 10,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  customHeader: {
-    flex: 1,
-  },
-});
