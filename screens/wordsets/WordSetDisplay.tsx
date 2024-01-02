@@ -4,9 +4,10 @@ import { FlatList } from "react-native-gesture-handler";
 import { Fontisto } from "@expo/vector-icons";
 import { WordSetContext } from "./WordSets";
 import WordListItem from "@components/WordListItem";
-import { grey } from "../../Consts";
 import mainStyles from "@styles/MainStyles";
 import wordSetsStyles from "@styles/WordSetsStyles";
+import textStyles from "@styles/TextStyles";
+import containerStyles from "@styles/ContainerStyles";
 
 function WordSetDisplayScreen() {
   const {
@@ -19,7 +20,7 @@ function WordSetDisplayScreen() {
   return (
     <View style={mainStyles.whiteBackgroundContainer}>
       <View style={{ marginVertical: "6%", width: "84%" }}>
-        <Text style={{ fontSize: 27, color: grey }}>{chosenSetName}</Text>
+        <Text style={textStyles.grey27Weight800}>{chosenSetName}</Text>
       </View>
       <View style={{ width: "86%", flexDirection: "row" }}>
         <TouchableOpacity
@@ -42,7 +43,7 @@ function WordSetDisplayScreen() {
         data={chosenSet}
         showsVerticalScrollIndicator={false}
         ItemSeparatorComponent={() => {
-          return <View style={{ height: 1, backgroundColor: "#bababa" }} />;
+          return <View style={containerStyles.thinLine} />;
         }}
         renderItem={({ item }) => (
           <WordListItem

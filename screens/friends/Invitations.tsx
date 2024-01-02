@@ -6,11 +6,10 @@ import { FriendsStackParamList } from "@navigation/FriendsStack";
 import { FriendsContext } from "./Friends";
 import FriendsButtonRow from "@components/friends/FriendsButtonRow";
 import InviteListItem from "@components/friends/InviteListItem";
+import EmptyListText from "@components/EmptyListText";
 import { grey } from "../../Consts";
 import mainStyles from "@styles/MainStyles";
 import friendsStyles from "@styles/FriendsStyles";
-import containerStyles from "@styles/ContainerStyles";
-import textStyles from "@styles/TextStyles";
 
 type Props = NativeStackScreenProps<FriendsStackParamList, "Invitations">;
 
@@ -65,26 +64,20 @@ function InvitationsScreen({ navigation }: Props) {
             }}
             ListEmptyComponent={() => {
               return invitationType === "Received" ? (
-                <View style={containerStyles.emptyList}>
-                  <Text style={textStyles.emptyList}>
-                    No friend requests to accept?
-                  </Text>
-                  <Text style={textStyles.emptyList}>
-                    Be the first to reach out and connect!
-                  </Text>
-                </View>
+                <EmptyListText
+                  texts={[
+                    `No friend requests to accept?`,
+                    `Be the first to reach out and connect!`,
+                  ]}
+                />
               ) : (
-                <View style={containerStyles.emptyList}>
-                  <Text style={textStyles.emptyList}>
-                    No pending friend requests?
-                  </Text>
-                  <Text style={textStyles.emptyList}>
-                    Send out some invitations and start connecting!
-                  </Text>
-                  <Text style={textStyles.emptyList}>
-                    Your new friends are just a message away.
-                  </Text>
-                </View>
+                <EmptyListText
+                  texts={[
+                    `No pending friend requests?`,
+                    `Send out some invitations and start connecting!`,
+                    `Your new friends are just a message away.`,
+                  ]}
+                />
               );
             }}
             renderItem={(item) => {

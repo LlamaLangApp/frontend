@@ -2,63 +2,33 @@ import { StyleSheet } from "react-native";
 import { lightGrey, pink } from "../Consts";
 
 const userStyles = StyleSheet.create({
-  appContainer: {
-    flex: 1,
-  },
   mainContainer: {
-    flex: 5,
     width: "100%",
     height: "100%",
   },
-  userDataContainer: {
-    flex: 2.7,
-    width: "90%",
-    height: "100%",
-    marginHorizontal: "5%",
-    marginTop: "5%",
-    marginBottom: "3%",
-    borderRadius: 15,
-    justifyContent: "flex-end",
-  },
   avatarContainer: {
-    flex: 1.5,
+    width: "100%",
+    height: "25%",
     alignItems: "center",
-    paddingTop: "8%",
-  },
-  dataContainer: {
-    flex: 1,
-    marginHorizontal: "6%",
-    marginVertical: "2%",
-  },
-  aboveBarContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    marginTop: "10%",
   },
   barContainer: {
-    paddingTop: "2%",
-    alignItems: "center",
+    width: "90%",
+    marginTop: "5%",
   },
   infoContainer: {
-    flex: 1.9,
-    alignItems: "center",
-  },
-  usernameContainer: {
-    alignItems: "center",
-  },
-  levelContainer: {
-    justifyContent: "center",
+    height: "25%",
+    width: "100%",
     alignItems: "center",
   },
   profileLlamaContainer: {
-    width: "90%",
+    width: "100%",
     borderRadius: 15,
     backgroundColor: lightGrey,
-    marginHorizontal: "5%",
     flexDirection: "row",
     justifyContent: "space-between",
     aspectRatio: 5 / 2.5,
-    marginTop: "1%",
+    marginBottom: "3%",
   },
   llamaContainer: {
     flex: 2.5,
@@ -68,26 +38,16 @@ const userStyles = StyleSheet.create({
     alignItems: "center",
   },
   llamaTextContainer: {
-    width: "45%",
+    marginLeft: "10%",
+    width: "38%",
     height: "100%",
     alignItems: "center",
     justifyContent: "center",
   },
   buttonsContainer: {
-    flex: 1,
-    justifyContent: "space-evenly",
-    width: "100%",
+    height: "40%",
+    width: "90%",
     marginHorizontal: "5%",
-    marginTop: "3%",
-    marginBottom: "5%",
-  },
-  lockContainer: {
-    margin: "2%",
-    width: "26%",
-    height: "91%",
-    borderRadius: 15,
-    backgroundColor: lightGrey,
-    alignItems: "center",
     justifyContent: "center",
   },
   textContainer: {
@@ -122,20 +82,24 @@ const userStyles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  button: {
-    alignItems: "center",
-    justifyContent: "center",
-    width: "90%",
-    height: "40%",
-    borderRadius: 15,
-  },
   llama: {
     width: "55%",
     height: "100%",
   },
-  llamaImage: {
-    width: "100%",
-    height: "100%",
+  cameraIconButton: {
+    backgroundColor: lightGrey,
+    borderRadius: 24,
+    padding: 8,
+    position: "absolute",
+    right: 5,
+    bottom: 5,
+  },
+  avatarImage: {
+    borderRadius: 75,
+    width: 150,
+    height: 150,
+    borderColor: lightGrey,
+    borderWidth: 5,
   },
 });
 

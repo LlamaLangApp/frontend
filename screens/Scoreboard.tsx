@@ -7,10 +7,10 @@ import { useAppStore } from "../state";
 import ButtonRow from "@components/ButtonRow";
 import CustomDropdown from "@components/CustomDropdown";
 import PlayerListItem from "@components/PlayerListItem";
+import EmptyListText from "@components/EmptyListText";
 import { pink } from "../Consts";
 import mainStyles from "@styles/MainStyles";
 import scoreboardStyles from "@styles/ScoreboardStyles";
-import textStyles from "@styles/TextStyles";
 import containerStyles from "@styles/ContainerStyles";
 
 const ranges = {
@@ -82,13 +82,7 @@ const ScoreboardScreen = () => {
             return <View style={containerStyles.thinLine} />;
           }}
           ListEmptyComponent={() => {
-            return (
-              <View style={containerStyles.emptyList}>
-                <Text style={textStyles.emptyList}>
-                  There is nothing to show
-                </Text>
-              </View>
-            );
+            return <EmptyListText texts={[`There is nothing to show`]} />;
           }}
           renderItem={({ item }) => (
             <PlayerListItem

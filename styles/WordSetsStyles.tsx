@@ -3,11 +3,15 @@ import { buttonLightPink } from "../Consts";
 
 const wordSetsStyles = StyleSheet.create({
   containerFlashCards: {
-    flex: 1.3,
-    marginTop: "15%",
+    flex: 1,
+    alignItems: "center",
+  },
+  flashCardsInstructionText: {
+    marginTop: 500,
+    width: "70%",
     alignItems: "center",
     justifyContent: "center",
-    width: "100%",
+    textAlign: "center",
   },
   flatListItem: {
     flexDirection: "row",

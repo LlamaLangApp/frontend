@@ -2,11 +2,10 @@ import { FlatList, Modal, Text, TouchableOpacity, View } from "react-native";
 import React, { useMemo } from "react";
 import { serverURL } from "@backend/CommonBackend";
 import { Friends } from "@games/common/waiting_room/MultiplayerOwnerWaitingRoom";
+import EmptyListText from "@components/EmptyListText";
 import FriendsListItem from "./FriendsListItem";
 import { grey } from "../../Consts";
 import friendsStyles from "@styles/FriendsStyles";
-import containerStyles from "@styles/ContainerStyles";
-import textStyles from "@styles/TextStyles";
 
 const InviteFriendsModal = ({
   modalVisible,
@@ -64,14 +63,12 @@ const InviteFriendsModal = ({
               }}
               ListEmptyComponent={() => {
                 return (
-                  <View style={containerStyles.emptyList}>
-                    <Text style={textStyles.emptyList}>
-                      Unfortunately, you have no friends.
-                    </Text>
-                    <Text style={textStyles.emptyList}>
-                      Maybe try solo games or playing with random people?
-                    </Text>
-                  </View>
+                  <EmptyListText
+                    texts={[
+                      `Unfortunately, you have no friends.`,
+                      `Maybe try solo games or playing with random people?`,
+                    ]}
+                  />
                 );
               }}
               renderItem={(item) => {

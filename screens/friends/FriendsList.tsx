@@ -14,11 +14,10 @@ import useFilteredItems, { FilterFunction } from "@hooks/useFilteredItems";
 import { FriendsContext, User } from "./Friends";
 import UserListItem from "@components/friends/UserListItem";
 import UserDisplayModal from "@components/friends/UserDisplayModal";
+import EmptyListText from "@components/EmptyListText";
 import { buttonLightPink, friendsActions, grey, purple } from "../../Consts";
 import mainStyles from "@styles/MainStyles";
 import friendsStyles from "@styles/FriendsStyles";
-import containerStyles from "@styles/ContainerStyles";
-import textStyles from "@styles/TextStyles";
 
 type Props = NativeStackScreenProps<FriendsStackParamList, "List">;
 
@@ -91,20 +90,18 @@ function FriendsListScreen({ navigation }: Props) {
               }}
               ListEmptyComponent={() => {
                 return filteredFriendsHook.searchText ? (
-                  <View style={containerStyles.emptyList}>
-                    <Text style={textStyles.emptyList}>
-                      No matching friends for "{filteredFriendsHook.searchText}"
-                    </Text>
-                  </View>
+                  <EmptyListText
+                    texts={[
+                      `No matching friends for "${filteredFriendsHook.searchText}"`,
+                    ]}
+                  />
                 ) : (
-                  <View style={containerStyles.emptyList}>
-                    <Text style={textStyles.emptyList}>
-                      Your friend list is waiting to be filled!
-                    </Text>
-                    <Text style={textStyles.emptyList}>
-                      Start connecting now.
-                    </Text>
-                  </View>
+                  <EmptyListText
+                    texts={[
+                      `Your friend list is waiting to be filled!`,
+                      `Start connecting now.`,
+                    ]}
+                  />
                 );
               }}
               renderItem={(item) => {
