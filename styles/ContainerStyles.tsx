@@ -1,8 +1,9 @@
 import { StyleSheet } from "react-native";
-import { grey } from "../Consts";
+import { grey, pink } from "../Consts";
 
 const containerStyles = StyleSheet.create({
   width100: { width: "100%" },
+  width100height100: { width: "100%", height: "100%" },
   textWithMargin: {
     width: "100%",
     marginBottom: "3%",
@@ -21,6 +22,11 @@ const containerStyles = StyleSheet.create({
   thinLine: {
     borderBottomWidth: 1,
     borderColor: "#bababa",
+    width: "100%",
+  },
+  pinkThinLine: {
+    borderBottomWidth: 1,
+    borderColor: pink,
     width: "100%",
   },
   darkerThinLine: {

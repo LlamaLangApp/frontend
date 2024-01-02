@@ -33,6 +33,7 @@ import {
   pink,
 } from "../Consts";
 import mainStyles from "@styles/MainStyles";
+import textStyles from "@styles/TextStyles";
 
 const games = {
   allGames: "All games",
@@ -234,7 +235,7 @@ export default () => {
               justifyContent: "flex-start",
             }}
           >
-            <Text style={styles.textStyle}>
+            <Text style={textStyles.grey20Weight800}>
               <FontAwesome5 name={"gamepad"} color={grey} size={18} />
               <Text> Total points</Text>
             </Text>
@@ -290,7 +291,7 @@ export default () => {
                 "MMMM YYYY"
               );
               return (
-                <Text style={[styles.textStyle, styles.customHeader]}>
+                <Text style={[textStyles.grey20Weight800, styles.customHeader]}>
                   {title}
                 </Text>
               );
@@ -348,11 +349,6 @@ const styles = StyleSheet.create({
   },
   placeholder1: { flex: 0.1 },
   placeholder2: { flex: 0.2 },
-  textStyle: {
-    color: grey,
-    fontWeight: "bold",
-    fontSize: 20,
-  },
   gameChoice: {
     backgroundColor: lightGrey,
     margin: 5,

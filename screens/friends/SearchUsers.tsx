@@ -14,6 +14,7 @@ import useFilteredItems, { FilterFunction } from "@hooks/useFilteredItems";
 import UserListItem from "@components/friends/UserListItem";
 import { FriendsContext, User } from "./Friends";
 import UserDisplayModal from "@components/friends/UserDisplayModal";
+import EmptyListText from "@components/EmptyListText";
 import { grey } from "../../Consts";
 import mainStyles from "@styles/MainStyles";
 import friendsStyles from "@styles/FriendsStyles";
@@ -67,7 +68,9 @@ function SearchUsersScreen({ navigation }: Props) {
               onPress={() => navigation.navigate("List")}
             >
               <FontAwesome name={"chevron-left"} size={12} color={grey} />
-              <Text style={{ fontSize: 15, marginLeft: 5, color: grey }}>
+              <Text
+                style={[textStyles.grey14Weight600, textStyles.marginLeft5]}
+              >
                 Friends
               </Text>
             </TouchableOpacity>
@@ -78,7 +81,7 @@ function SearchUsersScreen({ navigation }: Props) {
               onChangeText={filteredUsersHook.changeFilteredItems}
             />
           </View>
-          <Text style={{ fontSize: 20, marginLeft: 5, color: grey }}>
+          <Text style={[textStyles.grey20Weight600, textStyles.marginLeft5]}>
             All users:
           </Text>
           <FlatList
@@ -88,21 +91,19 @@ function SearchUsersScreen({ navigation }: Props) {
             showsVerticalScrollIndicator={false}
             data={filteredUsersHook.filteredItems}
             ItemSeparatorComponent={() => {
-              return <View style={{ height: 1, backgroundColor: "#bababa" }} />;
+              return <View style={containerStyles.thinLine} />;
             }}
             ListEmptyComponent={() => {
               return filteredUsersHook.searchText ? (
-                <View style={containerStyles.emptyList}>
-                  <Text style={textStyles.emptyList}>
-                    No matching friends for "{filteredUsersHook.searchText}"
-                  </Text>
-                </View>
+                <EmptyListText
+                  texts={[
+                    `No matching users for "${filteredUsersHook.searchText}"`,
+                  ]}
+                />
               ) : (
-                <View style={containerStyles.emptyList}>
-                  <Text style={textStyles.emptyList}>
-                    Your are the first user on our server!
-                  </Text>
-                </View>
+                <EmptyListText
+                  texts={[`Your are the first user on our server!`]}
+                />
               );
             }}
             renderItem={(item) => {

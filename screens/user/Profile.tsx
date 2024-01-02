@@ -11,6 +11,8 @@ import { useAppStore } from "../../state";
 import { grey, lightGrey, pink } from "../../Consts";
 import mainStyles from "@styles/MainStyles";
 import userStyles from "@styles/UserStyles";
+import textStyles from "@styles/TextStyles";
+import containerStyles from "@styles/ContainerStyles";
 
 type Props = NativeStackScreenProps<UserStackParamList, "User">;
 
@@ -95,55 +97,35 @@ function ProfileScreen({ navigation }: Props) {
           )}
         </View>
         <View style={userStyles.infoContainer}>
-          <Text style={{ color: grey, fontSize: 35, fontWeight: "bold" }}>
-            {username}
-          </Text>
-          <Text style={{ color: grey, fontSize: 23 }}>{score} points</Text>
-          <View
-            style={{
-              width: "90%",
-              paddingTop: "5%",
-            }}
-          >
-            <Text style={{ color: grey, fontSize: 20, fontWeight: "bold" }}>
-              LEVEL {level}
+          <Text style={textStyles.grey35weight700}>{username}</Text>
+          <Text style={textStyles.grey23}>{score} points</Text>
+          <View style={{ width: "90%" }}>
+            <View style={{ paddingTop: "5%" }}>
+              <Text style={textStyles.grey20Weight800}>LEVEL {level}</Text>
+            </View>
+            <View style={containerStyles.pinkThinLine} />
+            <ProgressBar
+              progress={score / (points_to_next_level + score)}
+              width={screenWidth * 0.9}
+              height={20}
+              color={pink}
+              unfilledColor={"#fffcff"}
+              borderWidth={0}
+              borderColor={pink}
+              borderRadius={2}
+              animationType="timing"
+            />
+            <View style={containerStyles.pinkThinLine} />
+            <Text
+              style={{
+                paddingTop: "2%",
+                color: grey,
+                fontSize: 15,
+              }}
+            >
+              {points_to_next_level} points to next level
             </Text>
           </View>
-          <View
-            style={{
-              borderBottomWidth: 1,
-              borderColor: pink,
-              width: "90%",
-            }}
-          />
-          <ProgressBar
-            progress={score / (points_to_next_level + score)}
-            width={screenWidth * 0.9}
-            height={20}
-            color={pink}
-            unfilledColor={"#fffcff"}
-            borderWidth={0}
-            borderColor={pink}
-            borderRadius={2}
-            animationType="timing"
-          />
-          <View
-            style={{
-              borderBottomWidth: 1,
-              borderColor: pink,
-              width: "90%",
-            }}
-          />
-          <Text
-            style={{
-              paddingTop: "2%",
-              color: grey,
-              fontSize: 15,
-              width: "90%",
-            }}
-          >
-            {points_to_next_level} points to next level
-          </Text>
         </View>
         <View style={{ flex: 3.1, alignItems: "center" }}>
           <TouchableOpacity
@@ -164,7 +146,7 @@ function ProfileScreen({ navigation }: Props) {
             </View>
             <View style={userStyles.llama}>
               <Image
-                source={require("../../assets/llama/llama.png")}
+                source={require("@assets/llama/llama.png")}
                 style={userStyles.llamaImage}
               />
             </View>
@@ -181,7 +163,7 @@ function ProfileScreen({ navigation }: Props) {
               backgroundColor: lightGrey,
             }}
           >
-            <Text style={{ fontSize: 18, color: grey }}>Settings</Text>
+            <Text style={textStyles.grey18}>Settings</Text>
           </View>
           <View
             style={{
@@ -194,7 +176,7 @@ function ProfileScreen({ navigation }: Props) {
               backgroundColor: lightGrey,
             }}
           >
-            <Text style={{ fontSize: 18, color: grey }}>Games history</Text>
+            <Text style={textStyles.grey18}>Games history</Text>
           </View>
         </View>
       </View>

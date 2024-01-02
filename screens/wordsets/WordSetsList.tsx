@@ -5,7 +5,8 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { WordSetStackParamList } from "@navigation/WordSetStack";
 import { WordSetContext } from "./WordSets";
 import ButtonRow from "@components/ButtonRow";
-import { grey, pink } from "../../Consts";
+import EmptyListText from "@components/EmptyListText";
+import { grey } from "../../Consts";
 import mainStyles from "@styles/MainStyles";
 import wordSetsStyles from "@styles/WordSetsStyles";
 import containerStyles from "@styles/ContainerStyles";
@@ -33,28 +34,22 @@ function WordSetsListScreen({}: Props) {
         data={wordSetsList.filter((wordSet) => wordSet.type == wordSetType)}
         showsVerticalScrollIndicator={false}
         ItemSeparatorComponent={() => {
-          return <View style={{ height: 1, backgroundColor: "#bababa" }} />;
+          return <View style={containerStyles.thinLine} />;
         }}
         ListEmptyComponent={() => {
-          return (
-            <View style={containerStyles.emptyList}>
-              <Text style={textStyles.emptyList}>
-                There are no word sets available
-              </Text>
-            </View>
-          );
+          return <EmptyListText texts={[`There are no word sets available`]} />;
         }}
         renderItem={(itemData) => {
           return itemData.item.locked ? (
             <View style={wordSetsStyles.flatListItem}>
               <View style={{ flexDirection: "column" }}>
-                <Text style={{ fontSize: 20, color: grey }}>
+                <Text style={textStyles.grey20Weight600}>
                   {itemData.item.name}
                 </Text>
-                <Text style={{ fontSize: 12, color: grey }}>
+                <Text style={textStyles.grey12}>
                   Category: {itemData.item.category}
                 </Text>
-                <Text style={{ fontSize: 13, color: pink }}>
+                <Text style={textStyles.pink14}>
                   To unlock learn more from set:{" "}
                   {itemData.item.depends_on[0].name}
                 </Text>
@@ -65,10 +60,10 @@ function WordSetsListScreen({}: Props) {
             <TouchableOpacity onPress={() => handleChosenSet(itemData.item)}>
               <View style={wordSetsStyles.flatListItem}>
                 <View style={{ flexDirection: "column" }}>
-                  <Text style={{ fontSize: 20, color: grey }}>
+                  <Text style={textStyles.grey20Weight600}>
                     {itemData.item.name}
                   </Text>
-                  <Text style={{ fontSize: 12, color: grey }}>
+                  <Text style={textStyles.grey12}>
                     Category: {itemData.item.category}
                   </Text>
                 </View>

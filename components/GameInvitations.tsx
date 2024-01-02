@@ -6,6 +6,7 @@ import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { GamesStackParamList } from "@navigation/GamesStack";
 import { UpdateHandlerContext } from "@backend/UpdateHandler";
 import { LightGreyButton } from "./buttons/BasicButton";
+import EmptyListText from "@components/EmptyListText";
 import { grey } from "../Consts";
 import gameInvitationsStyles from "@styles/GameInvitationsStyles";
 import containerStyles from "@styles/ContainerStyles";
@@ -74,13 +75,7 @@ const GameInvitations = () => {
                   return <View style={containerStyles.thinLine} />;
                 }}
                 ListEmptyComponent={() => {
-                  return (
-                    <View style={containerStyles.emptyList}>
-                      <Text style={textStyles.emptyList}>
-                        You have no invites
-                      </Text>
-                    </View>
-                  );
+                  return <EmptyListText texts={[`You have no invites`]} />;
                 }}
                 renderItem={({ item }) => {
                   return (

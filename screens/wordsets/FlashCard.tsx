@@ -1,4 +1,4 @@
-import { Dimensions, StyleSheet, Text, View } from "react-native";
+import { Dimensions, Text, View } from "react-native";
 import { useContext, useState } from "react";
 import { Bar as ProgressBar } from "react-native-progress";
 import {
@@ -11,6 +11,7 @@ import FlashCard from "@components/wordest/FlashCard";
 import SwipedCardCounter from "@components/wordest/SwipedCardCounter";
 import AllFlashCards from "@components/wordest/SwipedAllFlashCards";
 import { buttonLightPink } from "../../Consts";
+import wordSetsStyles from "@styles/WordSetsStyles";
 
 const screenWidth = Dimensions.get("screen").width;
 
@@ -32,7 +33,7 @@ const FlashCardScreen = () => {
   );
 
   return (
-    <View style={styles.container}>
+    <View style={wordSetsStyles.containerFlashCards}>
       <ProgressBar
         progress={index / flashCards.length}
         width={screenWidth}
@@ -69,7 +70,7 @@ const FlashCardScreen = () => {
               setNeedPracticeCards={setNeedPracticeCards}
             />
           ))}
-          <Text style={styles.instructionText}>
+          <Text style={wordSetsStyles.flashCardsInstructionText}>
             <Text>swipe left to mark flashcard as </Text>
             <Text style={{ fontStyle: "italic", color: "red" }}>
               need practice{" "}
@@ -85,19 +86,5 @@ const FlashCardScreen = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-  },
-  instructionText: {
-    marginTop: 500,
-    width: "70%",
-    alignItems: "center",
-    justifyContent: "center",
-    textAlign: "center",
-  },
-});
 
 export default FlashCardScreen;
